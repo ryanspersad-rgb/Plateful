@@ -1,0 +1,1455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plateful</title>
+<meta name="description" content="Plateful prototype, editorial market system. Calgary flyers in, fridge in, ranked recipes out.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Plateful — editorial market system (NYT Cooking cues, 2026-10-26)
+   Layout: a 390×844 phone artboard on a quiet stage; white ground, ink type,
+   one terracotta accent, photos square-cornered, sections opened by a 2 px ink rule. */
+:root{
+  --ground:#FFFFFF;--paper:#FAF8F5;--ink:#1A1511;--text:#2B2521;--muted:#6B625B;--faint:#9A9087;
+  --hair:#E8E2DA;--input:#D9D2C9;--acc:#B4552E;--acc-hover:#9A4525;--acc-tint:#E8A07A;--tint:#F7ECE5;
+  --stage:#F1EDE7;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:var(--text);font:400 15px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+img{max-width:100%;display:block}
+a{color:var(--acc);text-decoration:none}
+
+/* ---- stage + phone ---- */
+.stage{min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding-block:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.phone{position:relative;width:390px;height:844px;background:var(--ground);border:1px solid var(--hair);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--hair)}
+.stage-note{position:fixed;left:0;right:0;bottom:0;text-align:center;font:500 12px var(--sans);color:var(--faint);padding:10px;pointer-events:none}
+@media (max-width:460px){.stage{padding:0}.phone{width:100%;height:100dvh;border:0;border-radius:0}.stage-note{display:none}}
+
+/* ---- phone chrome ---- */
+.status{flex:none;height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 8px;font:600 14px var(--sans);color:var(--ink);background:var(--ground)}
+.status.dark{background:var(--ink);color:#fff}
+.status svg{width:18px;height:18px}
+.screen{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative;background:var(--ground)}
+.screen.dark{background:var(--ink);color:#fff}
+.tabbar{flex:none;height:84px;border-top:1px solid var(--hair);background:var(--ground);display:flex;padding:9px 8px 0}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;font:500 11px var(--sans);color:var(--muted);letter-spacing:.01em}
+.tab svg{width:22px;height:22px}
+.tab[aria-current="page"]{color:var(--acc);font-weight:600}
+
+/* ---- type ---- */
+.eyebrow{font:700 11px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--ink)}
+.eyebrow.acc{color:var(--acc)}
+.eyebrow.mut{color:var(--muted)}
+.lead-title{font:500 28px/1.12 var(--serif);letter-spacing:-.01em;color:var(--ink);text-wrap:balance;margin:0}
+.h-serif{font:500 24px/1.15 var(--serif);letter-spacing:-.01em;color:var(--ink);margin:0;text-wrap:balance}
+.screen-title{font:500 28px/1.1 var(--serif);letter-spacing:-.01em;color:var(--ink);margin:0}
+.dek{font:400 15px/1.45 var(--serif);color:var(--text);margin:0}
+.card-title{font:700 16px/1.25 var(--sans);color:var(--ink);margin:0}
+.meta{font:400 13px/1.4 var(--sans);color:var(--muted)}
+.meta b{font-weight:600;color:var(--text)}
+.price{font:600 16px var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.was{color:var(--muted);text-decoration:line-through;font:400 13px var(--sans)}
+.off{color:var(--acc);font:600 13px var(--sans)}
+.stars{font-size:12px;letter-spacing:.04em;color:var(--ink)}
+.byline{font:400 14px/1.4 var(--serif);color:var(--text)}
+.byline u,.byline a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--input)}
+.status-line{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.status-line .st{color:var(--acc)}
+.pad{padding-left:22px;padding-right:22px}
+.hidden{display:none!important}
+
+/* ---- topbar ---- */
+.topbar{position:sticky;top:0;z-index:6;background:var(--ground);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 22px 10px;min-height:48px}
+.topbar.lined{border-bottom:1px solid var(--hair)}
+.wordmark{display:flex;align-items:center;gap:8px;font:700 22px var(--serif);color:var(--ink);letter-spacing:-.01em}
+.wordmark svg{width:26px;height:26px}
+.locchip{display:inline-flex;align-items:center;gap:5px;font:600 12px var(--sans);color:var(--ink);border:1px solid var(--input);border-radius:16px;padding:6px 10px;white-space:nowrap}
+.locchip svg{width:14px;height:14px}
+.iconbtn{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:20px;color:var(--ink)}
+.iconbtn svg{width:22px;height:22px}
+.iconbtn.onphoto{background:#fff;width:36px;height:36px}
+.iconbtn.onphoto svg{width:18px;height:18px}
+
+/* ---- search (NYT-style) ---- */
+.search{position:relative;display:flex;align-items:center;height:50px;border:1px solid var(--input);border-radius:4px;background:var(--ground);padding:0 14px;gap:10px;margin:4px 0 14px}
+.search svg{width:20px;height:20px;color:var(--muted);flex:none}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:400 16px var(--sans);color:var(--ink);outline:none}
+.search input::placeholder{color:var(--muted)}
+.search .camb{width:36px;height:36px;margin-right:-8px;display:flex;align-items:center;justify-content:center;color:var(--acc);border-left:1px solid var(--hair);padding-left:8px;border-radius:0}
+.search .camb svg{color:var(--acc);width:22px;height:22px}
+.sresults{border:1px solid var(--hair);border-radius:4px;margin:-8px 0 16px;background:var(--ground)}
+.srow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--hair);width:100%}
+.srow:last-child{border-bottom:0}
+.srow img{width:52px;height:52px;object-fit:cover;border-radius:2px;flex:none;background:var(--paper)}
+.srow .t{font:600 14px/1.25 var(--sans);color:var(--ink)}
+.srow .m{font:400 12px var(--sans);color:var(--muted)}
+.srow.add{color:var(--acc);font-weight:600;font-size:14px}
+.srow svg{width:18px;height:18px;flex:none}
+
+/* ---- text tabs / chips ---- */
+.ttabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:6px}
+.ttabs::-webkit-scrollbar{display:none}
+.ttab{flex:none;font:600 14px var(--sans);color:var(--ink);padding:7px 10px;border-radius:4px;white-space:nowrap}
+.ttab.on{background:var(--tint)}
+.ttabs.small .ttab{font-size:13px;padding:5px 8px;color:var(--muted)}
+.ttabs.small .ttab.on{color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips.row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.chips.row::-webkit-scrollbar{display:none}
+.chip{flex:none;font:500 13px var(--sans);color:var(--ink);border:1px solid var(--input);border-radius:16px;padding:7px 12px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.chip.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.sale{border-color:var(--acc);color:var(--acc)}
+.chip.sale.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip svg{width:12px;height:12px}
+
+/* ---- sections (2 px ink rule + eyebrow, like NYT) ---- */
+.sec{margin:26px 0 0}
+.sec-head{border-top:2px solid var(--ink);padding-top:10px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.sec-head .link{font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.sec-head .link svg{width:11px;height:11px;vertical-align:-1px}
+.sec .h-serif{margin-top:10px}
+.sec .dek{margin-top:6px}
+.sec.thin .sec-head{border-top-width:1px;border-top-color:var(--hair)}
+.sponsored{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+
+/* ---- lead ---- */
+.lead{margin-top:6px}
+.lead-ph{position:relative;aspect-ratio:3/2;max-width:100%;background:var(--paper);overflow:hidden}
+.lead-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.lead-ph img.show{opacity:1}
+.lead-ph .iconbtn.onphoto{position:absolute;right:14px;bottom:14px}
+.lead-ph .dots{position:absolute;left:14px;bottom:18px;display:flex;gap:6px}
+.lead-ph .dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.55)}
+.lead-ph .dots i.on{background:#fff}
+.lead-body{padding:14px 22px 0;transition:opacity .35s ease}
+.lead-body.fade{opacity:0}
+.lead-body .hook{font:500 14px var(--sans);color:var(--ink);margin-top:8px}
+.lead-body .hook span{color:var(--acc)}
+.lead-body .dek{margin-top:8px}
+.lead-body .meta{margin-top:10px}
+
+/* ---- rows + cards ---- */
+.row-scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-left:22px;scrollbar-width:none;padding:14px 22px 2px;margin:0 -22px;overscroll-behavior-x:contain}
+.row-scroll::-webkit-scrollbar{display:none}
+.row-scroll > *{scroll-snap-align:start}
+.row-scroll::after{content:"";flex:none;width:8px}
+.card{flex:none;width:236px;display:grid;gap:7px}
+.card.sm{width:168px}
+.card.kid{width:200px}
+.card .ph{position:relative;aspect-ratio:3/2;max-width:100%;background:var(--paper);overflow:hidden;border-radius:2px}
+.card .ph.sq{aspect-ratio:1/1}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .ph .iconbtn.onphoto{position:absolute;right:8px;bottom:8px}
+.card .ph .iconbtn.onphoto.fav{color:var(--acc)}
+.card .title-serif{font:500 16px/1.25 var(--serif);color:var(--ink);margin:0}
+.card .meta{font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px;padding-top:14px}
+.grid2 .card{width:auto}
+.statusline{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.statusline.ok{color:var(--acc)}
+.lvl{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.lvl::before{content:"";display:inline-block;width:6px;height:6px;border-radius:3px;background:currentColor;margin:0 6px 1px 0}
+.lvl.l2::before{box-shadow:9px 0 0 currentColor}
+.lvl.l3::before{box-shadow:9px 0 0 currentColor,18px 0 0 currentColor}
+.lvl.l2{margin-right:9px}.lvl.l3{margin-right:18px}
+.teaches{font:400 13px var(--sans);color:var(--muted)}
+.teaches b{font-weight:600;color:var(--ink)}
+.cook{padding:16px 0;border-bottom:1px solid var(--hair)}
+.cook .nm{font:500 24px var(--serif);color:var(--ink)}
+.cook .prog{height:3px;background:var(--hair);margin:12px 0 8px;position:relative;border-radius:2px;overflow:hidden}
+.cook .prog i{position:absolute;left:0;top:0;height:100%;background:var(--acc)}
+.results .grid2{padding-top:12px}
+.src{font:400 12px var(--sans);color:var(--muted)}
+.src b{font-weight:600;color:var(--ink)}
+
+/* notes (article-style rows) */
+.note{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--hair);width:100%}
+.note:last-child{border-bottom:0}
+.note .nt{flex:1;min-width:0}
+.note h4{font:500 17px/1.25 var(--serif);color:var(--ink);margin:0 0 6px;text-wrap:balance}
+.note .read{font:600 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.note img{width:96px;aspect-ratio:3/2;object-fit:cover;border-radius:2px;flex:none;background:var(--paper)}
+
+/* ---- product tiles ---- */
+.tile{flex:none;width:132px;display:grid;gap:5px;position:relative}
+.tile .pph{position:relative;aspect-ratio:1/1;max-width:100%;background:var(--paper);border:1px solid var(--hair);border-radius:2px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tile .pph img{width:82%;height:82%;object-fit:contain}
+.tile.sel .pph{border:2px solid var(--acc)}
+.tile .bm{position:absolute;right:6px;bottom:6px;width:30px;height:30px;border-radius:15px;background:#fff;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.tile .bm svg{width:15px;height:15px}
+.tile.sel .bm{color:var(--acc);border-color:var(--acc)}
+.tile .leaf{position:absolute;left:6px;top:6px;width:14px;height:14px;color:var(--ink)}
+.tile .store{font:600 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.tile .nm{font:500 13px/1.25 var(--sans);color:var(--ink)}
+.tile .sz{font:400 12px var(--sans);color:var(--muted)}
+.tile .pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.tile .pr .price{font-size:16px}
+.tilegrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px;padding-top:12px}
+.tilegrid .tile{width:auto}
+.tilegrid .tile .pph img{width:78%;height:78%}
+.tile .saved{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-top:2px}
+
+/* promoted rows */
+.promo{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--hair);width:100%}
+.promo:last-child{border-bottom:0}
+.promo .pph{width:84px;height:84px;flex:none;background:var(--paper);border:1px solid var(--hair);border-radius:2px;display:flex;align-items:center;justify-content:center}
+.promo .pph img{width:80%;height:80%;object-fit:contain}
+.promo .pt{flex:1;min-width:0}
+.promo .nm{font:600 15px/1.25 var(--sans);color:var(--ink);margin:3px 0 2px}
+.promo .pairs{font:500 13px var(--sans);color:var(--acc);margin-top:4px;display:flex;align-items:center;gap:3px}
+.promo .pairs svg{width:12px;height:12px}
+
+/* ---- buttons ---- */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:10px;font:600 15px var(--sans);width:100%;padding:0 18px}
+.btn.primary{background:var(--acc);color:#fff}
+.btn.primary:hover{background:var(--acc-hover)}
+.btn.secondary{border:1px solid var(--ink);color:var(--ink);background:transparent}
+.btn.ghost{border:1px solid var(--input);color:var(--ink);background:transparent}
+.btn.onink{border:1px solid rgba(255,255,255,.6);color:#fff}
+.btn.sm{height:42px;font-size:14px;width:auto;padding:0 16px}
+.btn svg{width:18px;height:18px}
+.btn[disabled]{opacity:.45;cursor:default}
+.textlink{font:600 13px var(--sans);color:var(--acc)}
+.inkbar{position:absolute;left:22px;right:22px;bottom:100px;z-index:7;background:var(--ink);color:#fff;border-radius:10px;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font:600 14px var(--sans)}
+.inkbar span{color:var(--acc-tint)}
+.inkbar svg{width:16px;height:16px}
+
+/* ---- lists / rows ---- */
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--hair);width:100%}
+.hrow:last-child{border-bottom:0}
+.hrow .l{flex:1;min-width:0}
+.hrow .n{font:500 15px/1.3 var(--sans);color:var(--ink)}
+.hrow .s{font:400 13px var(--sans);color:var(--muted)}
+.hrow .r{text-align:right;flex:none}
+.hrow .r .price{font-size:15px}
+.hrow .r .acc{color:var(--acc);font:600 13px var(--sans)}
+.hrow .r .mut{color:var(--muted);font:400 13px var(--sans)}
+.hrow svg.chev{width:16px;height:16px;color:var(--faint);flex:none}
+.hrow .ckb{width:22px;height:22px;border:1.5px solid var(--input);border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.hrow .ckb svg{width:12px;height:12px}
+.hrow.done .ckb{background:var(--ink);border-color:var(--ink)}
+.hrow.done .n{color:var(--muted);text-decoration:line-through}
+.storehead{display:flex;align-items:baseline;justify-content:space-between;padding:22px 0 8px;border-bottom:1px solid var(--ink)}
+.storehead .sn{font:600 17px var(--serif);color:var(--ink)}
+.storehead .sk{font:400 13px var(--sans);color:var(--muted);margin-left:8px}
+.storehead .st{font:600 15px var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.ingrow .amt{font:400 13px var(--sans);color:var(--muted);margin-right:8px;font-variant-numeric:tabular-nums}
+
+.banner{background:var(--acc);color:#fff;border-radius:10px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 6px;width:100%}
+.banner .b1{font:600 16px var(--serif)}
+.banner .b2{font:400 13px var(--sans);opacity:.9;margin-top:2px}
+.banner svg{width:18px;height:18px;flex:none}
+
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:16px}
+.twocol .big{font:600 24px var(--serif);color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.twocol .big.acc{color:var(--acc)}
+.twocol .lab{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.twocol .sub{font:400 12px var(--sans);color:var(--muted);margin-top:4px}
+.macros{display:flex;gap:0;padding:12px 0;border-bottom:1px solid var(--hair);font:400 13px var(--sans);color:var(--muted)}
+.macros span{flex:1}
+.macros b{display:block;font:600 15px var(--serif);color:var(--ink)}
+
+/* detail hero */
+.hero{position:relative;height:320px;background:var(--paper)}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero .iconbtn.onphoto{position:absolute;top:10px}
+.hero .back{left:14px}
+.hero .fav{right:14px}
+.hero .fav.on{color:var(--acc)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair);font:400 15px/1.5 var(--serif);color:var(--text)}
+.steps li:last-child{border-bottom:0}
+.steps li::before{counter-increment:s;content:counter(s);font:600 14px var(--sans);color:var(--acc);flex:none;width:18px;padding-top:3px}
+
+/* ---- splash / onboarding ---- */
+.splash{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:0 40px;text-align:center;position:relative}
+.splash .mark{width:76px;height:76px;color:var(--ink)}
+.splash .wm{font:700 36px var(--serif);color:var(--ink);letter-spacing:-.01em;margin:0}
+.splash .tag{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.splash .prog{width:160px;height:1px;background:var(--hair);position:relative;overflow:hidden;margin-top:28px}
+.splash .prog i{position:absolute;left:0;top:0;height:100%;width:40%;background:var(--acc);animation:prog 1.6s ease-in-out infinite}
+@keyframes prog{0%{left:-40%}100%{left:100%}}
+.splash .ld{font:400 13px var(--sans);color:var(--muted)}
+.splash .skip{position:absolute;top:8px;right:22px;font:600 13px var(--sans);color:var(--acc);padding:8px 0}
+.ob{padding:8px 22px 30px;display:flex;flex-direction:column;min-height:100%}
+.ob .prog{height:1px;background:var(--hair);margin:8px 0 28px;position:relative}
+.ob .prog i{position:absolute;left:0;top:-0.5px;height:2px;background:var(--acc);transition:width .3s}
+.ob .step{font:600 11px var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.ob h1{font:500 30px/1.12 var(--serif);letter-spacing:-.01em;color:var(--ink);margin:0 0 8px;text-wrap:balance}
+.ob .dek{margin-bottom:22px}
+.ob .body{flex:1}
+.ob .actions{display:grid;gap:10px;margin-top:26px}
+.ob .back{font:600 14px var(--sans);color:var(--muted);text-align:center;padding:10px}
+.tinput{width:100%;height:50px;border:1px solid var(--input);border-radius:4px;background:var(--ground);font:400 17px var(--sans);color:var(--ink);padding:0 14px;outline:none}
+.tinput:focus{border-color:var(--ink)}
+.tinput::placeholder{color:var(--faint)}
+.hh{display:flex;gap:8px}
+.hh .chip{width:48px;justify-content:center;padding:9px 0;font-weight:600}
+
+/* ---- at the till: flyer-clipping cards the cashier can read ---- */
+.tillitem{padding:16px 0;border-bottom:1px solid var(--hair)}
+.tillitem:last-child{border-bottom:0}
+.tillitem .ti-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.tillitem .n{font:600 18px/1.2 var(--serif);color:var(--ink)}
+.tillitem .s{font:400 13px/1.4 var(--sans);color:var(--muted);margin-top:3px}
+.tillitem .s b{font-weight:600;color:var(--ink)}
+.tillitem .ckb{width:28px;height:28px;border:1.5px solid var(--input);border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;margin-top:2px}
+.tillitem .ckb svg{width:14px;height:14px}
+.tillitem .ckb.on{background:var(--ink);border-color:var(--ink)}
+.tillitem.on .ad{opacity:.45}
+.ad{border:1px solid var(--ink);border-radius:2px;overflow:hidden}
+.ad .ad-store{background:var(--ink);color:#fff;font:700 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:7px 12px}
+.ad .ad-body{display:flex;align-items:center;gap:12px;padding:12px}
+.ad .ad-body img{width:64px;height:64px;object-fit:contain;flex:none}
+.ad .ad-body > div:nth-child(2){flex:1;min-width:0}
+.ad .ad-name{font:600 15px/1.2 var(--sans);color:var(--ink)}
+.ad .ad-size{font:400 12px var(--sans);color:var(--muted);margin-top:2px}
+.ad .ad-price{font:700 30px/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
+.ad .ad-price span{font:600 12px var(--sans);color:var(--muted);margin-left:2px}
+.ad .ad-foot{border-top:1px solid var(--hair);font:500 11px var(--sans);color:var(--muted);padding:6px 12px;letter-spacing:.02em}
+.clips{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:10px 0 2px}
+.clips::-webkit-scrollbar{display:none}
+.clips .ad{flex:none;width:280px}
+.clips .shot{flex:none;width:200px;border:1px solid var(--ink);border-radius:2px;overflow:hidden;background:var(--paper)}
+.clips .shot img{width:100%;height:150px;object-fit:cover}
+.clips .shot .ad-foot{border-top:1px solid var(--hair)}
+.attach{display:inline-flex;align-items:center;gap:6px;font:600 13px var(--sans);color:var(--acc);margin-top:8px;cursor:pointer}
+.attach svg{width:16px;height:16px}
+.attach input{display:none}
+.sendgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sendgrid .btn{height:46px;font-size:14px}
+.qty{font:600 13px var(--sans);color:var(--ink);border:1px solid var(--input);border-radius:14px;padding:3px 10px;margin-right:8px;white-space:nowrap}
+.switch{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:50;display:flex;align-items:center;gap:4px;background:var(--ground);border:1px solid var(--hair);border-radius:20px;padding:6px 8px 6px 14px;font:600 12px var(--sans);color:var(--muted)}
+.switch button{font:600 12px var(--sans);color:var(--ink);padding:6px 10px;border-radius:14px}
+.switch button.on{background:var(--ink);color:#fff}
+@media (max-width:460px){.switch{bottom:92px;padding:4px 6px 4px 10px;opacity:.92}}
+
+/* ---- colour directions (switcher on the stage) ---- */
+:root{--saf:#D99A2B;--butter:#F6EDD5;--pistachio:#E8EFE2}
+.theme-a .sec.band,.theme-c .sec.band{margin-left:-22px;margin-right:-22px;padding:0 22px 20px;border-radius:0}
+.theme-a .sec.band-store,.theme-c .sec.band-store{background:var(--tint)}
+.theme-a .sec.band-start,.theme-c .sec.band-start{background:var(--butter)}
+.theme-a .sec.band-kids,.theme-c .sec.band-kids{background:var(--pistachio)}
+.theme-a .sec.band .card .ph,.theme-c .sec.band .card .ph{background:rgba(255,255,255,.6)}
+.theme-b .lvl,.theme-c .lvl,.theme-b .band-kids .eyebrow,.theme-c .band-kids .eyebrow,.theme-b .band-start .eyebrow,.theme-c .band-start .eyebrow{color:var(--saf)}
+.theme-b .cook .prog i,.theme-c .cook .prog i{background:var(--saf)}
+.theme-b .ttab.on,.theme-c .ttab.on{background:#F8EFD8}
+.theme-b .results .eyebrow,.theme-c .results .eyebrow{color:var(--saf)}
+
+/* ---- camera ---- */
+.cam{height:100%;display:flex;flex-direction:column;padding:0 22px 24px;color:#fff}
+.cam .vf{flex:1;position:relative;margin:14px 0;border-radius:4px;background:#241D18;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cam .vf .corner{position:absolute;width:40px;height:40px;border:2px solid #fff}
+.cam .vf .c1{top:40px;left:40px;border-right:0;border-bottom:0}
+.cam .vf .c2{top:40px;right:40px;border-left:0;border-bottom:0}
+.cam .vf .c3{bottom:40px;left:40px;border-right:0;border-top:0}
+.cam .vf .c4{bottom:40px;right:40px;border-left:0;border-top:0}
+.cam .vf .hint{font:500 14px var(--sans);color:rgba(255,255,255,.8);text-align:center}
+.cam .vf .scan{position:absolute;left:40px;right:40px;height:1px;background:var(--acc-tint);animation:scan 1.4s ease-in-out infinite}
+@keyframes scan{0%{top:60px}100%{top:calc(100% - 60px)}}
+.cam .shutter{width:72px;height:72px;border-radius:36px;background:#fff;border:4px solid rgba(255,255,255,.4);background-clip:padding-box;margin:0 auto}
+.cam .result{background:#fff;color:var(--text);border-radius:10px;padding:16px;display:grid;gap:10px}
+.cam .result .top{display:flex;gap:12px;align-items:center}
+.cam .result .pph{width:64px;height:64px;background:var(--paper);border:1px solid var(--hair);border-radius:2px;display:flex;align-items:center;justify-content:center;flex:none}
+.cam .result .pph img{width:80%;height:80%;object-fit:contain}
+.cam .quota{font:400 12px var(--sans);color:rgba(255,255,255,.7);text-align:center;margin-top:12px}
+.cam .quota a{color:var(--acc-tint)}
+.cam .ctitle{display:flex;align-items:center;justify-content:space-between;padding-top:4px}
+.cam .ctitle .t{font:500 22px var(--serif)}
+
+/* ---- map ---- */
+.map{width:100%;aspect-ratio:346/220;border:1px solid var(--hair);border-radius:2px;background:var(--paper);margin-top:14px}
+.map text{font:600 10px var(--sans)}
+
+/* ---- plus card ---- */
+.plus{background:var(--ink);color:#fff;border-radius:10px;padding:20px;margin-top:14px}
+.plus .t{font:600 22px var(--serif)}
+.plus .p{font:600 13px var(--sans);color:var(--acc-tint);margin:2px 0 12px}
+.plus ul{margin:0 0 16px;padding:0;list-style:none;font:400 14px/1.6 var(--sans);color:rgba(255,255,255,.85)}
+.plus .btn{height:46px}
+
+/* radius */
+.range{width:100%;accent-color:var(--acc);margin:8px 0}
+.toggle{width:44px;height:26px;border-radius:13px;background:var(--input);position:relative;flex:none}
+.toggle i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:10px;background:#fff}
+.toggle.on{background:var(--acc)}
+.toggle.on i{left:21px}
+
+/* ---- toast ---- */
+.toast{position:absolute;left:22px;right:22px;bottom:104px;z-index:9;background:var(--ink);color:#fff;border-radius:10px;padding:14px 16px;font:500 14px var(--sans);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.toast.hi{bottom:164px}
+.foot{padding:30px 22px 18px;font:400 12px var(--sans);color:var(--faint);text-align:center}
+.spacer{height:70px}
+@media (prefers-reduced-motion:reduce){.lead-ph img,.lead-body,.toast,.ob .prog i{transition:none}.splash .prog i,.cam .vf .scan{animation:none}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone" id="phone">
+    <div class="status" id="status"><span>9:41</span><span style="display:flex;gap:6px;align-items:center"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="14" width="3" height="6" rx="1"/><rect x="7" y="11" width="3" height="9" rx="1"/><rect x="12" y="8" width="3" height="12" rx="1"/><rect x="17" y="5" width="3" height="15" rx="1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10v4"/><rect x="5" y="9" width="11" height="6" fill="currentColor" stroke="none"/></svg></span></div>
+    <div class="screen" id="screen"></div>
+    <div id="inkbar"></div>
+    <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+  </div>
+</div>
+<div class="stage-note">Plateful prototype · editorial market system · photos generated with Higgsfield</div>
+<script>
+/* Plateful prototype — editorial market system, NYT Cooking structure.
+   Photos: Higgsfield pool (imgs/higgsfield.json), hotlinked from the CDN. */
+'use strict';
+
+/* ---------- photo pool ---------- */
+const IMG_BASE = 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/';
+const IMG = {
+  heroes: {
+    'sheetpan-chicken': 'hf_20261026_053510_34cef6bc-0917-4237-9a5a-3764d2cc4dec.png',
+    'beef-broccoli': 'hf_20261026_053510_88774d26-0955-459f-bd51-31150059a232.png',
+    'tomato-bean-soup': 'hf_20261026_053512_9c3958ad-21d6-4d67-ad22-0d0b4ac5d9f6.png',
+    'salmon-dill': 'hf_20261026_053511_77693b0a-cd95-44f6-8005-2e5f7346ffce.png'
+  },
+  recipes: {
+    'one-pot-chicken-rice': 'hf_20261026_053511_504668ad-ba0e-4abf-b08f-faff59267fac.png',
+    'spaghetti-bolognese': 'hf_20261026_053512_8b1fdc66-7587-4b91-8e29-95189ffa24a4.png',
+    'butter-chicken': 'hf_20261026_053511_3bf64ea9-2daf-4cf0-8e42-d0711265cd22.png',
+    'pork-apples-sage': 'hf_20261026_053511_a13ac29a-8ff1-4298-b83f-78f2601c61ff.png',
+    'shakshuka': 'hf_20261026_053510_f0f16f79-326e-485b-b09d-ab3b0559126b.png',
+    'thai-green-curry': 'hf_20261026_053510_a70dfe3e-9ef1-441d-9622-05a336b56c5b.png',
+    'beef-tacos': 'hf_20261026_053512_15369560-082b-4ea6-9936-decd7798624a.png',
+    'lemon-shrimp-linguine': 'hf_20261026_053512_403a3bd6-1a3b-454f-8fa1-7381265a894d.png',
+    'chicken-caesar': 'hf_20261026_053515_74ae9160-c7f0-4472-a1b9-86bb1a8fe5ea.png',
+    'veg-fried-rice': 'hf_20261026_053515_801fb7a0-c982-4ea8-aabd-c6a7c67228b2.png',
+    'chili-con-carne': 'hf_20261026_053515_35e1feba-0d30-4ab9-bfeb-ff64d3173de9.png',
+    'margherita-pizza': 'hf_20261026_053515_9f499d3b-4e68-4586-a845-af4a72a9babd.png',
+    'bulgogi-bowl': 'hf_20261026_053515_d450b4ba-2c5e-4dc7-9460-9f63d94a6db7.png',
+    'mushroom-risotto': 'hf_20261026_053516_e2202c38-7a54-4130-8737-633de5ee640c.png',
+    'grilled-cheese-soup': 'hf_20261026_053516_5c72b091-d058-4c92-863a-60a05b9ed4de.png',
+    'chicken-quesadilla': 'hf_20261026_053514_fe0c8ce2-74f1-431a-897e-f49bebefe37f.png',
+    'mac-and-cheese': 'hf_20261026_053515_f9aa4997-f8a0-4092-86a3-8457fce17334.png',
+    'baked-ziti': 'hf_20261026_053514_3c197430-0d3f-44fe-9aad-2b94054c0300.png',
+    'roast-chicken-dinner': 'hf_20261026_053516_58e55989-91d4-4537-b083-e5922eef16e4.png',
+    'shepherds-pie': 'hf_20261026_053517_88a44c67-2f4e-42ae-ae43-e51810e877e3.png',
+    'pad-thai': 'hf_20261026_053518_115ffda5-1f71-46a9-aae8-600c8e072ca6.png',
+    'souvlaki-bowl': 'hf_20261026_053519_d08916e3-0d95-47c0-a536-3004491f117e.png',
+    'banana-pancakes': 'hf_20261026_053520_4ca685a2-f601-4ef6-bf49-e75562eac876.png',
+    'beef-pho': 'hf_20261026_053518_07d5b275-351c-4b66-b345-f7a11fc3cd02.png'
+  },
+  products: {
+    'chicken-thighs': 'hf_20261026_053520_1d17a507-411b-4b5d-aa5d-a960de473850.png',
+    'broccoli': 'hf_20261026_053520_de0c07e9-82c8-4525-b67b-a8b20244dfb5.png',
+    'salmon': 'hf_20261026_053520_53178457-9434-40ed-8512-890fd75a8e6a.png',
+    'potatoes': 'hf_20261026_053519_2bab9f36-0c0e-413b-9650-24cbe70b33da.png',
+    'cheddar': 'hf_20261026_053520_5c5534ba-dfdc-42a4-8717-b3f678090b31.png',
+    'diced-tomatoes': 'hf_20261026_053519_efac8bdd-9922-4c9f-99e3-7d09c68dccb7.png',
+    'rice': 'hf_20261026_053519_0b9b9aef-8fd1-4682-a12d-85cab30d3619.png',
+    'eggs': 'hf_20261026_053520_3a81567a-c9c0-45f6-9069-601ec4438ce4.png',
+    'avocado': 'hf_20261026_053523_66eeb4a6-918b-4ffe-bffe-e4b2225530a3.png',
+    'ground-beef': 'hf_20261026_053523_4e266640-01fb-4e1c-87b1-aac348f5e7d8.png',
+    'sourdough': 'hf_20261026_053522_5aafc6b6-09e7-4570-a947-a4da143aa8b7.png',
+    'peppers': 'hf_20261026_053522_5c688956-dd3a-4b0b-8281-73fa2eedbe97.png'
+  }
+};
+/* second product batch, 2026-10-26: enough deals for every store and category */
+Object.assign(IMG.products, {
+  'whole-chicken': 'hf_20261026_061040_8d6bdb09-1fa1-4b59-927b-f3a5a67dc4a2.png', 'carrots': 'hf_20261026_061041_96c37fec-0f1c-49e6-b3b5-37de99800f86.png',
+  'lemon': 'hf_20261026_061042_038d3021-d3ce-4fd6-b6d9-7939a2808c30.png', 'onion': 'hf_20261026_061040_b5a5caca-762b-4d8a-9e27-d7aa54baac6a.png',
+  'shrimp': 'hf_20261026_061040_b7b0f64d-f82c-4604-be06-54130ac31120.png', 'naan': 'hf_20261026_061040_9602774f-57fd-4b65-8fca-d108ae266623.png',
+  'tortillas': 'hf_20261026_061041_58bf5303-e010-4fde-81d5-d0f9d5c72ecb.png', 'mozzarella': 'hf_20261026_061041_cec8da5f-d638-4f1b-bb0c-dc008bd64f23.png',
+  'pasta': 'hf_20261026_061042_abdb798b-2371-477d-afa6-a12a902191ad.png', 'parmesan': 'hf_20261026_061042_541e7c1b-59b3-4ac3-b100-100fd4cf3eec.png',
+  'feta': 'hf_20261026_061039_8b74dc85-05ab-455e-85fc-1fea014b6c1e.png', 'pork-tenderloin': 'hf_20261026_061041_5a7c7f18-6480-4986-9469-37dd60b3ad74.png',
+  'romaine': 'hf_20261026_061054_2db45af4-d8f8-41f9-b2cb-d80599f40df8.png', 'flank-steak': 'hf_20261026_061053_9b8bceb9-bd05-40bd-b3b8-d9f10f3ee2eb.png',
+  'mushrooms': 'hf_20261026_061055_a46a9ec8-eab8-4561-b7a7-a1fd6b16c110.png', 'tomatoes': 'hf_20261026_061055_fa0c90f4-61f9-418b-bf30-70a4bf0847ff.png',
+  'cucumber': 'hf_20261026_061055_9f319c05-062b-4a31-9de0-3da9381a25aa.png', 'apples': 'hf_20261026_061054_fc081a75-cb63-4bbf-9298-5aba6c83b0e3.png',
+  'green-beans': 'hf_20261026_061054_0a86c674-997d-429d-908b-1d2726e3a2ce.png', 'cream': 'hf_20261026_061054_38cf2ad7-d4dc-4de4-ba89-142785e70175.png',
+  'chicken-broth': 'hf_20261026_061055_e0f7d59f-39c4-4e3c-b564-e03659142997.png', 'white-beans': 'hf_20261026_061054_d31982f2-743f-4d6f-89f4-202310dbb61f.png',
+  'peas': 'hf_20261026_061055_c91da31d-6a6b-489a-9960-34e84ebc0a4b.png', 'coconut-milk': 'hf_20261026_061056_ca09d96d-a425-4acc-98aa-9844e69f4c9e.png',
+  'bananas': 'hf_20261026_061102_9d49558e-8619-4cfe-9866-f929954f8f4f.png', 'olive-oil': 'hf_20261026_061059_9bdda794-2c60-4931-8a3e-de4bd97b7c2f.png',
+  'rice-noodles': 'hf_20261026_061059_2c544f8e-2e63-4524-b48d-f32d9e246cb3.png', 'butter': 'hf_20261026_061100_842b79c8-cb19-4e6a-9a7c-13ffa8f6801b.png',
+  'milk': 'hf_20261026_061100_a39c225e-c00c-4708-854a-bb6af2468ddd.png'
+});
+/* Higgsfield publishes a full-resolution WebP beside every PNG (same pixels, ~10% of the bytes); the app uses those. */
+const webp = f => IMG_BASE + f.replace(/\.png$/, '_min.webp');
+const HERO = k => webp(IMG.heroes[k]);
+const RIMG = k => webp(IMG.recipes[k]);
+const PIMG = k => webp(IMG.products[k]);
+
+/* ---------- icons (one stroke set, 1.8 px, round caps) ---------- */
+const svg = (d, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
+const ICON = {
+  home: svg('<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
+  tag: svg('<path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/>'),
+  list: svg('<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke-width="2.6"/>'),
+  pin: svg('<path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>'),
+  user: svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+  search: svg('<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>'),
+  bookmark: svg('<path d="M6 3h12v18l-6-4-6 4z"/>'),
+  bookmarkFill: svg('<path d="M6 3h12v18l-6-4-6 4z" fill="currentColor"/>'),
+  chevR: svg('<path d="M9 6l6 6-6 6"/>'),
+  chevL: svg('<path d="M15 6l-6 6 6 6"/>'),
+  arrowR: svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+  check: svg('<path d="M5 12l4 4L19 7"/>', 'stroke-width="2.4"'),
+  plus: svg('<path d="M12 5v14M5 12h14"/>'),
+  x: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+  camera: svg('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+  leaf: svg('<path d="M12 3l2 4 4-1-1 4 4 2-4 2 1 4-4-1-2 4-2-4-4 1 1-4-4-2 4-2-1-4 4 1z"/><path d="M12 13v8"/>'),
+  share: svg('<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 13v7h14v-7"/>'),
+  map: svg('<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>'),
+  flyer: svg('<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/>'),
+  bell: svg('<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>'),
+  cart: svg('<path d="M3 5h2l2.2 10h10.3l2-7H7"/><circle cx="9" cy="19" r="1.3"/><circle cx="16" cy="19" r="1.3"/><path d="M11 2.5c0 1-1 1.3-1 2.3M14 2.5c0 1-1 1.3-1 2.3" stroke-width="1.4"/>'),
+  link: svg('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/>'),
+  star: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.5 5.9 21l1.5-6.8L2.2 9.5l6.9-.7z"/></svg>'
+};
+const CART_MARK = (size) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h2.2l2.3 10.5h10.6L20 8H6"/><circle cx="9.2" cy="19.5" r="1.3"/><circle cx="16.3" cy="19.5" r="1.3"/><path d="M10.5 1.8c-.9 1-.1 1.6-.8 2.7M13.6 1.8c-.9 1-.1 1.6-.8 2.7M16.7 2.6c-.9 1-.1 1.6-.8 2.7" stroke-width="1.2"/></svg>`;
+
+/* ---------- price book: every ingredient Plateful can price this week ---------- */
+/* sale items carry `was`, a product photo, a size and a category; they ARE the flyer. */
+const BOOK = {
+  'chicken-thighs': { n: 'Chicken thighs, boneless skinless', p: 2.99, u: '/lb', was: 4.49, r: 'Superstore', sid: 'ss', cat: 'Meat', size: 'per lb', ca: true },
+  'broccoli': { n: 'Broccoli crowns', p: 1.49, u: ' ea', was: 2.49, r: 'No Frills', sid: 'nf', cat: 'Produce', size: 'each' },
+  'salmon': { n: 'Atlantic salmon fillet', p: 9.99, u: '/lb', was: 14.99, r: 'Safeway', sid: 'sw', cat: 'Meat', size: 'per lb', ca: true, promo: { placement: 'near_you', radiusKm: 3, tags: ['Weeknight', 'Pescatarian'], recipe: 4 } },
+  'potatoes': { n: 'Russet potatoes', p: 3.99, u: '', was: 6.99, r: 'Superstore', sid: 'ss', cat: 'Produce', size: '10 lb bag', ca: true },
+  'cheddar': { n: 'Aged cheddar', p: 4.99, u: '', was: 7.49, r: 'Co-op', sid: 'co', cat: 'Dairy', size: '400 g', ca: true, promo: { placement: 'featured', radiusKm: 5, tags: ['Kids', 'Family'], recipe: 19 } },
+  'diced-tomatoes': { n: 'Diced tomatoes', p: 0.99, u: '', was: 1.69, r: 'No Frills', sid: 'nf', cat: 'Pantry', size: '796 mL' },
+  'rice': { n: 'Basmati rice', p: 8.99, u: '', was: 12.97, r: 'Walmart', sid: 'wm', cat: 'Pantry', size: '4 kg' },
+  'eggs': { n: 'Large brown eggs', p: 3.49, u: '', was: 4.69, r: 'Superstore', sid: 'ss', cat: 'Dairy', size: 'dozen', ca: true },
+  'avocado': { n: 'Hass avocados', p: 0.99, u: ' ea', was: 1.49, r: 'Co-op', sid: 'co', cat: 'Produce', size: 'each' },
+  'ground-beef': { n: 'Lean ground beef', p: 3.99, u: '/lb', was: 5.99, r: 'Safeway', sid: 'sw', cat: 'Meat', size: 'per lb', ca: true },
+  'sourdough': { n: 'Sourdough loaf', p: 3.49, u: '', was: 4.99, r: 'Co-op', sid: 'co', cat: 'Bakery', size: '680 g', ca: true },
+  'peppers': { n: 'Sweet bell peppers', p: 2.99, u: '', was: 4.47, r: 'Walmart', sid: 'wm', cat: 'Produce', size: '3 pack' },
+  // regular-price items
+  'carrots': { n: 'Carrots', p: 1.99, r: 'Superstore', sid: 'ss' }, 'onion': { n: 'Onions', p: 1.29, r: 'Superstore', sid: 'ss' },
+  'garlic': { n: 'Garlic', p: 0.79, r: 'Superstore', sid: 'ss' }, 'olive-oil': { n: 'Olive oil', p: 9.99, r: 'Superstore', sid: 'ss' },
+  'thyme': { n: 'Fresh thyme', p: 2.49, r: 'Safeway', sid: 'sw' }, 'lemon': { n: 'Lemons', p: 0.69, r: 'Superstore', sid: 'ss' },
+  'flank-steak': { n: 'Flank steak', p: 9.99, r: 'Superstore', sid: 'ss' }, 'soy-sauce': { n: 'Soy sauce', p: 2.99, r: 'Walmart', sid: 'wm' },
+  'ginger': { n: 'Ginger', p: 1.19, r: 'Co-op', sid: 'co' }, 'cornstarch': { n: 'Cornstarch', p: 2.29, r: 'Walmart', sid: 'wm' },
+  'sesame-oil': { n: 'Sesame oil', p: 4.49, r: 'Walmart', sid: 'wm' }, 'white-beans': { n: 'White beans', p: 1.29, r: 'No Frills', sid: 'nf' },
+  'basil': { n: 'Fresh basil', p: 2.99, r: 'Safeway', sid: 'sw' }, 'veg-broth': { n: 'Vegetable broth', p: 2.49, r: 'No Frills', sid: 'nf' },
+  'green-beans': { n: 'Green beans', p: 2.99, r: 'Co-op', sid: 'co' }, 'dill': { n: 'Fresh dill', p: 2.49, r: 'Safeway', sid: 'sw' },
+  'butter': { n: 'Butter', p: 4.99, r: 'Superstore', sid: 'ss' }, 'peas': { n: 'Frozen peas', p: 2.49, r: 'No Frills', sid: 'nf' },
+  'chicken-broth': { n: 'Chicken broth', p: 2.49, r: 'No Frills', sid: 'nf' }, 'parsley': { n: 'Parsley', p: 1.49, r: 'Co-op', sid: 'co' },
+  'pasta': { n: 'Pasta', p: 2.49, r: 'Safeway', sid: 'sw' }, 'parmesan': { n: 'Parmesan', p: 6.99, r: 'Safeway', sid: 'sw' },
+  'cream': { n: 'Whipping cream', p: 3.29, r: 'Co-op', sid: 'co' }, 'garam-masala': { n: 'Garam masala', p: 3.49, r: 'Walmart', sid: 'wm' },
+  'naan': { n: 'Naan', p: 3.49, r: 'Superstore', sid: 'ss' }, 'pork-tenderloin': { n: 'Pork tenderloin', p: 7.99, r: 'Superstore', sid: 'ss' },
+  'apples': { n: 'Apples', p: 3.99, r: 'Co-op', sid: 'co' }, 'sage': { n: 'Fresh sage', p: 1.99, r: 'Safeway', sid: 'sw' },
+  'cumin': { n: 'Cumin', p: 2.99, r: 'Walmart', sid: 'wm' }, 'feta': { n: 'Feta', p: 4.99, r: 'Safeway', sid: 'sw' },
+  'coconut-milk': { n: 'Coconut milk', p: 1.99, r: 'No Frills', sid: 'nf' }, 'curry-paste': { n: 'Green curry paste', p: 3.49, r: 'Walmart', sid: 'wm' },
+  'lime': { n: 'Limes', p: 0.5, r: 'Superstore', sid: 'ss' }, 'tortillas': { n: 'Tortillas', p: 3.29, r: 'Superstore', sid: 'ss' },
+  'tomatoes': { n: 'Tomatoes', p: 2.99, r: 'Co-op', sid: 'co' }, 'cilantro': { n: 'Cilantro', p: 1.49, r: 'Superstore', sid: 'ss' },
+  'shrimp': { n: 'Shrimp', p: 11.99, r: 'Superstore', sid: 'ss' }, 'chili-flakes': { n: 'Chili flakes', p: 1.99, r: 'Walmart', sid: 'wm' },
+  'romaine': { n: 'Romaine', p: 2.99, r: 'Co-op', sid: 'co' }, 'croutons': { n: 'Croutons', p: 2.49, r: 'Safeway', sid: 'sw' },
+  'caesar-dressing': { n: 'Caesar dressing', p: 3.99, r: 'Safeway', sid: 'sw' }, 'green-onion': { n: 'Green onions', p: 1.29, r: 'Superstore', sid: 'ss' },
+  'kidney-beans': { n: 'Kidney beans', p: 1.29, r: 'No Frills', sid: 'nf' }, 'chili-powder': { n: 'Chili powder', p: 2.49, r: 'Walmart', sid: 'wm' },
+  'sour-cream': { n: 'Sour cream', p: 2.99, r: 'Co-op', sid: 'co' }, 'pizza-dough': { n: 'Pizza dough', p: 3.49, r: 'Safeway', sid: 'sw' },
+  'mozzarella': { n: 'Mozzarella', p: 5.49, r: 'Superstore', sid: 'ss' }, 'cucumber': { n: 'Cucumber', p: 1.29, r: 'Co-op', sid: 'co' },
+  'kimchi': { n: 'Kimchi', p: 6.99, r: 'Superstore', sid: 'ss' }, 'brown-sugar': { n: 'Brown sugar', p: 2.99, r: 'Walmart', sid: 'wm' },
+  'arborio': { n: 'Arborio rice', p: 4.49, r: 'Safeway', sid: 'sw' }, 'mushrooms': { n: 'Mushrooms', p: 3.99, r: 'Co-op', sid: 'co' },
+  'milk': { n: 'Milk', p: 2.79, r: 'Superstore', sid: 'ss' }, 'flour': { n: 'Flour', p: 4.49, r: 'Walmart', sid: 'wm' },
+  'breadcrumbs': { n: 'Breadcrumbs', p: 2.29, r: 'No Frills', sid: 'nf' }, 'whole-chicken': { n: 'Whole chicken', p: 11.99, r: 'Superstore', sid: 'ss' },
+  'rosemary': { n: 'Rosemary', p: 1.99, r: 'Safeway', sid: 'sw' }, 'beef-broth': { n: 'Beef broth', p: 2.49, r: 'No Frills', sid: 'nf' },
+  'tomato-paste': { n: 'Tomato paste', p: 0.99, r: 'No Frills', sid: 'nf' }, 'rice-noodles': { n: 'Rice noodles', p: 2.99, r: 'Walmart', sid: 'wm' },
+  'bean-sprouts': { n: 'Bean sprouts', p: 1.49, r: 'Co-op', sid: 'co' }, 'peanuts': { n: 'Peanuts', p: 3.49, r: 'Walmart', sid: 'wm' },
+  'fish-sauce': { n: 'Fish sauce', p: 3.29, r: 'Walmart', sid: 'wm' }, 'olives': { n: 'Kalamata olives', p: 3.49, r: 'Safeway', sid: 'sw' },
+  'tzatziki': { n: 'Tzatziki', p: 3.99, r: 'Co-op', sid: 'co' }, 'oregano': { n: 'Oregano', p: 1.99, r: 'Walmart', sid: 'wm' },
+  'bananas': { n: 'Bananas', p: 1.29, r: 'Superstore', sid: 'ss' }, 'maple-syrup': { n: 'Maple syrup', p: 8.99, r: 'Co-op', sid: 'co', ca: true },
+  'baking-powder': { n: 'Baking powder', p: 2.49, r: 'Walmart', sid: 'wm' }, 'star-anise': { n: 'Star anise', p: 2.99, r: 'Walmart', sid: 'wm' },
+  'chili': { n: 'Fresh chili', p: 0.79, r: 'Co-op', sid: 'co' }, 'salsa': { n: 'Salsa', p: 3.49, r: 'Superstore', sid: 'ss' }
+};
+/* this week's flyer, second half: regular-price items that are on sale this week (p = sale, was = regular) */
+const MORE_SALES = {
+  'whole-chicken': { p: 7.99, was: 11.99, r: 'Superstore', sid: 'ss', cat: 'Meat', size: 'each · about 1.6 kg', ca: true },
+  'carrots': { p: 1.29, was: 1.99, r: 'Superstore', sid: 'ss', cat: 'Produce', size: '2 lb bag', ca: true },
+  'lemon': { p: 0.49, was: 0.69, u: ' ea', r: 'Superstore', sid: 'ss', cat: 'Produce', size: 'each' },
+  'onion': { p: 1.99, was: 2.99, r: 'Superstore', sid: 'ss', cat: 'Produce', size: '3 lb bag', ca: true },
+  'shrimp': { p: 8.99, was: 11.99, r: 'Superstore', sid: 'ss', cat: 'Meat', size: '340 g' },
+  'naan': { p: 2.49, was: 3.49, r: 'Superstore', sid: 'ss', cat: 'Bakery', size: '5 pack' },
+  'tortillas': { p: 2.49, was: 3.29, r: 'Superstore', sid: 'ss', cat: 'Bakery', size: '10 pack' },
+  'mozzarella': { p: 3.99, was: 5.49, r: 'Superstore', sid: 'ss', cat: 'Dairy', size: '340 g', ca: true },
+  'pasta': { p: 1.49, was: 2.49, r: 'Safeway', sid: 'sw', cat: 'Pantry', size: '450 g' },
+  'parmesan': { p: 4.99, was: 6.99, r: 'Safeway', sid: 'sw', cat: 'Dairy', size: '200 g' },
+  'feta': { p: 3.49, was: 4.99, r: 'Safeway', sid: 'sw', cat: 'Dairy', size: '200 g', ca: true },
+  'pork-tenderloin': { p: 4.99, was: 7.99, u: '/lb', r: 'Safeway', sid: 'sw', cat: 'Meat', size: 'per lb', ca: true },
+  'romaine': { p: 1.99, was: 2.99, u: ' ea', r: 'Safeway', sid: 'sw', cat: 'Produce', size: 'each' },
+  'flank-steak': { p: 7.99, was: 9.99, u: '/lb', r: 'Safeway', sid: 'sw', cat: 'Meat', size: 'per lb', ca: true },
+  'mushrooms': { p: 2.49, was: 3.99, r: 'Co-op', sid: 'co', cat: 'Produce', size: '227 g', ca: true },
+  'tomatoes': { p: 1.99, was: 2.99, u: '/lb', r: 'Co-op', sid: 'co', cat: 'Produce', size: 'on the vine, per lb', ca: true },
+  'cucumber': { p: 0.79, was: 1.29, u: ' ea', r: 'Co-op', sid: 'co', cat: 'Produce', size: 'each', ca: true },
+  'apples': { p: 2.49, was: 3.99, r: 'Co-op', sid: 'co', cat: 'Produce', size: '3 lb bag', ca: true },
+  'green-beans': { p: 1.99, was: 2.99, u: '/lb', r: 'Co-op', sid: 'co', cat: 'Produce', size: 'per lb' },
+  'cream': { p: 2.49, was: 3.29, r: 'Co-op', sid: 'co', cat: 'Dairy', size: '473 mL', ca: true },
+  'chicken-broth': { p: 1.49, was: 2.49, r: 'No Frills', sid: 'nf', cat: 'Pantry', size: '900 mL' },
+  'white-beans': { p: 0.79, was: 1.29, r: 'No Frills', sid: 'nf', cat: 'Pantry', size: '540 mL' },
+  'peas': { p: 1.77, was: 2.49, r: 'No Frills', sid: 'nf', cat: 'Pantry', size: '750 g frozen' },
+  'coconut-milk': { p: 1.27, was: 1.99, r: 'No Frills', sid: 'nf', cat: 'Pantry', size: '400 mL' },
+  'bananas': { p: 0.57, was: 0.79, u: '/lb', r: 'No Frills', sid: 'nf', cat: 'Produce', size: 'per lb' },
+  'olive-oil': { p: 6.97, was: 9.99, r: 'Walmart', sid: 'wm', cat: 'Pantry', size: '1 L' },
+  'rice-noodles': { p: 1.97, was: 2.99, r: 'Walmart', sid: 'wm', cat: 'Pantry', size: '400 g' },
+  'butter': { p: 3.97, was: 4.99, r: 'Walmart', sid: 'wm', cat: 'Dairy', size: '454 g', ca: true },
+  'milk': { p: 2.47, was: 2.97, r: 'Walmart', sid: 'wm', cat: 'Dairy', size: '2 L', ca: true }
+};
+Object.keys(MORE_SALES).forEach(k => Object.assign(BOOK[k], { u: '' }, MORE_SALES[k]));
+const SALE_KEYS = Object.keys(BOOK).filter(k => BOOK[k].was);
+const dealsAt = sid => SALE_KEYS.filter(k => BOOK[k].sid === sid).length;
+const FLYER_WEEK = 'Oct 23 – 29';
+
+/* ---------- stores (distances from T2P) ---------- */
+const STORES = [
+  { id: 'sw', retailer: 'Safeway', name: 'Safeway Beltline', area: '11 Ave SW', km: 1.1, pm: false, ang: 215, deals: 3 },
+  { id: 'co', retailer: 'Calgary Co-op', name: 'Co-op Midtown', area: '11 Ave SW', km: 1.4, pm: false, ang: 268, deals: 4 },
+  { id: 'nf', retailer: 'No Frills', name: 'No Frills', area: '17 Ave SE', km: 2.3, pm: false, ang: 125, deals: 3 },
+  { id: 'wm', retailer: 'Walmart', name: 'Walmart Supercentre', area: 'Macleod Trail', km: 4.6, pm: true, ang: 165, deals: 3 },
+  { id: 'ss', retailer: 'Real Canadian Superstore', name: 'Superstore', area: 'Shaganappi', km: 4.8, pm: true, ang: 310, deals: 5 },
+  { id: 'tt', retailer: 'T&T', name: 'T&T Supermarket', area: 'Pacific Place', km: 6.1, pm: false, ang: 72, deals: 2 },
+  { id: 'cc', retailer: 'Costco', name: 'Costco', area: 'Beacon Hill', km: 9.4, pm: false, ang: 20, deals: 1 }
+];
+const STORE = id => STORES.find(s => s.id === id);
+const PM_POLICY = {
+  ss: 'Superstore matches identical items advertised in current local flyers. Show the ad at the till.',
+  wm: 'Walmart matches identical items in current local competitor flyers at checkout.',
+  sw: 'Safeway does not price match.', co: 'Co-op does not price match.', nf: 'No Frills does not price match.'
+};
+/* what each list item costs at each store (per unit) — placeholder matrix */
+const STORE_PRICE = {
+  'chicken-thighs': { ss: 2.99, sw: 4.49, co: 4.29, nf: 2.77, wm: 2.97 }, 'potatoes': { ss: 3.99, sw: 5.99, co: 5.49, nf: 2.97, wm: 3.47 },
+  'eggs': { ss: 3.49, sw: 4.49, co: 2.99, nf: 3.69, wm: 3.27 }, 'carrots': { ss: 1.99, sw: 2.49, co: 1.49, nf: 1.77, wm: 1.97 },
+  'ground-beef': { ss: 4.99, sw: 3.99, co: 5.49, nf: 4.47, wm: 4.27 }, 'pasta': { ss: 2.29, sw: 2.49, co: 2.69, nf: 1.97, wm: 1.97 },
+  'diced-tomatoes': { ss: 1.49, sw: 1.69, co: 1.79, nf: 0.99, wm: 1.27 }, 'parmesan': { ss: 7.49, sw: 6.99, co: 7.99, nf: 6.47, wm: 6.97 },
+  'cheddar': { ss: 7.49, sw: 7.99, co: 4.99, nf: 5.97, wm: 5.47 }, 'broccoli': { ss: 2.49, sw: 2.99, co: 2.29, nf: 1.49, wm: 1.97 },
+  'salmon': { ss: 12.99, sw: 9.99, co: 13.49, nf: 11.97, wm: 10.97 }, 'rice': { ss: 11.49, sw: 12.99, co: 12.49, nf: 9.97, wm: 8.99 },
+  'onion': { ss: 1.29, sw: 1.49, co: 1.39, nf: 0.97, wm: 1.17 }, 'garlic': { ss: 0.79, sw: 0.99, co: 0.89, nf: 0.67, wm: 0.77 },
+  'lemon': { ss: 0.69, sw: 0.89, co: 0.79, nf: 0.57, wm: 0.67 }, 'peas': { ss: 2.69, sw: 2.99, co: 2.79, nf: 2.49, wm: 2.47 },
+  'sourdough': { ss: 4.49, sw: 4.99, co: 3.49, nf: 3.97, wm: 3.67 }, 'avocado': { ss: 1.29, sw: 1.49, co: 0.99, nf: 1.17, wm: 1.07 },
+  'peppers': { ss: 3.99, sw: 4.49, co: 4.29, nf: 3.47, wm: 2.99 }, 'butter': { ss: 4.99, sw: 5.49, co: 5.29, nf: 4.47, wm: 4.67 }
+};
+function unitPrice(key, sid) {
+  const b = BOOK[key];
+  if (b.was && b.sid === sid) return b.p;                       // this week's sale price at the store running it
+  const sp = STORE_PRICE[key]; if (sp && sp[sid]) return sp[sid]; // placeholder shelf prices elsewhere
+  if (b.sid === sid) return b.p;
+  return b.was ? b.was : +(b.p * 1.12).toFixed(2);
+}
+/* price-match policies, strongest first; used to rank stores at the till */
+const PM_RULES = {
+  ss: { tier: 1, short: 'Identical item · any current local flyer · at the till', long: 'Matches the advertised price of an identical item (brand, size, variety) from any current local competitor flyer. Show the ad at checkout.' },
+  wm: { tier: 2, short: 'Identical item · local competitor flyers · at checkout', long: 'Matches identical items in current local competitor flyers at checkout. One match per item; no online-only prices.' }
+};
+function pmPlan() { // for each price-matching store: what the whole list would cost there with every valid match applied
+  return STORES.filter(s => s.pm).map(s => {
+    let total = 0, saved = 0; const matches = [];
+    S.list.filter(i => BOOK[i.key]).forEach(i => {
+      const here = unitPrice(i.key, s.id);
+      const ad = (ADS[i.key] || []).filter(a => a.sid !== s.id).sort((a, b) => a.price - b.price)[0];
+      if (ad && ad.price < here) { matches.push({ item: i, here, ad, save: (here - ad.price) * i.n }); total += ad.price * i.n; saved += (here - ad.price) * i.n; }
+      else total += here * i.n;
+    });
+    return { s, total, saved, matches, rule: PM_RULES[s.id] };
+  }).sort((a, b) => a.rule.tier - b.rule.tier || a.total - b.total); // policy strength first, then what the list costs there
+}
+/* competitor flyer ads for price matching (store, price, flyer dates, km come from STORES) */
+const ADS = {
+  'chicken-thighs': [{ sid: 'nf', price: 2.77 }, { sid: 'wm', price: 2.97 }],
+  'potatoes': [{ sid: 'nf', price: 2.97 }, { sid: 'wm', price: 3.47 }],
+  'eggs': [{ sid: 'co', price: 2.99 }, { sid: 'wm', price: 3.27 }],
+  'carrots': [{ sid: 'co', price: 1.49 }, { sid: 'nf', price: 1.77 }],
+  'cheddar': [{ sid: 'co', price: 4.99 }, { sid: 'wm', price: 5.47 }],
+  'broccoli': [{ sid: 'nf', price: 1.49 }, { sid: 'wm', price: 1.97 }],
+  'rice': [{ sid: 'wm', price: 8.99 }],
+  'peppers': [{ sid: 'wm', price: 2.99 }]
+};
+
+/* ---------- recipes ---------- */
+const RECIPES = [
+  { id: 1, name: 'Sheet-Pan Chicken Thighs With Roasted Roots', img: HERO('sheetpan-chicken'), lead: true, cuisine: 'Weeknight', meal: 'Dinner', time: 45, serv: 4, diff: 'Easy', tags: ['Family', 'Weeknight'], total: 11.2, save: 4.1,
+    hook: 'Chicken thighs are $2.99/lb at Superstore', dek: 'One pan, forty-five minutes, and the roots go sweet at the edges while the skin crisps.',
+    macros: [38, 42, 16, 6], ing: [['chicken-thighs', '1½ lb'], ['carrots', '4'], ['potatoes', '4 medium'], ['onion', '1 red'], ['olive-oil', '2 tbsp'], ['garlic', '3 cloves'], ['thyme', '6 sprigs'], ['lemon', '1']],
+    steps: ['Heat the oven to 425°F. Cut the potatoes, carrots and onion into chunky, even pieces and toss on a sheet pan with oil, garlic and thyme.', 'Season the thighs well, nestle them skin side up among the vegetables and roast for 35 to 40 minutes, until the skin is deeply golden.', 'Squeeze the lemon over everything and rest for five minutes before serving.'] },
+  { id: 2, name: 'Beef and Broccoli Over Rice', img: HERO('beef-broccoli'), lead: true, cuisine: 'Chinese', meal: 'Dinner', time: 30, serv: 4, diff: 'Easy', tags: ['Weeknight'], total: 16.4, save: 2.0,
+    hook: 'Broccoli crowns are $1.49 at No Frills', dek: 'Thin-sliced steak, a glossy soy-ginger sauce and broccoli that still has some bite.',
+    macros: [34, 58, 14, 5], ing: [['flank-steak', '1 lb'], ['broccoli', '2 crowns'], ['rice', '2 cups'], ['soy-sauce', '3 tbsp'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['cornstarch', '1 tbsp'], ['sesame-oil', '1 tsp']],
+    steps: ['Start the rice. Slice the steak thinly against the grain and toss with cornstarch and a spoon of soy.', 'Sear the beef in a very hot pan in two batches and set aside. Stir-fry the broccoli with garlic and ginger for three minutes.', 'Return the beef, add the remaining soy, a splash of water and the sesame oil, and toss until the sauce clings.'] },
+  { id: 3, name: 'Tomato and White Bean Soup', img: HERO('tomato-bean-soup'), lead: true, cuisine: 'Italian', meal: 'Dinner', time: 35, serv: 4, diff: 'Easy', tags: ['Vegetarian', 'Weeknight', 'Kids'], total: 8.6, save: 2.9,
+    hook: 'Diced tomatoes are 99¢ a can at No Frills', dek: 'A pantry soup that tastes like it simmered all afternoon. Sourdough on the side is not optional.',
+    macros: [14, 48, 9, 11], ing: [['diced-tomatoes', '2 cans'], ['white-beans', '1 can'], ['onion', '1'], ['garlic', '3 cloves'], ['olive-oil', '2 tbsp'], ['basil', 'handful'], ['veg-broth', '3 cups'], ['sourdough', '4 slices']],
+    steps: ['Soften the onion and garlic in oil over medium heat until sweet, about eight minutes.', 'Add the tomatoes, beans and broth and simmer for twenty minutes. Blend half of it for body.', 'Finish with torn basil and more oil. Toast the sourdough and serve alongside.'] },
+  { id: 4, name: 'Salmon With Lemon, Dill and New Potatoes', img: HERO('salmon-dill'), lead: true, cuisine: 'Weeknight', meal: 'Dinner', time: 30, serv: 4, diff: 'Easy', tags: ['Weeknight', 'Pescatarian'], total: 17.3, save: 5.0,
+    hook: 'Salmon is $9.99/lb at Safeway Beltline, 1.1 km away', dek: 'Crisp skin, soft butter-tossed potatoes and a handful of dill. The whole thing takes half an hour.',
+    macros: [36, 28, 22, 4], ing: [['salmon', '1 lb'], ['potatoes', '1 lb small'], ['green-beans', '200 g'], ['lemon', '1'], ['dill', 'small bunch'], ['butter', '2 tbsp'], ['garlic', '2 cloves']],
+    steps: ['Boil the potatoes until tender, adding the beans for the last three minutes. Drain and toss with butter and garlic.', 'Pat the salmon dry, season, and sear skin side down in a hot pan for five minutes. Flip for one more.', 'Squeeze lemon over the fish and scatter dill over everything.'] },
+  { id: 5, name: 'One-Pot Chicken and Rice', img: RIMG('one-pot-chicken-rice'), cuisine: 'Weeknight', meal: 'Dinner', time: 40, serv: 4, diff: 'Easy', tags: ['Family', 'Kids', 'Weeknight'], total: 9.8, save: 1.5,
+    macros: [32, 52, 12, 3], ing: [['chicken-thighs', '1 lb'], ['rice', '1½ cups'], ['peas', '1 cup'], ['onion', '1'], ['garlic', '2 cloves'], ['chicken-broth', '3 cups'], ['lemon', '1'], ['parsley', 'handful']],
+    steps: ['Brown the thighs in a lidded pot and set aside. Soften the onion and garlic in the fat.', 'Stir in the rice, pour in the broth, return the chicken and simmer covered for 18 minutes.', 'Fold in the peas, rest five minutes, then finish with lemon and parsley.'] },
+  { id: 6, name: 'Spaghetti Bolognese', img: RIMG('spaghetti-bolognese'), cuisine: 'Italian', meal: 'Dinner', time: 50, serv: 4, diff: 'Easy', tags: ['Family', 'Kids'], total: 11.4, save: 2.7,
+    macros: [30, 62, 15, 5], ing: [['ground-beef', '1 lb'], ['pasta', '400 g'], ['diced-tomatoes', '1 can'], ['onion', '1'], ['garlic', '2 cloves'], ['carrots', '1'], ['parmesan', 'to serve'], ['olive-oil', '2 tbsp']],
+    steps: ['Cook the onion, carrot and garlic in oil until soft. Add the beef and brown it well.', 'Pour in the tomatoes, season, and simmer for thirty minutes while the pasta water comes up.', 'Toss the drained spaghetti through the sauce and shower with parmesan.'] },
+  { id: 7, name: 'Butter Chicken With Naan', img: RIMG('butter-chicken'), cuisine: 'Indian', meal: 'Dinner', time: 45, serv: 4, diff: 'Medium', tags: ['Family'], total: 15.6, save: 2.2,
+    macros: [36, 44, 24, 3], ing: [['chicken-thighs', '1½ lb'], ['diced-tomatoes', '1 can'], ['cream', '1 cup'], ['butter', '3 tbsp'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['garam-masala', '2 tsp'], ['naan', '4'], ['rice', '1½ cups']],
+    steps: ['Sear the chicken pieces in butter and set aside. Fry the garlic, ginger and garam masala for a minute.', 'Blend the tomatoes smooth, add to the pan with the chicken and simmer for fifteen minutes.', 'Stir in the cream, warm through, and serve with rice and warmed naan.'] },
+  { id: 8, name: 'Pork Tenderloin With Apples and Sage', img: RIMG('pork-apples-sage'), cuisine: 'Weeknight', meal: 'Dinner', time: 35, serv: 4, diff: 'Medium', tags: ['Weeknight'], total: 14.2, save: 0,
+    macros: [34, 22, 14, 3], ing: [['pork-tenderloin', '1'], ['apples', '2'], ['sage', '8 leaves'], ['butter', '2 tbsp'], ['onion', '1'], ['chicken-broth', '½ cup']],
+    steps: ['Sear the tenderloin in butter on all sides, then roast at 400°F for 15 minutes. Rest it.', 'In the same pan, cook the onion, apple wedges and sage until golden, then deglaze with broth.', 'Slice the pork and spoon the apples and pan juices over.'] },
+  { id: 9, name: 'Shakshuka', img: RIMG('shakshuka'), cuisine: 'Middle Eastern', meal: 'Brunch', time: 30, serv: 4, diff: 'Easy', tags: ['Vegetarian', 'Weeknight'], total: 7.9, save: 2.4,
+    macros: [18, 24, 16, 6], ing: [['eggs', '4'], ['diced-tomatoes', '1 can'], ['peppers', '1'], ['onion', '1'], ['garlic', '2 cloves'], ['cumin', '1 tsp'], ['feta', '60 g'], ['sourdough', '4 slices']],
+    steps: ['Soften the onion and pepper, add garlic and cumin, then the tomatoes. Simmer ten minutes.', 'Make four wells and crack in the eggs. Cover and cook until the whites set, about six minutes.', 'Crumble feta over and serve straight from the pan with toasted sourdough.'] },
+  { id: 10, name: 'Thai Green Curry', img: RIMG('thai-green-curry'), cuisine: 'Thai', meal: 'Dinner', time: 30, serv: 4, diff: 'Easy', tags: ['Weeknight'], total: 13.1, save: 1.5,
+    macros: [30, 46, 26, 4], ing: [['chicken-thighs', '1 lb'], ['coconut-milk', '1 can'], ['curry-paste', '3 tbsp'], ['green-beans', '150 g'], ['peppers', '1'], ['basil', 'handful'], ['rice', '1½ cups'], ['lime', '1']],
+    steps: ['Fry the curry paste in a spoon of the thick coconut cream until fragrant.', 'Add the chicken, then the rest of the coconut milk, and simmer twelve minutes. Add the beans and pepper for the last five.', 'Finish with lime and basil over jasmine rice.'] },
+  { id: 11, name: 'Beef Tacos With Pico de Gallo', img: RIMG('beef-tacos'), cuisine: 'Mexican', meal: 'Dinner', time: 25, serv: 4, diff: 'Easy', tags: ['Family', 'Kids', 'Weeknight'], total: 14.3, save: 3.6,
+    macros: [28, 36, 20, 6], ing: [['ground-beef', '1 lb'], ['tortillas', '12'], ['avocado', '2'], ['tomatoes', '2'], ['onion', '½'], ['lime', '2'], ['cilantro', 'handful'], ['cheddar', '100 g']],
+    steps: ['Dice tomato, onion and cilantro, dress with lime and salt for the pico.', 'Brown the beef with cumin and chili, keeping it a little saucy.', 'Warm the tortillas and build the tacos with avocado and cheddar.'] },
+  { id: 12, name: 'Lemon Garlic Shrimp Linguine', img: RIMG('lemon-shrimp-linguine'), cuisine: 'Italian', meal: 'Dinner', time: 25, serv: 4, diff: 'Easy', tags: ['Weeknight', 'Pescatarian'], total: 17.9, save: 0, src: 'RecipeTin Eats', rating: 4.9, count: 3412,
+    macros: [30, 60, 14, 3], ing: [['shrimp', '340 g'], ['pasta', '340 g'], ['lemon', '1'], ['garlic', '4 cloves'], ['butter', '3 tbsp'], ['parsley', 'handful'], ['chili-flakes', 'pinch'], ['parmesan', 'to serve']],
+    steps: ['Cook the pasta. Sizzle the garlic and chili in butter for a minute.', 'Add the shrimp and cook two minutes a side until pink.', 'Toss with the pasta, lemon juice and zest, parsley and a ladle of pasta water.'] },
+  { id: 13, name: 'Chicken Caesar Salad', img: RIMG('chicken-caesar'), cuisine: 'Salad', meal: 'Lunch', time: 20, serv: 2, diff: 'Easy', tags: ['Weeknight'], total: 11.5, save: 1.5,
+    macros: [40, 18, 22, 4], ing: [['chicken-thighs', '2'], ['romaine', '1 head'], ['parmesan', '40 g'], ['croutons', '1 cup'], ['caesar-dressing', '3 tbsp'], ['lemon', '½']],
+    steps: ['Grill or pan-cook the chicken and slice it.', 'Tear the romaine and toss with dressing, croutons and most of the parmesan.', 'Top with the chicken, lemon and the rest of the cheese.'] },
+  { id: 14, name: 'Vegetable Fried Rice', img: RIMG('veg-fried-rice'), cuisine: 'Chinese', meal: 'Dinner', time: 20, serv: 4, diff: 'Easy', tags: ['Vegetarian', 'Kids', 'Weeknight'], total: 5.4, save: 1.2,
+    macros: [12, 54, 10, 4], ing: [['rice', '3 cups cooked'], ['eggs', '2'], ['peas', '1 cup'], ['carrots', '1'], ['green-onion', '3'], ['soy-sauce', '2 tbsp'], ['sesame-oil', '1 tsp'], ['garlic', '2 cloves']],
+    steps: ['Scramble the eggs in a hot wok and set aside.', 'Stir-fry carrot and garlic, add the cold rice and press it into the pan to crisp.', 'Add peas, soy, sesame oil and the eggs, then the green onions.'] },
+  { id: 15, name: 'Chili con Carne', img: RIMG('chili-con-carne'), cuisine: 'Tex-Mex', meal: 'Dinner', time: 60, serv: 6, diff: 'Easy', tags: ['Family'], total: 13.8, save: 4.9,
+    macros: [28, 30, 14, 10], ing: [['ground-beef', '1 lb'], ['diced-tomatoes', '2 cans'], ['kidney-beans', '1 can'], ['onion', '1'], ['peppers', '1'], ['garlic', '3 cloves'], ['chili-powder', '2 tbsp'], ['cheddar', 'to serve'], ['sour-cream', 'to serve']],
+    steps: ['Brown the beef with the onion and pepper. Add garlic and chili powder.', 'Add tomatoes and beans and simmer, uncovered, for forty minutes.', 'Serve with grated cheddar and sour cream.'] },
+  { id: 16, name: 'Margherita Pizza', img: RIMG('margherita-pizza'), cuisine: 'Italian', meal: 'Dinner', time: 30, serv: 2, diff: 'Easy', tags: ['Vegetarian', 'Kids', 'Family'], total: 9.3, save: 0.7,
+    macros: [22, 58, 18, 3], ing: [['pizza-dough', '1'], ['diced-tomatoes', '½ can'], ['mozzarella', '200 g'], ['basil', 'handful'], ['olive-oil', '1 tbsp'], ['garlic', '1 clove']],
+    steps: ['Heat the oven as high as it goes with a tray inside.', 'Stretch the dough, spread crushed tomatoes with garlic and oil, tear over the mozzarella.', 'Bake on the hot tray for 10 minutes. Add basil after.'] },
+  { id: 17, name: 'Korean Beef Bowl', img: RIMG('bulgogi-bowl'), cuisine: 'Korean', meal: 'Dinner', time: 30, serv: 4, diff: 'Easy', tags: ['Weeknight'], total: 18.7, save: 0, src: 'Serious Eats', rating: 4.7, count: 1208,
+    macros: [34, 56, 18, 4], ing: [['flank-steak', '1 lb'], ['rice', '2 cups'], ['soy-sauce', '3 tbsp'], ['garlic', '3 cloves'], ['sesame-oil', '1 tbsp'], ['brown-sugar', '1 tbsp'], ['eggs', '4'], ['cucumber', '1'], ['carrots', '1'], ['kimchi', '1 cup']],
+    steps: ['Marinate thin-sliced beef in soy, sugar, garlic and sesame oil for 15 minutes.', 'Sear the beef in batches in a very hot pan.', 'Build bowls with rice, beef, cucumber, carrot ribbons, kimchi and a fried egg.'] },
+  { id: 18, name: 'Mushroom Risotto', img: RIMG('mushroom-risotto'), cuisine: 'Italian', meal: 'Dinner', time: 45, serv: 4, diff: 'Medium', tags: ['Vegetarian'], total: 11.9, save: 0, src: 'Food52', rating: 4.8, count: 940,
+    macros: [14, 62, 16, 3], ing: [['arborio', '1½ cups'], ['mushrooms', '300 g'], ['onion', '1'], ['garlic', '2 cloves'], ['parmesan', '60 g'], ['butter', '3 tbsp'], ['veg-broth', '5 cups'], ['thyme', '4 sprigs']],
+    steps: ['Brown the mushrooms in butter and set aside. Soften the onion and garlic.', 'Toast the rice, then add hot broth a ladle at a time, stirring, for 18 minutes.', 'Fold in the mushrooms, parmesan, butter and thyme.'] },
+  { id: 19, name: 'Grilled Cheese and Tomato Soup', img: RIMG('grilled-cheese-soup'), cuisine: 'Kids', meal: 'Lunch', time: 25, serv: 4, diff: 'Easy', tags: ['Kids', 'Vegetarian'], total: 8.7, save: 4.0,
+    macros: [20, 44, 24, 4], ing: [['sourdough', '8 slices'], ['cheddar', '200 g'], ['butter', '3 tbsp'], ['diced-tomatoes', '1 can'], ['onion', '1'], ['cream', '½ cup'], ['garlic', '1 clove']],
+    steps: ['Soften the onion and garlic, add tomatoes, simmer ten minutes, blend with cream.', 'Butter the bread on the outside, fill with cheddar, and cook low and slow until deeply golden.', 'Cut on the diagonal. Dunk.'] },
+  { id: 20, name: 'Chicken Quesadillas', img: RIMG('chicken-quesadilla'), cuisine: 'Mexican', meal: 'Dinner', time: 25, serv: 4, diff: 'Easy', tags: ['Kids', 'Family', 'Weeknight'], total: 12.4, save: 3.4,
+    macros: [32, 40, 22, 4], ing: [['chicken-thighs', '1 lb'], ['tortillas', '8'], ['cheddar', '200 g'], ['peppers', '1'], ['onion', '1'], ['sour-cream', 'to serve'], ['salsa', 'to serve']],
+    steps: ['Cook the chicken with the pepper and onion and chop it small.', 'Fill tortillas with chicken and cheddar, fold, and cook in a dry pan until crisp.', 'Cut into wedges and serve with salsa and sour cream.'] },
+  { id: 21, name: 'Mac and Cheese With Peas', img: RIMG('mac-and-cheese'), cuisine: 'Kids', meal: 'Dinner', time: 35, serv: 4, diff: 'Easy', tags: ['Kids', 'Family', 'Vegetarian'], total: 7.6, save: 2.5,
+    macros: [22, 58, 22, 4], ing: [['pasta', '350 g'], ['cheddar', '250 g'], ['milk', '2 cups'], ['butter', '3 tbsp'], ['flour', '3 tbsp'], ['peas', '1 cup'], ['breadcrumbs', '½ cup']],
+    steps: ['Cook the pasta two minutes short. Make a roux with butter and flour, whisk in milk.', 'Melt in the cheddar, fold in pasta and peas, tip into a dish.', 'Top with breadcrumbs and bake at 400°F until bubbling, about 15 minutes.'] },
+  { id: 22, name: 'Baked Ziti', img: RIMG('baked-ziti'), cuisine: 'Italian', meal: 'Dinner', time: 55, serv: 6, diff: 'Easy', tags: ['Family'], total: 14.9, save: 3.9,
+    macros: [30, 56, 20, 5], ing: [['pasta', '450 g'], ['ground-beef', '1 lb'], ['diced-tomatoes', '2 cans'], ['mozzarella', '250 g'], ['parmesan', '40 g'], ['onion', '1'], ['garlic', '3 cloves'], ['basil', 'handful']],
+    steps: ['Make a quick meat sauce with the beef, onion, garlic and tomatoes.', 'Toss with par-cooked ziti and half the mozzarella in a baking dish.', 'Top with the rest of the cheese and bake at 400°F for 25 minutes.'] },
+  { id: 23, name: 'Roast Chicken Dinner', img: RIMG('roast-chicken-dinner'), cuisine: 'Sunday', meal: 'Dinner', time: 90, serv: 4, diff: 'Medium', tags: ['Family'], total: 17.6, save: 3.0,
+    macros: [44, 30, 22, 5], ing: [['whole-chicken', '1'], ['potatoes', '1 kg'], ['green-beans', '300 g'], ['butter', '3 tbsp'], ['garlic', '1 head'], ['lemon', '1'], ['rosemary', '2 sprigs']],
+    steps: ['Rub the bird with butter, salt, garlic and rosemary. Put the lemon inside.', 'Roast at 425°F with the potatoes around it for 70 minutes.', 'Rest the chicken while the beans steam.'] },
+  { id: 24, name: "Shepherd's Pie", img: RIMG('shepherds-pie'), cuisine: 'British', meal: 'Dinner', time: 60, serv: 6, diff: 'Easy', tags: ['Family', 'Kids'], total: 12.1, save: 5.0,
+    macros: [26, 38, 16, 6], ing: [['ground-beef', '1 lb'], ['potatoes', '1 kg'], ['carrots', '2'], ['peas', '1 cup'], ['onion', '1'], ['butter', '3 tbsp'], ['milk', '½ cup'], ['beef-broth', '1 cup'], ['tomato-paste', '2 tbsp']],
+    steps: ['Boil and mash the potatoes with butter and milk.', 'Brown the beef with onion and carrot, add tomato paste, broth and peas, simmer ten minutes.', 'Top with the mash, rough up the surface, and bake at 400°F for 25 minutes.'] },
+  { id: 25, name: 'Pad Thai', img: RIMG('pad-thai'), cuisine: 'Thai', meal: 'Dinner', time: 30, serv: 4, diff: 'Medium', tags: ['Weeknight'], total: 16.2, save: 1.2, src: 'Food Network', rating: 4.6, count: 2957,
+    macros: [28, 60, 18, 3], ing: [['rice-noodles', '250 g'], ['shrimp', '300 g'], ['eggs', '2'], ['bean-sprouts', '2 cups'], ['peanuts', '¼ cup'], ['lime', '2'], ['fish-sauce', '3 tbsp'], ['garlic', '3 cloves'], ['green-onion', '3']],
+    steps: ['Soak the noodles in warm water until pliable.', 'Stir-fry garlic and shrimp, push aside, scramble the eggs, add noodles and the fish-sauce mix.', 'Toss in sprouts and green onion, serve with peanuts and lime.'] },
+  { id: 26, name: 'Greek Chicken Souvlaki Bowl', img: RIMG('souvlaki-bowl'), cuisine: 'Greek', meal: 'Dinner', time: 35, serv: 4, diff: 'Easy', tags: ['Weeknight'], total: 15.1, save: 2.2,
+    macros: [38, 48, 18, 5], ing: [['chicken-thighs', '1 lb'], ['rice', '1½ cups'], ['cucumber', '1'], ['tomatoes', '2'], ['onion', '½ red'], ['olives', '½ cup'], ['feta', '80 g'], ['tzatziki', '½ cup'], ['lemon', '1'], ['oregano', '1 tsp']],
+    steps: ['Marinate the chicken in lemon, oregano and oil, then grill on skewers.', 'Cook the rice. Chop the salad.', 'Build bowls with rice, salad, olives, feta, chicken and tzatziki.'] },
+  { id: 27, name: 'Banana Pancakes', img: RIMG('banana-pancakes'), cuisine: 'Breakfast', meal: 'Breakfast', time: 20, serv: 4, diff: 'Easy', tags: ['Kids', 'Vegetarian'], total: 4.8, save: 1.2,
+    macros: [10, 52, 12, 3], ing: [['bananas', '3'], ['flour', '1½ cups'], ['eggs', '2'], ['milk', '1 cup'], ['butter', '2 tbsp'], ['maple-syrup', 'to serve'], ['baking-powder', '2 tsp']],
+    steps: ['Mash two bananas, whisk with eggs, milk and melted butter.', 'Fold in flour and baking powder. Rest five minutes.', 'Cook in butter, top with sliced banana and syrup.'] },
+  { id: 28, name: 'Beef Pho', img: RIMG('beef-pho'), cuisine: 'Vietnamese', meal: 'Dinner', time: 50, serv: 4, diff: 'Medium', tags: ['Weeknight'], total: 15.4, save: 0, src: 'Bon Appétit', rating: 4.8, count: 1884,
+    macros: [30, 54, 10, 3], ing: [['rice-noodles', '300 g'], ['flank-steak', '300 g'], ['beef-broth', '6 cups'], ['onion', '1'], ['ginger', '2 in'], ['star-anise', '3'], ['bean-sprouts', '2 cups'], ['basil', 'handful'], ['lime', '1'], ['chili', '1']],
+    steps: ['Char the onion and ginger, then simmer in the broth with star anise for 30 minutes.', 'Soak the noodles. Slice the beef paper thin and freeze it for 15 minutes first.', 'Ladle boiling broth over noodles and raw beef in bowls. Pile on the herbs.'] }
+];
+const R = id => RECIPES.find(r => r.id === id);
+const LEADS = [1, 2, 3, 4];
+const FILTERS = ['All', 'Weeknight', 'Italian', 'Indian', 'Thai', 'Mexican', 'Kids', 'Vegetarian'];
+const NOTES = [
+  { t: 'Three dinners from one $9.99 tray of chicken thighs', m: '2 min read', img: RIMG('one-pot-chicken-rice'), r: 5 },
+  { t: 'Salmon drops to $9.99 a pound at Safeway, its lowest since July', m: '1 min read', img: HERO('salmon-dill'), r: 4 },
+  { t: 'Walmart will price match four items already on your list', m: '2 min read', img: RIMG('chili-con-carne'), screen: 'pricematch' },
+  { t: 'Superstore or No Frills: where this week’s cart is cheaper', m: '3 min read', img: RIMG('shepherds-pie'), screen: 'stores' }
+];
+const KIDS = [19, 21, 20, 27, 11, 14];
+const FAMILY = [23, 24, 22, 6, 15, 1];
+const DEFAULT_FRIDGE = ['eggs', 'garlic', 'onion', 'butter', 'olive-oil', 'rice', 'pasta', 'parmesan', 'soy-sauce', 'lemon', 'carrots', 'flour', 'milk'];
+const FRIDGE_CATS = { 'Dairy & eggs': ['eggs', 'butter', 'milk', 'parmesan', 'cheddar', 'cream', 'mozzarella', 'feta', 'sour-cream'], 'Produce': ['garlic', 'onion', 'lemon', 'lime', 'carrots', 'broccoli', 'potatoes', 'avocado', 'peppers', 'tomatoes', 'apples', 'bananas', 'cucumber', 'green-beans', 'mushrooms', 'romaine'], 'Meat & fish': ['chicken-thighs', 'whole-chicken', 'ground-beef', 'salmon', 'flank-steak', 'shrimp', 'pork-tenderloin'], 'Pantry & frozen': ['rice', 'pasta', 'olive-oil', 'soy-sauce', 'flour', 'diced-tomatoes', 'white-beans', 'kidney-beans', 'rice-noodles', 'arborio', 'chicken-broth', 'coconut-milk', 'peas'], 'Bakery': ['sourdough', 'naan', 'tortillas', 'pizza-dough'] };
+const DIETS = ['Vegetarian', 'Vegan', 'Gluten-free', 'Halal', 'Dairy-free', 'Nut-free', 'Low-carb'];
+const CUISINES = ['Italian', 'Indian', 'Thai', 'Chinese', 'Mexican', 'Greek', 'Korean', 'Vietnamese', 'Canadian', 'British'];
+
+/* ---------- state ---------- */
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+};
+const DEFAULT_USER = { name: '', householdSize: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice(), favorites: [6, 10], postalPrefix: 'T2P', radiusKm: 5, alerts: true, imported: [] };
+const S = {
+  screen: 'splash', hist: [], detail: null, leadIdx: 0, leadTimer: null,
+  user: LS.get('plateful_onboarded', null),
+  saleSel: LS.get('plateful_sale_selected', []),
+  list: LS.get('plateful_shoplist', null),
+  ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice() },
+  q: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', importUrl: '', importResult: null, cam: 0, tillStore: 'ss', matched: {}, clips: {}, lq: '', scroll: {}
+};
+if (!S.list) S.list = [
+  { key: 'chicken-thighs', qty: '3 lb', n: 3, sid: 'ss', done: false }, { key: 'potatoes', qty: '10 lb bag', n: 1, sid: 'ss', done: false },
+  { key: 'eggs', qty: '1 dozen', n: 1, sid: 'ss', done: false }, { key: 'carrots', qty: '1 bunch', n: 1, sid: 'ss', done: true },
+  { key: 'ground-beef', qty: '1 lb', n: 1, sid: 'sw', done: false }, { key: 'pasta', qty: '400 g', n: 1, sid: 'sw', done: false },
+  { key: 'parmesan', qty: '200 g', n: 1, sid: 'sw', done: false }, { key: 'diced-tomatoes', qty: '3 cans', n: 3, sid: 'nf', done: false },
+  { key: 'broccoli', qty: '2 crowns', n: 2, sid: 'nf', done: false }
+];
+const saveAll = () => { if (S.user) LS.set('plateful_onboarded', S.user); LS.set('plateful_sale_selected', S.saleSel); LS.set('plateful_shoplist', S.list); };
+const U = () => S.user || DEFAULT_USER;
+
+/* ---------- helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = n => '$' + n.toFixed(2);
+const pct = k => Math.round((1 - BOOK[k].p / BOOK[k].was) * 100);
+const inFridge = k => U().pantry.includes(k) || S.saleSel.includes(k);
+const isFav = id => U().favorites.includes(id);
+function status(r) {
+  const missing = r.ing.map(i => i[0]).filter(k => !inFridge(k));
+  const saleHits = r.ing.filter(i => SALE_KEYS.includes(i[0])).length;
+  const fridgeHits = r.ing.filter(i => inFridge(i[0])).length;
+  const cost = missing.reduce((a, k) => a + BOOK[k].p, 0);
+  return { missing, saleHits, fridgeHits, cost, have: fridgeHits, of: r.ing.length };
+}
+function score(r) {
+  const st = status(r); const u = U();
+  return st.saleHits * 3 + st.fridgeHits * 4 + (isFav(r.id) ? 6 : 0) + (u.cuisines.includes(r.cuisine) ? 2 : 0);
+}
+const statusText = r => { const st = status(r); return st.missing.length === 0 ? 'You have everything' : `Missing ${st.missing.length} · ${money(st.cost)}`; };
+const perServ = r => money(r.total / r.serv) + ' a serving';
+const timeText = m => m >= 60 ? (m / 60 % 1 === 0 ? `${m / 60} hour${m > 60 ? 's' : ''}` : `${Math.floor(m / 60)}½ hours`) : `${m} min`;
+const starsHTML = (n, c) => `<span class="stars" aria-label="${n} stars">${'★'.repeat(Math.round(n))}</span> <span class="meta">${c.toLocaleString()}</span>`;
+function recommended(filter) {
+  let list = RECIPES.filter(r => filter === 'All' || r.cuisine === filter || r.tags.includes(filter));
+  return list.sort((a, b) => score(b) - score(a) || b.save - a.save);
+}
+const listTotal = () => S.list.reduce((a, i) => a + (BOOK[i.key] ? unitPrice(i.key, i.sid) * i.n : 0), 0);
+function pmItems() { // list items at a price-matching store with a cheaper competitor ad
+  return S.list.filter(i => BOOK[i.key] && STORE(i.sid) && STORE(i.sid).pm && ADS[i.key] && ADS[i.key].some(a => a.price < unitPrice(i.key, i.sid)))
+    .map(i => { const best = ADS[i.key].slice().sort((a, b) => a.price - b.price)[0]; return { item: i, best, save: (unitPrice(i.key, i.sid) - best.price) * i.n }; });
+}
+function oneStop() {
+  const within = STORES.filter(s => s.km <= U().radiusKm && s.id !== 'cc' && s.id !== 'tt');
+  const priced = S.list.filter(i => BOOK[i.key]);
+  const totals = within.map(s => ({ s, t: priced.reduce((a, i) => a + unitPrice(i.key, s.id) * i.n, 0) })).sort((a, b) => a.t - b.t);
+  let bestPair = null;
+  for (let i = 0; i < within.length; i++) for (let j = i + 1; j < within.length; j++) {
+    const t = priced.reduce((a, it) => a + Math.min(unitPrice(it.key, within[i].id), unitPrice(it.key, within[j].id)) * it.n, 0);
+    if (!bestPair || t < bestPair.t) bestPair = { a: within[i], b: within[j], t };
+  }
+  return { one: totals[0], all: totals, pair: bestPair, current: listTotal() };
+}
+
+/* ---------- small renderers ---------- */
+const pad = s => `<div class="pad">${s}</div>`;
+const sec = ({ eyebrow, title, dek, link, to, thin, sponsored }) => `
+  <section class="sec${thin ? ' thin' : ''}">
+    <div class="sec-head"><span class="eyebrow">${eyebrow}</span>${link ? `<button class="link" data-act="go" data-to="${to}">${link} ${ICON.chevR}</button>` : ''}${sponsored ? `<span class="sponsored">Sponsored</span>` : ''}</div>
+    ${title ? `<h2 class="h-serif">${title}</h2>` : ''}${dek ? `<p class="dek">${dek}</p>` : ''}`;
+const secEnd = '</section>';
+function card(r, cls = '', opts = {}) {
+  const st = status(r);
+  const ok = st.missing.length === 0;
+  const meta = `<div class="meta">${lvlHTML(r)} · ${r.ing.length} ingredients · ${timeText(r.time)}</div>` + (r.src ? `<div class="src"><b>${r.src}</b> · ${starsHTML(r.rating, r.count)}</div>` : `<div class="meta">${perServ(r)}</div>`);
+  return `<div class="card ${cls}" data-act="detail" data-id="${r.id}" role="button" tabindex="0">
+    <div class="ph${opts.sq ? ' sq' : ''}"><img src="${r.img}" alt="${esc(r.name)}" loading="lazy">
+      <button class="iconbtn onphoto${isFav(r.id) ? ' fav' : ''}" data-act="fav" data-id="${r.id}" aria-label="Save">${isFav(r.id) ? ICON.bookmarkFill : ICON.bookmark}</button></div>
+    ${opts.serif ? `<h3 class="title-serif">${r.name}</h3>` : `<h3 class="card-title">${r.name}</h3>`}
+    ${meta}
+    ${opts.status !== false ? `<div class="statusline${ok ? ' ok' : ''}">${statusText(r)}</div>` : ''}
+  </div>`;
+}
+function tile(k, grid) {
+  const b = BOOK[k]; const sel = S.saleSel.includes(k);
+  return `<div class="tile${sel ? ' sel' : ''}" data-act="savedeal" data-key="${k}" role="button" tabindex="0" aria-pressed="${sel}" aria-label="${sel ? 'Saved deal' : 'Save deal'}: ${esc(b.n)}">
+    <div class="pph"><img src="${PIMG(k)}" alt="${esc(b.n)}" loading="lazy">${b.ca ? `<span class="leaf" title="Canadian">${ICON.leaf}</span>` : ''}<span class="bm">${sel ? ICON.bookmarkFill : ICON.bookmark}</span></div>
+    <div class="store">${b.r}</div><div class="nm">${b.n}</div><div class="sz">${b.size}</div>
+    <div class="pr"><span class="price">${money(b.p)}${b.u || ''}</span><span class="was">${money(b.was)}</span><span class="off">${pct(k)}% off</span></div>
+    ${grid && sel ? `<div class="saved">Saved</div>` : ''}
+  </div>`;
+}
+const topbar = (left, right, lined) => `<div class="topbar${lined ? ' lined' : ''}">${left}${right || ''}</div>`;
+const wordmark = () => `<div class="wordmark">${CART_MARK(26)}Plateful</div>`;
+const backBtn = (label) => `<button class="iconbtn" data-act="back" aria-label="${label || 'Back'}" style="margin-left:-10px">${ICON.chevL}</button>`;
+const inkbar = () => {
+  const n = recommended('All').filter(r => r.ing.some(i => S.saleSel.includes(i[0]))).length;
+  return S.saleSel.length ? `<button class="inkbar" data-act="seeSale">See ${n} recipe${n === 1 ? '' : 's'} with your saved deals <span>${S.saleSel.length} saved ${ICON.arrowR}</span></button>` : '';
+};
+function searchResults() {
+  const q = S.q.trim().toLowerCase(); if (!q) return '';
+  const hits = RECIPES.filter(r => r.name.toLowerCase().includes(q) || r.ing.some(i => BOOK[i[0]].n.toLowerCase().includes(q))).slice(0, 4);
+  const keyHit = Object.keys(BOOK).find(k => BOOK[k].n.toLowerCase().startsWith(q));
+  return `<div class="sresults">${hits.map(r => `<button class="srow" data-act="detail" data-id="${r.id}"><img src="${r.img}" alt=""><div><div class="t">${r.name}</div><div class="m">${statusText(r)} · ${timeText(r.time)}</div></div></button>`).join('')}
+    ${keyHit && !inFridge(keyHit) ? `<button class="srow add" data-act="addFridge" data-key="${keyHit}">${ICON.plus} Add ${BOOK[keyHit].n.toLowerCase()} to my fridge</button>` : ''}
+    ${!hits.length && !keyHit ? `<div class="srow meta">No recipes use “${esc(S.q)}” yet.</div>` : ''}</div>`;
+}
+
+/* ---------- screens ---------- */
+function splashHTML() {
+  return `<div class="splash"><button class="skip" data-act="skipSplash">Skip</button>
+    <div class="mark">${CART_MARK(76)}</div>
+    <div><h1 class="wm">Plateful</h1><div class="tag">From cart to cuisine</div></div>
+    <div class="prog"><i></i></div><div class="ld">Loading this week’s Calgary flyers</div></div>`;
+}
+function onboardingHTML() {
+  const o = S.ob; const steps = ['Your name', 'Household', 'Diets', 'Cuisines', 'Your fridge'];
+  const w = ((o.step + 1) / steps.length * 100).toFixed(0);
+  let body = '', title = '', dek = '';
+  if (o.step === 0) { title = 'What should we call you?'; dek = 'Plateful reads this week’s Calgary flyers and tells you what to cook. First, a name.';
+    body = `<input class="tinput" id="obname" type="text" placeholder="Your first name" value="${esc(o.name)}" autocomplete="given-name">`; }
+  if (o.step === 1) { title = 'How many are you cooking for?'; dek = 'We size every recipe and shopping list to your household.';
+    body = `<div class="hh">${[1, 2, 3, 4, 5, 6].map(n => `<button class="chip${o.household === n ? ' sel' : ''}" data-act="obHouse" data-n="${n}">${n}${n === 6 ? '+' : ''}</button>`).join('')}</div>`; }
+  if (o.step === 2) { title = 'Any diets we should cook around?'; dek = 'Choose as many as apply. You can add allergen profiles for each person later.';
+    body = `<div class="chips">${DIETS.map(d => `<button class="chip${o.diets.includes(d) ? ' sel' : ''}" data-act="obDiet" data-d="${d}">${d}</button>`).join('')}</div>`; }
+  if (o.step === 3) { title = 'What do you like to eat?'; dek = 'Recipes from these cuisines rank higher when they match a deal.';
+    body = `<div class="chips">${CUISINES.map(c => `<button class="chip${o.cuisines.includes(c) ? ' sel' : ''}" data-act="obCuisine" data-c="${c}">${c}</button>`).join('')}</div>`; }
+  if (o.step === 4) { title = 'What’s in your fridge already?'; dek = 'Tap what you have. Anything you own counts toward “you have everything”.';
+    body = `<div class="chips">${DEFAULT_FRIDGE.concat(['cheddar', 'diced-tomatoes', 'chicken-thighs', 'ground-beef', 'potatoes']).map(k => `<button class="chip${o.pantry.includes(k) ? ' sel' : ''}" data-act="obPantry" data-key="${k}">${BOOK[k].n}</button>`).join('')}</div>`; }
+  return `<div class="ob">
+    <div class="prog"><i style="width:${w}%"></i></div>
+    <div class="step">Step ${o.step + 1} of ${steps.length} · ${steps[o.step]}</div>
+    <h1>${title}</h1><p class="dek">${dek}</p>
+    <div class="body">${body}</div>
+    <div class="actions"><button class="btn primary" data-act="obNext">${o.step === 4 ? 'See this week’s deals' : 'Continue'}</button>
+    ${o.step > 0 ? `<button class="back" data-act="obBack">Back</button>` : `<button class="back" data-act="skipSplash">Skip for now</button>`}</div></div>`;
+}
+function leadBody(r) {
+  const st = status(r);
+  return `<div class="eyebrow acc">Tonight’s deal dinner</div>
+    <h1 class="lead-title" data-act="detail" data-id="${r.id}">${r.name}</h1>
+    <div class="hook">${r.hook}</div>
+    <p class="dek">${r.dek}</p>
+    <div class="meta"><b>${perServ(r)}</b> · ${timeText(r.time)} · You have ${st.have} of ${st.of}</div>`;
+}
+function homeHTML() {
+  const u = U(); const lead = R(LEADS[S.leadIdx]);
+  const rec = recommended(S.homeFilter);
+  const quick = recommended('All').filter(r => r.ing.some(i => SALE_KEYS.includes(i[0]))).sort((a, b) => status(b).saleHits - status(a).saleHits).slice(0, 6);
+  const trending = RECIPES.filter(r => r.src);
+  const promos = SALE_KEYS.filter(k => BOOK[k].promo);
+  const near = STORES.filter(s => s.km <= u.radiusKm).length;
+  return `${topbar(wordmark(), `<button class="locchip" data-act="go" data-to="profile">${ICON.pin}Near ${u.postalPrefix} · ${near} stores in ${u.radiusKm} km</button>`)}
+  ${pad(`<div class="search">${ICON.search}<input id="fridgeq" type="search" placeholder="What’s in your fridge?" value="${esc(S.q)}" autocomplete="off" aria-label="What’s in your fridge?"><button class="camb" data-act="go" data-to="camera" aria-label="Scan a product">${ICON.camera}</button></div>${searchResults()}`)}
+  ${pad(`<nav class="ttabs" aria-label="Filter">${FILTERS.map(f => `<button class="ttab${S.homeFilter === f ? ' on' : ''}" data-act="hfilter" data-f="${f}">${f}</button>`).join('')}</nav>`)}
+  ${S.homeFilter !== 'All' ? pad(`<section class="sec results"><div class="sec-head"><span class="eyebrow">${S.homeFilter}</span><button class="link" data-act="hfilter" data-f="All">Clear ${ICON.x}</button></div>
+    <h2 class="h-serif">${rec.length} ${S.homeFilter} recipe${rec.length === 1 ? '' : 's'}</h2><p class="dek">Ranked by what’s in your fridge and this week’s flyers.</p>
+    <div class="grid2">${rec.map(r => card(r, '', { sq: true })).join('')}</div></section>`) : ''}
+  <section class="lead">
+    <div class="lead-ph" data-act="detail" data-id="${lead.id}"><img id="leadA" class="show" src="${lead.img}" alt="${esc(lead.name)}"><img id="leadB" src="" alt="">
+      <div class="dots">${LEADS.map((_, i) => `<i class="${i === S.leadIdx ? 'on' : ''}"></i>`).join('')}</div>
+      <button class="iconbtn onphoto${isFav(lead.id) ? ' fav' : ''}" data-act="fav" data-id="${lead.id}" aria-label="Save">${isFav(lead.id) ? ICON.bookmarkFill : ICON.bookmark}</button></div>
+    <div class="lead-body" id="leadBody">${leadBody(lead)}</div>
+  </section>
+  ${(() => { const u = U(); const hist = (u.history || []).map(id => R(id)).filter(Boolean).slice(0, 8); const favs = u.favorites.map(id => R(id)).filter(Boolean);
+    return (hist.length ? pad(sec({ eyebrow: 'Recently viewed', link: 'History', to: 'history', thin: true }) + `<div class="row-scroll">${hist.map(r => card(r, 'sm', { sq: true, status: false })).join('')}</div>` + secEnd) : '') +
+      (favs.length ? pad(sec({ eyebrow: 'My favourites', link: 'All', to: 'favourites', thin: true }) + `<div class="row-scroll">${favs.slice(0, 8).map(r => card(r, 'sm', { sq: true })).join('')}</div>` + secEnd) : ''); })()}
+  ${pad((() => { const st = stepRow(); return sec({ eyebrow: st.eyebrow, title: st.title, dek: st.dek }).replace('class="sec"', `class="sec band ${st.cls}"`) + `<div class="row-scroll">${st.list.slice(0, 8).map(r => card(r)).join('')}</div>` + secEnd; })())}
+  ${pad(sec({ eyebrow: 'On sale this week', link: 'View all', to: 'onsale', title: 'Cook what’s on sale', dek: `${SALE_KEYS.length} deals in this week’s flyers, ${FLYER_WEEK}, ending Thursday. Save a deal and the recipes that use it move up.` }) +
+    `<div class="row-scroll">${SALE_KEYS.slice().sort((a, b) => pct(b) - pct(a)).slice(0, 14).map(k => tile(k)).join('')}<button class="card sm" data-act="go" data-to="onsale" style="justify-content:center;align-items:center;width:120px;color:var(--acc);font:600 14px var(--sans)">All ${SALE_KEYS.length} deals ${ICON.arrowR}</button></div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'Promoted near you', sponsored: true }) + promos.map(k => { const b = BOOK[k]; const s = STORE(b.sid); const r = R(b.promo.recipe); return `
+    <button class="promo" data-act="detail" data-id="${r.id}"><div class="pph"><img src="${PIMG(k)}" alt=""></div><div class="pt">
+      <div class="eyebrow mut" style="font-size:10px">${s.name} · ${s.km} km</div><div class="nm">${b.n} · <span class="price">${money(b.p)}${b.u}</span> <span class="was">${money(b.was)}</span></div>
+      <div class="pairs">Pairs with ${r.name} ${ICON.chevR}</div></div></button>`; }).join('') + secEnd)}
+  ${pad(sec({ eyebrow: 'Quick picks', title: 'Dinners built on this week’s prices', dek: 'Ranked by how many sale items each one uses.' }) +
+    `<div class="row-scroll">${quick.map(r => card(r)).join('')}</div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'At the store' }).replace('class="sec"', 'class="sec band band-store"') + (() => { const plan = pmPlan()[0]; return `
+    <button class="hrow" data-act="go" data-to="till"><span class="iconbtn" style="color:var(--acc);margin-left:-8px">${ICON.flyer}</span><div class="l"><div class="n">Price match at the till</div><div class="s">${plan && plan.matches.length ? `${plan.matches.length} items on your list have a lower ad · save ${money(plan.saved)} at ${plan.s.name}` : 'Competitor ads for your list, ready to show the cashier'}</div></div>${ICON.chevR.replace('<svg', '<svg class="chev"')}</button>
+    <button class="hrow" data-act="go" data-to="camera"><span class="iconbtn" style="color:var(--acc);margin-left:-8px">${ICON.camera}</span><div class="l"><div class="n">Scan a product or shelf tag</div><div class="s">Lowest nearby price, who will match it, and recipes that use it</div></div>${ICON.chevR.replace('<svg', '<svg class="chev"')}</button>`; })() + secEnd)}
+  ${pad(sec({ eyebrow: 'From your fridge', link: 'My fridge', to: 'fridge' }) +
+    `<div class="chips row" style="margin-top:12px">${u.pantry.map(k => `<button class="chip${SALE_KEYS.includes(k) ? ' sale' : ''}" data-act="go" data-to="fridge">${BOOK[k].n}${SALE_KEYS.includes(k) ? ' · on sale' : ''}</button>`).join('')}</div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'For you', title: 'We think you’ll cook', dek: `Ranked by what’s in your fridge and this week’s flyers${S.homeFilter !== 'All' ? ` · ${S.homeFilter}` : ''}.` }) +
+    `<div class="grid2" id="recommended">${rec.slice(0, 6).map(r => card(r, '', { sq: true })).join('')}</div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'Trending', title: 'What everyone is cooking', dek: 'From Google Trends and TikTok this week. Each opens the original recipe; the ingredients are priced against local flyers.' }) +
+    `<div class="row-scroll">${TRENDING.map(t => tcard(t)).join('')}</div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'This week', link: 'Flyers', to: 'stores' }) + NOTES.map(n => `<button class="note" data-act="${n.r ? 'detail' : 'go'}" ${n.r ? `data-id="${n.r}"` : `data-to="${n.screen}"`}><div class="nt"><h4>${n.t}</h4><div class="read">${n.m}</div></div><img src="${n.img}" alt="" loading="lazy"></button>`).join('') + secEnd)}
+  ${pad(sec({ eyebrow: 'Kids', title: 'Things they’ll actually eat' }).replace('class="sec"', 'class="sec band band-kids"') + `<div class="row-scroll">${KIDS.map(id => card(R(id), 'kid')).join('')}</div>` + secEnd)}
+  ${pad(sec({ eyebrow: 'Family', title: 'Feeds four, with leftovers' }) + `<div class="row-scroll">${FAMILY.map(id => card(R(id), 'kid')).join('')}</div>` + secEnd)}
+  <div class="foot">Plateful · Calgary flyers for the week of ${FLYER_WEEK} · Prices are placeholders in this prototype</div><div class="spacer"></div>`;
+}
+function onsaleHTML() {
+  const cats = ['All', 'Meat', 'Produce', 'Dairy', 'Pantry', 'Bakery'];
+  const stores = ['All', 'Superstore', 'Safeway', 'Co-op', 'No Frills', 'Walmart'];
+  let keys = SALE_KEYS.filter(k => (S.onsaleCat === 'All' || BOOK[k].cat === S.onsaleCat) && (S.onsaleStore === 'All' || BOOK[k].r === S.onsaleStore)).sort((a, b) => pct(b) - pct(a));
+  return `${topbar(`<div><h1 class="screen-title">On sale this week</h1><div class="meta">${SALE_KEYS.length} deals · ${FLYER_WEEK} · <b>ends Thursday</b> · ${STORES.filter(s => s.km <= U().radiusKm).length} stores near ${U().postalPrefix}${S.saleSel.length ? ` · <b>${S.saleSel.length} saved</b>` : ''}</div></div>`, '', false)}
+  ${pad(`<nav class="ttabs" aria-label="Category">${cats.map(c => `<button class="ttab${S.onsaleCat === c ? ' on' : ''}" data-act="oscat" data-c="${c}">${c}</button>`).join('')}</nav>
+  <nav class="ttabs small" aria-label="Store">${stores.map(c => `<button class="ttab${S.onsaleStore === c ? ' on' : ''}" data-act="osstore" data-c="${c}">${c}</button>`).join('')}</nav>
+  <div class="tilegrid">${keys.map(k => tile(k, true)).join('') || '<div class="meta">Nothing in this category at that store this week.</div>'}</div>`)}
+  <div class="foot">Save a deal with the bookmark to see recipes that use it. Supplier photos come from the grocer portal; Canadian-made items carry a maple leaf.</div><div class="spacer"></div>`;
+}
+function detailHTML() {
+  const r = R(S.detail); const st = status(r); const ok = st.missing.length === 0;
+  const similar = RECIPES.filter(x => x.id !== r.id && (x.cuisine === r.cuisine || x.tags.some(t => r.tags.includes(t)))).slice(0, 2);
+  const toBuy = st.missing;
+  return `<div class="hero"><img src="${r.img}" alt="${esc(r.name)}">
+    <button class="iconbtn onphoto back" data-act="back" aria-label="Back">${ICON.chevL}</button>
+    <button class="iconbtn onphoto fav${isFav(r.id) ? ' on' : ''}" data-act="fav" data-id="${r.id}" aria-label="Save">${isFav(r.id) ? ICON.bookmarkFill : ICON.bookmark}</button></div>
+  ${pad(`
+    <div class="status-line" style="margin-top:16px"><span class="st">${statusText(r)}</span> · ${r.cuisine} · ${r.meal}</div>
+    <h1 class="screen-title" style="margin-top:8px">${r.name}</h1>
+    <div class="byline" style="margin-top:8px">${r.src ? `From <u>${r.src}</u> · ${starsHTML(r.rating, r.count)}` : `From the <u>Plateful kitchen</u> · priced against this week’s flyers`}</div>
+    ${r.dek ? `<p class="dek" style="margin-top:10px">${r.dek}</p>` : ''}
+    <div class="meta" style="margin-top:10px">${lvlHTML(r)} · ${r.ing.length} ingredients · Serves ${r.serv} · ${timeText(r.time)}</div>
+    ${r.teaches && r.teaches.length ? `<div class="teaches" style="margin-top:6px"><b>Teaches</b> ${r.teaches.join(' · ')}</div>` : ''}
+    <div class="twocol"><div><div class="lab">Total cost</div><div class="big">${money(r.total)}</div><div class="sub">${perServ(r)}</div></div>
+      <div><div class="lab">You save</div><div class="big acc">${money(r.save)}</div><div class="sub">vs regular prices this week</div></div></div>
+    <div class="macros">${['Protein', 'Carbs', 'Fat', 'Fibre'].map((m, i) => `<span><b>${r.macros[i]} g</b>${m}</span>`).join('')}</div>
+    ${sec({ eyebrow: `Ingredients · ${r.ing.length}`, thin: true })}
+    ${r.ing.map(([k, a]) => { const b = BOOK[k]; const have = inFridge(k); const sale = SALE_KEYS.includes(k);
+      return `<div class="hrow ingrow"><div class="l"><span class="amt">${a}</span><span class="n">${b.n}</span></div>
+        <div class="r">${have ? `<span class="mut">In your fridge</span>` : sale ? `<span class="acc">${money(b.p)}${b.u || ''} · ${b.r}</span>` : `<span class="mut">${money(b.p)} · ${b.r}</span>`}</div></div>`; }).join('')}
+    ${secEnd}
+    <div style="margin-top:18px">${ok ? `<button class="btn secondary" data-act="go" data-to="list">Everything’s in your fridge · Open your list</button>` : `<button class="btn primary" data-act="addMissing" data-id="${r.id}">Add ${toBuy.length} item${toBuy.length > 1 ? 's' : ''} to list · ${money(st.cost)}</button>`}</div>
+    ${sec({ eyebrow: 'Preparation', thin: true })}<ol class="steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+    <div style="margin-top:16px">${(U().cooked || []).includes(r.id) ? `<button class="btn secondary" data-act="go" data-to="profile">${ICON.check} Cooked · see your cook level</button>` : `<button class="btn secondary" data-act="cooked" data-id="${r.id}">${ICON.check} I cooked this</button>`}<div class="meta" style="text-align:center;margin-top:8px">${r.diff} recipes add ${LEVEL[r.diff] || 1} point${(LEVEL[r.diff] || 1) > 1 ? 's' : ''} to your cook level</div></div>${secEnd}
+    ${sec({ eyebrow: 'Similar recipes', thin: true })}<div class="grid2">${similar.map(x => card(x, '', { sq: true })).join('')}</div>${secEnd}
+  `)}<div class="spacer"></div>`;
+}
+function listHTML() {
+  const groups = {}; S.list.forEach(i => { (groups[i.sid] = groups[i.sid] || []).push(i); });
+  const pm = pmItems(); const pmSave = pm.reduce((a, x) => a + x.save, 0);
+  const os = oneStop();
+  const items = S.list.length;
+  const lq = S.lq.trim().toLowerCase();
+  const sugg = lq ? Object.keys(BOOK).filter(k => BOOK[k].n.toLowerCase().includes(lq) && !S.list.some(i => i.key === k)).slice(0, 5).map(k => { const best = STORES.filter(x => x.km <= U().radiusKm || x.id === BOOK[k].sid).map(x => ({ x, p: unitPrice(k, x.id) })).sort((a, b) => a.p - b.p)[0]; return { k, best }; }) : [];
+  return `${topbar(`<div><h1 class="screen-title">Your list</h1><div class="meta">${items} items · ${money(listTotal())} across ${Object.keys(groups).length} store${Object.keys(groups).length === 1 ? '' : 's'}</div></div>`, `<div style="display:flex;align-items:center;gap:4px">${items ? `<button class="textlink" data-act="clearList" style="color:var(--muted)">Clear</button>` : ''}<button class="iconbtn" data-act="go" data-to="camera" aria-label="Camera check">${ICON.camera}</button></div>`)}
+  ${pad(`
+    <div class="search" style="margin-top:0">${ICON.plus}<input id="listq" type="search" placeholder="Add to your list" value="${esc(S.lq)}" autocomplete="off" aria-label="Add to your list"></div>
+    ${lq ? `<div class="sresults">${sugg.map(({ k, best }) => `<button class="srow" data-act="addListKey" data-key="${k}" data-sid="${best.x.id}"><div style="flex:1"><div class="t">${BOOK[k].n}</div><div class="m">Cheapest near you: <b>${money(best.p)}${BOOK[k].u || ''}</b> · ${best.x.name}${BOOK[k].was && BOOK[k].sid === best.x.id ? ' · on sale' : ''}</div></div>${ICON.plus}</button>`).join('')}${!sugg.length ? `<div class="srow meta">Nothing in this week’s price book matches “${esc(S.lq)}”. Add it anyway?</div><button class="srow add" data-act="addFree" data-name="${esc(S.lq)}">${ICON.plus} Add “${esc(S.lq)}” without a price</button>` : ''}</div>` : ''}
+    ${!items ? `<p class="dek" style="margin-top:14px">Your list is empty. Add items above, or open a recipe and tap “Add to list”.</p>` : ''}
+    ${pm.length ? `<button class="banner" data-act="go" data-to="till"><div><div class="b1">Price match ${pm.length} item${pm.length > 1 ? 's' : ''} · save ${money(pmSave)}</div><div class="b2">Ads are ready to show at the till · tap to open</div></div>${ICON.chevR}</button>
+    <div style="display:flex;gap:10px;margin:4px 0 2px"><button class="textlink" data-act="go" data-to="pricematch">Compare every ad</button><span class="meta">·</span><button class="textlink" data-act="go" data-to="camera">Scan a shelf tag</button></div>` : ''}
+    ${os.one ? sec({ eyebrow: 'Cheapest one-stop', link: 'Stores', to: 'stores', thin: true }) + `
+      <div class="hrow"><div class="l"><div class="n" style="font:600 17px var(--serif)">${os.one.s.name} · ${money(os.one.t)}</div><div class="s">${os.one.s.km} km · everything on your list in one trip${os.current > os.one.t ? `, ${money(os.current - os.one.t)} less than your current split` : ''}</div></div></div>
+      <div style="padding:8px 0 4px"><button class="btn secondary sm" data-act="moveAll" data-sid="${os.one.s.id}">Move list to ${os.one.s.name}</button></div>` + secEnd : ''}
+    ${Object.keys(groups).sort((a, b) => ((STORE(a) || { km: 99 }).km) - ((STORE(b) || { km: 99 }).km)).map(sid => { const s = STORE(sid); const sub = groups[sid].reduce((a, i) => a + (BOOK[i.key] ? unitPrice(i.key, sid) * i.n : 0), 0); return `
+      <div class="storehead"><div><span class="sn">${s ? s.name : 'Anywhere'}</span><span class="sk">${s ? s.km + ' km' : ''}${s && s.pm ? ' · price matches' : ''}</span></div><span class="st">${money(sub)}</span></div>
+      ${groups[sid].map(i => { const b = BOOK[i.key]; const m = b && pm.find(x => x.item === i); return `
+        <div class="hrow${i.done ? ' done' : ''}"><button class="ckb" data-act="toggleDone" data-key="${i.key}" data-sid="${sid}" aria-label="Done">${ICON.check}</button>
+          <div class="l"><div class="n">${b ? b.n : esc(i.name || i.key)}</div><div class="s">${m ? `<button class="textlink" data-act="go" data-to="till">Price match · ${money(m.best.price)} at ${STORE(m.best.sid).name}</button>` : (b && SALE_KEYS.includes(i.key) && b.sid === sid ? '<span style="color:var(--acc);font-weight:600">On sale</span>' : (b ? b.size || '' : 'no price yet'))}</div></div>
+          <button class="qty" data-act="qtyUp" data-key="${i.key}" data-sid="${sid}" aria-label="Increase quantity">${i.n} ×</button>
+          <div class="r"><span class="price">${b ? money(unitPrice(i.key, sid) * i.n) : '—'}</span></div>
+          <button class="iconbtn" data-act="removeItem" data-key="${i.key}" data-sid="${sid}" aria-label="Remove" style="width:32px;height:32px;color:var(--faint);margin-right:-8px">${ICON.x}</button></div>`; }).join('')}`; }).join('')}
+    ${sec({ eyebrow: 'Send your list to', thin: true })}
+    <div class="sendgrid">
+      <a class="btn ghost" href="https://www.pcexpress.ca" target="_blank" rel="noopener">PC Express</a>
+      <a class="btn ghost" href="https://voila.ca" target="_blank" rel="noopener">Voilà</a>
+      <a class="btn ghost" href="https://www.walmart.ca/grocery" target="_blank" rel="noopener">Walmart</a>
+      <a class="btn ghost" href="https://www.instacart.ca" target="_blank" rel="noopener">Instacart</a></div>
+    ${secEnd}
+    <div style="display:grid;gap:10px;margin-top:18px">
+      <button class="btn secondary" data-act="toast" data-msg="Shared household lists arrive with Plateful Plus">${ICON.share} Share with household</button></div>
+  `)}<div class="foot">Prices are this week’s flyer prices or the store’s regular shelf price where no ad exists.</div><div class="spacer"></div>`;
+}
+function pricematchHTML() {
+  const rows = S.list.filter(i => ADS[i.key]);
+  const pm = pmItems(); const save = pm.reduce((a, x) => a + x.save, 0);
+  const plans = pmPlan();
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">Price match</h1><div class="meta">Competitor ads for items on your list · ${FLYER_WEEK}</div></div>`, '')}
+  ${pad(`
+    ${pm.length ? `<button class="banner" data-act="go" data-to="till"><div><div class="b1">${pm.length} items can be matched · save ${money(save)}</div><div class="b2">Open the cashier view with every ad ready</div></div>${ICON.chevR}</button>` : ''}
+    ${sec({ eyebrow: 'Where to price match', title: 'Stores ranked by what they’ll match', dek: 'Your whole list, with every valid ad applied, at each store that honours competitor flyers.', thin: true })}
+    ${plans.map((p, i) => `<div class="hrow"><div class="l"><div class="n"><span style="color:var(--acc);font-weight:700;margin-right:8px">${i + 1}</span>${p.s.name} · <span class="price">${money(p.total)}</span></div><div class="s">${p.matches.length} of ${S.list.length} items matched · save ${money(p.saved)} · ${p.s.km} km</div><div class="s" style="font-size:12px;margin-top:2px">${p.rule.short}</div></div></div>`).join('')}
+    <div class="meta" style="padding:10px 0 2px;font-size:12px">Safeway, Co-op and No Frills do not price match; their ads are what you show elsewhere.</div>
+    ${secEnd}
+    ${rows.map(i => { const b = BOOK[i.key]; const s = STORE(i.sid); const here = unitPrice(i.key, i.sid); const ads = ADS[i.key].slice().sort((a, b2) => a.price - b2.price); return `
+      ${sec({ eyebrow: b.n, thin: true })}
+      <div class="meta" style="margin-top:8px">You’re buying at <b>${s.name}</b> · ${money(here)}${b.u || ''}${s.pm ? '' : ' · this store does not price match'}</div>
+      ${ads.map((a, idx) => { const as = STORE(a.sid); const cheaper = a.price < here; return `
+        <div class="hrow"><div class="l"><div class="n">${as.name} · <span class="price">${money(a.price)}${b.u || ''}</span></div><div class="s">Flyer ${FLYER_WEEK} · ${as.km} km</div></div>
+          <div class="r">${cheaper ? `<span class="acc">${idx === 0 ? 'Lowest · ' : ''}Save ${money((here - a.price) * i.n)}</span>` : `<span class="mut">Not lower</span>`}</div></div>`; }).join('')}
+      <div class="meta" style="padding:10px 0 2px;font-size:12px">${PM_POLICY[i.sid]}</div>
+      ${secEnd}`; }).join('')}
+    <div style="display:grid;gap:10px;margin-top:26px">
+      <button class="btn primary" data-act="go" data-to="till">${ICON.flyer} Show all at the till</button>
+      <button class="btn secondary" data-act="go" data-to="camera">${ICON.camera} Check a shelf tag with the camera</button></div>
+  `)}<div class="spacer"></div>`;
+}
+function tillHTML() {
+  const plans = pmPlan(); const plan = plans.find(p => p.s.id === S.tillStore) || plans[0]; if (!plan) return `${topbar(`${backBtn()}<h1 class="screen-title">At the till</h1>`, '')}${pad('<p class="dek" style="margin-top:20px">Add items to your list first.</p>')}`;
+  const s = plan.s; const done = plan.matches.filter(m => S.matched[m.item.key]).length;
+  const adCard = m => { const b = BOOK[m.item.key]; const as = STORE(m.ad.sid); const on = !!S.matched[m.item.key]; return `
+    <div class="tillitem${on ? ' on' : ''}">
+      <div class="ti-head"><div><div class="n">${b.n}</div><div class="s">${m.item.n} × ${b.size || 'item'} · here <b>${money(m.here)}${b.u || ''}</b> · lowest ad <b style="color:var(--acc)">${money(m.ad.price)}${b.u || ''}</b> · save ${money(m.save)}</div></div>
+        <button class="ckb${on ? ' on' : ''}" data-act="tillTick" data-key="${m.item.key}" aria-label="Matched">${ICON.check}</button></div>
+      <div class="clips">${(ADS[m.item.key] || []).filter(a => a.sid !== s.id && a.price < m.here).sort((a, b2) => a.price - b2.price).map(a => { const st = STORE(a.sid); return `
+        <div class="ad"><div class="ad-store">${st.retailer} · auto-clipped</div><div class="ad-body">${IMG.products[m.item.key] ? `<img src="${PIMG(m.item.key)}" alt="">` : ''}<div><div class="ad-name">${b.n}</div><div class="ad-size">${b.size || ''}</div></div><div class="ad-price">${money(a.price)}<span>${b.u || ''}</span></div></div><div class="ad-foot">Flyer valid ${FLYER_WEEK} · ${st.name}, ${st.km} km</div></div>`; }).join('')}
+        ${(S.clips[m.item.key] || []).map((c, ci) => `<div class="shot"><img src="${c.src}" alt="Your flyer screenshot"><div class="ad-foot">Your screenshot · ${c.name}</div></div>`).join('')}</div>
+      <label class="attach">${ICON.camera} Attach a flyer screenshot<input type="file" accept="image/*" data-clip="${m.item.key}"></label>
+    </div>`; };
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">At the till</h1><div class="meta">Show these to the cashier · ${plan.matches.length} items · ads from ${[...new Set(plan.matches.flatMap(m => (ADS[m.item.key] || []).filter(a => a.sid !== s.id && a.price < m.here).map(a => a.sid)))].length} stores</div></div>`, '')}
+  ${pad(`
+    <div class="eyebrow mut" style="margin-top:4px">You’re at</div>
+    <nav class="ttabs" aria-label="Store">${plans.map(p => `<button class="ttab${p.s.id === S.tillStore ? ' on' : ''}" data-act="tillStore" data-sid="${p.s.id}">${p.s.name}</button>`).join('')}</nav>
+    <div class="meta" style="margin-top:2px">${plan.rule.long}</div>
+    <div class="twocol"><div><div class="lab">You save here</div><div class="big acc">${money(plan.saved)}</div><div class="sub">${plan.matches.length} items matched · ${done} applied</div></div>
+      <div><div class="lab">List total</div><div class="big">${money(plan.total)}</div><div class="sub">with every match applied</div></div></div>
+    ${plans.length > 1 ? sec({ eyebrow: 'Ranked by what they’ll match', thin: true }) + plans.map((p, i) => `<div class="hrow"><div class="l"><div class="n"><span style="color:var(--acc);font-weight:700;margin-right:8px">${i + 1}</span>${p.s.name} · ${money(p.total)}</div><div class="s">${p.matches.length} items · save ${money(p.saved)} · ${p.rule.short}</div></div></div>`).join('') + secEnd : ''}
+    ${sec({ eyebrow: `Ads to show · ${plan.matches.length}`, thin: true })}
+    ${plan.matches.length ? plan.matches.map(adCard).join('') : '<p class="dek" style="margin-top:12px">No competitor ad beats this store’s prices on your list this week.</p>'}
+    ${secEnd}
+    <div style="display:grid;gap:10px;margin-top:24px"><button class="btn primary" data-act="tillDone" data-save="${plan.saved.toFixed(2)}">${ICON.check} Done · saved ${money(plan.saved)}</button><button class="btn secondary" data-act="go" data-to="camera">${ICON.camera} Scan something else on the shelf</button></div>
+    <div class="meta" style="margin-top:14px;font-size:12px;text-align:center">The screen stays on while this page is open.</div>
+  `)}<div class="spacer"></div>`;
+}
+function cameraHTML() {
+  const stage = S.cam;
+  return `<div class="cam">
+    <div class="ctitle"><button class="iconbtn" data-act="back" aria-label="Close" style="color:#fff;margin-left:-10px">${ICON.x}</button><span class="t">Camera check</span><span style="width:40px"></span></div>
+    <div class="vf"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+      ${stage === 0 ? `<div class="hint">Point at a product or shelf tag<br><span style="font-size:12px;opacity:.7">Prices nearby, who will match them, and recipes that use it</span><br><span style="font-size:12px;opacity:.7">You’re at Superstore · Shaganappi</span></div>` : ''}
+      ${stage === 1 ? `<div class="scan"></div><div class="hint">Reading the tag…</div>` : ''}
+      ${stage === 2 ? (() => { const uses = RECIPES.filter(r => r.ing.some(i => i[0] === 'cheddar')).slice(0, 3); return `<div class="result"><div class="top"><div class="pph"><img src="${PIMG('cheddar')}" alt=""></div><div>
+          <div class="card-title">Aged cheddar · 400 g</div><div class="meta">${money(7.49)} here · Superstore</div></div></div>
+        <div><div class="eyebrow acc">Lowest nearby</div><div class="price" style="font-size:20px;margin-top:4px">${money(4.99)} <span class="meta">· Co-op Midtown · 1.4 km · flyer ${FLYER_WEEK}</span></div>
+        <div class="meta" style="margin-top:4px">Superstore will match it: identical item, current local flyer. Save ${money(2.5)}.</div></div>
+        <div style="display:grid;gap:8px;grid-template-columns:1fr 1fr"><button class="btn primary sm" style="width:100%" data-act="pmHere">Price match here</button><button class="btn ghost sm" style="width:100%" data-act="camAdd">Add to list</button></div>
+        <div><div class="eyebrow mut" style="font-size:10px">Recipes that use it</div>${uses.map(r => `<button class="srow" style="padding:8px 0" data-act="detail" data-id="${r.id}"><img src="${r.img}" alt="" style="width:44px;height:44px"><div><div class="t">${r.name}</div><div class="m">${statusText(r)} · ${timeText(r.time)}</div></div></button>`).join('')}</div></div>`; })() : ''}
+    </div>
+    ${stage === 2 ? `<button class="btn onink" data-act="camReset">Check another item</button>` : `<button class="shutter" data-act="shutter" aria-label="Take photo"></button>`}
+    <div class="quota">2 of 3 free checks used today · <a data-act="go" data-to="profile" href="#">Unlimited with Plus</a></div></div>`;
+}
+function mapSVG() {
+  const u = U(); const W = 346, H = 220, cx = 173, cy = 118; const scale = 16; // px per km
+  const pin = s => { const a = s.ang * Math.PI / 180; const d = Math.min(s.km, 6.2) * scale; const x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d; const inR = s.km <= u.radiusKm;
+    return `<g transform="translate(${x.toFixed(1)},${y.toFixed(1)})" opacity="${inR ? 1 : .45}"><path d="M0 0c-4-5-6-8-6-11a6 6 0 0 1 12 0c0 3-2 6-6 11z" fill="#1A1511"/><circle cx="0" cy="-11" r="2" fill="#fff"/><text x="9" y="-8" fill="#1A1511">${s.name}</text></g>`; };
+  return `<svg class="map" viewBox="0 0 ${W} ${H}" role="img" aria-label="Map of stores within your radius">
+    <rect width="${W}" height="${H}" fill="#FAF8F5"/>
+    ${[40, 80, 120, 160, 200].map(y => `<path d="M0 ${y}H${W}" stroke="#E8E2DA" stroke-width="1"/>`).join('')}${[60, 120, 180, 240, 300].map(x => `<path d="M${x} 0V${H}" stroke="#E8E2DA" stroke-width="1"/>`).join('')}
+    <circle cx="${cx}" cy="${cy}" r="${u.radiusKm * scale}" fill="none" stroke="#B4552E" stroke-width="1" stroke-dasharray="3 3"/>
+    ${STORES.map(pin).join('')}
+    <circle cx="${cx}" cy="${cy}" r="5" fill="#B4552E"/><text x="${cx + 9}" y="${cy + 4}" fill="#B4552E">Home · ${u.postalPrefix}</text></svg>`;
+}
+function storesHTML() {
+  const os = oneStop(); const u = U();
+  return `${topbar(`<div><h1 class="screen-title">Where to shop</h1><div class="meta">${STORES.filter(s => s.km <= u.radiusKm).length} stores within ${u.radiusKm} km of ${u.postalPrefix}</div></div>`, '')}
+  ${pad(`
+    ${sec({ eyebrow: 'For your list', title: 'Cheapest trip this week' })}
+    ${os.one ? `<div class="hrow"><div class="l"><div class="eyebrow mut" style="font-size:10px">One stop</div><div class="n" style="font:600 17px var(--serif)">${os.one.s.name} · ${money(os.one.t)}</div><div class="s">${os.one.s.km} km · all ${S.list.length} items</div></div>${ICON.chevR.replace('<svg', '<svg class="chev"')}</div>` : ''}
+    ${os.pair ? `<div class="hrow"><div class="l"><div class="eyebrow mut" style="font-size:10px">Two stops</div><div class="n" style="font:600 17px var(--serif)">${os.pair.a.name} + ${os.pair.b.name} · ${money(os.pair.t)}</div><div class="s">${os.pair.a.km} km + ${os.pair.b.km} km${os.one && os.one.t > os.pair.t ? ` · saves ${money(os.one.t - os.pair.t)} vs one stop` : ''}</div></div>${ICON.chevR.replace('<svg', '<svg class="chev"')}</div>` : ''}
+    ${mapSVG()}
+    ${secEnd}
+    ${sec({ eyebrow: 'Stores near you', thin: true })}
+    ${STORES.map(s => `<div class="hrow"><div class="l"><div class="n">${s.name} <span class="s">· ${s.area}</span></div>
+        <div class="s">${s.km} km · ${s.km <= u.radiusKm ? `${dealsAt(s.id)} deals this week` : 'outside your radius'} · ${s.pm ? '<span style="color:var(--acc);font-weight:600">Price matches flyers</span>' : 'No price match'}</div></div>
+        <a class="iconbtn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.retailer + ' ' + s.area + ' Calgary')}" target="_blank" rel="noopener" aria-label="Open in Maps">${ICON.map}</a>
+        <button class="iconbtn" data-act="go" data-to="onsale" data-store="${s.retailer}" aria-label="Flyer">${ICON.flyer}</button></div>`).join('')}
+    ${secEnd}
+  `)}<div class="foot">Distances are from your postal prefix, never an address.</div><div class="spacer"></div>`;
+}
+function fridgeHTML() {
+  const u = U(); const onSale = u.pantry.filter(k => SALE_KEYS.includes(k)).length;
+  const quick = SALE_KEYS.filter(k => !u.pantry.includes(k));
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">My fridge</h1><div class="meta">${u.pantry.length} items · ${onSale} on sale this week</div></div>`, '')}
+  ${pad(`
+    <div class="search">${ICON.plus}<input id="fridgeadd" type="text" placeholder="Add something you have" autocomplete="off" aria-label="Add to fridge"></div>
+    ${Object.keys(FRIDGE_CATS).map(c => { const keys = u.pantry.filter(k => FRIDGE_CATS[c].includes(k)); if (!keys.length) return ''; return sec({ eyebrow: c, thin: true }) + keys.map(k => { const b = BOOK[k]; return `
+      <div class="hrow"><div class="l"><div class="n">${b.n}</div>${b.was ? `<div class="s" style="color:var(--acc);font-weight:600">On sale · ${money(b.p)}${b.u || ''} at ${b.r}</div>` : ''}</div>
+        <button class="iconbtn" data-act="removeFridge" data-key="${k}" aria-label="Remove" style="width:32px;height:32px;color:var(--faint);margin-right:-8px">${ICON.x}</button></div>`; }).join('') + secEnd; }).join('')}
+    ${sec({ eyebrow: 'Quick add from this week’s sales', thin: true })}
+    <div class="chips" style="margin-top:12px">${quick.map(k => `<button class="chip sale" data-act="addFridge" data-key="${k}">${ICON.plus} ${BOOK[k].n}</button>`).join('')}</div>${secEnd}
+  `)}<div class="spacer"></div>`;
+}
+function profileHTML() {
+  const u = U(); const h = new Date().getHours(); const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  const row = (t, s, to, extra) => `<button class="hrow" data-act="go" data-to="${to}"><div class="l"><div class="n">${t}</div><div class="s">${s}</div></div>${extra || ICON.chevR.replace('<svg', '<svg class="chev"')}</button>`;
+  return `${topbar(`<div><h1 class="screen-title">${greet}${u.name ? ', ' + esc(u.name) : ''}</h1><div class="meta">Household of ${u.householdSize} · ${u.postalPrefix} · ${u.radiusKm} km</div></div>`, '')}
+  ${pad(`
+    <div class="plus"><div class="t">Plateful Plus</div><div class="p">$4.99 a month · first month free</div>
+      <ul><li>Price alerts for what you cook most</li><li>Unlimited camera price checks and imports</li><li>Shared household list</li><li>Allergen profiles for everyone at the table</li></ul>
+      <button class="btn primary" data-act="toast" data-msg="Plus is not live in this prototype">Start your free month</button></div>
+    ${(() => { const lv = cookLevel(); return sec({ eyebrow: 'Your cook level', thin: true }) + `<div class="cook"><div class="nm">${lv.name}</div><div class="prog"><i style="width:${lv.pct}%"></i></div><div class="meta">${lv.cooked} recipe${lv.cooked === 1 ? '' : 's'} cooked · ${lv.pts} point${lv.pts === 1 ? '' : 's'}${lv.next ? ` · ${lv.need} more to ${lv.next}` : ' · top level'}</div><div class="meta" style="margin-top:4px">Easy recipes are 1 point, Medium 2, Confident 3. Tap “I cooked this” on any recipe.</div></div>` + secEnd; })()}
+    ${sec({ eyebrow: 'Your kitchen', thin: true })}
+    ${row('My fridge', `${u.pantry.length} items`, 'fridge')}
+    ${row('Favourites', `${u.favorites.length} saved recipes`, 'favourites')}
+    ${row('History', `${(u.history || []).length} recently viewed · ${(u.cooked || []).length} cooked`, 'history')}
+    ${row('Imported recipes', `${(u.imported || []).length} from TikTok, Instagram, YouTube and the web`, 'import')}
+    ${row('Diets and cuisines', `${u.diets.length ? u.diets.join(', ') : 'No diets'} · ${u.cuisines.join(', ')}`, 'onboarding')}
+    ${secEnd}
+    ${sec({ eyebrow: 'Location', thin: true })}
+    <div class="hrow" style="display:block"><div class="n">Home radius · <span class="price">${u.radiusKm} km</span> from ${u.postalPrefix}</div>
+      <input class="range" id="radius" type="range" min="2" max="10" step="1" value="${u.radiusKm}" aria-label="Home radius in km">
+      <div class="s">Every distance, the best-store pick, promoted items and price-match ads use this. We store a postal prefix, never an address.</div></div>
+    ${secEnd}
+    ${sec({ eyebrow: 'Household', thin: true })}
+    ${row('Household allergens', 'Roadmap · per-person profiles', 'profile', '<span class="eyebrow mut" style="font-size:10px">Soon</span>')}
+    ${row('Loyalty cards', 'PC Optimum, Scene+, Co-op, Air Miles in one wallet', 'profile', '<span class="eyebrow mut" style="font-size:10px">Soon</span>')}
+    <div class="hrow"><div class="l"><div class="n">Deal alerts</div><div class="s">When a favourite’s ingredients go on sale nearby</div></div><button class="toggle${u.alerts ? ' on' : ''}" data-act="toggleAlerts" role="switch" aria-checked="${u.alerts}" aria-label="Deal alerts"><i></i></button></div>
+    ${secEnd}
+  `)}<div class="foot">Plateful Inc. · Calgary · plateful.ca</div><div class="spacer"></div>`;
+}
+function favouritesHTML() {
+  const favs = RECIPES.filter(r => isFav(r.id));
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">Favourites</h1><div class="meta">${favs.length} saved · they rank higher in recommendations</div></div>`, '')}
+  ${pad(favs.length ? `<div class="grid2">${favs.map(r => card(r, '', { sq: true })).join('')}</div>` : `<p class="dek" style="margin-top:20px">Tap the bookmark on any recipe to save it here.</p>`)}<div class="spacer"></div>`;
+}
+function historyHTML() {
+  const u = U(); const hist = (u.history || []).map(id => R(id)).filter(Boolean); const cooked = (u.cooked || []).map(id => R(id)).filter(Boolean);
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">History</h1><div class="meta">${hist.length} recently viewed · ${cooked.length} cooked</div></div>`, '')}
+  ${pad(`
+    ${sec({ eyebrow: 'Cooked', thin: true })}${cooked.length ? `<div class="grid2">${cooked.map(r => card(r, '', { sq: true })).join('')}</div>` : `<p class="dek" style="margin-top:12px">Nothing cooked yet. Tap “I cooked this” under a recipe’s steps.</p>`}${secEnd}
+    ${sec({ eyebrow: 'Recently viewed', thin: true })}${hist.length ? hist.map(r => `<button class="srow" style="padding:10px 0" data-act="detail" data-id="${r.id}"><img src="${r.img}" alt=""><div><div class="t">${r.name}</div><div class="m">${r.diff} · ${r.ing.length} ingredients · ${timeText(r.time)}</div></div></button>`).join('') : `<p class="dek" style="margin-top:12px">Recipes you open show up here.</p>`}${secEnd}
+  `)}<div class="spacer"></div>`;
+}
+function importHTML() {
+  const res = S.importResult;
+  return `${topbar(`${backBtn()}<div><h1 class="screen-title">Import a recipe</h1><div class="meta">Paste a TikTok, Instagram, YouTube or web link</div></div>`, '')}
+  ${pad(`
+    <div class="search">${ICON.link}<input id="importurl" type="url" placeholder="https://www.tiktok.com/@…" value="${esc(S.importUrl)}" autocomplete="off" aria-label="Recipe link"></div>
+    <nav class="ttabs small" aria-label="Source">${['TikTok', 'Instagram', 'YouTube', 'Web'].map((p, i) => `<button class="ttab${i === 0 ? ' on' : ''}" data-act="noop">${p}</button>`).join('')}</nav>
+    <button class="btn primary" data-act="doImport" style="margin-top:8px">Import</button>
+    ${res ? (() => { const r = R(res); const st = status(r); return sec({ eyebrow: 'Parsed recipe', thin: true }) + `
+      <div style="padding-top:14px">${card(r)}</div>
+      <div class="meta" style="margin-top:10px"><b>${st.have} of ${st.of}</b> ingredients in your fridge · <b>${st.saleHits}</b> on sale this week</div>
+      <div style="display:grid;gap:10px;margin-top:16px"><button class="btn primary" data-act="saveImport" data-id="${r.id}">Save to imported recipes</button><button class="btn secondary" data-act="detail" data-id="${r.id}">Open recipe</button></div>` + secEnd; })() : `<p class="dek" style="margin-top:22px">Plateful reads the caption and video, pulls out the ingredients and matches them to your fridge and this week’s flyers.</p>`}
+  `)}<div class="spacer"></div>`;
+}
+
+/* ---------- shell ---------- */
+const TABS = [['home', 'Home', ICON.home], ['onsale', 'On sale', ICON.tag], ['list', 'List', ICON.list], ['stores', 'Stores', ICON.pin], ['profile', 'Profile', ICON.user]];
+const NO_TABS = ['splash', 'onboarding', 'camera'];
+const DARK = ['camera'];
+const SCREENS = { splash: splashHTML, onboarding: onboardingHTML, home: homeHTML, onsale: onsaleHTML, detail: detailHTML, list: listHTML, pricematch: pricematchHTML, till: tillHTML, camera: cameraHTML, stores: storesHTML, fridge: fridgeHTML, profile: profileHTML, favourites: favouritesHTML, history: historyHTML, import: importHTML };
+const $ = s => document.querySelector(s);
+function render() {
+  const dark = DARK.includes(S.screen);
+  const scr = $('#screen'); const bar = $('#tabbar'); const st = $('#status');
+  st.className = 'status' + (dark ? ' dark' : ''); scr.className = 'screen' + (dark ? ' dark' : '');
+  scr.innerHTML = SCREENS[S.screen]() + `<div class="toast" id="toast"></div>`;
+  const parentTab = { detail: null, pricematch: 'list', till: 'list', fridge: 'profile', favourites: 'profile', history: 'profile', import: 'home' };
+  const active = TABS.some(t => t[0] === S.screen) ? S.screen : parentTab[S.screen];
+  bar.innerHTML = TABS.map(([id, label, ic]) => `<button class="tab" data-act="go" data-to="${id}" ${active === id ? 'aria-current="page"' : ''}>${ic}${label}</button>`).join('');
+  bar.hidden = NO_TABS.includes(S.screen);
+  const ib = $('#inkbar'); ib.innerHTML = (S.screen === 'home' || S.screen === 'onsale') ? inkbar() : '';
+  scr.scrollTop = S.scroll[S.screen] || 0;
+  clearInterval(S.leadTimer);
+  if (S.screen === 'home' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) S.leadTimer = setInterval(nextLead, 4200);
+  if (S.screen === 'splash') setTimeout(() => { if (S.screen === 'splash') go(S.user ? 'home' : 'onboarding'); }, 2200);
+  const focus = { onboarding: '#obname', import: '#importurl' }[S.screen]; if (focus && $(focus)) $(focus).focus();
+}
+function nextLead() {
+  const next = (S.leadIdx + 1) % LEADS.length; const r = R(LEADS[next]);
+  const a = $('#leadA'), b = $('#leadB'), body = $('#leadBody'); if (!a || !b) return;
+  const showing = a.classList.contains('show') ? a : b; const hidden = showing === a ? b : a;
+  hidden.src = r.img; hidden.alt = r.name; hidden.classList.add('show'); showing.classList.remove('show');
+  body.classList.add('fade');
+  setTimeout(() => { body.innerHTML = leadBody(r); body.classList.remove('fade'); }, 350);
+  S.leadIdx = next;
+  document.querySelectorAll('.lead-ph .dots i').forEach((d, i) => d.classList.toggle('on', i === next));
+  $('.lead-ph').dataset.id = r.id;
+  const fav = $('.lead-ph .iconbtn'); fav.dataset.id = r.id; fav.classList.toggle('fav', isFav(r.id)); fav.innerHTML = isFav(r.id) ? ICON.bookmarkFill : ICON.bookmark;
+}
+function go(screen, opts = {}) {
+  if (S.screen !== screen) { S.scroll[S.screen] = $('#screen').scrollTop; if (!NO_TABS.includes(S.screen) || S.screen === 'camera') S.hist.push(S.screen); }
+  if (opts.store) { S.onsaleStore = opts.store; S.onsaleCat = 'All'; }
+  if (screen === 'camera') S.cam = 0;
+  S.screen = screen; if (!opts.keepScroll) S.scroll[screen] = 0; render();
+}
+function back() { const prev = S.hist.pop() || 'home'; S.screen = prev; render(); }
+let toastTimer;
+function toast(msg) { const t = $('#toast'); if (!t) return; t.textContent = msg; t.classList.toggle('hi', !!S.saleSel.length && (S.screen === 'home' || S.screen === 'onsale')); t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200); }
+function addToList(key, qty, n) {
+  const b = BOOK[key]; const ex = S.list.find(i => i.key === key);
+  if (ex) { ex.n += n || 1; } else S.list.push({ key, qty: qty || (b.size || '1'), n: n || 1, sid: b.sid, done: false });
+}
+
+/* ---------- actions ---------- */
+const ACT = {
+  go: (d) => go(d.to, { store: d.store }),
+  back: () => back(),
+  skipSplash: () => { if (!S.user) { S.user = Object.assign({}, DEFAULT_USER); saveAll(); } go('home'); },
+  detail: (d) => { S.detail = +d.id; const u = U(); u.history = [+d.id].concat((u.history || []).filter(x => x !== +d.id)).slice(0, 12); if (!S.user) S.user = u; saveAll(); go('detail'); },
+  cooked: (d) => { const u = U(); u.cooked = u.cooked || []; if (!u.cooked.includes(+d.id)) u.cooked.push(+d.id); if (!S.user) S.user = u; saveAll(); const lv = cookLevel(); S.scroll.detail = $('#screen').scrollTop; render(); toast(`Nice work. ${lv.next ? `${lv.need} point${lv.need === 1 ? '' : 's'} to ${lv.next}` : 'You’re at the top level'}`); },
+  addListKey: (d) => { addToList(d.key, null, 1); S.list[S.list.length - 1].sid = d.sid || S.list[S.list.length - 1].sid; S.lq = ''; saveAll(); S.scroll.list = 0; render(); toast(`${BOOK[d.key].n} added · ${STORE(d.sid).name}`); },
+  addFree: (d) => { S.list.push({ key: 'free-' + Date.now(), name: d.name, qty: '1', n: 1, sid: 'any', done: false }); S.lq = ''; saveAll(); S.scroll.list = 0; render(); },
+  qtyUp: (d) => { const it = S.list.find(i => i.key === d.key && i.sid === d.sid); if (it) { it.n = it.n >= 6 ? 1 : it.n + 1; } saveAll(); S.scroll.list = $('#screen').scrollTop; render(); },
+  clearList: () => { S.list = []; S.matched = {}; saveAll(); render(); toast('List cleared'); },
+  fav: (d, ev) => { ev.stopPropagation(); const u = U(); const id = +d.id; const i = u.favorites.indexOf(id); if (i >= 0) u.favorites.splice(i, 1); else u.favorites.push(id); if (!S.user) S.user = u; saveAll(); S.scroll[S.screen] = $('#screen').scrollTop; render(); toast(i >= 0 ? 'Removed from favourites' : 'Saved to favourites'); },
+  savedeal: (d) => { const k = d.key; const i = S.saleSel.indexOf(k); if (i >= 0) S.saleSel.splice(i, 1); else S.saleSel.push(k); saveAll(); S.scroll[S.screen] = $('#screen').scrollTop; render(); },
+  seeSale: () => { S.homeFilter = 'All'; S.screen = 'home'; S.scroll.home = 0; render(); const el = $('#recommended'); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
+  hfilter: (d) => { S.homeFilter = d.f; S.scroll.home = $('#screen').scrollTop; render(); },
+  oscat: (d) => { S.onsaleCat = d.c; S.scroll.onsale = $('#screen').scrollTop; render(); },
+  osstore: (d) => { S.onsaleStore = d.c; S.scroll.onsale = $('#screen').scrollTop; render(); },
+  addFridge: (d) => { const u = U(); if (!u.pantry.includes(d.key)) u.pantry.push(d.key); if (!S.user) S.user = u; S.q = ''; saveAll(); S.scroll[S.screen] = $('#screen').scrollTop; render(); toast(`${BOOK[d.key].n} added to your fridge`); },
+  removeFridge: (d) => { const u = U(); u.pantry = u.pantry.filter(k => k !== d.key); if (!S.user) S.user = u; saveAll(); S.scroll[S.screen] = $('#screen').scrollTop; render(); },
+  addMissing: (d) => { const r = R(+d.id); const st = status(r); st.missing.forEach(k => { const amt = r.ing.find(i => i[0] === k)[1]; addToList(k, amt, 1); }); saveAll(); go('list'); toast(`Added ${st.missing.length} items for ${r.name}`); },
+  toggleDone: (d) => { const it = S.list.find(i => i.key === d.key && i.sid === d.sid); if (it) it.done = !it.done; saveAll(); S.scroll.list = $('#screen').scrollTop; render(); },
+  removeItem: (d) => { S.list = S.list.filter(i => !(i.key === d.key && i.sid === d.sid)); saveAll(); S.scroll.list = $('#screen').scrollTop; render(); },
+  moveAll: (d) => { S.list.forEach(i => { i.sid = d.sid; }); saveAll(); S.scroll.list = 0; render(); toast(`List moved to ${STORE(d.sid).name}`); },
+  toast: (d) => toast(d.msg),
+  shutter: () => { S.cam = 1; render(); setTimeout(() => { if (S.screen === 'camera') { S.cam = 2; render(); } }, 1400); },
+  camReset: () => { S.cam = 0; render(); },
+  camAdd: () => { addToList('cheddar', '400 g', 1); saveAll(); toast('Aged cheddar added to your list at Co-op'); },
+  pmHere: () => { addToList('cheddar', '400 g', 1); S.list.find(i => i.key === 'cheddar').sid = 'ss'; saveAll(); S.tillStore = 'ss'; go('till'); toast('Added to your Superstore list with the Co-op ad attached'); },
+  tillStore: (d) => { S.tillStore = d.sid; S.scroll.till = $('#screen').scrollTop; render(); },
+  tillTick: (d) => { S.matched[d.key] = !S.matched[d.key]; S.scroll.till = $('#screen').scrollTop; render(); },
+  tillDone: (d) => { Object.keys(S.matched).forEach(k => { const it = S.list.find(i => i.key === k); if (it) it.done = true; }); S.matched = {}; saveAll(); go('list'); toast(`Price matched · saved ${money(+d.save)}`); },
+  toggleAlerts: () => { const u = U(); u.alerts = !u.alerts; if (!S.user) S.user = u; saveAll(); S.scroll.profile = $('#screen').scrollTop; render(); },
+  doImport: () => { if (!S.importUrl.trim()) { toast('Paste a link first'); return; } S.importResult = 28; S.scroll.import = $('#screen').scrollTop; render(); },
+  saveImport: (d) => { const u = U(); u.imported = u.imported || []; if (!u.imported.includes(+d.id)) u.imported.push(+d.id); if (!u.favorites.includes(+d.id)) u.favorites.push(+d.id); if (!S.user) S.user = u; saveAll(); toast('Saved to imported recipes'); },
+  noop: () => {},
+  obNext: () => { const o = S.ob; if (o.step === 0) { o.name = ($('#obname') || { value: '' }).value.trim(); }
+    if (o.step < 4) { o.step++; render(); return; }
+    S.user = Object.assign({}, DEFAULT_USER, { name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice() }); saveAll(); go('home'); },
+  obBack: () => { if (S.ob.step > 0) { S.ob.step--; render(); } },
+  obHouse: (d) => { S.ob.household = +d.n; render(); },
+  obDiet: (d) => { const a = S.ob.diets; const i = a.indexOf(d.d); if (i >= 0) a.splice(i, 1); else a.push(d.d); render(); },
+  obCuisine: (d) => { const a = S.ob.cuisines; const i = a.indexOf(d.c); if (i >= 0) a.splice(i, 1); else a.push(d.c); render(); },
+  obPantry: (d) => { const a = S.ob.pantry; const i = a.indexOf(d.key); if (i >= 0) a.splice(i, 1); else a.push(d.key); render(); }
+};
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act]'); if (!el) return;
+  if (el.tagName === 'A' && el.getAttribute('href') === '#') ev.preventDefault();
+  const fn = ACT[el.dataset.act]; if (fn) fn(el.dataset, ev);
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Enter' && ev.target.matches('[role="button"][data-act]')) ev.target.click(); if (ev.key === 'Enter' && ev.target.id === 'obname') ACT.obNext(); if (ev.key === 'Enter' && ev.target.id === 'importurl') ACT.doImport();
+  if (ev.key === 'Enter' && ev.target.id === 'fridgeadd') { const v = ev.target.value.trim().toLowerCase(); const k = Object.keys(BOOK).find(x => BOOK[x].n.toLowerCase().startsWith(v)); if (k) ACT.addFridge({ key: k }); else toast('Not in this week’s price book yet'); } });
+document.addEventListener('change', ev => {
+  const inp = ev.target; if (!inp.dataset || !inp.dataset.clip || !inp.files || !inp.files[0]) return;
+  const f = inp.files[0]; const rd = new FileReader();
+  rd.onload = () => { (S.clips[inp.dataset.clip] = S.clips[inp.dataset.clip] || []).push({ src: rd.result, name: f.name.replace(/\.[a-z]+$/i, '') }); S.scroll.till = $('#screen').scrollTop; render(); toast('Screenshot attached to this item'); };
+  rd.readAsDataURL(f);
+});
+document.addEventListener('input', ev => {
+  if (ev.target.id === 'fridgeq') { S.q = ev.target.value; const box = $('#screen'); const top = box.scrollTop; const wrap = ev.target.closest('.pad'); const old = wrap.querySelector('.sresults'); if (old) old.remove(); wrap.insertAdjacentHTML('beforeend', searchResults()); box.scrollTop = top; }
+  if (ev.target.id === 'importurl') S.importUrl = ev.target.value;
+  if (ev.target.id === 'listq') { S.lq = ev.target.value; const box = $('#screen'); const top = box.scrollTop; render(); box.scrollTop = top; const el = $('#listq'); if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }
+  if (ev.target.id === 'radius') { const u = U(); u.radiusKm = +ev.target.value; if (!S.user) S.user = u; saveAll(); S.scroll.profile = $('#screen').scrollTop; render(); }
+});
+/* ---------- 2026-10-26 additions: 30 more recipes, skill levels, cook level ---------- */
+Object.assign(IMG.recipes, {
+  'chana-masala': 'hf_20261026_063209_78c472d4-22f6-4ef8-a8a2-2d22abd39918.png', 'chicken-tikka-masala': 'hf_20261026_063210_59806f1d-638c-4743-80d1-b4f5850824a6.png',
+  'palak-paneer': 'hf_20261026_063208_57631abf-ef62-421e-9434-7796a2ffcab2.png', 'dal-tadka': 'hf_20261026_063209_73d93faa-a82d-4c6c-a0d9-d3db4f645168.png',
+  'aloo-gobi': 'hf_20261026_063211_d8492e6d-f2b2-4eea-b69b-2298e421595c.png', 'keema-matar': 'hf_20261026_063210_cbde6fd3-e97e-4d77-a6f6-b959184b15b0.png',
+  'pad-see-ew': 'hf_20261026_063209_a4ef5d0d-9dbb-42a4-be01-c04f96a39414.png', 'tom-yum': 'hf_20261026_063210_9bfd1d63-b03b-48fe-bf39-c4e725ead9d6.png',
+  'thai-basil-chicken': 'hf_20261026_063209_bab1525a-6a4c-4d22-9ea0-32403922a4e5.png', 'massaman-beef': 'hf_20261026_063208_6deb20c7-1a67-4e9e-9846-31971b70814c.png',
+  'peanut-noodle-salad': 'hf_20261026_063209_9d2403da-b949-40de-89d3-d67e83a6749f.png', 'chicken-larb': 'hf_20261026_063209_213cd88f-480e-40fb-aeca-765bcd23e557.png',
+  'chicken-enchiladas': 'hf_20261026_063227_461b426f-1249-40b8-83b1-f99f06c8dab8.png', 'carnitas-tacos': 'hf_20261026_063229_41121524-b11c-45c2-9b09-2aa210d83584.png',
+  'tortilla-soup': 'hf_20261026_063228_d39ebc21-69cd-42aa-bbd0-c7d2a55e4234.png', 'huevos-rancheros': 'hf_20261026_063228_444b6430-89da-4d46-9118-94cd57a1e11a.png',
+  'shrimp-fajitas': 'hf_20261026_063227_22f146ad-74c1-46dc-af55-78cb364e19c3.png', 'bean-cheese-burritos': 'hf_20261026_063229_7f68f2e0-9768-4090-b930-89b7fceba14a.png',
+  'chicken-parmesan': 'hf_20261026_063227_5563a429-1ab3-4fd5-8b58-d35e43b1eabc.png', 'pesto-pasta': 'hf_20261026_063229_7d0becde-6432-4f10-a44a-2a40776a50aa.png',
+  'minestrone': 'hf_20261026_063227_fa57f092-b9b3-4d73-9219-91655625b3a9.png', 'lasagna': 'hf_20261026_063228_d74764cd-3ba0-468f-bb7e-15eec79de650.png',
+  'cacio-e-pepe': 'hf_20261026_063227_88f6beda-ec50-4df6-8f1d-091a4c20e157.png', 'sausage-peppers-pasta': 'hf_20261026_063228_f202d6c2-ec22-4e07-a2c9-3c85e238ec2f.png',
+  'sheetpan-sausages': 'hf_20261026_063236_39f199e8-945e-4e48-87e9-f1c135ef9cf9.png', 'honey-garlic-salmon': 'hf_20261026_063237_4d935690-8500-4caa-91b9-b4aa1026b207.png',
+  'burgers-fries': 'hf_20261026_063237_26e392be-22ba-4648-95ca-20fd39db1a25.png', 'steak-bites': 'hf_20261026_063237_f4f4c77e-a910-4a75-a885-cc72162a33a1.png',
+  'veg-omelette': 'hf_20261026_063237_e57a5257-be21-483a-bd17-d97fc665c076.png', 'loaded-potatoes': 'hf_20261026_063237_39e5edc9-a05e-40f4-a517-dcdd051a4b5a.png'
+});
+Object.assign(BOOK, {
+  'chickpeas': { n: 'Chickpeas', p: 1.29, r: 'No Frills', sid: 'nf' }, 'paneer': { n: 'Paneer', p: 6.99, r: 'Superstore', sid: 'ss', ca: true },
+  'lentils': { n: 'Yellow lentils', p: 2.49, r: 'Walmart', sid: 'wm' }, 'cauliflower': { n: 'Cauliflower', p: 3.49, r: 'Co-op', sid: 'co' },
+  'spinach': { n: 'Spinach', p: 2.99, r: 'Co-op', sid: 'co' }, 'sausages': { n: 'Italian sausages', p: 5.99, r: 'Superstore', sid: 'ss', ca: true },
+  'honey': { n: 'Honey', p: 5.99, r: 'Co-op', sid: 'co', ca: true }, 'black-beans': { n: 'Black beans', p: 1.29, r: 'No Frills', sid: 'nf' },
+  'ricotta': { n: 'Ricotta', p: 4.49, r: 'Safeway', sid: 'sw' }, 'pesto': { n: 'Basil pesto', p: 3.99, r: 'Safeway', sid: 'sw' },
+  'burger-buns': { n: 'Burger buns', p: 2.99, r: 'Superstore', sid: 'ss' }, 'zucchini': { n: 'Zucchini', p: 1.49, r: 'Co-op', sid: 'co' },
+  'yogurt': { n: 'Plain yogurt', p: 3.49, r: 'Superstore', sid: 'ss', ca: true }, 'peanut-butter': { n: 'Peanut butter', p: 4.49, r: 'Walmart', sid: 'wm' },
+  'lemongrass': { n: 'Lemongrass', p: 1.99, r: 'Co-op', sid: 'co' }, 'mint': { n: 'Fresh mint', p: 1.99, r: 'Safeway', sid: 'sw' },
+  'chicken-breast': { n: 'Chicken breast', p: 5.99, u: '/lb', r: 'Superstore', sid: 'ss', ca: true }, 'pork-shoulder': { n: 'Pork shoulder', p: 3.49, u: '/lb', r: 'Superstore', sid: 'ss', ca: true },
+  'enchilada-sauce': { n: 'Enchilada sauce', p: 2.49, r: 'Walmart', sid: 'wm' }, 'steak': { n: 'Sirloin steak', p: 11.99, u: '/lb', r: 'Safeway', sid: 'sw', ca: true },
+  'chives': { n: 'Chives', p: 1.49, r: 'Co-op', sid: 'co' }, 'sesame-seeds': { n: 'Sesame seeds', p: 2.29, r: 'Walmart', sid: 'wm' }
+});
+FRIDGE_CATS['Produce'].push('cauliflower', 'spinach', 'zucchini', 'lemongrass', 'mint', 'chives');
+FRIDGE_CATS['Meat & fish'].push('sausages', 'chicken-breast', 'pork-shoulder', 'steak');
+FRIDGE_CATS['Pantry & frozen'].push('chickpeas', 'lentils', 'black-beans', 'honey', 'pesto', 'peanut-butter', 'enchilada-sauce', 'sesame-seeds');
+FRIDGE_CATS['Dairy & eggs'].push('paneer', 'ricotta', 'yogurt');
+FRIDGE_CATS['Bakery'].push('burger-buns');
+
+/* skill levels: Easy (1) · Medium (2) · Confident (3) — and what each recipe teaches */
+const LEVEL = { Easy: 1, Medium: 2, Confident: 3 };
+const TEACH = { 1: ['roasting a sheet pan', 'crisping chicken skin'], 2: ['slicing against the grain', 'velveting with cornstarch'], 3: ['building a soup base', 'blending for body'], 4: ['searing skin-side down'], 5: ['one-pot rice', 'resting a dish'], 6: ['a soffritto', 'a slow tomato sauce'], 7: ['toasting spices', 'finishing with cream'], 8: ['pan-roasting pork', 'deglazing'], 9: ['poaching eggs in sauce'], 10: ['frying curry paste', 'balancing a curry'], 11: ['a quick pico', 'warming tortillas'], 12: ['cooking shrimp just right', 'using pasta water'], 13: ['grilling chicken', 'dressing a salad'], 14: ['a hot wok', 'using day-old rice'], 15: ['browning ground beef', 'a long simmer'], 16: ['stretching dough', 'a very hot oven'], 17: ['a quick marinade', 'a fried egg'], 18: ['toasting rice', 'adding stock slowly'], 19: ['low and slow grilled cheese'], 20: ['crisping a tortilla'], 21: ['a roux', 'a cheese sauce'], 22: ['a meat sauce', 'baking pasta'], 23: ['roasting a whole bird', 'resting meat'], 24: ['mashed potatoes', 'a gravy base'], 25: ['soaking rice noodles', 'stir-fry timing'], 26: ['skewering and grilling'], 27: ['pancake batter', 'knowing when to flip'], 28: ['charring aromatics', 'a clear broth'] };
+RECIPES.forEach(r => { r.teaches = TEACH[r.id] || []; });
+R(18).diff = 'Confident'; R(28).diff = 'Confident'; R(23).diff = 'Medium';
+
+const MORE = [
+  [29, 'Chana Masala', 'chana-masala', 'Indian', 'Dinner', 30, 4, 'Easy', ['Vegetarian', 'Weeknight'], 6.4, 2.2, [16, 58, 10, 14], [['chickpeas', '2 cans'], ['diced-tomatoes', '1 can'], ['onion', '1'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['garam-masala', '2 tsp'], ['cilantro', 'handful'], ['rice', '1½ cups']], ['Soften onion, garlic and ginger, add the spices and fry a minute.', 'Add tomatoes and chickpeas and simmer 15 minutes, crushing a few beans.', 'Finish with cilantro and lime over rice.'], ['blooming spices']],
+  [30, 'Chicken Tikka Masala', 'chicken-tikka-masala', 'Indian', 'Dinner', 50, 4, 'Medium', ['Family'], 15.9, 3.1, [38, 40, 24, 3], [['chicken-thighs', '1½ lb'], ['yogurt', '½ cup'], ['diced-tomatoes', '1 can'], ['cream', '½ cup'], ['onion', '1'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['garam-masala', '1 tbsp'], ['naan', '4'], ['rice', '1½ cups']], ['Marinate the chicken in yogurt, garlic and spices for 20 minutes, then char under the broiler.', 'Make the sauce: onion, ginger, spices, tomatoes, then cream.', 'Fold in the chicken and serve with naan and rice.'], ['a yogurt marinade', 'broiling for char']],
+  [31, 'Palak Paneer', 'palak-paneer', 'Indian', 'Dinner', 35, 4, 'Medium', ['Vegetarian'], 13.2, 0.8, [20, 18, 26, 6], [['spinach', '450 g'], ['paneer', '300 g'], ['onion', '1'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['cream', '¼ cup'], ['cumin', '1 tsp'], ['naan', '4']], ['Blanch and blend the spinach.', 'Fry the paneer cubes golden and set aside; cook the onion, garlic, ginger and cumin.', 'Add the spinach purée and cream, return the paneer, simmer five minutes.'], ['blanching greens', 'frying paneer']],
+  [32, 'Dal Tadka', 'dal-tadka', 'Indian', 'Dinner', 40, 4, 'Easy', ['Vegetarian', 'Kids'], 4.9, 1.1, [18, 54, 8, 12], [['lentils', '1½ cups'], ['onion', '1'], ['garlic', '4 cloves'], ['cumin', '1 tsp'], ['chili', '1'], ['butter', '2 tbsp'], ['rice', '1½ cups'], ['cilantro', 'handful']], ['Simmer the lentils with turmeric until soft, about 25 minutes.', 'Sizzle cumin, garlic and chili in butter for the tadka.', 'Pour the tadka over the dal, scatter cilantro, serve with rice.'], ['a tadka (tempered spices)']],
+  [33, 'Aloo Gobi', 'aloo-gobi', 'Indian', 'Dinner', 35, 4, 'Easy', ['Vegetarian', 'Weeknight'], 6.1, 2.6, [8, 46, 10, 8], [['cauliflower', '1 head'], ['potatoes', '3'], ['peas', '1 cup'], ['onion', '1'], ['garlic', '2 cloves'], ['ginger', '1 tbsp'], ['cumin', '1 tsp'], ['cilantro', 'handful']], ['Par-cook the potatoes. Fry cumin, onion, garlic and ginger.', 'Add cauliflower and potatoes with turmeric and a splash of water; cover 12 minutes.', 'Add peas for the last three minutes and finish with cilantro.'], ['steam-frying vegetables']],
+  [34, 'Keema Matar', 'keema-matar', 'Indian', 'Dinner', 35, 4, 'Easy', ['Family', 'Weeknight'], 10.4, 2.9, [28, 30, 18, 6], [['ground-beef', '1 lb'], ['peas', '1 cup'], ['onion', '1'], ['garlic', '3 cloves'], ['ginger', '1 tbsp'], ['diced-tomatoes', '1 cup'], ['garam-masala', '2 tsp'], ['naan', '4']], ['Brown the beef with onion, garlic and ginger.', 'Add spices and tomatoes, simmer 15 minutes.', 'Stir in peas, finish with lemon, serve with naan.'], ['spicing ground meat']],
+  [35, 'Pad See Ew', 'pad-see-ew', 'Thai', 'Dinner', 25, 4, 'Medium', ['Weeknight'], 11.8, 1.4, [30, 62, 14, 3], [['rice-noodles', '350 g wide'], ['chicken-thighs', '1 lb'], ['broccoli', '1 crown'], ['eggs', '2'], ['soy-sauce', '3 tbsp'], ['brown-sugar', '1 tbsp'], ['garlic', '3 cloves']], ['Soak the noodles. Sear the chicken in a very hot pan with garlic.', 'Push aside, scramble the eggs, add broccoli and noodles.', 'Add soy and sugar and let the noodles char slightly before tossing.'], ['charring noodles', 'cooking in batches']],
+  [36, 'Tom Yum Shrimp Soup', 'tom-yum', 'Thai', 'Dinner', 25, 4, 'Easy', ['Weeknight', 'Pescatarian'], 13.6, 2.4, [22, 10, 6, 2], [['shrimp', '340 g'], ['mushrooms', '200 g'], ['lemongrass', '2 stalks'], ['lime', '2'], ['chili', '2'], ['fish-sauce', '2 tbsp'], ['chicken-broth', '5 cups'], ['cilantro', 'handful']], ['Simmer the broth with bruised lemongrass and chili for 10 minutes.', 'Add mushrooms, then shrimp for the last three minutes.', 'Season off the heat with fish sauce and lime; add cilantro.'], ['infusing a broth', 'seasoning with lime and fish sauce']],
+  [37, 'Thai Basil Chicken', 'thai-basil-chicken', 'Thai', 'Dinner', 20, 4, 'Easy', ['Weeknight'], 10.2, 2.0, [34, 50, 16, 2], [['chicken-thighs', '1 lb'], ['basil', '2 handfuls'], ['garlic', '4 cloves'], ['chili', '2'], ['soy-sauce', '2 tbsp'], ['fish-sauce', '1 tbsp'], ['eggs', '4'], ['rice', '1½ cups']], ['Chop the chicken small. Fry garlic and chili in a hot pan.', 'Add chicken and cook hard until browned; add the sauces.', 'Toss in the basil off the heat and top each bowl with a crispy fried egg.'], ['a crispy fried egg', 'high-heat stir-frying']],
+  [38, 'Massaman Beef Curry', 'massaman-beef', 'Thai', 'Dinner', 90, 6, 'Confident', ['Family'], 19.4, 1.5, [32, 40, 26, 4], [['flank-steak', '1½ lb'], ['potatoes', '3'], ['coconut-milk', '2 cans'], ['curry-paste', '3 tbsp'], ['onion', '1'], ['peanuts', '⅓ cup'], ['fish-sauce', '1 tbsp'], ['brown-sugar', '1 tbsp'], ['rice', '2 cups']], ['Fry the paste in thick coconut cream until the oil splits.', 'Add beef, coconut milk and onion; simmer gently for an hour.', 'Add potatoes for the last 25 minutes; finish with peanuts, sugar and fish sauce.'], ['splitting coconut cream', 'a slow braise']],
+  [39, 'Thai Peanut Noodle Salad', 'peanut-noodle-salad', 'Thai', 'Lunch', 20, 4, 'Easy', ['Vegetarian', 'Weeknight'], 7.3, 1.6, [14, 60, 18, 5], [['rice-noodles', '250 g'], ['peanut-butter', '3 tbsp'], ['lime', '2'], ['soy-sauce', '2 tbsp'], ['carrots', '2'], ['cucumber', '1'], ['peppers', '1'], ['peanuts', '¼ cup'], ['cilantro', 'handful']], ['Soak the noodles and rinse cold.', 'Whisk peanut butter, lime, soy and a little warm water into a dressing.', 'Toss with ribboned vegetables, peanuts and cilantro.'], ['a no-cook dressing']],
+  [40, 'Chicken Larb Lettuce Wraps', 'chicken-larb', 'Thai', 'Dinner', 25, 4, 'Easy', ['Weeknight'], 9.8, 1.2, [30, 12, 10, 3], [['chicken-thighs', '1 lb'], ['romaine', '1 head'], ['lime', '3'], ['fish-sauce', '2 tbsp'], ['mint', 'handful'], ['cilantro', 'handful'], ['onion', '½ red'], ['chili', '1']], ['Chop the chicken finely and cook it dry in a hot pan.', 'Dress off the heat with lime, fish sauce, chili and sliced onion.', 'Fold through the herbs and pile into lettuce leaves.'], ['hand-chopping meat', 'dressing warm food']],
+  [41, 'Chicken Enchiladas', 'chicken-enchiladas', 'Mexican', 'Dinner', 50, 4, 'Medium', ['Family'], 14.6, 3.2, [34, 44, 22, 5], [['chicken-thighs', '1 lb'], ['tortillas', '8'], ['enchilada-sauce', '1 can'], ['cheddar', '200 g'], ['onion', '1'], ['sour-cream', 'to serve'], ['cilantro', 'handful']], ['Cook and shred the chicken with onion.', 'Fill and roll the tortillas, pack them into a dish, pour over the sauce.', 'Top with cheddar and bake at 400°F for 20 minutes.'], ['rolling enchiladas']],
+  [42, 'Pork Carnitas Tacos', 'carnitas-tacos', 'Mexican', 'Dinner', 150, 6, 'Confident', ['Family'], 15.2, 2.0, [30, 28, 20, 3], [['pork-shoulder', '3 lb'], ['tortillas', '18'], ['onion', '2'], ['garlic', '5 cloves'], ['lime', '3'], ['cilantro', 'handful'], ['cumin', '1 tbsp']], ['Cube the pork and braise it with onion, garlic, cumin and a little water for two hours.', 'Shred, then crisp under the broiler.', 'Serve on warm tortillas with onion, cilantro and lime.'], ['a long braise', 'crisping shredded meat']],
+  [43, 'Chicken Tortilla Soup', 'tortilla-soup', 'Mexican', 'Dinner', 40, 4, 'Easy', ['Weeknight', 'Kids'], 11.1, 2.8, [30, 32, 14, 7], [['chicken-thighs', '1 lb'], ['diced-tomatoes', '1 can'], ['chicken-broth', '4 cups'], ['black-beans', '1 can'], ['tortillas', '4'], ['avocado', '1'], ['cheddar', '80 g'], ['lime', '1']], ['Simmer the chicken in broth with tomatoes and cumin; shred it.', 'Add beans and warm through.', 'Top with crisped tortilla strips, avocado, cheddar and lime.'], ['crisping tortilla strips']],
+  [44, 'Huevos Rancheros', 'huevos-rancheros', 'Mexican', 'Breakfast', 20, 2, 'Easy', ['Vegetarian', 'Weeknight'], 5.6, 1.4, [20, 36, 20, 8], [['eggs', '4'], ['tortillas', '4'], ['diced-tomatoes', '1 cup'], ['black-beans', '1 can'], ['avocado', '1'], ['onion', '½'], ['cilantro', 'handful']], ['Simmer tomatoes with onion for a quick ranchero sauce; warm the beans.', 'Fry the eggs sunny side up.', 'Stack tortilla, beans, egg, sauce and avocado.'], ['frying eggs gently']],
+  [45, 'Shrimp Fajitas', 'shrimp-fajitas', 'Mexican', 'Dinner', 25, 4, 'Easy', ['Weeknight', 'Pescatarian'], 15.3, 2.9, [28, 36, 12, 4], [['shrimp', '450 g'], ['peppers', '3'], ['onion', '1'], ['tortillas', '8'], ['lime', '2'], ['chili-powder', '2 tsp'], ['sour-cream', 'to serve']], ['Char the peppers and onion in a very hot skillet.', 'Add the shrimp with chili powder; two minutes a side.', 'Squeeze lime over and serve sizzling with tortillas.'], ['charring vegetables']],
+  [46, 'Black Bean and Cheese Burritos', 'bean-cheese-burritos', 'Mexican', 'Dinner', 25, 4, 'Easy', ['Vegetarian', 'Kids', 'Weeknight'], 7.9, 2.1, [20, 62, 16, 12], [['black-beans', '2 cans'], ['tortillas', '4 large'], ['rice', '1 cup'], ['cheddar', '200 g'], ['salsa', '½ cup'], ['sour-cream', 'to serve']], ['Cook the rice; warm the beans with a spoon of salsa.', 'Fill tortillas with rice, beans and cheddar; roll tightly.', 'Toast seam-side down in a dry pan until golden.'], ['rolling a burrito']],
+  [47, 'Chicken Parmesan', 'chicken-parmesan', 'Italian', 'Dinner', 45, 4, 'Medium', ['Family', 'Kids'], 14.8, 2.6, [42, 50, 20, 4], [['chicken-breast', '4'], ['breadcrumbs', '1 cup'], ['eggs', '2'], ['diced-tomatoes', '1 can'], ['mozzarella', '200 g'], ['parmesan', '40 g'], ['pasta', '350 g'], ['basil', 'handful']], ['Flatten, dredge and pan-fry the cutlets until golden.', 'Top with sauce and cheese; broil until bubbling.', 'Serve over spaghetti with basil.'], ['breading and shallow frying']],
+  [48, 'Pesto Pasta With Green Beans and Potatoes', 'pesto-pasta', 'Italian', 'Dinner', 25, 4, 'Easy', ['Vegetarian', 'Weeknight'], 8.2, 1.9, [14, 70, 18, 6], [['pasta', '400 g'], ['pesto', '1 jar'], ['green-beans', '200 g'], ['potatoes', '2'], ['parmesan', '40 g']], ['Boil the potatoes in the pasta water, adding the pasta, then the beans.', 'Drain, keeping a cup of water.', 'Toss with pesto and a splash of water; finish with parmesan.'], ['cooking everything in one pot']],
+  [49, 'Minestrone', 'minestrone', 'Italian', 'Dinner', 45, 6, 'Easy', ['Vegetarian', 'Kids'], 7.6, 2.4, [12, 46, 6, 10], [['white-beans', '1 can'], ['diced-tomatoes', '1 can'], ['carrots', '2'], ['zucchini', '1'], ['onion', '1'], ['garlic', '2 cloves'], ['pasta', '1 cup small'], ['veg-broth', '5 cups'], ['parmesan', 'to serve']], ['Soften onion, carrot and garlic.', 'Add broth, tomatoes and beans; simmer 20 minutes.', 'Add zucchini and pasta for the last 10; finish with parmesan.'], ['a vegetable soup base']],
+  [50, 'Lasagna', 'lasagna', 'Italian', 'Dinner', 100, 8, 'Confident', ['Family'], 19.6, 4.8, [32, 44, 22, 4], [['ground-beef', '1 lb'], ['pasta', '12 lasagna sheets'], ['diced-tomatoes', '2 cans'], ['ricotta', '450 g'], ['mozzarella', '300 g'], ['parmesan', '60 g'], ['onion', '1'], ['garlic', '3 cloves'], ['eggs', '1'], ['basil', 'handful']], ['Make a meat sauce and let it simmer for 30 minutes.', 'Mix ricotta with an egg and parmesan. Layer sauce, sheets, ricotta and mozzarella three times.', 'Bake covered for 40 minutes, then uncovered for 15. Rest before cutting.'], ['layering a bake', 'resting before cutting']],
+  [51, 'Cacio e Pepe', 'cacio-e-pepe', 'Italian', 'Dinner', 15, 2, 'Easy', ['Vegetarian', 'Weeknight'], 4.6, 1.5, [18, 70, 16, 3], [['pasta', '200 g'], ['parmesan', '80 g'], ['butter', '2 tbsp'], ['chili-flakes', 'pinch']], ['Cook the pasta; toast cracked pepper in butter.', 'Add pasta and a ladle of water to the pan off the heat.', 'Add the cheese and toss hard until creamy.'], ['emulsifying a pasta sauce']],
+  [52, 'Sausage and Peppers Rigatoni', 'sausage-peppers-pasta', 'Italian', 'Dinner', 35, 4, 'Easy', ['Family', 'Weeknight'], 12.7, 2.4, [26, 58, 22, 5], [['sausages', '4'], ['peppers', '2'], ['onion', '1'], ['garlic', '3 cloves'], ['diced-tomatoes', '1 can'], ['pasta', '400 g'], ['parmesan', 'to serve']], ['Brown the sliced sausages; cook peppers and onion in the fat.', 'Add garlic and tomatoes; simmer 15 minutes.', 'Toss with rigatoni and parmesan.'], ['rendering sausage']],
+  [53, 'Sheet-Pan Sausages With Potatoes and Peppers', 'sheetpan-sausages', 'Weeknight', 'Dinner', 40, 4, 'Easy', ['Family', 'Weeknight', 'Kids'], 11.3, 2.5, [26, 36, 24, 5], [['sausages', '6'], ['potatoes', '4'], ['peppers', '2'], ['onion', '1 red'], ['olive-oil', '2 tbsp'], ['rosemary', '2 sprigs']], ['Toss potatoes, peppers and onion with oil and rosemary on a sheet pan.', 'Nestle the sausages on top. Roast at 425°F for 35 minutes, turning once.', 'Serve straight from the pan.'], ['roasting a sheet pan']],
+  [54, 'Honey Garlic Salmon With Broccoli', 'honey-garlic-salmon', 'Weeknight', 'Dinner', 25, 4, 'Easy', ['Weeknight', 'Pescatarian', 'Kids'], 16.4, 5.0, [34, 44, 16, 4], [['salmon', '1 lb'], ['broccoli', '2 crowns'], ['honey', '2 tbsp'], ['soy-sauce', '2 tbsp'], ['garlic', '3 cloves'], ['rice', '1½ cups'], ['sesame-seeds', '1 tsp']], ['Steam the broccoli; cook the rice.', 'Sear the salmon, then glaze with honey, soy and garlic for the last two minutes.', 'Serve over rice with sesame seeds.'], ['glazing fish']],
+  [55, 'Burgers With Oven Fries', 'burgers-fries', 'Weeknight', 'Dinner', 35, 4, 'Easy', ['Family', 'Kids'], 13.9, 3.6, [34, 48, 26, 4], [['ground-beef', '1 lb'], ['burger-buns', '4'], ['cheddar', '4 slices'], ['potatoes', '4'], ['romaine', 'leaves'], ['tomatoes', '1'], ['onion', '½']], ['Cut potatoes into fries, toss with oil and roast at 425°F for 30 minutes.', 'Shape four patties; season only on the outside; cook 4 minutes a side, cheese on at the end.', 'Toast the buns and build.'], ['shaping a patty', 'oven fries']],
+  [56, 'Garlic Butter Steak Bites With Green Beans', 'steak-bites', 'Weeknight', 'Dinner', 20, 4, 'Medium', ['Weeknight'], 18.6, 1.2, [38, 12, 24, 4], [['steak', '1 lb'], ['green-beans', '300 g'], ['butter', '3 tbsp'], ['garlic', '4 cloves'], ['parsley', 'handful']], ['Cube the steak and dry it well. Sear in a smoking-hot pan in two batches.', 'Lower the heat; add butter, garlic and the beans.', 'Return the steak, toss, finish with parsley.'], ['a hard sear', 'cooking in batches']],
+  [57, 'Vegetable Omelette', 'veg-omelette', 'Breakfast', 'Breakfast', 15, 1, 'Easy', ['Vegetarian', 'Kids', 'Weeknight'], 3.2, 0.9, [22, 8, 20, 2], [['eggs', '3'], ['peppers', '½'], ['mushrooms', '4'], ['cheddar', '40 g'], ['butter', '1 tbsp']], ['Cook the pepper and mushrooms in butter.', 'Pour in the beaten eggs, pull the edges in as they set.', 'Add cheddar, fold, slide onto the plate.'], ['folding an omelette']],
+  [58, 'Loaded Baked Potatoes', 'loaded-potatoes', 'Weeknight', 'Dinner', 60, 4, 'Easy', ['Vegetarian', 'Kids', 'Family'], 7.1, 2.8, [16, 52, 14, 7], [['potatoes', '4 large'], ['broccoli', '1 crown'], ['cheddar', '150 g'], ['sour-cream', '½ cup'], ['chives', 'handful'], ['butter', '2 tbsp']], ['Bake the potatoes at 400°F for 55 minutes until the skins crackle.', 'Steam the broccoli.', 'Split, fluff with butter, pile on broccoli, cheddar, sour cream and chives.'], ['baking a potato properly']]
+];
+MORE.forEach(([id, name, img, cuisine, meal, time, serv, diff, tags, total, save, macros, ing, steps, teaches]) =>
+  RECIPES.push({ id, name, img: RIMG(img), cuisine, meal, time, serv, diff, tags, total, save, macros, ing, steps, teaches }));
+KIDS.push(46, 43, 57, 58, 53, 47);
+FAMILY.push(50, 42, 30, 41, 55, 38);
+/* cook level: points per recipe cooked, by skill level */
+const COOK_LEVELS = [{ name: 'Beginner', at: 0, next: 'Home cook' }, { name: 'Home cook', at: 5, next: 'Confident' }, { name: 'Confident', at: 14, next: null }];
+const cookPts = () => (U().cooked || []).reduce((a, id) => a + (LEVEL[(R(id) || {}).diff] || 1), 0);
+function cookLevel() {
+  const pts = cookPts(); let lvl = COOK_LEVELS[0];
+  COOK_LEVELS.forEach(l => { if (pts >= l.at) lvl = l; });
+  const nxt = COOK_LEVELS[COOK_LEVELS.indexOf(lvl) + 1];
+  return { name: lvl.name, pts, next: nxt ? nxt.name : null, need: nxt ? nxt.at - pts : 0, pct: nxt ? Math.round((pts - lvl.at) / (nxt.at - lvl.at) * 100) : 100, cooked: (U().cooked || []).length };
+}
+/* the row that meets the cook where they are */
+function stepRow() {
+  const lv = cookLevel();
+  if (lv.name === 'Beginner') return { eyebrow: 'Start here', title: 'Five ingredients, half an hour', dek: 'Short lists and forgiving methods. Cook three and your level moves up.', cls: 'band-start', list: RECIPES.filter(r => r.diff === 'Easy' && r.ing.length <= 7 && r.time <= 30) };
+  if (lv.name === 'Home cook') return { eyebrow: 'Your next step', title: 'One new technique each', dek: 'Medium recipes that teach a skill you have not used yet.', cls: 'band-start', list: RECIPES.filter(r => r.diff === 'Medium') };
+  return { eyebrow: 'Weekend projects', title: 'Worth the afternoon', dek: 'Braises and bakes for a confident cook.', cls: 'band-start', list: RECIPES.filter(r => r.diff === 'Confident') };
+}
+const lvlHTML = r => `<span class="lvl l${LEVEL[r.diff] || 1}">${r.diff}</span>`;
+
+/* ---------- Trending: real external recipes, from Google Trends (Sept–Oct 2026 volumes) and TikTok ---------- */
+Object.assign(IMG.recipes, {
+  'seafood-boil': 'hf_20261026_063920_32b107b2-ef6d-4a50-9112-77cfc59d53a6.png', 'slow-cooker-thighs': 'hf_20261026_063921_5ca0566a-3cb0-4a60-94e9-06009c52c316.png',
+  'green-spaghetti': 'hf_20261026_063920_05828e50-b2dc-4ce8-81da-871c74da3c68.png', 'burger-bowl': 'hf_20261026_063920_0e79dbe8-eae5-4616-a815-4877653b1a13.png',
+  'baked-feta-pasta': 'hf_20261026_063921_73fa992f-b803-4501-9613-1e3b671f369c.png', 'smashed-potatoes': 'hf_20261026_063922_4267c390-773e-45f1-a08e-47dc8b12b514.png',
+  'pumpkin-loaf': 'hf_20261026_063921_c6b75223-d124-4360-8f97-9d8672b09dc4.png', 'birria-tacos': 'hf_20261026_063920_fab39683-ad5c-4314-82ea-be7ebc4dc1e4.png'
+});
+Object.assign(BOOK, { 'beef-chuck': { n: 'Beef chuck roast', p: 6.99, u: '/lb', r: 'Superstore', sid: 'ss', ca: true }, 'pumpkin-puree': { n: 'Pumpkin purée', p: 2.49, r: 'No Frills', sid: 'nf' } });
+const TRENDING = [
+  { name: 'Seafood Boil', img: RIMG('seafood-boil'), url: 'https://www.skinnytaste.com/seafood-boil', source: 'Skinnytaste', why: 'Google Trends · 550,000 searches a month, up 22%', ing: ['shrimp', 'sausages', 'potatoes', 'butter', 'garlic', 'lemon'] },
+  { name: 'Slow Cooker Chicken Thighs', img: RIMG('slow-cooker-thighs'), url: 'https://www.yellowblissroad.com/slow-cooker-chicken-thighs/', source: 'Yellow Bliss Road', why: 'Google Trends · crock pot chicken, 246,000 searches', ing: ['chicken-thighs', 'garlic', 'honey', 'soy-sauce', 'rice'] },
+  { name: 'Espagueti Verde (Green Spaghetti)', img: RIMG('green-spaghetti'), url: 'https://www.tastingtable.com/2254881/creamy-green-spaghetti-recipe/', source: 'Tasting Table', why: 'Google Trends · up 50% this year', ing: ['pasta', 'peppers', 'cream', 'garlic', 'onion', 'cilantro'] },
+  { name: 'Burger Bowls', img: RIMG('burger-bowl'), url: 'https://houseofnasheats.com/burger-bowls/', source: 'House of Nash Eats', why: 'Google Trends · 33,000 searches a month', ing: ['ground-beef', 'romaine', 'tomatoes', 'cheddar', 'onion'] },
+  { name: 'Baked Feta Pasta', img: RIMG('baked-feta-pasta'), url: 'https://delallo.com/recipe/baked-feta-pasta', source: 'DeLallo', why: 'TikTok · back every fall, this year with cranberries', ing: ['feta', 'tomatoes', 'pasta', 'garlic', 'basil', 'olive-oil'] },
+  { name: 'Crispy Smashed Potatoes', img: RIMG('smashed-potatoes'), url: 'https://themediterraneandish.com/crispy-smashed-potatoes', source: 'The Mediterranean Dish', why: 'TikTok · the smashed-potato board', ing: ['potatoes', 'olive-oil', 'garlic', 'rosemary', 'sour-cream'] },
+  { name: 'Pumpkin Loaf', img: RIMG('pumpkin-loaf'), url: 'https://thesuburbansoapbox.com/best-pumpkin-loaf-recipe/', source: 'The Suburban Soapbox', why: 'Google Trends · 11× in three months', ing: ['pumpkin-puree', 'flour', 'eggs', 'butter', 'brown-sugar'] },
+  { name: 'Birria Tacos', img: RIMG('birria-tacos'), url: 'https://www.acozykitchen.com/birria-tacos', source: 'A Cozy Kitchen', why: 'Google Trends · 90,000 searches a month', ing: ['beef-chuck', 'tortillas', 'onion', 'garlic', 'cilantro', 'lime', 'mozzarella'] }
+];
+function tcard(t) {
+  const sale = t.ing.filter(k => SALE_KEYS.includes(k)).length; const have = t.ing.filter(k => inFridge(k)).length;
+  return `<a class="card tcard" href="${t.url}" target="_blank" rel="noopener">
+    <div class="ph"><img src="${t.img}" alt="${esc(t.name)}" loading="lazy"></div>
+    <div class="eyebrow acc" style="font-size:10px">${t.why}</div>
+    <h3 class="title-serif">${t.name}</h3>
+    <div class="src"><b>${t.source}</b> · Open recipe ↗</div>
+    <div class="statusline${sale ? ' ok' : ''}">${sale ? `${sale} ingredient${sale === 1 ? '' : 's'} on sale` : 'Priced locally'} · ${have} of ${t.ing.length} in your fridge</div>
+  </a>`;
+}
+/* ---------- colour switcher (prototype only) + boot ---------- */
+(function () {
+  const THEMES = [['', 'Current'], ['theme-a', 'A · Tints'], ['theme-b', 'B · Saffron'], ['theme-c', 'C · Both']];
+  let cur = LS.get('plateful_theme', '');
+  const bar = document.createElement('div'); bar.className = 'switch'; bar.innerHTML = 'Colour ' + THEMES.map(([c, l]) => `<button data-theme="${c}" class="${c === cur ? 'on' : ''}">${l}</button>`).join('');
+  document.body.appendChild(bar);
+  const apply = c => { document.body.classList.remove('theme-a', 'theme-b', 'theme-c'); if (c) document.body.classList.add(c); bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.theme === c)); };
+  apply(cur);
+  bar.addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; cur = b.dataset.theme; LS.set('plateful_theme', cur); apply(cur); });
+})();
+render();
+</script>
+</body>
+</html>

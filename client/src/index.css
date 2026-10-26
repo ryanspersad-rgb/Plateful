@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./editorial.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Plateful editorial market tokens (2026-10-26). Full system in editorial.css. */
+  --font-serif: "Lora", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+
+  --color-ground: #FFFFFF;
+  --color-paper: #FAF8F5;
+  --color-ink: #1A1511;
+  --color-text: #2B2521;
+  --color-muted-text: #6B625B;
+  --color-faint: #9A9087;
+  --color-hair: #E8E2DA;
+  --color-input-line: #D9D2C9;
+  --color-terracotta: #B4552E;
+  --color-terracotta-hover: #9A4525;
+  --color-terracotta-tint: #E8A07A;
+  --color-tint: #F7ECE5;
+  --color-stage: #F1EDE7;
+  /* legacy names kept so HomeLegacy.tsx still renders; map onto the editorial palette */
+  --color-cream: #FFFFFF;
+  --color-linen: #FAF8F5;
+  --color-warm: #E8E2DA;
+  --color-brick: #B4552E;
+  --color-terra: #B4552E;
+  --color-sage: #6B625B;
+  --color-sage-light: #F1EDE7;
+  --color-sage-dark: #2B2521;
+  --color-mustard: #B4552E;
+}
+
+:root {
+  --primary: #B4552E;
+  --primary-foreground: #FFFFFF;
+  --sidebar-primary: #1A1511;
+  --sidebar-primary-foreground: #FFFFFF;
+  --chart-1: #B4552E;
+  --chart-2: #1A1511;
+  --chart-3: #6B625B;
+  --chart-4: #E8A07A;
+  --chart-5: #D9D2C9;
+  --radius: 0.625rem;
+  --background: #FFFFFF;
+  --foreground: #2B2521;
+  --card: #FFFFFF;
+  --card-foreground: #2B2521;
+  --popover: #FFFFFF;
+  --popover-foreground: #2B2521;
+  --secondary: #FAF8F5;
+  --secondary-foreground: #1A1511;
+  --muted: #FAF8F5;
+  --muted-foreground: #6B625B;
+  --accent: #F7ECE5;
+  --accent-foreground: #1A1511;
+  --destructive: #B4552E;
+  --destructive-foreground: #FFFFFF;
+  --border: #E8E2DA;
+  --input: #D9D2C9;
+  --ring: #B4552E;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #2B2521;
+  --sidebar-accent: #F7ECE5;
+  --sidebar-accent-foreground: #1A1511;
+  --sidebar-border: #E8E2DA;
+  --sidebar-ring: #B4552E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-ground text-text font-sans antialiased;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 20px rgba(42, 31, 20, 0.06);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
