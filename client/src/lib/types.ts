@@ -160,7 +160,14 @@ export interface UserProfile {
   imported: number[];
   cooked?: number[];
   history?: number[];
+  /** Use-by dates per fridge key, ISO day. Staples carry none. */
+  expiry?: Record<string, string>;
+  /** Weekly grocery budget in dollars; unset until the shopper enters one. */
+  weeklyBudget?: number;
 }
+
+/** This week's dinners, recipe ids per day (Monday first). Persisted as plateful_mealplan. */
+export type WeekPlan = Record<'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday', number[]>;
 
 export interface RecipeStatus {
   missing: string[];
@@ -211,6 +218,7 @@ export type Screen =
   | 'history'
   | 'profile'
   | 'import'
+  | 'plan'
   // legacy screens (HomeLegacy.tsx)
   | 'deals'
   | 'pantry'

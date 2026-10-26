@@ -1,8 +1,11 @@
 // App state for the editorial screens. One store, persisted to localStorage under the same keys
 // the prototype and the legacy app use: plateful_onboarded, plateful_sale_selected, plateful_shoplist.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Clip, ListItem, Screen, StoreId, UserProfile } from '@/lib/types';
-import { BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx } from '@/lib/editorial';
+import type { Clip, ListItem, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
+import {
+  BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
+  DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
+} from '@/lib/editorial';
 
 export const DEFAULT_USER: UserProfile = {
   name: '', householdSize: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice(),
@@ -63,19 +66,39 @@ export interface State {
   matched: Record<string, boolean>;
   clips: Record<string, Clip[]>;
   toast: { msg: string; id: number } | null;
+  plan: WeekPlan;
+  planPick: Day | null;   // the day whose "Add a dinner" picker is open
+  planQ: string;          // search text in that picker
+  dayPick: boolean;       // the day chips under "Add to this week's plan" on Detail
 }
 
 const NO_HISTORY: Screen[] = ['splash', 'onboarding'];
 
+/** plateful_mealplan: { days: { Monday: [ids] … } }. The pre-redesign shape (an array of day objects with string ids) is dropped. */
+function loadPlan(): WeekPlan {
+  const raw = LS.get<unknown>('plateful_mealplan', null);
+  const base = emptyPlan();
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return base;
+  const days = (raw as { days?: Partial<Record<Day, unknown>> }).days;
+  if (!days) return base;
+  DAYS.forEach((d) => {
+    const v = days[d];
+    if (Array.isArray(v)) base[d] = v.filter((x): x is number => typeof x === 'number' && !!R(x));
+  });
+  return base;
+}
+
 function initial(): State {
+  const saved = LS.get<UserProfile | null>('plateful_onboarded', null);
   return {
     screen: 'splash', hist: [], detail: null,
-    user: LS.get<UserProfile | null>('plateful_onboarded', null),
+    user: saved ? withDefaultExpiry(saved) : null,
     saleSel: LS.get<string[]>('plateful_sale_selected', []),
     list: LS.get<ListItem[] | null>('plateful_shoplist', null) ?? DEFAULT_LIST,
     ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice() },
     q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', importUrl: '', importResult: null,
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
+    plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
   };
 }
 
@@ -89,6 +112,7 @@ function useStore() {
   useEffect(() => { if (s.user) LS.set('plateful_onboarded', s.user); }, [s.user]);
   useEffect(() => { LS.set('plateful_sale_selected', s.saleSel); }, [s.saleSel]);
   useEffect(() => { LS.set('plateful_shoplist', s.list); }, [s.list]);
+  useEffect(() => { LS.set('plateful_mealplan', { days: s.plan }); }, [s.plan]);
 
   const user = s.user ?? DEFAULT_USER;
   const ctx: Ctx = useMemo(() => ({ user, saleSel: s.saleSel }), [user, s.saleSel]);
@@ -142,7 +166,7 @@ function useStore() {
 
   const act = {
     go, back, toast, patch, patchUser,
-    skipSplash: () => { setS((prev) => (prev.user ? prev : { ...prev, user: { ...DEFAULT_USER } })); go('home'); },
+    skipSplash: () => { setS((prev) => (prev.user ? prev : { ...prev, user: withDefaultExpiry({ ...DEFAULT_USER }) })); go('home'); },
     detail: (id: number) => {
       patchUser((u) => ({ ...u, history: [id, ...(u.history || []).filter((x) => x !== id)].slice(0, 12) }));
       patch({ detail: id });
@@ -166,11 +190,50 @@ function useStore() {
       toast(`Nice work. ${lv.next ? `${lv.need} point${lv.need === 1 ? '' : 's'} to ${lv.next}` : 'You’re at the top level'}`);
     },
     addFridge: (k: string) => {
-      patchUser((u) => ({ ...u, pantry: u.pantry.includes(k) ? u.pantry : [...u.pantry, k] }));
+      patchUser((u) => {
+        const d = defaultExpiry(k);
+        const expiry = d && !u.expiry?.[k] ? { ...(u.expiry || {}), [k]: d } : u.expiry;
+        return { ...u, pantry: u.pantry.includes(k) ? u.pantry : [...u.pantry, k], expiry };
+      });
       patch({ q: '' });
       toast(`${BOOK[k] ? BOOK[k].n : k} added to your fridge`);
     },
-    removeFridge: (k: string) => patchUser((u) => ({ ...u, pantry: u.pantry.filter((x) => x !== k) })),
+    removeFridge: (k: string) => patchUser((u) => {
+      const expiry = { ...(u.expiry || {}) };
+      delete expiry[k];
+      return { ...u, pantry: u.pantry.filter((x) => x !== k), expiry };
+    }),
+    setExpiry: (k: string, iso: string | null) => patchUser((u) => {
+      const expiry = { ...(u.expiry || {}) };
+      if (iso) expiry[k] = iso; else delete expiry[k];
+      return { ...u, expiry };
+    }),
+    setBudget: (dollars: number | null) => patchUser((u) => ({ ...u, weeklyBudget: dollars && dollars > 0 ? Math.round(dollars) : undefined })),
+    // weekly plan
+    planAdd: (day: Day, id: number) => {
+      patch((p) => ({ plan: { ...p.plan, [day]: p.plan[day].includes(id) ? p.plan[day] : [...p.plan[day], id] }, planPick: null, planQ: '', dayPick: false }));
+      toast(`Planned for ${day}`);
+    },
+    planRemove: (day: Day, id: number) => patch((p) => ({ plan: { ...p.plan, [day]: p.plan[day].filter((x) => x !== id) } })),
+    planClear: () => { patch({ plan: emptyPlan(), planPick: null }); toast('Plan cleared'); },
+    planAuto: () => {
+      patch((p) => ({ plan: autoPlan(p.plan, ctx) }));
+      toast('Empty days filled from this week’s deals');
+    },
+    planToList: () => {
+      const st = planStats(s.plan, ctx);
+      if (!st.missing.length) { toast('Everything for the week is already in your fridge or on the list'); return; }
+      patch((p) => {
+        let list = p.list;
+        st.missing.forEach(({ key, amt }) => {
+          if (BOOK[key]) list = addToList(list, key, amt, 1);
+          else if (!list.some((i) => i.key === key)) list = [...list, { key, name: key.replace(/^x:/, '').replace(/-/g, ' '), qty: amt || '1', n: 1, sid: 'any', done: false }];
+        });
+        return { list };
+      });
+      go('list');
+      toast(`Added ${st.missing.length} items for ${st.dinners} dinner${st.dinners === 1 ? '' : 's'}`);
+    },
     addMissing: (id: number) => {
       const r = R(id);
       if (!r) return;
@@ -247,7 +310,7 @@ function useStore() {
       if (s.ob.step < 4) { patch({ ob: { ...s.ob, step: s.ob.step + 1 } }); return; }
       const o = s.ob;
       patch({
-        user: { ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice() },
+        user: withDefaultExpiry({ ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice() }),
       });
       go('home');
     },

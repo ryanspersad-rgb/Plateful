@@ -374,3 +374,34 @@ a{color:var(--acc);text-decoration:none}
 .foot{padding:30px 22px 18px;font:400 12px var(--sans);color:var(--faint);text-align:center}
 .spacer{height:70px}
 @media (prefers-reduced-motion:reduce){.lead-ph img,.lead-body,.toast,.ob .prog i{transition:none}.splash .prog i,.cam .vf .scan{animation:none}}
+
+/* ---- weekly budget (List, Plan, Profile) ---- */
+.budget{padding:12px 0 4px;border-bottom:1px solid var(--hair)}
+.budget .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.budget .n{font:600 15px var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.budget .s{font:400 13px var(--sans);color:var(--mute)}
+.budget .s b{color:var(--acc);font-weight:600}
+.budget .bar{height:3px;background:var(--hair);margin:10px 0 6px;position:relative;border-radius:2px;overflow:hidden}
+.budget .bar i{position:absolute;left:0;top:0;height:100%;background:var(--acc)}
+.budget.over .bar i{background:var(--ink)}
+.budget .set{font:600 13px var(--sans);color:var(--acc)}
+.numin{width:110px;height:40px;border:1px solid var(--line);border-radius:4px;background:var(--ground);font:600 16px var(--serif);color:var(--ink);padding:0 10px;outline:none;text-align:right;font-variant-numeric:tabular-nums}
+.numin:focus{border-color:var(--ink)}
+
+/* ---- fridge dates ---- */
+.datein{font:500 12px var(--sans);color:var(--ink);border:1px solid var(--line);border-radius:4px;background:var(--ground);padding:5px 8px;outline:none;width:130px;color-scheme:light}
+.datein:focus{border-color:var(--ink)}
+.hrow .s.soon{color:var(--acc);font-weight:600}
+.hrow .s.late{color:var(--ink);font-weight:600}
+
+/* ---- weekly plan ---- */
+.dayhead{display:flex;align-items:baseline;justify-content:space-between;padding:18px 0 6px;border-bottom:1px solid var(--ink)}
+.dayhead .dn{font:600 17px var(--serif);color:var(--ink)}
+.dayhead .dn.today::after{content:'Today';font:700 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-left:8px;vertical-align:middle}
+.dayhead .dd{font:400 13px var(--sans);color:var(--mute)}
+.addrow{display:flex;align-items:center;gap:10px;padding:11px 0;font:600 14px var(--sans);color:var(--acc);width:100%}
+.addrow svg{width:16px;height:16px}
+.picker{border:1px solid var(--hair);border-radius:4px;margin:4px 0 12px;background:var(--ground)}
+.picker .search{margin:0;border:0;border-bottom:1px solid var(--hair);border-radius:0;height:46px}
+.daychips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.daychips .chip.has{border-color:var(--ink)}

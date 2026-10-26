@@ -1,8 +1,46 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { ListItem } from '@/lib/types';
-import { BOOK, SALE_KEYS, STORE, cheapestFor, listTotal, money, oneStop, plural, pmItems, unitPrice } from '@/lib/editorial';
+import { BOOK, SALE_KEYS, STORE, budgetFor, cheapestFor, listTotal, money, oneStop, plannedCount, plural, pmItems, unitPrice } from '@/lib/editorial';
 import { Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
+
+/** List · Plan switch at the top of both screens. */
+export function ListPlanTabs({ current }: { current: 'list' | 'plan' }) {
+  const { s, act } = useApp();
+  const n = plannedCount(s.plan);
+  return (
+    <nav className="ttabs" aria-label="List or plan" style={{ marginBottom: 10 }}>
+      <button className={`ttab${current === 'list' ? ' on' : ''}`} onClick={() => current !== 'list' && act.go('list')}>Your list</button>
+      <button className={`ttab${current === 'plan' ? ' on' : ''}`} onClick={() => current !== 'plan' && act.go('plan')}>This week’s plan{n ? ` · ${n}` : ''}</button>
+    </nav>
+  );
+}
+
+/** Weekly budget against the list: planned total, bought so far, what is left. */
+export function BudgetLine() {
+  const { s, user, act } = useApp();
+  const b = budgetFor(user, s.list);
+  if (!b) {
+    return (
+      <div className="budget">
+        <div className="row">
+          <span className="s">No weekly budget yet</span>
+          <button className="set" onClick={() => act.go('profile')}>Set one</button>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className={`budget${b.over ? ' over' : ''}`}>
+      <div className="row">
+        <span className="n">{money(b.planned)} <span className="s">of {money(b.budget)}</span></span>
+        <span className="s">{b.over ? <b>{money(-b.left)} over</b> : <>{money(b.left)} left</>}</span>
+      </div>
+      <div className="bar"><i style={{ width: `${b.pct}%` }} /></div>
+      <div className="s">{money(b.bought)} bought so far · {money(b.planned - b.bought)} still to buy{b.over ? ' · try the cheapest one-stop below' : ''}</div>
+    </div>
+  );
+}
 
 const SEND = [
   { name: 'PC Express', url: 'https://www.pcexpress.ca' },
@@ -40,6 +78,7 @@ export function List() {
         }
       />
       <Pad>
+        <ListPlanTabs current="list" />
         <div className="search" style={{ marginTop: 0 }}>
           <I.plus />
           <input type="search" placeholder="Add to your list" value={s.lq} autoComplete="off" aria-label="Add to your list" onChange={(e) => act.patch({ lq: e.target.value })} />
@@ -68,6 +107,7 @@ export function List() {
           </div>
         )}
         {!items && <p className="dek" style={{ marginTop: 14 }}>Your list is empty. Add items above, or open a recipe and tap “Add to list”.</p>}
+        {items > 0 && <BudgetLine />}
         {pm.length > 0 && (
           <>
             <button className="banner" onClick={() => act.go('till')}>

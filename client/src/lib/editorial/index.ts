@@ -4,3 +4,5 @@ export * from './trending';
 export * from './catalogue';
 export * from './pricing';
 export * from './scoring';
+export * from './fridge';
+export * from './plan';

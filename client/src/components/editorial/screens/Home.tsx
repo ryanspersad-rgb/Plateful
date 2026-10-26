@@ -3,6 +3,7 @@ import { useApp } from '@/hooks/usePlateful';
 import {
   BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
   inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, status, statusText, stepRow, timeText,
+  expiringSoon, useItUp, whenText,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
 import { I } from '../Icons';
@@ -74,6 +75,8 @@ export function Home() {
   const favs = user.favorites.map((id) => R(id)).filter((r): r is NonNullable<typeof r> => !!r);
   const step = stepRow(user);
   const plan = pmPlan(s.list)[0];
+  const soon = useMemo(() => expiringSoon(user, 5), [user]);
+  const useUp = useMemo(() => useItUp(ctx, soon), [ctx, soon]);
   const topSale = SALE_KEYS.slice().sort((a, b) => pct(b) - pct(a)).slice(0, 14);
 
   return (
@@ -120,6 +123,27 @@ export function Home() {
       </Pad>
 
       <Lead />
+
+      {soon.length > 0 && useUp.length > 0 && (
+        <Pad>
+          <Sec
+            eyebrow="Use it up"
+            link="My fridge"
+            to="fridge"
+            title="Before it turns"
+            dek={soon.slice(0, 3).map((e, i) => `${i ? e.name.toLowerCase() : e.name} ${e.days < 0 ? 'is past its date' : e.days === 0 ? 'goes today' : `by ${whenText(e.date)}`}`).join(', ') + '.'}
+          >
+            <div className="chips row" style={{ marginTop: 12, marginBottom: 2 }}>
+              {soon.map((e) => (
+                <button key={e.key} className={`chip${e.days <= 2 ? ' sale' : ''}`} onClick={() => act.go('fridge')}>
+                  {e.name} · {e.days < 0 ? 'past date' : e.days === 0 ? 'today' : e.days === 1 ? 'tomorrow' : `${e.days} days`}
+                </button>
+              ))}
+            </div>
+            <div className="row-scroll">{useUp.map((r) => <RecipeCard key={r.id} r={r} />)}</div>
+          </Sec>
+        </Pad>
+      )}
 
       {hist.length > 0 && (
         <Pad>

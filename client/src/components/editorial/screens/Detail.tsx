@@ -1,5 +1,5 @@
 import { useApp } from '@/hooks/usePlateful';
-import { ALL_RECIPES, BOOK, LEVEL, R, SALE_KEYS, inFridge, money, nameFor, perServ, plural, status, statusText, timeText } from '@/lib/editorial';
+import { ALL_RECIPES, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, money, nameFor, perServ, plural, status, statusText, timeText } from '@/lib/editorial';
 import { BackBtn, Bookmark, Lvl, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
 import { I } from '../Icons';
 
@@ -11,6 +11,7 @@ export function Detail() {
   const ok = st.missing.length === 0;
   const similar = ALL_RECIPES.filter((x) => x.id !== r.id && (x.cuisine === r.cuisine || x.tags.some((t) => r.tags.includes(t)))).slice(0, 2);
   const cooked = (user.cooked || []).includes(r.id);
+  const plannedDays = DAYS.filter((d) => s.plan[d].includes(r.id));
   const pts = LEVEL[r.diff] || 1;
   return (
     <>
@@ -57,13 +58,27 @@ export function Detail() {
             );
           })}
         </Sec>
-        <div style={{ marginTop: 18 }}>
+        <div style={{ marginTop: 18, display: 'grid', gap: 10 }}>
           {ok ? (
             <button className="btn secondary" onClick={() => act.go('list')}>Everything’s in your fridge · Open your list</button>
           ) : (
             <button className="btn primary" onClick={() => act.addMissing(r.id)}>
               Add {plural(st.missing.length, 'item')} to list{st.cost > 0 ? ` · ${money(st.cost)}` : ''}
             </button>
+          )}
+          {plannedDays.length ? (
+            <button className="btn ghost" onClick={() => act.go('plan')}>Planned for {plannedDays.join(', ')} · Open the plan</button>
+          ) : (
+            <button className="btn ghost" onClick={() => act.patch({ dayPick: !s.dayPick })} aria-expanded={s.dayPick}>Add to this week’s plan</button>
+          )}
+          {s.dayPick && !plannedDays.length && (
+            <div className="daychips" style={{ marginTop: 0 }}>
+              {DAYS.map((d) => (
+                <button key={d} className={`chip${s.plan[d].length ? ' has' : ''}`} onClick={() => act.planAdd(d, r.id)} title={s.plan[d].length ? 'Already has a dinner' : ''}>
+                  {d.slice(0, 3)}
+                </button>
+              ))}
+            </div>
           )}
         </div>
         <Sec eyebrow="Preparation" thin>
