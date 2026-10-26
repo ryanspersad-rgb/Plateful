@@ -4,7 +4,7 @@
 **Owner:** Ryan — Plateful Inc., Calgary AB
 **Tagline:** From Cart to Cuisine
 **Website:** plateful.ca
-**Last updated:** 2026-10-26, port pass — the editorial system is now in the React codebase (`ryanspersad-rgb/Plateful`, main, commit a7ec5c6): 15 screens as components, the price book and price-match logic, 58 photographed recipes plus the 430-recipe catalogue under one model, Cook level, Trending, History and Favourites. `Plateful_editorial.html` (in `design/`) stays the visual reference; colour directions A/B/C still pending (`.theme-a/b/c` on the shell)
+**Last updated:** 2026-10-26, photo pass — every recipe in the app now has its own verified Higgsfield photo (58 editorial + 402 catalogue, 396 distinct dishes); the 71 shared stock photos are gone. Earlier the same day: the editorial system was ported into the React codebase (`ryanspersad-rgb/Plateful`, main): 15 screens as components, the price book and price-match logic, Cook level, Trending, History and Favourites. `design/Plateful_editorial.html` stays the visual reference; colour directions A/B/C still pending (`.theme-a/b/c` on the shell). Next decisions: the comparator gaps listed under Competitive positioning
 
 ---
 
@@ -25,11 +25,26 @@ Calgary shoppers don't know what to cook based on what's on sale *this week*. Th
 1. **Save money** — surface this week's flyer deals before you shop, and price match them at the till
 2. **Reduce waste** — use what you already have first
 3. **Save time** — no recipe searching; ranked suggestions come to you
-4. **Discover cuisine** — 24+ cuisines, 400+ recipes
+4. **Discover cuisine** — 28 cuisines, 460 recipes (58 editorial + 402 catalogue), every one photographed
 5. **Build confidence** — skill levels, ingredient counts and a Cook level that grows with every recipe cooked (added 2026-10-26; none of the benchmarked apps do this)
 
 ### Competitive positioning
 Plateful is not a recipe app (not AllRecipes/Yummly/NYT Cooking) and not a delivery app (not Instacart). It sits in the gap — **flyer intelligence + pantry awareness + recipe discovery** — unoccupied in Canada at consumer scale. Benchmarks and what was taken from each (critique of 2026-10-14, re-checked 2026-10-26): **Flipp** (list matched to flyers, clippings for price matching, watch list, loyalty wallet, shared list) → Plateful matches the list to flyers, clips ads from several stores at the till, and carries the wallet and shared list on the roadmap; **Cooklist / Samsung Food** (pantry from receipts and loyalty accounts, expiry tracking, missing-only lists) → missing-only lists are in; receipt import and a "use it up" row are later; **Flashfood / Too Good To Go** (urgency cues) → flyers show "ends Thursday"; **Mealime / Mob** (few chips plus a filter sheet, colour blocks) → text tabs and the tinted bands in direction A; **NYT Cooking** → the whole page structure. Still open from the critique: store logos on every deal (needs retailer assets through the portal).
+
+**Gaps against the comparators (reviewed 2026-10-26 against the built app, not the prototype), ranked by value for the value-conscious Calgary household versus effort; Ryan to pick the next ones:**
+1. **Servings scaling + cook mode** (Mealime, Samsung Food) — household size is captured at onboarding but recipes never scale; no step-by-step full-screen mode with timers and screen-stays-on. Low effort, uses data already held.
+2. **Watch list / price alerts on an item** (Flipp) — "tell me when chicken thighs drop under $3/lb"; the Deal alerts toggle exists but has nothing behind it. The natural Plus hook; needs the live deal feed (roadmap 8).
+3. **Whole-flyer browsing and item search across every flyer** (Flipp) — Plateful shows a curated 41-item price book; a flyer app without the flyer is a gap shoppers notice. Needs the feed.
+4. **Receipt capture → pantry, spend tracking and cashback** (Checkout 51, Caddle, Cooklist) — one photo of a receipt fills the fridge, records what was paid, and opens a brand-funded cashback line for the supplier plan. Medium effort; OCR on device.
+5. **Weekly grocery budget** — none of the recipe apps do it; a budget line against the list total and this week's spend is Plateful-shaped and a day's work.
+6. **Item-level cart handoff** (PC Express, Voilà, Instacart) — "Send your list to" opens retailer homepages; Instacart's developer platform and Walmart's affiliate links can carry the items. Medium effort; also the affiliate revenue line.
+7. **Expiry tracking and a "use it up" row** (Cooklist, Samsung Food) — fridge items get a date; a Home row ranks recipes by what expires first. Low effort once the pantry has dates.
+8. **Weekly meal calendar** — the pre-redesign app had one (HomeLegacy.tsx); port it as a plan tab inside List.
+9. **Weekly "what to cook" digest** on flyer day (NYT Cooking newsletter, Flipp flyer notification) — push or email; retention.
+10. **Ratings, notes and "I'd make it again"** on recipes (NYT Cooking) — local first, community with Supabase.
+11. **Clearance / near-expiry stock near you** (Flashfood, Too Good To Go) — partnership; Flashfood is in Loblaw banners already.
+12. **Loyalty wallet and shared household list** — already roadmap 4 and 7.
+Not gaps: delivery (Instacart's job), video recipes (TikTok's), social feed (Samsung Food's) — Plateful stays the decision layer.
 
 ### Revenue model (decided 2026-10-14, to validate with 3–5 grocers)
 - **Grocers and suppliers pay to be seen inside the meal decision.** Store plan $149/month per location; Chain from $999/month; Supplier (brand) from $499/month.
@@ -69,14 +84,14 @@ Plateful/                                # GitHub ryanspersad-rgb/Plateful (main
     book.ts                              # BOOK (108 items, 41 on sale), STORES, STORE_PRICE, ADS, PM_RULES, PM_POLICY, FRIDGE_CATS
     recipes.ts                           # EDITORIAL_RECIPES (58, Higgsfield photos) + NOTES
     trending.ts                          # TRENDING (8 external recipes)
-    catalogue.ts                         # fromCatalogue(): adapts constants.ts RECIPES (430) into EditorialRecipe; ALL_RECIPES, R(id)
+    catalogue.ts                         # fromCatalogue(): adapts constants.ts RECIPES (402) into EditorialRecipe; ALL_RECIPES, R(id)
     pricing.ts                           # unitPrice, listTotal, pmPlan, pmItems, oneStop, cheapestFor, money, pct
     scoring.ts                           # status, score, recommended, searchRecipes, cookLevel, stepRow, timeText
   client/src/lib/types.ts                # Recipe (catalogue) + EditorialRecipe, BookItem, Store, Ad, PMRule, ListItem, TillPlan, UserProfile, Screen
-  client/src/lib/constants.ts            # the 430-recipe catalogue and CATEGORIES (unchanged)
+  client/src/lib/constants.ts            # the 402-recipe catalogue and CATEGORIES; image fields now point at Higgsfield photos
   client/src/editorial.css               # the design system; class names match Plateful_editorial.html
   client/src/index.css                   # Tailwind + shadcn tokens recoloured to the editorial palette; imports editorial.css
-  design/Plateful_editorial.html         # the standalone reference build; design/higgsfield.json = photo manifest
+  design/Plateful_editorial.html         # the standalone reference build; design/higgsfield.json = photo manifest (heroes, recipes, products, catalogue)
   vite.config.ts, tsconfig.json, .env.example
   server/                                # not yet created; the build script no longer references it
   portal/                                # (planned) grocer/supplier web app, shares lib/types.ts
@@ -194,7 +209,11 @@ Do not use: green, blue, yellow/lemon, sale red, grape, browns, gradients, shado
 ### Photography
 Every recipe shows an accurate photo of the finished dish — "we want to entice people to cook". The Home lead is a full-bleed 3:2 photo that crossfades every ~4.2 s between four deal dinners while the title, hook and dek fade with it; Detail uses a 320 px hero.
 
-**Photo pool (Higgsfield, 2026-10-26):** 107 images generated with `gpt_image_2_5` (high, 1k) — 4 lead dishes at 3:2, 54 recipes at 4:3 (six each for Indian, Thai, Mexican, Italian and Weeknight were added so every cuisine tab has choices), 8 trending dishes at 4:3, 41 grocery products at 1:1 as transparent PNGs (one per sale item); about 170 credits in all. Manifest: `imgs/higgsfield.json` (CDN base + file names). Higgsfield publishes a full-resolution `_min.webp` beside every PNG at about a tenth of the bytes (1024 × 688 lead: 143 KB vs 1.58 MB); the prototype loads the WebP. They are hotlinked from Higgsfield's CloudFront CDN until Plateful hosts its own; published Claude artifacts and the Design canvas block hotlinked images, so the standalone HTML file is where they render. Prompt treatment, to keep every future shot consistent: "editorial food photography for a cooking magazine, 3/4 overhead angle, warm natural window light from above, soft shadows, white linen or pale oak surface, simple matte stoneware, shallow depth of field, realistic and appetizing, finished dish only, no text, no hands, no logos, uncluttered." Products: "studio product photograph, centered, isolated on a transparent background, soft even lighting, faint shadow beneath, generic packaging with no brand names or text." Supplier product photos will come from the grocer portal (1:1, background removed) and show as paper tiles until uploaded. For production, resize each to 2–3 widths and serve with `srcset`.
+**Photo pool (Higgsfield, 2026-10-26):** 505 images generated with `gpt_image_2_5` (high, 1k, 1.5 credits each): 4 lead dishes at 3:2, 54 editorial recipes at 4:3, 8 trending dishes at 4:3, 41 grocery products at 1:1 as transparent PNGs, and 396 catalogue dishes at 4:3 (one per distinct dish name; Baklava, Moussaka, Tabbouleh, Kibbeh, Fattoush and Baba Ganoush appear in two cuisines and share a photo). About 770 credits in all. Manifest: `design/higgsfield.json` (CDN base + file names under `heroes`, `recipes`, `products`, `catalogue`). Higgsfield publishes a full-resolution `_min.webp` beside every PNG at about a tenth of the bytes; the app loads the WebP. They are hotlinked from Higgsfield's CloudFront CDN until Plateful hosts its own.
+
+**Verification (2026-10-26):** the earlier mismatch problem was the catalogue — 402 recipes shared 71 Unsplash stock photos (one photo stood in for 31 Greek and Lebanese dishes, another for Poutine, Butter Tarts and Nanaimo Bars). Every photo in the app was then checked two ways: the generation prompt on Higgsfield's record was matched to the recipe it is assigned to, and every image was viewed on a labelled contact sheet against its dish name. Two catalogue results drifted from the dish (Injera rendered as a full platter, Kategna as a meat stew) and were regenerated with tighter prompts; everything else matched. Re-run the check after any photo change: `HomeLegacy.tsx` still carries 48 Unsplash URLs for its own header images but is not mounted.
+
+Prompt treatment, to keep every future shot consistent: "<dish>, a <cuisine> dish made with <four key ingredients>, finished and plated as it would be served. Editorial food photography for a cooking magazine, 3/4 overhead angle, warm natural window light from above, soft shadows, white linen or pale oak surface, simple matte stoneware, shallow depth of field, realistic and appetizing, finished dish only, no text, no hands, no logos, uncluttered." For a dish the model tends to over-garnish, say what must not appear ("no stews on top"). Products: "studio product photograph, centered, isolated on a transparent background, soft even lighting, faint shadow beneath, generic packaging with no brand names or text." Supplier product photos will come from the grocer portal (1:1, background removed) and show as paper tiles until uploaded. For production, copy the pool to Plateful's own storage (Supabase Storage or S3), resize each to 2–3 widths and serve with `srcset`.
 
 ### Layout
 390 × 844 artboards; 22 px gutters; 54 px top safe area (status strip); 84 px tab bar plus 16 px clearance at the bottom; max width 430 px on web; the floating ink bar sits 100 px from the bottom.
@@ -230,7 +249,7 @@ No Frills, Real Canadian Superstore / PC Express, Safeway / Sobeys / Voilà, Wal
 - Static `matchScore`/`matchText`/`inPantry` values in `constants.ts` are ignored; status is computed from the fridge, saved deals and the price book.
 - Catalogue recipes have no macros yet (the macros row is hidden when absent) and `total`/`save` come from their `totalCost`/`savings` strings.
 - Import is simulated (any link resolves to a sample recipe); the camera scan is simulated; the Stores map is a schematic SVG; Plus has no checkout.
-- HomeLegacy.tsx still compiles but is not mounted; its meal plan, retailer modal and daily deal are not yet in the new screens (roadmap 3, 6).
+- HomeLegacy.tsx still compiles but is not mounted; its meal plan, retailer modal and daily deal are not yet in the new screens (roadmap 3, 6). It also still references Unsplash header images; everything mounted uses the Higgsfield pool.
 - Photos and Google Fonts are blocked in Claude's cloud workspace, so screenshots from there show fallback fonts and empty photo frames; the app is fine in a real browser.
 - No test suite yet (vitest installed).
 - Claude's cloud workspace cannot download from Higgsfield's CDN or other image hosts, and published artifacts block hotlinked images: prototypes that need photos are delivered as standalone HTML files to open in a browser.
