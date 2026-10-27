@@ -39,7 +39,10 @@ function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
                 <div><div className="ad-name">{b.n}</div><div className="ad-size">{b.size || ''}</div></div>
                 <div className="ad-price">{money(a.price)}<span>{b.u || ''}</span></div>
               </div>
-              <div className="ad-foot">Flyer valid {FLYER_WEEK} · {st.name}, {st.km}&nbsp;km</div>
+              <div className="ad-foot">
+                <span>Flyer valid {FLYER_WEEK} · {st.name}, {st.km}&nbsp;km</span>
+                <a className="ad-link" href={st.flyer} target="_blank" rel="noopener noreferrer" aria-label={`Open the current ${st.retailer} flyer`}>Open the flyer <I.link /></a>
+              </div>
             </div>
           );
         })}

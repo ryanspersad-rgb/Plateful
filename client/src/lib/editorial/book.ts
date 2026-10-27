@@ -933,7 +933,8 @@ export const STORES: Store[] = [
     "km": 1.1,
     "pm": false,
     "ang": 215,
-    "deals": 3
+    "deals": 3,
+    "flyer": "https://www.safeway.ca/flyer/"
   },
   {
     "id": "co",
@@ -943,7 +944,8 @@ export const STORES: Store[] = [
     "km": 1.4,
     "pm": false,
     "ang": 268,
-    "deals": 4
+    "deals": 4,
+    "flyer": "https://flyers.calgarycoop.com/flyers/calgarycoop-weekly"
   },
   {
     "id": "nf",
@@ -953,7 +955,8 @@ export const STORES: Store[] = [
     "km": 2.3,
     "pm": false,
     "ang": 125,
-    "deals": 3
+    "deals": 3,
+    "flyer": "https://www.nofrills.ca/flyer"
   },
   {
     "id": "wm",
@@ -963,7 +966,8 @@ export const STORES: Store[] = [
     "km": 4.6,
     "pm": true,
     "ang": 165,
-    "deals": 3
+    "deals": 3,
+    "flyer": "https://www.walmart.ca/flyer"
   },
   {
     "id": "ss",
@@ -973,7 +977,8 @@ export const STORES: Store[] = [
     "km": 4.8,
     "pm": true,
     "ang": 310,
-    "deals": 5
+    "deals": 5,
+    "flyer": "https://www.realcanadiansuperstore.ca/flyer"
   },
   {
     "id": "tt",
@@ -983,7 +988,8 @@ export const STORES: Store[] = [
     "km": 6.1,
     "pm": false,
     "ang": 72,
-    "deals": 2
+    "deals": 2,
+    "flyer": "https://www.tntsupermarket.com/eng/flyers.html"
   },
   {
     "id": "cc",
@@ -993,7 +999,8 @@ export const STORES: Store[] = [
     "km": 9.4,
     "pm": false,
     "ang": 20,
-    "deals": 1
+    "deals": 1,
+    "flyer": "https://www.costco.ca/warehouse-savings.html"
   }
 ];
 export const STORE = (id: string): Store | undefined => STORES.find((s) => s.id === id);

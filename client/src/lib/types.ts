@@ -85,6 +85,8 @@ export interface Store {
   pm: boolean;
   ang: number;
   deals: number;
+  /** The retailer's own current-flyer page, for the cashier to check an ad. */
+  flyer: string;
 }
 
 export interface Ad {

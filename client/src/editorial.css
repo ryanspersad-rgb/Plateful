@@ -302,7 +302,9 @@ a{color:var(--acc);text-decoration:none}
 .ad .ad-size{font:400 12px var(--sans);color:var(--mute);margin-top:2px}
 .ad .ad-price{font:700 30px/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
 .ad .ad-price span{font:600 12px var(--sans);color:var(--mute);margin-left:2px}
-.ad .ad-foot{border-top:1px solid var(--hair);font:500 11px var(--sans);color:var(--mute);padding:6px 12px;letter-spacing:.02em}
+.ad .ad-foot{border-top:1px solid var(--hair);font:500 11px var(--sans);color:var(--mute);padding:6px 12px;letter-spacing:.02em;display:flex;flex-direction:column;gap:4px}
+.ad .ad-link{display:inline-flex;align-items:center;gap:4px;font:600 12px var(--sans);color:var(--acc);text-decoration:none;letter-spacing:0;padding:4px 0 2px}
+.ad .ad-link svg{width:13px;height:13px}
 .clips{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:10px 0 2px}
 .clips::-webkit-scrollbar{display:none}
 .clips .ad{flex:none;width:280px}

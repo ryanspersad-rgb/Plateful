@@ -51,7 +51,7 @@ export function PriceMatch() {
                   <div key={a.sid} className="hrow">
                     <div className="l">
                       <div className="n">{as.name} · <span className="price">{money(a.price)}{b.u || ''}</span></div>
-                      <div className="s">Flyer {FLYER_WEEK} · {as.km}&nbsp;km</div>
+                      <div className="s">Flyer {FLYER_WEEK} · {as.km}&nbsp;km · <a className="textlink" href={as.flyer} target="_blank" rel="noopener noreferrer">{'See\u00A0the\u00A0flyer\u00A0↗'}</a></div>
                     </div>
                     <div className="r">{cheaper ? <span className="acc">{idx === 0 ? 'Lowest · ' : ''}Save {money((here - a.price) * i.n)}</span> : <span className="mut">Not lower</span>}</div>
                   </div>
