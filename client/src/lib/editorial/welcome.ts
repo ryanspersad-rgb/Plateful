@@ -3,8 +3,10 @@
 const CDN = 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/';
 
 export const LANDING_IMG = CDN + 'hf_20261027_205938_849b7901-bdb7-4efd-b5f8-765ca923664b_min.webp'; // eight friends at the table, 2:3
-/** The landing photo animated (Seedance 2.5, 2026-10-27): its first three seconds played forward then back, a 6 s seamless loop, 720 × 960, silent, 948 KB. Plays behind the wordmark; the still is the poster and the reduced-motion fallback. */
-export const LANDING_VIDEO = 'https://d2ol7oe51mr4n9.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/627b552f-3fa6-4e95-b639-84550eb44bf9.mp4';
+/** The landing photo animated (Seedance 2.5, 2026-10-27). Plays once behind the wordmark; the still is the poster and the reduced-motion fallback. */
+// the landing push-in: the first 3.2 s of the Seedance render slowed by half (4.8 s), then the last frame held;
+// it plays once and stays there (the earlier forward-and-back loop read as dizzying). 720 × 960, 600 KB, silent.
+export const LANDING_VIDEO = 'https://d2ol7oe51mr4n9.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/d4aaa3af-f070-42a1-9c7f-c5196b153f32.mp4';
 export const LANDING_WIDE_IMG = CDN + 'hf_20261027_205939_989e7e13-402d-449d-8cb4-5611f94bfa9c_min.webp'; // 16:9 for the web hero
 
 export interface WelcomePage {

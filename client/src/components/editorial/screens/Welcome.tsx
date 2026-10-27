@@ -25,13 +25,14 @@ export function Welcome() {
 
   const p = page > 0 ? WELCOME_PAGES[page - 1] : null;
 
-  // the landing loop: only while page 0 is showing, only when the viewer has not asked for reduced motion
+  // the landing push-in: plays once while page 0 is showing and then holds its last frame (no loop, no replay on
+  // coming back from the hero pages); not played at all when the viewer has asked for reduced motion
   const vid = useRef<HTMLVideoElement | null>(null);
   const [motion] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   useEffect(() => {
     const v = vid.current;
     if (!v) return;
-    if (page === 0 && motion) void v.play().catch(() => { /* autoplay refused: the poster still shows */ });
+    if (page === 0 && motion && !v.ended) void v.play().catch(() => { /* autoplay refused: the poster still shows */ });
     else v.pause();
   }, [page, motion]);
 
@@ -39,7 +40,7 @@ export function Welcome() {
     <div className="welcome" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
       <img src={LANDING_IMG} alt="" className={page === 0 ? 'show' : ''} />
       {motion && (
-        <video ref={vid} className={`loop${page === 0 ? ' show' : ''}`} src={LANDING_VIDEO} poster={LANDING_IMG} muted loop playsInline autoPlay preload="auto" aria-hidden="true" />
+        <video ref={vid} className={`loop${page === 0 ? ' show' : ''}`} src={LANDING_VIDEO} poster={LANDING_IMG} muted playsInline autoPlay preload="auto" aria-hidden="true" />
       )}
       {WELCOME_PAGES.map((w, i) => <img key={w.img} src={w.img} alt="" className={page === i + 1 ? 'show' : ''} loading={i === 0 ? 'eager' : 'lazy'} />)}
       <div className="scrim" />
