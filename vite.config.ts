@@ -23,5 +23,7 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // the API (server/index.ts, `pnpm dev:server`) answers on :3001 during development
+    proxy: { '/api': 'http://localhost:3001' },
   },
 });

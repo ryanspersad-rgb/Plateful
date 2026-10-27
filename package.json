@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production tsx server/index.ts",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dev:server": "tsx watch server/index.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

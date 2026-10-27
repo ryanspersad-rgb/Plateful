@@ -2,6 +2,7 @@
 // the prototype and the legacy app use: plateful_onboarded, plateful_sale_selected, plateful_shoplist.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Clip, ListItem, ProgramId, RecipeNote, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
+import { instacartList, readRecipePage } from '@/lib/api';
 import {
   BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
@@ -62,7 +63,7 @@ export interface State {
   onsaleStore: string;
   homeFilter: string;
   /** The "Link a recipe" form; kept while the shopper moves between screens. */
-  imp: { url: string; name: string; ing: string; steps: string; serv: number; time: string; img: string; saved: number | null };
+  imp: { url: string; name: string; ing: string; steps: string; serv: number; time: string; img: string; saved: number | null; reading: boolean; read: string | null };
   cam: 0 | 1 | 2;
   tillStore: StoreId;
   matched: Record<string, boolean>;
@@ -98,7 +99,7 @@ function loadPlan(): WeekPlan {
   return base;
 }
 
-const EMPTY_IMP: State['imp'] = { url: '', name: '', ing: '', steps: '', serv: 4, time: '', img: '', saved: null };
+const EMPTY_IMP: State['imp'] = { url: '', name: '', ing: '', steps: '', serv: 4, time: '', img: '', saved: null, reading: false, read: null };
 
 function initial(): State {
   const saved = LS.get<UserProfile | null>('plateful_onboarded', null);
@@ -177,6 +178,28 @@ function useStore() {
     const ex = list.find((i) => i.key === key);
     if (ex) return list.map((i) => (i === ex ? { ...i, n: i.n + (n || 1), sid: sid ?? i.sid } : i));
     return [...list, { key, qty: qty || (b && b.size) || '1', n: n || 1, sid: sid ?? (b ? b.sid : 'any'), done: false }];
+  };
+
+/** Ask the server to read the page; whatever it finds prefills the form, the shopper can still edit everything. */
+const readPage = async (target: string) => {
+    if (!isUrl(target)) { toast('Paste the recipe’s link first'); return; }
+    patch((p) => ({ imp: { ...p.imp, reading: true, read: null } }));
+    const r = await readRecipePage(target);
+    if (!r.ok) {
+      patch((p) => ({ imp: { ...p.imp, reading: false, read: r.code === 'no_server' ? 'Paste the ingredient list below — reading the page needs the Plateful server.' : `${r.message}. Paste the list instead.` } }));
+      return;
+    }
+    patch((p) => ({
+      imp: {
+        ...p.imp, reading: false, url: r.url,
+        name: r.name || p.imp.name,
+        ing: r.ingredients.length ? r.ingredients.join('\n') : p.imp.ing,
+        steps: r.steps.length ? r.steps.join('\n') : p.imp.steps,
+        serv: r.servings || p.imp.serv, time: r.minutes ? String(r.minutes) : p.imp.time, img: r.image || p.imp.img,
+        read: r.ingredients.length ? `Read from ${r.source}: ${r.ingredients.length} ingredients${r.steps.length ? `, ${r.steps.length} steps` : ''}. Check the list, then save.`
+          : r.name ? `${r.source} gave a name and photo but no recipe data — paste the ingredient list.` : 'No recipe found on that page — paste the ingredient list.',
+      },
+    }));
   };
 
   const act = {
@@ -354,7 +377,21 @@ function useStore() {
         }
         return { imp };
       }),
-    impStart: (url = '') => { patch({ imp: { ...EMPTY_IMP, url, name: nameFromUrl(url), serv: user.householdSize || 4 } }); go('import'); },
+    impStart: (url = '') => { patch({ imp: { ...EMPTY_IMP, url, name: nameFromUrl(url), serv: user.householdSize || 4 } }); go('import'); if (url) void readPage(url); },
+    impRead: (url?: string) => readPage((url ?? s.imp.url).trim()),
+    /** Send the list to Instacart as a shoppable page; a search link when the server has no key, the storefront when there is no server. */
+    sendInstacart: async () => {
+      const open = s.list.filter((i) => !i.done);
+      const items = open.map((i) => ({ name: (BOOK[i.key]?.n || i.name || i.key.replace(/^(x:|free-)/, '').replace(/-/g, ' ')).split(',')[0], quantity: i.n || 1, display: `${i.n > 1 ? i.n + ' × ' : ''}${BOOK[i.key]?.n || i.name || ''}`.trim() }));
+      if (!items.length) { toast('Your list is empty'); return; }
+      toast('Opening Instacart…');
+      const r = await instacartList(`Plateful list · ${new Date().toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}`, items);
+      const url = r.url || 'https://www.instacart.ca';
+      if (r.ok) toast(`${items.length} items sent to Instacart`);
+      else if (r.code === 'no_key') toast('Instacart isn’t connected yet — opening a search');
+      else toast('Opening Instacart');
+      window.open(url, '_blank', 'noopener');
+    },
     impSave: () => {
       const f = s.imp;
       const lines = parseIngredients(f.ing);

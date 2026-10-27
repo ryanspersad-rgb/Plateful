@@ -177,7 +177,9 @@ export function List() {
         })}
         <Sec eyebrow="Send your list to" thin>
           <div className="sendgrid">
-            {SEND.map((x) => <a key={x.name} className="btn ghost" href={x.url} target="_blank" rel="noopener noreferrer">{x.name}</a>)}
+            {SEND.map((x) => x.name === 'Instacart'
+              ? <button key={x.name} className="btn ghost" onClick={act.sendInstacart}>Instacart <span className="meta" style={{ fontSize: 11 }}>· with your items</span></button>
+              : <a key={x.name} className="btn ghost" href={x.url} target="_blank" rel="noopener noreferrer">{x.name}</a>)}
           </div>
         </Sec>
         <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>

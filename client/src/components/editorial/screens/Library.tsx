@@ -93,7 +93,13 @@ export function Import() {
           <I.link />
           <input type="url" placeholder="Paste the recipe’s link" value={f.url} autoComplete="off" aria-label="Recipe link" inputMode="url" onChange={(e) => act.impPatch({ url: e.target.value })} />
         </div>
-        {source && <div className="meta" style={{ marginTop: 6 }}>From <b>{source}</b> · opens the original when you tap “Open recipe”</div>}
+        {source && (
+          <div className="readrow">
+            <div className="meta">From <b>{source}</b></div>
+            <button className="btn secondary sm" disabled={f.reading || !isUrl(f.url)} onClick={() => act.impRead()}>{f.reading ? 'Reading the page…' : 'Read the page'}</button>
+          </div>
+        )}
+        {f.read && <div className={`meta readnote${f.reading ? '' : ''}`}>{f.read}</div>}
         <label className="flabel">Name<input className="field" type="text" placeholder="What is it called?" value={f.name} aria-label="Recipe name" onChange={(e) => act.impPatch({ name: e.target.value })} /></label>
         <label className="flabel">Ingredients
           <textarea className="field area" rows={6} placeholder={'Paste the ingredient list, one per line:\n2 tbsp olive oil\n500 g chicken thighs\n1 can diced tomatoes'} value={f.ing} aria-label="Ingredients" onChange={(e) => act.impPatch({ ing: e.target.value })} />
@@ -152,7 +158,7 @@ export function Import() {
           </Sec>
         )}
       </Pad>
-      <Foot>Paste just the link and Plateful will read the recipe for you once the import service ships; for now the list you paste is what gets priced.</Foot>
+      <Foot>Read the page fills the form from the site’s own recipe data where it publishes any; the list you save is what gets priced, so give it a glance first.</Foot>
       <Spacer />
     </>
   );

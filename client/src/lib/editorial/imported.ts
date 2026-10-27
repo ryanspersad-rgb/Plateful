@@ -94,7 +94,7 @@ export function sourceOf(url: string): string {
   try { return new URL(url.includes('://') ? url : `https://${url}`).hostname.replace(/^www\./, ''); } catch { return 'the web'; }
 }
 
-export const isUrl = (s: string): boolean => /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(s.trim());
+export const isUrl = (s: string): boolean => /^(https?:\/\/)?([\w-]+\.)+[a-z]{2,}(:\d+)?(\/\S*)?$/i.test(s.trim()) || /^https?:\/\/(localhost|\d{1,3}(\.\d{1,3}){3})(:\d+)?(\/\S*)?$/i.test(s.trim());
 
 export const normalizeUrl = (s: string): string => (s.includes('://') ? s.trim() : `https://${s.trim()}`);
 
