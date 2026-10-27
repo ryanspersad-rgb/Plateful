@@ -3,7 +3,7 @@
 import type { Ad, BookItem, PMRule, Store, StoreId } from '@/lib/types';
 
 export const IMG_BASE = "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/";
-export const FLYER_WEEK = "Oct 23 – 29";
+export const FLYER_WEEK = "Oct\u00A023\u00A0–\u2060\u00A029"; // non-breaking spaces plus a word joiner after the dash: the range never splits across lines
 
 /** Product photos (Higgsfield, 1:1 transparent PNG; the CDN publishes a _min.webp beside each). */
 export const PRODUCT_IMG: Record<string, string> = {

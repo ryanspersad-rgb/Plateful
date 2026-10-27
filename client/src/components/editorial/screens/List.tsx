@@ -145,7 +145,7 @@ export function List() {
               <div className="storehead">
                 <div>
                   <span className="sn">{st ? st.name : 'Anywhere'}</span>
-                  <span className="sk">{st ? `${st.km} km` : ''}{st && st.pm ? ' · price matches' : ''}</span>
+                  <span className="sk">{st ? `${st.km} km` : ''}{st && st.pm ? ' · price\u00A0matches' : ''}</span>
                 </div>
                 <span className="st">{money(sub)}</span>
               </div>

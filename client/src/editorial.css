@@ -143,11 +143,11 @@ a{color:var(--acc);text-decoration:none}
 .grid2 .card{width:auto}
 .statusline{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .statusline.ok{color:var(--acc)}
-.lvl{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.lvl{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
 .lvl::before{content:"";display:inline-block;width:6px;height:6px;border-radius:3px;background:currentColor;margin:0 6px 1px 0}
-.lvl.l2::before{box-shadow:9px 0 0 currentColor}
-.lvl.l3::before{box-shadow:9px 0 0 currentColor,18px 0 0 currentColor}
-.lvl.l2{margin-right:9px}.lvl.l3{margin-right:18px}
+/* the 2nd and 3rd dots are box-shadows 9 and 18 px to the right, so the gap before the word grows with them */
+.lvl.l2::before{box-shadow:9px 0 0 currentColor;margin-right:15px}
+.lvl.l3::before{box-shadow:9px 0 0 currentColor,18px 0 0 currentColor;margin-right:24px}
 .teaches{font:400 13px var(--sans);color:var(--mute)}
 .teaches b{font-weight:600;color:var(--ink)}
 .cook{padding:16px 0;border-bottom:1px solid var(--hair)}

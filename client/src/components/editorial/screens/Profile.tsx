@@ -74,7 +74,7 @@ export function Profile() {
         </Sec>
         <Sec eyebrow="Location" thin>
           <div className="hrow" style={{ display: 'block' }}>
-            <div className="n">Home radius · <span className="price">{user.radiusKm} km</span> from {user.postalPrefix}</div>
+            <div className="n">Home radius · <span className="price">{user.radiusKm}</span> km from {user.postalPrefix}</div>
             <input className="range" type="range" min={2} max={10} step={1} value={user.radiusKm} aria-label="Home radius in km" onChange={(e) => act.setRadius(+e.target.value)} />
             <div className="s">Every distance, the best-store pick, promoted items and price-match ads use this. We store a postal prefix, never an address.</div>
           </div>

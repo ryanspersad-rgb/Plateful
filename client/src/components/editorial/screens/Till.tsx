@@ -39,7 +39,7 @@ function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
                 <div><div className="ad-name">{b.n}</div><div className="ad-size">{b.size || ''}</div></div>
                 <div className="ad-price">{money(a.price)}<span>{b.u || ''}</span></div>
               </div>
-              <div className="ad-foot">Flyer valid {FLYER_WEEK} · {st.name}, {st.km} km</div>
+              <div className="ad-foot">Flyer valid {FLYER_WEEK} · {st.name}, {st.km}&nbsp;km</div>
             </div>
           );
         })}

@@ -39,9 +39,11 @@ export const statusText = (r: EditorialRecipe, c: Ctx): string => {
 };
 export const perServ = (r: EditorialRecipe): string =>
   r.total > 0 ? money(r.total / r.serv) + ' a serving' : `Serves ${r.serv}`;
+// Non-breaking spaces keep a number with its unit ("45 min", "9 ingredients") so a wrap never strands "min" on its own line.
+const NB = '\u00A0';
 export const timeText = (m: number): string =>
-  m >= 60 ? ((m / 60) % 1 === 0 ? `${m / 60} hour${m > 60 ? 's' : ''}` : `${Math.floor(m / 60)}½ hours`) : `${m} min`;
-export const plural = (n: number, w: string): string => `${n} ${w}${n === 1 ? '' : 's'}`;
+  m >= 60 ? ((m / 60) % 1 === 0 ? `${m / 60}${NB}hour${m > 60 ? 's' : ''}` : `${Math.floor(m / 60)}½${NB}hours`) : `${m}${NB}min`;
+export const plural = (n: number, w: string): string => `${n}${NB}${w}${n === 1 ? '' : 's'}`;
 
 /** Recipes for a Home filter tab, ranked by score then savings. */
 export function recommended(filter: string, c: Ctx): EditorialRecipe[] {

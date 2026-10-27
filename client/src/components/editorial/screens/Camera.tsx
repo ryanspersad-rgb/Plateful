@@ -34,7 +34,7 @@ export function Camera() {
             </div>
             <div>
               <div className="eyebrow acc">Lowest nearby</div>
-              <div className="price" style={{ fontSize: 20, marginTop: 4 }}>{money(4.99)} <span className="meta">· Co-op Midtown · 1.4 km · flyer {FLYER_WEEK}</span></div>
+              <div className="price" style={{ fontSize: 20, marginTop: 4 }}>{money(4.99)} <span className="meta">· Co-op Midtown · 1.4&nbsp;km · flyer {FLYER_WEEK}</span></div>
               <div className="meta" style={{ marginTop: 4 }}>Superstore will match it: identical item, current local flyer. Save {money(2.5)}.</div>
             </div>
             <div style={{ display: 'grid', gap: 8, gridTemplateColumns: '1fr 1fr' }}>
