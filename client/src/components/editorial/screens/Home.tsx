@@ -27,17 +27,17 @@ function Lead() {
   const st = status(lead, ctx);
   return (
     <section className="lead">
-      <div className="lead-ph" role="button" tabIndex={0} onClick={() => act.detail(lead.id)} onKeyDown={(e) => { if (e.key === 'Enter') act.detail(lead.id); }}>
+      <div className="lead-ph tall" role="button" tabIndex={0} onClick={() => act.detail(lead.id)} onKeyDown={(e) => { if (e.key === 'Enter') act.detail(lead.id); }}>
         {LEADS.map((id, i) => { const r = R(id); return r ? <img key={id} className={i === idx ? 'show' : ''} src={r.img} alt={i === idx ? r.name : ''} /> : null; })}
-        <div className="dots">{LEADS.map((id, i) => <i key={id} className={i === idx ? 'on' : ''} />)}</div>
+        <div className="scrim" />
+        <span className="ph-label">Tonight’s dinner deal</span>
         <Bookmark id={lead.id} />
-      </div>
-      <div className={`lead-body${fade ? ' fade' : ''}`}>
-        <div className="eyebrow acc">Tonight’s deal dinner</div>
-        <h1 className="lead-title" onClick={() => act.detail(lead.id)}>{lead.name}</h1>
-        {lead.hook && <div className="hook">{lead.hook}</div>}
-        {lead.dek && <p className="dek">{lead.dek}</p>}
-        <div className="meta"><b>{perServ(lead)}</b> · {timeText(lead.time)} · You have {st.have} of {st.of}</div>
+        <div className={`over${fade ? ' fade' : ''}`}>
+          <h1 className="lead-title">{lead.name}</h1>
+          {lead.hook && <div className="hook">{lead.hook}</div>}
+          <div className="meta"><b>{perServ(lead)}</b> · {timeText(lead.time)} · You have {st.have} of {st.of}</div>
+          <div className="dots">{LEADS.map((id, i) => <i key={id} className={i === idx ? 'on' : ''} />)}</div>
+        </div>
       </div>
     </section>
   );
@@ -219,7 +219,12 @@ export function Home() {
 
       <Pad>
         <Sec eyebrow="Quick picks" title="Dinners built on this week’s prices" dek="Ranked by how many sale items each one uses.">
-          <div className="row-scroll">{quick.map((r) => <RecipeCard key={r.id} r={r} />)}</div>
+          <div className="stack">
+            {quick.slice(0, 4).map((r) => {
+              const n = status(r, ctx).saleHits;
+              return <RecipeCard key={r.id} r={r} label={n ? `${plural(n, 'ingredient')} on sale` : undefined} />;
+            })}
+          </div>
         </Sec>
       </Pad>
 

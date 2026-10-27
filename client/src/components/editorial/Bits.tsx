@@ -57,8 +57,8 @@ export function Bookmark({ id, small, hero }: { id: number; small?: boolean; her
   );
 }
 
-export function RecipeCard({ r, cls = '', sq, serif, showStatus = true }: {
-  r: EditorialRecipe; cls?: string; sq?: boolean; serif?: boolean; showStatus?: boolean;
+export function RecipeCard({ r, cls = '', sq, serif, showStatus = true, label }: {
+  r: EditorialRecipe; cls?: string; sq?: boolean; serif?: boolean; showStatus?: boolean; label?: string;
 }) {
   const { ctx, act } = useApp();
   const st = status(r, ctx);
@@ -73,6 +73,7 @@ export function RecipeCard({ r, cls = '', sq, serif, showStatus = true }: {
     >
       <div className={`ph${sq ? ' sq' : ''}`}>
         {r.img ? <img src={r.img} alt={r.name} loading="lazy" /> : <div className="noimg"><I.link />{r.src || 'Linked'}</div>}
+        {label && <span className="ph-label">{label}</span>}
         <Bookmark id={r.id} />
       </div>
       {serif ? <h3 className="title-serif">{r.name}</h3> : <h3 className="card-title">{r.name}</h3>}

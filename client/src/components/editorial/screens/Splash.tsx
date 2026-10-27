@@ -5,7 +5,8 @@ import { CartMark } from '../Icons';
 export function Splash() {
   const { s, act } = useApp();
   useEffect(() => {
-    const t = window.setTimeout(() => act.go(s.user ? 'home' : 'onboarding'), 2200);
+    // returning shoppers go straight home; first run gets the landing photo and the four hero pages
+    const t = window.setTimeout(() => act.go(s.user ? 'home' : 'welcome'), 2200);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

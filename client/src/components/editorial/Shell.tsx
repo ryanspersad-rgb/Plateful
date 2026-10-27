@@ -20,6 +20,7 @@ import { Favourites, History, Import } from './screens/Library';
 import { Plan } from './screens/Plan';
 import { Card, Wallet } from './screens/Wallet';
 import { Cook } from './screens/Cook';
+import { Welcome } from './screens/Welcome';
 
 const TABS: { id: Screen; label: string; icon: ReactNode }[] = [
   { id: 'home', label: 'Home', icon: <I.home /> },
@@ -28,12 +29,13 @@ const TABS: { id: Screen; label: string; icon: ReactNode }[] = [
   { id: 'stores', label: 'Stores', icon: <I.pin /> },
   { id: 'profile', label: 'Profile', icon: <I.user /> },
 ];
-const NO_TABS: Screen[] = ['splash', 'onboarding', 'camera', 'card', 'cook'];
+const NO_TABS: Screen[] = ['splash', 'welcome', 'onboarding', 'camera', 'card', 'cook'];
 const DARK: Screen[] = ['camera'];
 const PARENT: Partial<Record<Screen, Screen>> = { plan: 'list', pricematch: 'list', till: 'list', fridge: 'profile', favourites: 'profile', history: 'profile', import: 'home', wallet: 'profile', card: 'profile', cook: 'home' };
 
 const SCREENS: Partial<Record<Screen, () => ReactNode>> = {
   splash: () => <Splash />,
+  welcome: () => <Welcome />,
   onboarding: () => <Onboarding />,
   home: () => <Home />,
   onsale: () => <OnSale />,

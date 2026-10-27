@@ -83,7 +83,7 @@ export interface State {
   timer: { end: number; secs: number; label: string; recipe: number } | null; // one running timer, survives leaving the screen
 }
 
-const NO_HISTORY: Screen[] = ['splash', 'onboarding'];
+const NO_HISTORY: Screen[] = ['splash', 'welcome', 'onboarding'];
 
 /** plateful_mealplan: { days: { Monday: [ids] … } }. The pre-redesign shape (an array of day objects with string ids) is dropped. */
 function loadPlan(): WeekPlan {
