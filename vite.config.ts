@@ -3,6 +3,16 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
+
+// the build stamp shown at the foot of Profile: short commit + build date, so a tester can say which build they are on
+function buildStamp(): string {
+  let sha = "dev";
+  try { sha = execSync("git rev-parse --short HEAD", { stdio: ["ignore", "pipe", "ignore"] }).toString().trim(); } catch { /* no git */ }
+  const d = new Date();
+  const day = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+  return `${sha} · ${day}`;
+}
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,6 +23,7 @@ export default defineConfig({
   // relative asset paths: the same build runs at the site root (pnpm start) and under /Plateful/ on GitHub Pages
   base: "./",
   plugins: [react(), tailwindcss()],
+  define: { __BUILD__: JSON.stringify(buildStamp()) },
   resolve: {
     alias: {
       "@": path.resolve(here, "client", "src"),

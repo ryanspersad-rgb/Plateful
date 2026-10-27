@@ -5,11 +5,13 @@ import { useApp } from '@/hooks/usePlateful';
 import { LANDING_IMG, LANDING_VIDEO, WELCOME_PAGES } from '@/lib/editorial/welcome';
 
 export function Welcome() {
-  const { act } = useApp();
+  const { s, act } = useApp();
+  const returning = !!s.user; // a shopper with a profile on this phone sees the pages once, then goes back to their kitchen
   const [page, setPage] = useState(0); // 0 = landing, 1..4 = hero pages
   const x0 = useRef<number | null>(null);
   const last = WELCOME_PAGES.length;
-  const next = () => (page >= last ? act.go('onboarding') : setPage(page + 1));
+  const finish = () => act.welcomeDone(returning ? 'home' : 'onboarding');
+  const next = () => (page >= last ? finish() : setPage(page + 1));
   const prev = () => setPage(Math.max(0, page - 1));
 
   const onTouchStart = (e: React.TouchEvent) => { x0.current = e.touches[0].clientX; };
@@ -41,7 +43,7 @@ export function Welcome() {
       )}
       {WELCOME_PAGES.map((w, i) => <img key={w.img} src={w.img} alt="" className={page === i + 1 ? 'show' : ''} loading={i === 0 ? 'eager' : 'lazy'} />)}
       <div className="scrim" />
-      {page > 0 && <button className="skip" onClick={() => act.go('onboarding')}>Skip</button>}
+      {page > 0 && <button className="skip" onClick={finish}>Skip</button>}
       {page > 0 && (
         <>
           <button className="tapzone l" aria-label="Back" onClick={prev} />
@@ -55,7 +57,7 @@ export function Welcome() {
           <div className="tag">From cart to cuisine</div>
           <p className="dek">This week’s Calgary flyers, your fridge, and a table worth sitting down to.</p>
           <button className="btn primary" onClick={() => setPage(1)}>Get started</button>
-          <button className="back" onClick={act.skipSplash}>I already have an account</button>
+          <button className="back" onClick={() => act.welcomeDone('home')}>{returning ? 'Back to my kitchen' : 'I already have an account'}</button>
         </div>
       ) : p && (
         <div className="body" key={page}>
@@ -65,7 +67,7 @@ export function Welcome() {
           {page < last ? (
             <div className="pips" aria-hidden="true">{WELCOME_PAGES.map((w, i) => <i key={w.img} className={i + 1 === page ? 'on' : ''} />)}</div>
           ) : (
-            <button className="btn primary" onClick={() => act.go('onboarding')}>Set up my kitchen</button>
+            <button className="btn primary" onClick={finish}>{returning ? 'Back to my kitchen' : 'Set up my kitchen'}</button>
           )}
         </div>
       )}

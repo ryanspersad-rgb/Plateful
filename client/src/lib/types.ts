@@ -174,6 +174,8 @@ export interface UserProfile {
   notes?: Record<number, RecipeNote>;
   /** Recipes the shopper linked from other sites, kept on this phone. */
   importedRecipes?: ImportedRecipe[];
+  /** Set once the Welcome pages have been seen (or skipped); shoppers from before the pages see them once. */
+  welcomeSeen?: boolean;
 }
 
 export interface ImportedRecipe {

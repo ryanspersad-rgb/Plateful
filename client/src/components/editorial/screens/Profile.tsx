@@ -88,9 +88,10 @@ export function Profile() {
             <div className="l"><div className="n">Deal alerts</div><div className="s">When a favourite’s ingredients go on sale nearby</div></div>
             <button className={`toggle${user.alerts ? ' on' : ''}`} onClick={act.toggleAlerts} role="switch" aria-checked={user.alerts} aria-label="Deal alerts"><i /></button>
           </div>
+          <Row t="See the welcome pages again" s="The dinner table and the four pages new shoppers see first" onClick={act.welcomeAgain} />
         </Sec>
       </Pad>
-      <Foot>Plateful Inc. · Calgary · plateful.ca</Foot>
+      <Foot>Plateful Inc. · Calgary · plateful.ca · build {__BUILD__}</Foot>
       <Spacer />
     </>
   );

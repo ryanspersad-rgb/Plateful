@@ -205,6 +205,19 @@ const readPage = async (target: string) => {
   const act = {
     go, back, toast, patch, patchUser,
     skipSplash: () => { setS((prev) => (prev.user ? prev : { ...prev, user: withDefaultExpiry({ ...DEFAULT_USER }) })); go('home'); },
+    /** Leaving the Welcome pages: a shopper with a profile goes home, a new one to onboarding; either way the pages are marked seen. */
+    welcomeDone: (to: 'onboarding' | 'home' | 'auto' = 'auto') => {
+      const hasUser = !!s.user;
+      setS((prev) => {
+        const user = prev.user ? { ...prev.user, welcomeSeen: true } : to === 'home' ? withDefaultExpiry({ ...DEFAULT_USER, welcomeSeen: true }) : null;
+        // a shopper who already answered the questions sees them filled in, not blank
+        const ob = user && to === 'onboarding' ? { step: 0, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice() } : prev.ob;
+        return { ...prev, user, ob };
+      });
+      go(to === 'onboarding' ? 'onboarding' : hasUser || to === 'home' ? 'home' : 'onboarding');
+    },
+    /** From Profile: see the Welcome pages again. */
+    welcomeAgain: () => go('welcome'),
     detail: (id: number) => {
       patchUser((u) => ({ ...u, history: [id, ...(u.history || []).filter((x) => x !== id)].slice(0, 12) }));
       patch({ detail: id });
@@ -430,7 +443,7 @@ const readPage = async (target: string) => {
       if (s.ob.step < 4) { patch({ ob: { ...s.ob, step: s.ob.step + 1 } }); return; }
       const o = s.ob;
       patch({
-        user: withDefaultExpiry({ ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice() }),
+        user: withDefaultExpiry({ ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice(), welcomeSeen: true }),
       });
       go('home');
     },
