@@ -1,7 +1,7 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { TillMatch, TillPlan } from '@/lib/types';
-import { ADS, BOOK, FLYER_WEEK, STORE, money, pmPlan, productImg } from '@/lib/editorial';
-import { BackBtn, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
+import { ADS, BOOK, FLYER_WEEK, STORE, cardFor, maskNumber, money, pmPlan, productImg, programFor } from '@/lib/editorial';
+import { BackBtn, Chev, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
@@ -59,7 +59,7 @@ function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
 }
 
 export function Till() {
-  const { s, act } = useApp();
+  const { s, user, act } = useApp();
   const plans = pmPlan(s.list);
   const plan = plans.find((p) => p.s.id === s.tillStore) || plans[0];
   if (!plan) {
@@ -71,6 +71,8 @@ export function Till() {
     );
   }
   const done = plan.matches.filter((m) => s.matched[m.item.key]).length;
+  const prog = programFor(plan.s.id);
+  const card = cardFor(user, plan.s.id);
   const adStores = new Set(plan.matches.flatMap((m) => (ADS[m.item.key] || []).filter((a) => a.sid !== plan.s.id && a.price < m.here).map((a) => a.sid)));
   return (
     <>
@@ -81,6 +83,17 @@ export function Till() {
           {plans.map((p) => <button key={p.s.id} className={`ttab${p.s.id === plan.s.id ? ' on' : ''}`} onClick={() => act.tillStore(p.s.id)}>{p.s.name}</button>)}
         </nav>
         <div className="meta" style={{ marginTop: 2 }}>{plan.rule.long}</div>
+        {prog && (card ? (
+          <button className="hrow" onClick={() => act.cardShow(card.id)}>
+            <div className="l"><div className="n"><I.barcode /> Scan your {prog.name} card</div><div className="s">{maskNumber(card.number)} · tap for the barcode</div></div>
+            <Chev />
+          </button>
+        ) : (
+          <button className="hrow" onClick={() => act.go('wallet')}>
+            <div className="l"><div className="n"><I.barcode /> Add your {prog.name} card</div><div className="s">Show it here at the till, stored on this phone only</div></div>
+            <Chev />
+          </button>
+        ))}
         <div className="twocol">
           <div><div className="lab">You save here</div><div className="big acc">{money(plan.saved)}</div><div className="sub">{plan.matches.length} items matched · {done} applied</div></div>
           <div><div className="lab">List total</div><div className="big">{money(plan.total)}</div><div className="sub">with every match applied</div></div>

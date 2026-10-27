@@ -405,3 +405,24 @@ a{color:var(--acc);text-decoration:none}
 .picker .search{margin:0;border:0;border-bottom:1px solid var(--hair);border-radius:0;height:46px}
 .daychips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .daychips .chip.has{border-color:var(--ink)}
+
+/* ---- loyalty wallet ---- */
+.barcode{display:block;width:100%;height:auto;max-width:100%}
+.cardform{padding:14px 0 6px}
+.cardform .n{font:700 16px var(--sans);color:var(--ink)}
+.cardform .s{font:400 13px var(--sans);color:var(--mute);margin-top:3px}
+.cardform .field{display:block;width:100%;height:48px;margin-top:12px;border:1px solid var(--line);border-radius:4px;background:var(--ground);padding:0 12px;font:500 15px var(--sans);color:var(--ink);outline:none}
+.cardform .field.num{font:600 20px var(--serif);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.cardform .field:focus{border-color:var(--ink)}
+.cardform .preview{margin-top:14px;padding:12px;border:1px solid var(--hair);border-radius:2px;background:#fff}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.cardsheet{min-height:100%;display:flex;flex-direction:column;background:#fff;padding:54px 22px 24px}
+.cs-top{display:flex;align-items:center;justify-content:space-between;margin-left:-10px}
+.cs-top .eyebrow{color:var(--ink)}
+.cs-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:20px 0}
+.cs-num{font:600 22px var(--serif);color:var(--ink);text-align:center;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.cs-foot{display:grid;gap:10px;text-align:center}
+.cs-foot .meta{font-size:12px}
+.hrow .n svg{width:16px;height:16px;vertical-align:-3px;margin-right:6px}
+.hrow > svg{width:20px;height:20px;flex:none;color:var(--acc)}
+.hrow .n svg{display:inline-block}

@@ -6,3 +6,4 @@ export * from './pricing';
 export * from './scoring';
 export * from './fridge';
 export * from './plan';
+export * from './wallet';

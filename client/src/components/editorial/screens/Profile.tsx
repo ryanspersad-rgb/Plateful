@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import type { Screen } from '@/lib/types';
-import { budgetFor, cookLevel, money, plannedCount, plural } from '@/lib/editorial';
+import { budgetFor, cardName, cookLevel, money, plannedCount, plural } from '@/lib/editorial';
 import { Chev, Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 
 export function Profile() {
@@ -11,6 +11,7 @@ export function Profile() {
   const lv = cookLevel(user);
   const b = budgetFor(user, s.list);
   const plannedDinners = plannedCount(s.plan);
+  const cards = user.cards || [];
   const Row = ({ t, s, to, onClick, extra }: { t: string; s: string; to?: Screen; onClick?: () => void; extra?: ReactNode }) => (
     <button className="hrow" onClick={onClick ?? (() => to && act.go(to))}>
       <div className="l"><div className="n">{t}</div><div className="s">{s}</div></div>
@@ -81,7 +82,7 @@ export function Profile() {
         </Sec>
         <Sec eyebrow="Household" thin>
           <Row t="Household allergens" s="Roadmap · per-person profiles" onClick={() => act.toast('Allergen profiles are on the roadmap')} extra={Soon} />
-          <Row t="Loyalty cards" s="PC Optimum, Scene+, Co-op, Air Miles in one wallet" onClick={() => act.toast('The loyalty wallet is on the roadmap')} extra={Soon} />
+          <Row t="Loyalty cards" s={cards.length ? `${plural(cards.length, 'card')} on this phone · ${cards.map(cardName).join(', ')}` : 'PC Optimum, Scene+, Co-op, Costco, Air Miles — shown as a barcode at the till'} to="wallet" />
           <div className="hrow">
             <div className="l"><div className="n">Deal alerts</div><div className="s">When a favourite’s ingredients go on sale nearby</div></div>
             <button className={`toggle${user.alerts ? ' on' : ''}`} onClick={act.toggleAlerts} role="switch" aria-checked={user.alerts} aria-label="Deal alerts"><i /></button>

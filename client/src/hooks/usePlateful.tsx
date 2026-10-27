@@ -1,10 +1,11 @@
 // App state for the editorial screens. One store, persisted to localStorage under the same keys
 // the prototype and the legacy app use: plateful_onboarded, plateful_sale_selected, plateful_shoplist.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Clip, ListItem, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
+import type { Clip, ListItem, ProgramId, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
 import {
   BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
+  cardName, cleanNumber, newCard, numberError,
 } from '@/lib/editorial';
 
 export const DEFAULT_USER: UserProfile = {
@@ -70,6 +71,10 @@ export interface State {
   planPick: Day | null;   // the day whose "Add a dinner" picker is open
   planQ: string;          // search text in that picker
   dayPick: boolean;       // the day chips under "Add to this week's plan" on Detail
+  cardId: string | null;  // the loyalty card open full-screen
+  walletAdd: ProgramId | null; // the program whose add form is open on the wallet
+  walletNum: string;      // the number being typed there
+  walletLabel: string;    // store name for an "other" card
 }
 
 const NO_HISTORY: Screen[] = ['splash', 'onboarding'];
@@ -99,6 +104,7 @@ function initial(): State {
     q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', importUrl: '', importResult: null,
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
     plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
+    cardId: null, walletAdd: null, walletNum: '', walletLabel: '',
   };
 }
 
@@ -275,6 +281,24 @@ function useStore() {
       toast('Added to your Superstore list with the Co-op ad attached');
     },
     tillStore: (sid: StoreId) => patch({ tillStore: sid }),
+    // loyalty wallet — numbers stay in plateful_onboarded on this device
+    walletOpen: (program: ProgramId | null) => patch({ walletAdd: program, walletNum: '', walletLabel: '' }),
+    cardSave: () => {
+      const program = s.walletAdd;
+      const n = cleanNumber(s.walletNum);
+      if (!program || numberError(n)) return;
+      const card = newCard(program, n, program === 'other' ? s.walletLabel : undefined);
+      patchUser((u) => ({ ...u, cards: [...(u.cards || []).filter((c) => c.program !== program || program === 'other'), card] }));
+      patch({ walletAdd: null, walletNum: '', walletLabel: '' });
+      toast(`${cardName(card)} card saved on this phone`);
+    },
+    cardRemove: (id: string) => {
+      patchUser((u) => ({ ...u, cards: (u.cards || []).filter((c) => c.id !== id) }));
+      patch({ cardId: null });
+      back();
+      toast('Card removed');
+    },
+    cardShow: (id: string) => { patch({ cardId: id }); go('card'); },
     tillTick: (key: string) => patch((p) => ({ matched: { ...p.matched, [key]: !p.matched[key] } })),
     tillDone: (save: number) => {
       patch((p) => ({ list: p.list.map((i) => (p.matched[i.key] ? { ...i, done: true } : i)), matched: {} }));

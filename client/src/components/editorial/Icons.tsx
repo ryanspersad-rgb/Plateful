@@ -26,6 +26,7 @@ export const I = {
   leaf: (p: P = {}) => <svg {...base(p)}><path d="M12 3l2 4 4-1-1 4 4 2-4 2 1 4-4-1-2 4-2-4-4 1 1-4-4-2 4-2-1-4 4 1z" /><path d="M12 13v8" /></svg>,
   share: (p: P = {}) => <svg {...base(p)}><path d="M12 3v12M8 7l4-4 4 4" /><path d="M5 13v7h14v-7" /></svg>,
   map: (p: P = {}) => <svg {...base(p)}><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" /><path d="M9 4v14M15 6v14" /></svg>,
+  barcode: (p: P = {}) => <svg {...base(p)}><path d="M4 6v12M8 6v12M11 6v12M14 6v12M17 6v12M20 6v12" /></svg>,
   flyer: (p: P = {}) => <svg {...base(p)}><path d="M6 3h9l4 4v14H6z" /><path d="M15 3v4h4M9 12h6M9 16h6" /></svg>,
   bell: (p: P = {}) => <svg {...base(p)}><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z" /><path d="M10 21h4" /></svg>,
   link: (p: P = {}) => <svg {...base(p)}><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5" /><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5" /></svg>,

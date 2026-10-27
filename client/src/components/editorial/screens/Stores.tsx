@@ -1,6 +1,6 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { Store } from '@/lib/types';
-import { STORES, dealsAt, money, oneStop } from '@/lib/editorial';
+import { STORES, cardFor, dealsAt, money, oneStop, programFor } from '@/lib/editorial';
 import { Chev, Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
@@ -96,6 +96,7 @@ export function Stores() {
               </div>
               <a className="iconbtn" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(st.retailer + ' ' + st.area + ' Calgary')}`} target="_blank" rel="noopener noreferrer" aria-label="Open in Maps"><I.map /></a>
               <button className="iconbtn" onClick={() => act.go('onsale', { store: st.retailer })} aria-label="Flyer"><I.flyer /></button>
+              {cardFor(user, st.id) && <button className="iconbtn" onClick={() => act.cardShow(cardFor(user, st.id)!.id)} aria-label={`Show your ${programFor(st.id)?.name} card`}><I.barcode /></button>}
             </div>
           ))}
         </Sec>

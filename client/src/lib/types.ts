@@ -164,6 +164,32 @@ export interface UserProfile {
   expiry?: Record<string, string>;
   /** Weekly grocery budget in dollars; unset until the shopper enters one. */
   weeklyBudget?: number;
+  /** Loyalty cards kept on this phone: the number is drawn as a barcode at the till, never sent anywhere. */
+  cards?: LoyaltyCard[];
+}
+
+export type ProgramId = 'pco' | 'scene' | 'coop' | 'airmiles' | 'costco' | 'other';
+
+export interface LoyaltyCard {
+  id: string;
+  program: ProgramId;
+  /** Digits only. */
+  number: string;
+  /** Store name for an "other" card. */
+  label?: string;
+  added: string;
+}
+
+export interface LoyaltyProgram {
+  id: ProgramId;
+  name: string;
+  /** Stores in the price book that take this card. */
+  stores: StoreId[];
+  /** Where else it is used, for the picker. */
+  also: string;
+  hint: string;
+  /** Expected digit counts; empty = any length from 6 to 20. */
+  digits: number[];
 }
 
 /** This week's dinners, recipe ids per day (Monday first). Persisted as plateful_mealplan. */
@@ -219,6 +245,8 @@ export type Screen =
   | 'profile'
   | 'import'
   | 'plan'
+  | 'wallet'
+  | 'card'
   // legacy screens (HomeLegacy.tsx)
   | 'deals'
   | 'pantry'
