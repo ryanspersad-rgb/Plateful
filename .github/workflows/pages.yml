@@ -1,0 +1,37 @@
+# Beta site: every push to main rebuilds the app and publishes dist/public to the gh-pages branch,
+# which GitHub Pages serves at https://ryanspersad-rgb.github.io/Plateful/ (Settings → Pages → Deploy from a branch → gh-pages).
+# The API (server/) is not part of this: "Read the page" and the Instacart handoff fall back gracefully on the static site.
+name: Beta site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm test
+      - run: pnpm build
+      - run: touch dist/public/.nojekyll
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/public
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "Beta site from ${{ github.sha }}"

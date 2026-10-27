@@ -10,6 +10,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 // in server/, when it exists, serves that folder in production).
 export default defineConfig({
   root: path.resolve(here, "client"),
+  // relative asset paths: the same build runs at the site root (pnpm start) and under /Plateful/ on GitHub Pages
+  base: "./",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
