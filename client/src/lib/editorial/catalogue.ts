@@ -100,7 +100,17 @@ export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue)
 export const ALL_RECIPES: EditorialRecipe[] = [...EDITORIAL_RECIPES, ...CATALOGUE_RECIPES];
 
 const byId = new Map<number, EditorialRecipe>(ALL_RECIPES.map((r) => [r.id, r]));
-export const R = (id: number): EditorialRecipe | undefined => byId.get(id);
+
+/** Recipes the shopper linked (ids from 5000), registered by the store whenever they change. */
+const EXTRA = new Map<number, EditorialRecipe>();
+export function registerLinked(list: EditorialRecipe[]): void {
+  EXTRA.clear();
+  list.forEach((r) => EXTRA.set(r.id, r));
+}
+export const linkedRecipes = (): EditorialRecipe[] => Array.from(EXTRA.values());
+/** Every recipe the app can show: the editorial set, the catalogue and the shopper's linked recipes. */
+export const allRecipes = (): EditorialRecipe[] => (EXTRA.size ? [...ALL_RECIPES, ...EXTRA.values()] : ALL_RECIPES);
+export const R = (id: number): EditorialRecipe | undefined => byId.get(id) ?? EXTRA.get(id);
 
 /** Every cuisine/collection with at least one recipe, in catalogue order. */
 export const CUISINE_TABS: string[] = Array.from(

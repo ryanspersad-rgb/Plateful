@@ -72,7 +72,7 @@ export function RecipeCard({ r, cls = '', sq, serif, showStatus = true }: {
       onKeyDown={(e) => { if (e.key === 'Enter') act.detail(r.id); }}
     >
       <div className={`ph${sq ? ' sq' : ''}`}>
-        <img src={r.img} alt={r.name} loading="lazy" />
+        {r.img ? <img src={r.img} alt={r.name} loading="lazy" /> : <div className="noimg"><I.link />{r.src || 'Linked'}</div>}
         <Bookmark id={r.id} />
       </div>
       {serif ? <h3 className="title-serif">{r.name}</h3> : <h3 className="card-title">{r.name}</h3>}

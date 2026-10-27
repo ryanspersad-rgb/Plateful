@@ -474,3 +474,18 @@ a{color:var(--acc);text-decoration:none}
 .t-bar{height:3px;background:var(--hair);margin-top:10px;position:relative;border-radius:2px;overflow:hidden}
 .t-bar i{position:absolute;left:0;top:0;height:100%;background:var(--acc)}
 .timer.done .t-bar{background:rgba(255,255,255,.2)}
+
+/* ---- link a recipe ---- */
+.flabel{display:block;margin-top:14px;font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.flabel .mut{font-weight:500;letter-spacing:0;text-transform:none;color:var(--faint);margin-left:4px}
+.flabel .field,.flabel .stepper{margin-top:6px}
+.field{display:block;width:100%;height:46px;border:1px solid var(--line);border-radius:4px;background:var(--ground);padding:0 12px;font:400 15px var(--sans);color:var(--ink);outline:none}
+.field.area{height:auto;padding:10px 12px;line-height:1.45;resize:vertical;font-family:var(--sans)}
+.field:focus{border-color:var(--ink)}
+.frow{display:flex;gap:18px;align-items:flex-start}
+.linked-prev{margin-top:10px;border:1px solid var(--hair);border-radius:4px;padding:2px 12px 12px}
+.linked-ok{border:1px solid var(--ink);border-radius:2px;padding:14px 16px;margin-top:6px}
+.linked-ok .n{font:700 16px var(--sans);color:var(--ink);margin-top:4px}
+.noimg{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--mute);background:var(--paper);font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:8px}
+.noimg svg{width:22px;height:22px;color:var(--ink)}
+a.btn{text-decoration:none}

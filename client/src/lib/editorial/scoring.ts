@@ -2,7 +2,7 @@
 // score = saleHits*3 + fridgeHits*4 + (fav ? 6 : 0) + (cuisine match ? 2 : 0); a saved deal counts as a fridge hit.
 import type { CookLevel, Difficulty, EditorialRecipe, RecipeStatus, UserProfile } from '@/lib/types';
 import { BOOK, SALE_KEYS } from './book';
-import { ALL_RECIPES, R } from './catalogue';
+import { allRecipes, R } from './catalogue';
 import { money } from './pricing';
 
 export const LEVEL: Record<Difficulty, number> = { Easy: 1, Medium: 2, Confident: 3 };
@@ -54,14 +54,14 @@ export const plural = (n: number, w: string): string => `${n}${NB}${w}${n === 1 
 
 /** Recipes for a Home filter tab, ranked by score then savings. */
 export function recommended(filter: string, c: Ctx): EditorialRecipe[] {
-  const list = ALL_RECIPES.filter((r) => filter === 'All' || r.cuisine === filter || r.tags.includes(filter));
+  const list = allRecipes().filter((r) => filter === 'All' || r.cuisine === filter || r.tags.includes(filter));
   return list.sort((a, b) => score(b, c) - score(a, c) || b.save - a.save);
 }
 
 export function searchRecipes(q: string, limit = 4): EditorialRecipe[] {
   const s = q.trim().toLowerCase();
   if (!s) return [];
-  return ALL_RECIPES.filter(
+  return allRecipes().filter(
     (r) => r.name.toLowerCase().includes(s) || r.ing.some((i) => BOOK[i[0]] && BOOK[i[0]].n.toLowerCase().includes(s)),
   ).slice(0, limit);
 }
@@ -94,19 +94,19 @@ export function stepRow(user: UserProfile) {
       eyebrow: 'Start here',
       title: 'Five ingredients, half an hour',
       dek: 'Short lists and forgiving methods. Cook three and your level moves up.',
-      list: ALL_RECIPES.filter((r) => r.diff === 'Easy' && r.ing.length <= 7 && r.time <= 30),
+      list: allRecipes().filter((r) => r.diff === 'Easy' && r.ing.length <= 7 && r.time <= 30),
     };
   if (lv.name === 'Home cook')
     return {
       eyebrow: 'Your next step',
       title: 'One new technique each',
       dek: 'Medium recipes that teach a skill you have not used yet.',
-      list: ALL_RECIPES.filter((r) => r.diff === 'Medium'),
+      list: allRecipes().filter((r) => r.diff === 'Medium'),
     };
   return {
     eyebrow: 'Weekend projects',
     title: 'Worth the afternoon',
     dek: 'Braises and bakes for a confident cook.',
-    list: ALL_RECIPES.filter((r) => r.diff === 'Confident'),
+    list: allRecipes().filter((r) => r.diff === 'Confident'),
   };
 }

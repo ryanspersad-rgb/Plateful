@@ -115,6 +115,8 @@ export interface EditorialRecipe {
   hook?: string;
   dek?: string;
   src?: string;
+  /** External recipes: the original page. */
+  url?: string;
   rating?: number;
   count?: number;
   /** Protein, carbs, fat, fibre in grams (photographed set only so far). */
@@ -168,6 +170,23 @@ export interface UserProfile {
   cards?: LoyaltyCard[];
   /** What the cook thought of a recipe after making it, by recipe id. */
   notes?: Record<number, RecipeNote>;
+  /** Recipes the shopper linked from other sites, kept on this phone. */
+  importedRecipes?: ImportedRecipe[];
+}
+
+export interface ImportedRecipe {
+  id: number;
+  name: string;
+  url: string;
+  /** "cooking.nytimes.com", "TikTok" … */
+  source: string;
+  img?: string;
+  /** Price-book keys (x: when unpriced) and the amount as typed. */
+  ing: [string, string][];
+  steps: string[];
+  serv: number;
+  time?: number;
+  added: string;
 }
 
 export interface RecipeNote {

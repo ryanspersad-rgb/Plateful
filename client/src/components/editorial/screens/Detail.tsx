@@ -1,5 +1,5 @@
 import { useApp } from '@/hooks/usePlateful';
-import { ALL_RECIPES, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, money, nameFor, plural, scaleIngredients, status, statusText, timeText } from '@/lib/editorial';
+import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, money, nameFor, plural, scaleIngredients, status, statusText, timeText } from '@/lib/editorial';
 import { BackBtn, Bookmark, Lvl, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
 import { I } from '../Icons';
 
@@ -43,7 +43,7 @@ export function Detail() {
   if (!r) return <Pad><p className="dek" style={{ marginTop: 20 }}>That recipe is not available.</p></Pad>;
   const st = status(r, ctx);
   const ok = st.missing.length === 0;
-  const similar = ALL_RECIPES.filter((x) => x.id !== r.id && (x.cuisine === r.cuisine || x.tags.some((t) => r.tags.includes(t)))).slice(0, 2);
+  const similar = allRecipes().filter((x) => x.id !== r.id && (x.cuisine === r.cuisine || x.tags.some((t) => r.tags.includes(t)))).slice(0, 2);
   const cooked = (user.cooked || []).includes(r.id);
   const plannedDays = DAYS.filter((d) => s.plan[d].includes(r.id));
   const pts = LEVEL[r.diff] || 1;
@@ -55,7 +55,7 @@ export function Detail() {
   return (
     <>
       <div className="hero">
-        <img src={r.img} alt={r.name} />
+        {r.img ? <img src={r.img} alt={r.name} /> : <div className="noimg"><I.link />From {r.src}</div>}
         <BackBtn onPhoto />
         <Bookmark id={r.id} hero />
       </div>
@@ -63,7 +63,8 @@ export function Detail() {
         <div className="status-line" style={{ marginTop: 16 }}><span className="st">{statusText(r, ctx)}</span> · {r.cuisine} · {r.meal}</div>
         <h1 className="screen-title" style={{ marginTop: 8 }}>{r.name}</h1>
         <div className="byline" style={{ marginTop: 8 }}>
-          {r.src ? <>From <u>{r.src}</u> · <Stars n={r.rating || 0} c={r.count || 0} /></> : <>From the <u>Plateful kitchen</u> · priced against this week’s flyers</>}
+          {r.url ? <>From <a href={r.url} target="_blank" rel="noopener noreferrer"><u>{r.src}</u></a> · your linked recipe, priced by the pack against this week’s flyers</>
+            : r.src ? <>From <u>{r.src}</u> · <Stars n={r.rating || 0} c={r.count || 0} /></> : <>From the <u>Plateful kitchen</u> · priced against this week’s flyers</>}
         </div>
         {r.dek && <p className="dek" style={{ marginTop: 10 }}>{r.dek}</p>}
         <div className="meta" style={{ marginTop: 10 }}><Lvl r={r} /> · {plural(r.ing.length, 'ingredient')} · {timeText(r.time)}</div>
@@ -131,10 +132,18 @@ export function Detail() {
             </div>
           )}
         </div>
-        <Sec eyebrow={`Preparation · ${plural(r.steps.length, 'step')}`} thin>
-          <button className="btn secondary" style={{ marginTop: 12 }} onClick={() => act.cookStart(r.id)}><I.play /> Cook step by step</button>
-          <div className="meta" style={{ textAlign: 'center', marginTop: 8, marginBottom: 4 }}>One step at a time, timers from the recipe, screen stays on</div>
-          <ol className="steps">{r.steps.map((step, i) => <li key={i}>{step}</li>)}</ol>
+        <Sec eyebrow={r.steps.length ? `Preparation · ${plural(r.steps.length, 'step')}` : 'Preparation'} thin>
+          {r.url && (
+            <a className="btn secondary" style={{ marginTop: 12 }} href={r.url} target="_blank" rel="noopener noreferrer"><I.link /> Open the original on {r.src}</a>
+          )}
+          {r.steps.length > 0 && (
+            <>
+              <button className="btn secondary" style={{ marginTop: r.url ? 10 : 12 }} onClick={() => act.cookStart(r.id)}><I.play /> Cook step by step</button>
+              <div className="meta" style={{ textAlign: 'center', marginTop: 8, marginBottom: 4 }}>One step at a time, timers from the recipe, screen stays on</div>
+              <ol className="steps">{r.steps.map((step, i) => <li key={i}>{step}</li>)}</ol>
+            </>
+          )}
+          {!r.steps.length && r.url && <p className="dek" style={{ marginTop: 12 }}>The method is on the original page. Paste it into the recipe’s link form and cook mode will walk you through it.</p>}
           <div style={{ marginTop: 16 }}>
             {cooked ? (
               <button className="btn secondary" onClick={() => act.go('profile')}><I.check /> Cooked · see your cook level</button>

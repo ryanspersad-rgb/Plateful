@@ -1,5 +1,5 @@
 import { useApp } from '@/hooks/usePlateful';
-import { ALL_RECIPES, FLYER_WEEK, money, productImg, statusText, timeText } from '@/lib/editorial';
+import { allRecipes, FLYER_WEEK, money, productImg, statusText, timeText } from '@/lib/editorial';
 import { SRow } from '../Bits';
 import { I } from '../Icons';
 
@@ -7,7 +7,7 @@ import { I } from '../Icons';
 export function Camera() {
   const { s, ctx, act } = useApp();
   const stage = s.cam;
-  const uses = ALL_RECIPES.filter((r) => r.ing.some((i) => i[0] === 'cheddar')).slice(0, 3);
+  const uses = allRecipes().filter((r) => r.ing.some((i) => i[0] === 'cheddar')).slice(0, 3);
   const img = productImg('cheddar');
   return (
     <div className="cam">

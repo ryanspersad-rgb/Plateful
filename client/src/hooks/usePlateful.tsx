@@ -6,6 +6,7 @@ import {
   BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
   cardName, cleanNumber, newCard, numberError, scaleIngredients,
+  cleanStep, isUrl, nameFromUrl, newImported, parseIngredients, registerLinked, splitPaste, toRecipe,
 } from '@/lib/editorial';
 
 export const DEFAULT_USER: UserProfile = {
@@ -60,8 +61,8 @@ export interface State {
   onsaleCat: string;
   onsaleStore: string;
   homeFilter: string;
-  importUrl: string;
-  importResult: number | null;
+  /** The "Link a recipe" form; kept while the shopper moves between screens. */
+  imp: { url: string; name: string; ing: string; steps: string; serv: number; time: string; img: string; saved: number | null };
   cam: 0 | 1 | 2;
   tillStore: StoreId;
   matched: Record<string, boolean>;
@@ -97,15 +98,18 @@ function loadPlan(): WeekPlan {
   return base;
 }
 
+const EMPTY_IMP: State['imp'] = { url: '', name: '', ing: '', steps: '', serv: 4, time: '', img: '', saved: null };
+
 function initial(): State {
   const saved = LS.get<UserProfile | null>('plateful_onboarded', null);
+  registerLinked((saved?.importedRecipes || []).map(toRecipe));
   return {
     screen: 'splash', hist: [], detail: null,
     user: saved ? withDefaultExpiry(saved) : null,
     saleSel: LS.get<string[]>('plateful_sale_selected', []),
     list: LS.get<ListItem[] | null>('plateful_shoplist', null) ?? DEFAULT_LIST,
     ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice() },
-    q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', importUrl: '', importResult: null,
+    q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', imp: { ...EMPTY_IMP },
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
     plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
     cardId: null, walletAdd: null, walletNum: '', walletLabel: '',
@@ -337,17 +341,46 @@ function useStore() {
     },
     toggleAlerts: () => patchUser((u) => ({ ...u, alerts: !u.alerts })),
     setRadius: (km: number) => patchUser((u) => ({ ...u, radiusKm: km })),
-    doImport: () => {
-      if (!s.importUrl.trim()) { toast('Paste a link first'); return; }
-      patch({ importResult: 28 });
+    // link a recipe from another site: the form, then the saved list
+    impPatch: (f: Partial<State['imp']>) =>
+      patch((p) => {
+        const imp = { ...p.imp, ...f };
+        // a name guessed from the link, until the shopper types one
+        if (f.url !== undefined && (!p.imp.name || p.imp.name === nameFromUrl(p.imp.url))) imp.name = nameFromUrl(f.url);
+        // a pasted block with a "Method" heading splits into ingredients and steps
+        if (f.ing !== undefined) {
+          const sp = splitPaste(f.ing);
+          if (sp.steps.length && !p.imp.steps) { imp.ing = sp.ing.join('\n'); imp.steps = sp.steps.join('\n'); }
+        }
+        return { imp };
+      }),
+    impStart: (url = '') => { patch({ imp: { ...EMPTY_IMP, url, name: nameFromUrl(url), serv: user.householdSize || 4 } }); go('import'); },
+    impSave: () => {
+      const f = s.imp;
+      const lines = parseIngredients(f.ing);
+      if (!f.url.trim() || !isUrl(f.url)) { toast('Paste the recipe’s link first'); return; }
+      if (!f.name.trim()) { toast('Give the recipe a name'); return; }
+      if (!lines.length) { toast('Paste at least one ingredient'); return; }
+      const existing = user.importedRecipes || [];
+      const rec = newImported({
+        url: f.url, name: f.name, ing: lines.map((l) => [l.key, l.amount] as [string, string]), steps: f.steps.split(/\r?\n/).map(cleanStep).filter(Boolean),
+        serv: f.serv, time: f.time ? Number(f.time) || undefined : undefined, img: f.img,
+      }, existing);
+      const list = [...existing, rec];
+      registerLinked(list.map(toRecipe));
+      patchUser((u) => ({ ...u, importedRecipes: list }));
+      patch({ imp: { ...EMPTY_IMP, serv: user.householdSize || 4, saved: rec.id } });
+      toast(`${rec.name} linked from ${rec.source}`);
     },
-    saveImport: (id: number) => {
+    impRemove: (id: number) => {
+      const list = (user.importedRecipes || []).filter((r) => r.id !== id);
+      registerLinked(list.map(toRecipe));
       patchUser((u) => ({
-        ...u,
-        imported: (u.imported || []).includes(id) ? u.imported : [...(u.imported || []), id],
-        favorites: u.favorites.includes(id) ? u.favorites : [...u.favorites, id],
+        ...u, importedRecipes: list,
+        favorites: u.favorites.filter((x) => x !== id), cooked: (u.cooked || []).filter((x) => x !== id), history: (u.history || []).filter((x) => x !== id),
       }));
-      toast('Saved to imported recipes');
+      patch((p) => ({ plan: Object.fromEntries(DAYS.map((d) => [d, p.plan[d].filter((x) => x !== id)])) as typeof p.plan, imp: { ...p.imp, saved: null } }));
+      toast('Recipe removed');
     },
     // onboarding
     obPatch: (p: Partial<Onboarding>) => patch((prev) => ({ ob: { ...prev.ob, ...p } })),

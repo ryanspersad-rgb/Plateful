@@ -3,7 +3,7 @@ import { useApp } from '@/hooks/usePlateful';
 import {
   BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
   inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, status, statusText, stepRow, timeText,
-  expiringSoon, useItUp, whenText,
+  expiringSoon, useItUp, whenText, isUrl, sourceOf,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
 import { I } from '../Icons';
@@ -47,6 +47,13 @@ function SearchResults() {
   const { s, ctx, act } = useApp();
   const q = s.q.trim().toLowerCase();
   if (!q) return null;
+  if (isUrl(s.q)) {
+    return (
+      <div className="sresults">
+        <button className="srow add" onClick={() => { act.impStart(s.q.trim()); act.patch({ q: '' }); }}><I.link /> Link this recipe from {sourceOf(s.q)}</button>
+      </div>
+    );
+  }
   const hits = searchRecipes(q);
   const keyHit = Object.keys(BOOK).find((k) => BOOK[k].n.toLowerCase().startsWith(q));
   return (

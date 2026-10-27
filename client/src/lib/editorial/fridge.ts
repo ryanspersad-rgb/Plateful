@@ -2,7 +2,7 @@
 // Dates are stored per price-book key in user.expiry as ISO days ('2026-10-30'); pantry/frozen staples carry none.
 import type { EditorialRecipe, UserProfile } from '@/lib/types';
 import { BOOK, FRIDGE_CATS } from './book';
-import { ALL_RECIPES } from './catalogue';
+import { allRecipes } from './catalogue';
 import { score, type Ctx } from './scoring';
 
 /** Typical days to use by, from the day an item lands in the fridge. Category defaults, then the key overrides. */
@@ -91,7 +91,7 @@ export function expiringSoon(user: UserProfile, withinDays = 5, from: string = t
 export function useItUp(c: Ctx, items: Expiring[], limit = 8): EditorialRecipe[] {
   if (!items.length) return [];
   const rank = new Map(items.map((e, i) => [e.key, i]));
-  return ALL_RECIPES
+  return allRecipes()
     .map((r) => {
       const hits = r.ing.map((i) => i[0]).filter((k) => rank.has(k));
       const soonest = hits.length ? Math.min(...hits.map((k) => rank.get(k) as number)) : 99;

@@ -12,6 +12,7 @@ export function Profile() {
   const b = budgetFor(user, s.list);
   const plannedDinners = plannedCount(s.plan);
   const cards = user.cards || [];
+  const linked = user.importedRecipes || [];
   const Row = ({ t, s, to, onClick, extra }: { t: string; s: string; to?: Screen; onClick?: () => void; extra?: ReactNode }) => (
     <button className="hrow" onClick={onClick ?? (() => to && act.go(to))}>
       <div className="l"><div className="n">{t}</div><div className="s">{s}</div></div>
@@ -47,7 +48,7 @@ export function Profile() {
           <Row t="Favourites" s={`${user.favorites.length} saved recipes`} to="favourites" />
           <Row t="History" s={`${(user.history || []).length} recently viewed · ${(user.cooked || []).length} cooked`} to="history" />
           <Row t="This week’s plan" s={`${plannedDinners} planned · groceries to the list in one tap`} to="plan" />
-          <Row t="Imported recipes" s={`${(user.imported || []).length} from TikTok, Instagram, YouTube and the web`} to="import" />
+          <Row t="Linked recipes" s={linked.length ? `${plural(linked.length, 'recipe')} from ${Array.from(new Set(linked.map((x) => x.source))).slice(0, 3).join(', ')}` : 'Link a recipe from any site, TikTok, Instagram or YouTube'} to="import" />
           <Row t="Diets and cuisines" s={`${user.diets.length ? user.diets.join(', ') : 'No diets'} · ${user.cuisines.join(', ')}`} onClick={act.editPrefs} />
         </Sec>
         <Sec eyebrow="Budget" thin>
