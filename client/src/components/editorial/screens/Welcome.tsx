@@ -1,8 +1,8 @@
 // First run: the landing photo (page 0), then four full-bleed hero pages, then onboarding.
 // Tap the right half or swipe left to advance, left half or swipe right to go back; Skip on every page.
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
-import { LANDING_IMG, WELCOME_PAGES } from '@/lib/editorial/welcome';
+import { LANDING_IMG, LANDING_VIDEO, WELCOME_PAGES } from '@/lib/editorial/welcome';
 
 export function Welcome() {
   const { act } = useApp();
@@ -23,9 +23,22 @@ export function Welcome() {
 
   const p = page > 0 ? WELCOME_PAGES[page - 1] : null;
 
+  // the landing loop: only while page 0 is showing, only when the viewer has not asked for reduced motion
+  const vid = useRef<HTMLVideoElement | null>(null);
+  const [motion] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(() => {
+    const v = vid.current;
+    if (!v) return;
+    if (page === 0 && motion) void v.play().catch(() => { /* autoplay refused: the poster still shows */ });
+    else v.pause();
+  }, [page, motion]);
+
   return (
     <div className="welcome" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
       <img src={LANDING_IMG} alt="" className={page === 0 ? 'show' : ''} />
+      {motion && (
+        <video ref={vid} className={`loop${page === 0 ? ' show' : ''}`} src={LANDING_VIDEO} poster={LANDING_IMG} muted loop playsInline autoPlay preload="auto" aria-hidden="true" />
+      )}
       {WELCOME_PAGES.map((w, i) => <img key={w.img} src={w.img} alt="" className={page === i + 1 ? 'show' : ''} loading={i === 0 ? 'eager' : 'lazy'} />)}
       <div className="scrim" />
       {page > 0 && <button className="skip" onClick={() => act.go('onboarding')}>Skip</button>}
