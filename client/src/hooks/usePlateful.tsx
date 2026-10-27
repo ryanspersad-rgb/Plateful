@@ -1,11 +1,11 @@
 // App state for the editorial screens. One store, persisted to localStorage under the same keys
 // the prototype and the legacy app use: plateful_onboarded, plateful_sale_selected, plateful_shoplist.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Clip, ListItem, ProgramId, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
+import type { Clip, ListItem, ProgramId, RecipeNote, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
 import {
   BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
-  cardName, cleanNumber, newCard, numberError,
+  cardName, cleanNumber, newCard, numberError, scaleIngredients,
 } from '@/lib/editorial';
 
 export const DEFAULT_USER: UserProfile = {
@@ -75,6 +75,10 @@ export interface State {
   walletAdd: ProgramId | null; // the program whose add form is open on the wallet
   walletNum: string;      // the number being typed there
   walletLabel: string;    // store name for an "other" card
+  servPick: Record<number, number>; // servings chosen per recipe this session (default: the household)
+  cookId: number | null;  // the recipe open in cook mode
+  cookStep: number;       // 0-based step
+  timer: { end: number; secs: number; label: string; recipe: number } | null; // one running timer, survives leaving the screen
 }
 
 const NO_HISTORY: Screen[] = ['splash', 'onboarding'];
@@ -105,6 +109,7 @@ function initial(): State {
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
     plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
     cardId: null, walletAdd: null, walletNum: '', walletLabel: '',
+    servPick: {}, cookId: null, cookStep: 0, timer: null,
   };
 }
 
@@ -240,14 +245,15 @@ function useStore() {
       go('list');
       toast(`Added ${st.missing.length} items for ${st.dinners} dinner${st.dinners === 1 ? '' : 's'}`);
     },
-    addMissing: (id: number) => {
+    addMissing: (id: number, servings?: number) => {
       const r = R(id);
       if (!r) return;
       const st = status(r, ctx);
+      const ing = servings && servings !== r.serv ? scaleIngredients(r.ing, r.serv, servings) : r.ing;
       patch((p) => {
         let list = p.list;
         st.missing.forEach((k) => {
-          const amt = r.ing.find((i) => i[0] === k)?.[1] ?? null;
+          const amt = ing.find((i) => i[0] === k)?.[1] ?? null;
           if (BOOK[k]) list = addToList(list, k, amt, 1);
           else if (!list.some((i) => i.key === k)) list = [...list, { key: k, name: k.replace(/^x:/, '').replace(/-/g, ' '), qty: amt || '1', n: 1, sid: 'any', done: false }];
         });
@@ -299,6 +305,26 @@ function useStore() {
       toast('Card removed');
     },
     cardShow: (id: string) => { patch({ cardId: id }); go('card'); },
+    // servings and cook mode
+    setServings: (id: number, n: number) => patch((p) => ({ servPick: { ...p.servPick, [id]: Math.min(24, Math.max(1, n)) } })),
+    cookStart: (id: number) => { patch((p) => ({ cookId: id, cookStep: p.cookId === id ? p.cookStep : 0 })); go('cook'); }, // reopening the same recipe resumes where you were
+    cookStep: (i: number) => patch({ cookStep: i }),
+    timerStart: (secs: number, label: string, recipe: number) => patch({ timer: { end: Date.now() + secs * 1000, secs, label, recipe } }),
+    timerStop: () => patch({ timer: null }),
+    cookFinish: (id: number) => {
+      const r = R(id);
+      const u2: UserProfile = { ...user, cooked: (user.cooked || []).includes(id) ? user.cooked : [...(user.cooked || []), id] };
+      patch({ user: u2, timer: null, cookId: null, cookStep: 0 });
+      const lv = cookLevel(u2);
+      go('detail');
+      toast(`${r ? r.name + ' cooked. ' : ''}${lv.next ? `${lv.need} point${lv.need === 1 ? '' : 's'} to ${lv.next}` : 'You’re at the top level'}`);
+    },
+    // what the cook thought
+    setNote: (id: number, n: Partial<RecipeNote>) =>
+      patchUser((u) => {
+        const prev = u.notes?.[id] || { stars: 0, again: false, note: '', at: '' };
+        return { ...u, notes: { ...(u.notes || {}), [id]: { ...prev, ...n, at: new Date().toISOString().slice(0, 10) } } };
+      }),
     tillTick: (key: string) => patch((p) => ({ matched: { ...p.matched, [key]: !p.matched[key] } })),
     tillDone: (save: number) => {
       patch((p) => ({ list: p.list.map((i) => (p.matched[i.key] ? { ...i, done: true } : i)), matched: {} }));

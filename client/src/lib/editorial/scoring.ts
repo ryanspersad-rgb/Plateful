@@ -28,9 +28,16 @@ export function status(r: EditorialRecipe, c: Ctx): RecipeStatus {
   return { missing, saleHits, fridgeHits, cost, have: fridgeHits, of: r.ing.length };
 }
 
+/** What the cook said after making it: "make again" lifts a recipe like a favourite; one or two stars sinks it. */
+export function noteBoost(id: number, c: Ctx): number {
+  const n = c.user.notes?.[id];
+  if (!n) return 0;
+  return (n.again ? 5 : 0) + (n.stars >= 4 ? 2 : n.stars > 0 && n.stars <= 2 ? -6 : 0);
+}
+
 export function score(r: EditorialRecipe, c: Ctx): number {
   const st = status(r, c);
-  return st.saleHits * 3 + st.fridgeHits * 4 + (isFav(r.id, c) ? 6 : 0) + (c.user.cuisines.includes(r.cuisine) ? 2 : 0);
+  return st.saleHits * 3 + st.fridgeHits * 4 + (isFav(r.id, c) ? 6 : 0) + (c.user.cuisines.includes(r.cuisine) ? 2 : 0) + noteBoost(r.id, c);
 }
 
 export const statusText = (r: EditorialRecipe, c: Ctx): string => {

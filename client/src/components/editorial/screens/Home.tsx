@@ -73,6 +73,7 @@ export function Home() {
   const near = STORES.filter((st) => st.km <= user.radiusKm).length;
   const hist = (user.history || []).map((id) => R(id)).filter((r): r is NonNullable<typeof r> => !!r).slice(0, 8);
   const favs = user.favorites.map((id) => R(id)).filter((r): r is NonNullable<typeof r> => !!r);
+  const again = Object.entries(user.notes || {}).filter(([, n]) => n.again).map(([id]) => R(Number(id))).filter((r): r is NonNullable<typeof r> => !!r);
   const step = stepRow(user);
   const plan = pmPlan(s.list)[0];
   const soon = useMemo(() => expiringSoon(user, 5), [user]);
@@ -156,6 +157,13 @@ export function Home() {
         <Pad>
           <Sec eyebrow="My favourites" link="All" to="favourites" thin>
             <div className="row-scroll">{favs.slice(0, 8).map((r) => <RecipeCard key={r.id} r={r} cls="sm" sq />)}</div>
+          </Sec>
+        </Pad>
+      )}
+      {again.length > 0 && (
+        <Pad>
+          <Sec eyebrow="Make again" link="History" to="history" thin>
+            <div className="row-scroll">{again.slice(0, 8).map((r) => <RecipeCard key={r.id} r={r} cls="sm" sq />)}</div>
           </Sec>
         </Pad>
       )}

@@ -83,6 +83,21 @@ export function RecipeCard({ r, cls = '', sq, serif, showStatus = true }: {
         <div className="meta">{perServ(r)}</div>
       )}
       {showStatus && <div className={`statusline${ok ? ' ok' : ''}`}>{statusText(r, ctx)}</div>}
+      <NoteMark id={r.id} />
+    </div>
+  );
+}
+
+/** What the cook said after making it: "★★★★ · Make again". Nothing until they have. */
+export function NoteMark({ id }: { id: number }) {
+  const { user } = useApp();
+  const n = user.notes?.[id];
+  if (!n || (!n.stars && !n.again)) return null;
+  return (
+    <div className="notemark">
+      {n.stars > 0 && <span className="stars" aria-label={`You gave it ${n.stars} stars`}>{'★'.repeat(n.stars)}</span>}
+      {n.stars > 0 && n.again && ' · '}
+      {n.again && <b>Make again</b>}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 // Favourites, History and Import.
 import { useApp } from '@/hooks/usePlateful';
 import { ALL_RECIPES, R, isFav, plural, status, timeText } from '@/lib/editorial';
-import { BackBtn, Pad, RecipeCard, SRow, Sec, Spacer, Title, Topbar } from '../Bits';
+import { BackBtn, Chev, Pad, RecipeCard, SRow, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 const present = <T,>(x: T | undefined): x is T => x !== undefined;
@@ -24,6 +24,10 @@ export function History() {
   const { user, act } = useApp();
   const hist = (user.history || []).map(R).filter(present);
   const cooked = (user.cooked || []).map(R).filter(present);
+  const noted = Object.entries(user.notes || {})
+    .map(([id, n]) => ({ r: R(Number(id)), n }))
+    .filter((x): x is { r: NonNullable<typeof x.r>; n: typeof x.n } => !!x.r && (x.n.stars > 0 || x.n.again || !!x.n.note))
+    .sort((a, b) => b.n.at.localeCompare(a.n.at));
   return (
     <>
       <Topbar left={<><BackBtn /><Title title="History" meta={`${hist.length} recently viewed · ${cooked.length} cooked`} /></>} />
@@ -31,6 +35,21 @@ export function History() {
         <Sec eyebrow="Cooked" thin>
           {cooked.length ? <div className="grid2">{cooked.map((r) => <RecipeCard key={r.id} r={r} sq />)}</div> : <p className="dek" style={{ marginTop: 12 }}>Nothing cooked yet. Tap “I cooked this” under a recipe’s steps.</p>}
         </Sec>
+        {noted.length > 0 && (
+          <Sec eyebrow="Your notes" thin>
+            {noted.map(({ r, n }) => (
+              <button key={r.id} className="hrow" onClick={() => act.detail(r.id)}>
+                <div className="l">
+                  <div className="n">{r.name}</div>
+                  <div className="notemark" style={{ marginTop: 2 }}>
+                    {n.stars > 0 && <span className="stars">{'★'.repeat(n.stars)}</span>}{n.stars > 0 && n.again && ' · '}{n.again && <b>Make again</b>}{(n.stars > 0 || n.again) && n.note && ' · '}{n.note && <span style={{ fontStyle: 'italic' }}>“{n.note}”</span>}
+                  </div>
+                </div>
+                <Chev />
+              </button>
+            ))}
+          </Sec>
+        )}
         <Sec eyebrow="Recently viewed" thin>
           {hist.length
             ? hist.map((r) => <SRow key={r.id} img={r.img} t={r.name} m={`${r.diff} · ${plural(r.ing.length, 'ingredient')} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} style={{ padding: '10px 0' }} />)

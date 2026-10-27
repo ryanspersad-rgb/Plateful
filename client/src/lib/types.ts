@@ -166,6 +166,17 @@ export interface UserProfile {
   weeklyBudget?: number;
   /** Loyalty cards kept on this phone: the number is drawn as a barcode at the till, never sent anywhere. */
   cards?: LoyaltyCard[];
+  /** What the cook thought of a recipe after making it, by recipe id. */
+  notes?: Record<number, RecipeNote>;
+}
+
+export interface RecipeNote {
+  /** 0 = not rated. */
+  stars: number;
+  /** "I'd make it again" — lifts the recipe in recommendations. */
+  again: boolean;
+  note: string;
+  at: string;
 }
 
 export type ProgramId = 'pco' | 'scene' | 'coop' | 'airmiles' | 'costco' | 'other';
@@ -247,6 +258,7 @@ export type Screen =
   | 'plan'
   | 'wallet'
   | 'card'
+  | 'cook'
   // legacy screens (HomeLegacy.tsx)
   | 'deals'
   | 'pantry'
