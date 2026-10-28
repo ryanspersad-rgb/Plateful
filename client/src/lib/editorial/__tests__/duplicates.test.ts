@@ -41,10 +41,10 @@ describe('duplicate recipes', () => {
   });
 });
 
-describe('priced recipes only', async () => {
-  const { CATALOGUE_RECIPES, unpricedOf, MAX_UNPRICED, isStaple } = await import('../catalogue');
-  it('shows no catalogue recipe with more than two unpriced ingredients, staples aside', () => {
-    for (const r of CATALOGUE_RECIPES) expect(unpricedOf(r).length, r.name).toBeLessThanOrEqual(MAX_UNPRICED);
+describe('unpriced recipes stay in', async () => {
+  const { CATALOGUE_RECIPES, unpricedOf, isStaple } = await import('../catalogue');
+  it('keeps recipes with unpriced ingredients and treats staples as pantry', () => {
+    expect(CATALOGUE_RECIPES.some((r) => unpricedOf(r).length > 2)).toBe(true);
     expect(isStaple('x:salt')).toBe(true);
   });
 });

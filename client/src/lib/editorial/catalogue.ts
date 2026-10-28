@@ -201,9 +201,9 @@ export const canonical = (id: number): number => CANONICAL.get(id) ?? id;
 export const canonicalIds = (ids: number[]): number[] => Array.from(new Set(ids.map(canonical)));
 
 /** The catalogue with its duplicates of editorial or other catalogue recipes left out. */
-export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id) && unpricedOf(r).length <= MAX_UNPRICED);
+export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id));
 /** Catalogue recipes held back until the price book can price them (they come back as BOOK grows). */
-const HELD: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id) && unpricedOf(r).length > MAX_UNPRICED);
+const HELD: EditorialRecipe[] = [];
 export const UNPRICED_HELD = HELD.length;
 
 /** Every recipe Plateful can show: photographed editorial set first, then the catalogue. */

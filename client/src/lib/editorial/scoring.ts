@@ -49,7 +49,10 @@ export const statusText = (r: EditorialRecipe, c: Ctx, long = false): string => 
   if (st.missing.length === 0) return 'You have everything';
   const n = st.missing.length;
   const what = long ? `You need ${plural(n, 'more ingredient')}` : `You need ${n}${NB}more`;
-  return st.cost > 0 ? `${what} · ${money(st.cost)}` : what;
+  // Ingredients Plateful cannot price yet still count as needed; the cost covers only what it can price, and says so.
+  const unpriced = st.missing.filter((k) => !BOOK[k]).length;
+  if (unpriced === n) return `${what} · not priced yet`;
+  return st.cost > 0 ? `${what} · ${money(st.cost)}${unpriced ? `${long ? ` + ${unpriced} not priced yet` : '+'}` : ''}` : what;
 };
 export const perServ = (r: EditorialRecipe): string =>
   r.total > 0 ? money(r.total / r.serv) + ' a serving' : `Serves ${r.serv}`;
