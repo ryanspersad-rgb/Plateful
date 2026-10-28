@@ -27,3 +27,9 @@ export async function instacartList(title: string, items: { name: string; quanti
     return { ok: false, code: 'no_server' };
   }
 }
+
+/** The free API host sleeps when idle; a ping on app load wakes it before the shopper needs "Read the page". */
+export function wakeApi(): void {
+  if (!hasServer() || !base()) return;
+  fetch(`${base()}/api/health`).catch(() => undefined);
+}

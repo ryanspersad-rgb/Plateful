@@ -1,6 +1,6 @@
 # Beta site: every push to main rebuilds the app and publishes dist/public to the gh-pages branch,
 # which GitHub Pages serves at https://ryanspersad-rgb.github.io/Plateful/ (Settings → Pages → Deploy from a branch → gh-pages).
-# The API (server/) is not part of this: "Read the page" and the Instacart handoff fall back gracefully on the static site.
+# The API (server/) runs on Render (render.yaml); its URL reaches the build as VITE_API_BASE from the PLATEFUL_API_BASE repo variable.
 name: Beta site
 on:
   push:
@@ -25,6 +25,9 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: pnpm build
+        env:
+          # The hosted API (Render). Set under Settings → Secrets and variables → Actions → Variables; empty = no server, the app falls back.
+          VITE_API_BASE: ${{ vars.PLATEFUL_API_BASE }}
       - run: touch dist/public/.nojekyll
       - uses: peaceiris/actions-gh-pages@v4
         with:

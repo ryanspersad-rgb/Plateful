@@ -11,6 +11,22 @@ const app = express();
 app.disable('x-powered-by');
 app.use(express.json({ limit: '64kb' }));
 
+// The beta site on GitHub Pages calls this API from another origin, so allow it (and local dev) by name.
+// More origins: ALLOWED_ORIGINS="https://plateful.ca,https://www.plateful.ca".
+const ORIGINS = new Set(['https://ryanspersad-rgb.github.io', 'http://localhost:5173', 'http://localhost:4173', ...(process.env.ALLOWED_ORIGINS || '').split(',').map((o) => o.trim()).filter(Boolean)]);
+app.use('/api', (req, res, next) => {
+  const o = req.headers.origin;
+  if (o && ORIGINS.has(o)) {
+    res.setHeader('Access-Control-Allow-Origin', o);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type, accept');
+    res.setHeader('Access-Control-Max-Age', '86400');
+  }
+  if (req.method === 'OPTIONS') { res.sendStatus(o && ORIGINS.has(o) ? 204 : 403); return; }
+  next();
+});
+
 app.get('/api/health', (_req, res) => { res.json({ ok: true, instacart: !!process.env.INSTACART_API_KEY, at: new Date().toISOString() }); });
 app.use('/api', importRouter);
 app.use('/api', instacartRouter);

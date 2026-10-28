@@ -1,0 +1,22 @@
+# Render blueprint for the Plateful API (server/): "Read the page" on Link a recipe and the Instacart handoff.
+# Render → New → Blueprint → pick ryanspersad-rgb/Plateful. Secrets are entered in Render, never committed.
+services:
+  - type: web
+    name: plateful-api
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    autoDeploy: true
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm exec tsx server/index.ts
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: INSTACART_API_KEY
+        sync: false
+      - key: INSTACART_ENV
+        value: development
+      - key: ALLOWED_ORIGINS
+        value: https://plateful.ca,https://www.plateful.ca
