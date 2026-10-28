@@ -58,3 +58,22 @@ describe('helpers', () => {
     expect(c.steps).toEqual(['Melt the butter and add the garlic.', 'Cook the shrimp 2 minutes a side.']);
   });
 });
+
+describe('steps and ingredients from the HTML', () => {
+  it('fills steps the JSON-LD leaves out, from plugin markup', () => {
+    const html = `<script type="application/ld+json">{"@type":"Recipe","name":"Soup","recipeIngredient":["1 onion","2 cups stock"]}</script>
+      <div class="wprm-recipe-instructions-container"><ul><li><div class="wprm-recipe-instruction-text">Chop the onion and cook it in butter for 5 minutes.</div></li>
+      <li><div class="wprm-recipe-instruction-text">Add the stock and simmer for 20 minutes, then blend.</div></li></ul></div>`;
+    const r = readRecipe(html);
+    expect(r.ingredients).toEqual(['1 onion', '2 cups stock']);
+    expect(r.steps).toEqual(['Chop the onion and cook it in butter for 5 minutes.', 'Add the stock and simmer for 20 minutes, then blend.']);
+  });
+  it('reads lists under Ingredients and Method headings when there is no structured data', () => {
+    const html = `<title>Gran's stew</title><h2>Ingredients</h2><ul><li>1 lb beef</li><li>2 carrots</li></ul>
+      <h2>Method</h2><ol><li>1. Brown the beef in batches for 6 minutes.</li><li>Add the carrots and cook for 90 minutes.</li></ol>`;
+    const r = readRecipe(html);
+    expect(r.ingredients).toEqual(['1 lb beef', '2 carrots']);
+    expect(r.steps).toEqual(['Brown the beef in batches for 6 minutes.', 'Add the carrots and cook for 90 minutes.']);
+    expect(r.via).toBe('html');
+  });
+});

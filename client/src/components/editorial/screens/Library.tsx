@@ -1,4 +1,5 @@
 // Favourites, History and Import.
+import { useEffect, useRef } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import { BOOK, R, SALE_KEYS, allRecipes, inFridge, isFav, isUrl, money, parseIngredients, plural, sourceOf, statusText, timeText, toRecipe } from '@/lib/editorial';
 import { BackBtn, Chev, Foot, Pad, RecipeCard, SRow, Sec, Spacer, Title, Topbar } from '../Bits';
@@ -74,6 +75,14 @@ export function Import() {
   const saved = (user.importedRecipes || []).slice().reverse();
   const just = f.saved !== null ? R(f.saved) : undefined;
   const ready = isUrl(f.url) && f.name.trim() && lines.length > 0;
+  // Paste a link and the page is read straight away: name, photo, ingredients and the method fill themselves.
+  const lastRead = useRef(f.read || f.reading ? f.url.trim() : '');
+  useEffect(() => {
+    const url = f.url.trim();
+    if (!isUrl(url) || url === lastRead.current || f.reading) return;
+    const t = setTimeout(() => { lastRead.current = url; act.impRead(url); }, 600);
+    return () => clearTimeout(t);
+  }, [f.url, f.reading]); // eslint-disable-line react-hooks/exhaustive-deps -- act is rebuilt every render
   return (
     <>
       <Topbar left={<><BackBtn /><Title title="Link a recipe" meta="Any site, TikTok, Instagram or YouTube · kept on this phone" /></>} />

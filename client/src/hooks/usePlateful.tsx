@@ -200,7 +200,7 @@ function useStore() {
 /** Ask the server to read the page; whatever it finds prefills the form, the shopper can still edit everything. */
 const readPage = async (target: string) => {
     if (!isUrl(target)) { toast('Paste the recipe’s link first'); return; }
-    patch((p) => ({ imp: { ...p.imp, reading: true, read: null } }));
+    patch((p) => ({ imp: { ...p.imp, reading: true, read: 'Reading the page… the first one can take up to a minute while the server wakes up.' } }));
     const r = await readRecipePage(target);
     if (!r.ok) {
       patch((p) => ({ imp: { ...p.imp, reading: false, read: r.code === 'no_server' ? 'Paste the ingredient list below — reading the page needs the Plateful server.' : `${r.message}. Paste the list instead.` } }));
@@ -213,7 +213,7 @@ const readPage = async (target: string) => {
         ing: r.ingredients.length ? r.ingredients.join('\n') : p.imp.ing,
         steps: r.steps.length ? r.steps.join('\n') : p.imp.steps,
         serv: r.servings || p.imp.serv, time: r.minutes ? String(r.minutes) : p.imp.time, img: r.image || p.imp.img,
-        read: r.ingredients.length ? `Read from ${r.source}: ${r.ingredients.length} ingredients${r.steps.length ? `, ${r.steps.length} steps` : ''}. Check the list, then save.`
+        read: r.ingredients.length ? (r.steps.length ? `Read from ${r.source}: ${r.ingredients.length} ingredients and ${r.steps.length} steps. Check them, then save.` : `Read ${r.ingredients.length} ingredients from ${r.source}, but the page gave no steps — paste the method below, or follow the original.`)
           : r.name ? `${r.source} gave a name and photo but no recipe data — paste the ingredient list.` : 'No recipe found on that page — paste the ingredient list.',
       },
     }));

@@ -11,7 +11,7 @@ export interface ReadRecipe {
   minutes?: number;
   description?: string;
   /** Where the data came from: 'jsonld', 'og' or 'none'. */
-  via: 'jsonld' | 'og' | 'none';
+  via: 'jsonld' | 'html' | 'og' | 'none';
 }
 
 type J = Record<string, unknown>;
@@ -126,8 +126,49 @@ function meta(html: string, prop: string): string | undefined {
   return m ? decode(m[1]).trim() : undefined;
 }
 
-/** The recipe on a page, from JSON-LD when there is one, else what Open Graph gives (name and photo only). */
+/**
+ * Lists read straight from the page's HTML, for pages whose structured data leaves the steps (or ingredients) out:
+ * recipe-plugin markup (WP Recipe Maker, Tasty, Mediavine), microdata, or a list under an "Instructions" / "Method" heading.
+ */
+const STEP_WORDS = 'instruction|direction|method|preparation|steps';
+const ING_WORDS = 'ingredient';
+export function listFromHtml(html: string, kind: 'steps' | 'ingredients'): string[] {
+  const body = html.replace(/<(script|style|noscript|svg)[\s\S]*?<\/\1>/gi, ' ');
+  const words = kind === 'steps' ? STEP_WORDS : ING_WORDS;
+  const prop = kind === 'steps' ? 'recipeInstructions' : 'recipeIngredient|ingredients';
+  const anchors = [
+    new RegExp(`itemprop\\s*=\\s*["'](?:${prop})["']`, 'gi'),
+    new RegExp(`class\\s*=\\s*["'][^"']*(?:${words})[^"']*["']`, 'gi'),
+    new RegExp(`<h[1-6][^>]*>(?:\\s|<[^>]+>)*(?:${kind === 'steps' ? 'instructions|directions|method|preparation|how to make it|steps' : 'ingredients'})\\b`, 'gi'),
+  ];
+  const ok = (t: string) => (kind === 'steps' ? t.length >= 15 && t.length <= 700 : t.length >= 2 && t.length <= 160);
+  for (const re of anchors) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(body))) {
+      let chunk = body.slice(m.index + m[0].length, m.index + 25000);
+      // the list ends at the first heading after it starts (so "Ingredients" never runs into "Method")
+      const first = chunk.search(/<(li|p)\b/i);
+      if (first >= 0) { const next = chunk.slice(first).search(/<h[1-6]\b/i); if (next > 0) chunk = chunk.slice(0, first + next); }
+      let items = [...chunk.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi)].map((x) => clean(x[1]));
+      if (items.length < 2 && kind === 'steps') items = [...chunk.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((x) => clean(x[1]));
+      // stop where the list runs into the next section
+      const out: string[] = [];
+      for (const t of items) { if (!ok(t)) { if (out.length >= 2) break; continue; } if (!out.includes(t)) out.push(t); if (out.length >= 30) break; }
+      if (out.length >= 2) return kind === 'steps' ? out.map((t) => t.replace(/^\s*(?:step\s*)?\d+\s*[.):-]\s*/i, '')) : out;
+    }
+  }
+  return [];
+}
+
+/** The recipe on a page: JSON-LD when there is one, else what Open Graph gives; steps and ingredients the data leaves out are read from the HTML. */
 export function readRecipe(html: string): ReadRecipe {
+  const r = readStructured(html);
+  const steps = r.steps.length ? r.steps : listFromHtml(html, 'steps');
+  const ingredients = r.ingredients.length ? r.ingredients : listFromHtml(html, 'ingredients');
+  return { ...r, steps, ingredients, via: r.via === 'jsonld' || !ingredients.length ? r.via : 'html' };
+}
+
+function readStructured(html: string): ReadRecipe {
   for (const block of jsonLdBlocks(html)) {
     const node = findRecipeNode(block);
     if (!node) continue;

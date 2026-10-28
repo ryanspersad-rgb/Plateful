@@ -1,6 +1,6 @@
 // The Plateful API (server/). In the standalone HTML build there is no server: every call fails fast and the app carries on.
 export interface ImportResult {
-  ok: true; url: string; source: string; name: string; image?: string; ingredients: string[]; steps: string[]; servings?: number; minutes?: number; description?: string; via: 'jsonld' | 'og' | 'none';
+  ok: true; url: string; source: string; name: string; image?: string; ingredients: string[]; steps: string[]; servings?: number; minutes?: number; description?: string; via: 'jsonld' | 'html' | 'og' | 'none';
 }
 export interface ApiFail { ok: false; code: string; message: string; url?: string }
 

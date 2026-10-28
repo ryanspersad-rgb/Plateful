@@ -1,4 +1,4 @@
-// The app frame: scrolling screen, five-tab bar, floating ink bar for saved deals, in-app toast.
+// The app frame: scrolling screen, six-tab bar, floating ink bar for saved deals, in-app toast.
 import type { ReactNode } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import type { Screen } from '@/lib/types';
@@ -27,13 +27,14 @@ import { Savings } from './screens/Savings';
 const TABS: { id: Screen; label: string; icon: ReactNode }[] = [
   { id: 'home', label: 'Home', icon: <I.home /> },
   { id: 'onsale', label: 'On sale', icon: <I.tag /> },
+  { id: 'import', label: 'Add recipe', icon: <I.link /> },
   { id: 'list', label: 'List', icon: <I.list /> },
   { id: 'stores', label: 'Stores', icon: <I.pin /> },
   { id: 'profile', label: 'Profile', icon: <I.user /> },
 ];
 const NO_TABS: Screen[] = ['splash', 'welcome', 'onboarding', 'camera', 'card', 'cook', 'howto'];
 const DARK: Screen[] = ['camera'];
-const PARENT: Partial<Record<Screen, Screen>> = { plan: 'list', pricematch: 'list', till: 'list', fridge: 'profile', favourites: 'profile', history: 'profile', import: 'home', wallet: 'profile', card: 'profile', savings: 'profile', cook: 'home' };
+const PARENT: Partial<Record<Screen, Screen>> = { plan: 'list', pricematch: 'list', till: 'list', fridge: 'profile', favourites: 'profile', history: 'profile', wallet: 'profile', card: 'profile', savings: 'profile', cook: 'home' };
 
 const SCREENS: Partial<Record<Screen, () => ReactNode>> = {
   splash: () => <Splash />,
