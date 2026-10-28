@@ -67,7 +67,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-spaghetti-bolognese',
     name: 'Spaghetti Bolognese',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020131_9693120e-046a-4790-a4b7-226ad268da32_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032854_d126a5f9-9920-43ac-b40a-9a278a6d8a1c_min.webp',
     prepTime: '40 mins',
     calories: 520,
     difficulty: 'Easy',
@@ -98,7 +98,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-ground-beef-tacos',
     name: 'Ground Beef Tacos',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020131_d90c312f-ded8-4e5f-8caa-a2e0dc7605fa_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032855_f9923a4a-cb60-4ae3-8525-fe39512face5_min.webp',
     prepTime: '20 mins',
     calories: 480,
     difficulty: 'Easy',
@@ -225,7 +225,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-butter-chicken-rice',
     name: 'Butter Chicken & Rice',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020131_4fe4cb22-cdc2-42b2-94f2-5cbcc7472de9_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032855_7045f2e1-aeab-4113-8cbb-26b96f94cad7_min.webp',
     prepTime: '45 mins',
     calories: 520,
     difficulty: 'Medium',
@@ -384,7 +384,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-classic-omelette',
     name: 'French Omelette',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020132_6f112db2-759d-4d75-9418-67316f059aaf_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032857_dc559ef6-17ea-4295-9a9d-0399c7128208_min.webp',
     prepTime: '10 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -413,7 +413,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-minestrone-soup',
     name: 'Minestrone Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020221_880914af-b3fe-4f0b-9bdf-4f9f5e632854_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032856_2ca1362c-25b7-4d19-a90a-11d77f51f52d_min.webp',
     prepTime: '35 mins',
     calories: 290,
     difficulty: 'Easy',
@@ -476,7 +476,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-nonnas-sunday-gravy',
     name: 'Nonna\'s Sunday Gravy',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020220_c5c3569d-4121-4c10-a7a3-c2cb15f6c62a_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032857_742b68c2-a5a3-42a0-b675-157f85725c8c_min.webp',
     prepTime: '6 hrs',
     calories: 580,
     difficulty: 'Hard',
@@ -633,7 +633,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-pasta-primavera',
     name: 'Pasta Primavera',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020222_31afcbec-6a52-4193-80bc-a6bdb2fdaae3_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032855_4a8f12f2-dda5-428b-9c23-569fb5029933_min.webp',
     prepTime: '25 mins',
     calories: 410,
     difficulty: 'Easy',
@@ -665,7 +665,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-classic-margherita-pizza',
     name: 'Classic Margherita Pizza',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020223_95dbd20a-7ff7-4742-a4da-5a8dcf777d44_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032857_6ad900a1-bcc9-4884-8858-013c60640ce1_min.webp',
     prepTime: '20 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -696,7 +696,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-risotto-ai-funghi',
     name: 'Risotto ai Funghi',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020221_d59b9af1-41b1-409b-904f-da8bf35c7806_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032855_54547fe3-5ebe-41be-ae09-59b83e21f86d_min.webp',
     prepTime: '15 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -728,7 +728,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-chicken-parmigiana',
     name: 'Chicken Parmigiana',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020223_5048feeb-ef1c-4536-ad01-593c7a94a1c7_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032856_53312211-eb3b-4ea3-a251-30a3febb8506_min.webp',
     prepTime: '50 mins',
     calories: 580,
     difficulty: 'Medium',
@@ -760,7 +760,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-lasagna-bolognese',
     name: 'Lasagna Bolognese',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020222_cb892b4e-a194-47d5-92ad-fd753dde2fd5_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032856_02088b74-0ed1-4b03-aaff-1e7ed7bb7b99_min.webp',
     prepTime: '25 mins',
     calories: 620,
     difficulty: 'Medium',
@@ -793,7 +793,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-bruschetta-al-pomodoro',
     name: 'Bruschetta al Pomodoro',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020327_308f8c59-e2ba-47ca-baf1-6eb2752e4533_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_032856_4af629bb-b4bc-4574-816c-29883c66ac4e_min.webp',
     prepTime: '15 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -823,7 +823,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-osso-buco',
     name: 'Osso Buco',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020325_0bc7954c-9a5a-4007-a0d7-d9f403420844_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033106_5eae507d-9cf3-43fe-a2b9-b38b199a6465_min.webp',
     prepTime: '35 mins',
     calories: 540,
     difficulty: 'Hard',
@@ -856,7 +856,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-penne-arrabbiata',
     name: 'Penne Arrabbiata',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020325_05d83090-9ce4-4177-86a6-8e5a186ed56d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033107_4f75cbf3-1c87-4c22-b9ef-a4660ef644cb_min.webp',
     prepTime: '40 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -886,7 +886,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-tiramisu',
     name: 'Tiramisu',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020326_a325d5c6-ec5f-45fe-93b7-53d4ef143584_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033106_39e66e88-7735-461d-845f-002dcf16b5a5_min.webp',
     prepTime: '15 mins',
     calories: 420,
     difficulty: 'Medium',
@@ -917,7 +917,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-gnocchi-al-pesto',
     name: 'Gnocchi al Pesto',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020327_2e6899d6-a993-453c-8a81-d32fbd28afe1_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033104_f6bed688-a683-4848-aca0-55186501673c_min.webp',
     prepTime: '25 mins',
     calories: 360,
     difficulty: 'Easy',
@@ -948,7 +948,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-caprese-salad',
     name: 'Caprese Salad',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020325_f12790b4-3550-487f-945e-17f5650c373a_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033105_9fa47fbb-d0c3-4c55-87ad-d5f54149cd4a_min.webp',
     prepTime: '45 mins',
     calories: 250,
     difficulty: 'Easy',
@@ -978,7 +978,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-cioppino',
     name: 'Cioppino',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020328_880fe13e-c6e7-4ef5-9a38-5b8d5a657c43_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033104_ef6b41ec-5985-4dfc-9afc-074515c9fb3c_min.webp',
     prepTime: '25 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -1010,7 +1010,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-focaccia-bread',
     name: 'Focaccia Bread',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020326_40c028c0-486c-4bbd-a735-d887626c8d69_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033105_75f2b71d-8bb3-45e6-b019-a1b658cd5a9a_min.webp',
     prepTime: '40 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -1041,7 +1041,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-stuffed-shells',
     name: 'Stuffed Shells',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020327_7fd73be0-8a7b-4172-9dab-c5c60194f461_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033107_22b58af9-3f99-46cb-87d7-7c2fea61a223_min.webp',
     prepTime: '30 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -1073,7 +1073,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-panna-cotta',
     name: 'Panna Cotta',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020326_014cc91a-fcbf-480d-bb06-96e2304e84a7_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033105_35cea872-a506-4c12-8f8a-ec15bc9a2aa7_min.webp',
     prepTime: '30 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -1103,7 +1103,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-veal-piccata',
     name: 'Veal Piccata',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020326_0ca9528c-b609-4b93-9369-54cd3902f73c_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033105_fb09ca79-b787-4f8a-87b1-b629c5f969c8_min.webp',
     prepTime: '50 mins',
     calories: 420,
     difficulty: 'Medium',
@@ -1135,7 +1135,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-italian-wedding-soup',
     name: 'Italian Wedding Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020327_90e1cda6-2495-4669-b215-ed24435e1337_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033107_16766142-65e9-4707-838a-98912a06cb5b_min.webp',
     prepTime: '40 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -1167,7 +1167,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-eggplant-parmigiana',
     name: 'Eggplant Parmigiana',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020510_1bbdfb0e-dae1-414c-aed0-208fc39bac1b_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033106_210c5b66-18aa-4840-baea-0e130ccf8ea2_min.webp',
     prepTime: '20 mins',
     calories: 340,
     difficulty: 'Medium',
@@ -1199,7 +1199,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'italian-affogato',
     name: 'Affogato',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_025355_c0c69ce2-2c9f-491c-9589-c1927abcddd2_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033156_35fb3483-bbc2-42ab-a561-ad283efe1829_min.webp',
     prepTime: '30 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -1226,7 +1226,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-chicken-tacos-al-pastor',
     name: 'Chicken Tacos al Pastor',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020511_ad00d546-1533-423b-a0c7-b02cdc55eaab_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033156_21c0b941-d257-4487-931a-efcbacdb3432_min.webp',
     prepTime: '25 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -1258,7 +1258,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-beef-enchiladas',
     name: 'Beef Enchiladas',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020510_7dca7901-15e5-4b91-b40c-81e2ca9a39b8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033158_526a9da2-a0f0-4ce3-bab3-ba53b83d0728_min.webp',
     prepTime: '40 mins',
     calories: 520,
     difficulty: 'Medium',
@@ -1290,7 +1290,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-guacamole-and-chips',
     name: 'Guacamole and Chips',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020509_6d11d77e-59fe-481a-9740-b8b61b1a97ee_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033159_827bdd8a-b50c-432f-9e33-07af73a34d72_min.webp',
     prepTime: '35 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -1322,7 +1322,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-churros-with-chocolate',
     name: 'Churros with Chocolate',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020509_944f684a-9aea-4d93-aad8-e554d5c003c5_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033157_0a8524ff-6805-4f98-a17b-18df459b20c9_min.webp',
     prepTime: '25 mins',
     calories: 340,
     difficulty: 'Medium',
@@ -1354,7 +1354,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-pozole-rojo',
     name: 'Pozole Rojo',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020511_6a0a5f3f-2371-4644-a194-d3452c513151_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033157_db5b8d3f-285b-490d-9793-8cf1fa78f0c6_min.webp',
     prepTime: '15 mins',
     calories: 420,
     difficulty: 'Medium',
@@ -1386,7 +1386,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-fish-tacos',
     name: 'Fish Tacos',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020509_7d041a84-1a46-437a-9f7f-b038dd4c7d4f_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033157_7898b5d5-1051-471d-8eb3-782ff37eedf4_min.webp',
     prepTime: '30 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -1418,7 +1418,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-chicken-quesadillas',
     name: 'Chicken Quesadillas',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020509_015c0944-a49a-47f7-b4a1-398df8ed5e18_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033158_527c3a84-43a7-4b05-a0f1-7843c8bc776e_min.webp',
     prepTime: '40 mins',
     calories: 440,
     difficulty: 'Easy',
@@ -1449,7 +1449,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-elote-street-corn',
     name: 'Elote (Street Corn)',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020511_acc48253-2afc-464c-ad77-5dbac4938f41_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033158_67769d0e-0c6f-4601-bfed-a26b928b53ee_min.webp',
     prepTime: '30 mins',
     calories: 220,
     difficulty: 'Easy',
@@ -1479,7 +1479,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-carnitas',
     name: 'Carnitas',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020510_8d6655cd-acdc-4e72-b505-10d45557d660_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033158_00c02fb4-376c-414c-b566-3548fe44f909_min.webp',
     prepTime: '30 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -1511,7 +1511,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-black-bean-soup',
     name: 'Black Bean Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020510_3832b943-05e0-49b2-9b4d-23bf6576902c_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033156_b82fe86f-00e6-43d3-a869-2b2d5b6c22ff_min.webp',
     prepTime: '40 mins',
     calories: 260,
     difficulty: 'Easy',
@@ -1543,7 +1543,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-chilaquiles-verdes',
     name: 'Chilaquiles Verdes',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020827_5aed3c4f-3335-4dc2-8eb5-b073c2b5eb0b_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033157_e0c5497d-2870-458a-97f3-ce5e12f23f71_min.webp',
     prepTime: '30 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -1573,7 +1573,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-tamales',
     name: 'Tamales',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020825_f4671353-7e30-45fa-b60f-55bad1678059_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033254_e8317333-d61e-4b37-828a-26ffe4ac5585_min.webp',
     prepTime: '45 mins',
     calories: 340,
     difficulty: 'Hard',
@@ -1605,7 +1605,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-carne-asada',
     name: 'Carne Asada',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020825_e1072b2d-054f-4bf1-a038-aee39d55a05f_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033255_fe6f65e9-e223-43b5-82ac-f09b3d02f3ff_min.webp',
     prepTime: '45 mins',
     calories: 420,
     difficulty: 'Easy',
@@ -1635,7 +1635,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-shrimp-ceviche',
     name: 'Shrimp Ceviche',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020827_98f92916-2510-40c2-9966-e1443b2d673f_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033257_a2351830-340a-40b1-9200-7d41abdf1399_min.webp',
     prepTime: '30 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -1667,7 +1667,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-mole-poblano',
     name: 'Mole Poblano',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020826_154c465d-6182-4c83-9b2a-410743ac5120_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033255_96b60078-83de-44d2-b13c-d233608fae3a_min.webp',
     prepTime: '25 mins',
     calories: 480,
     difficulty: 'Hard',
@@ -1699,7 +1699,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-chiles-rellenos',
     name: 'Chiles Rellenos',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020825_b7536f54-b248-44fd-9348-29900634ea2f_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033256_09c10cd3-a180-408e-99ab-aa7d4f1d3a4b_min.webp',
     prepTime: '35 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -1730,7 +1730,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-arroz-con-pollo',
     name: 'Arroz con Pollo',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020824_dbf3cd72-c3da-4128-9fce-705baa082e4d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033256_f537ea5c-52b5-4098-a32e-e5acfd1f2069_min.webp',
     prepTime: '20 mins',
     calories: 440,
     difficulty: 'Easy',
@@ -1762,7 +1762,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-horchata',
     name: 'Horchata',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020827_c45f81ab-0141-4fdd-927b-f8c084bac2f1_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033257_fe9f74f9-6ded-4bfd-82f5-a3046e525bfd_min.webp',
     prepTime: '40 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -1793,7 +1793,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'mexican-tres-leches-cake',
     name: 'Tres Leches Cake',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_020828_1dfd8bdc-4aa9-49fc-a9b6-3fccf15975f5_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033257_dec85d33-55f8-4234-9887-6be08428b51b_min.webp',
     prepTime: '30 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -2991,7 +2991,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-palak-paneer',
     name: 'Palak Paneer',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021346_994d4338-4c48-426e-9288-7a0e216cdbf8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033255_2f476daa-c187-4ad2-a831-675d73d042bf_min.webp',
     prepTime: '25 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -3023,7 +3023,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-chicken-biryani',
     name: 'Chicken Biryani',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021345_feebad9c-b55a-4110-8cce-2faed0080c7d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033255_037f8eb5-f3ac-4d11-aa54-18c731380c4c_min.webp',
     prepTime: '45 mins',
     calories: 520,
     difficulty: 'Medium',
@@ -3055,7 +3055,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-chana-masala',
     name: 'Chana Masala',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021432_8605f763-fc8e-4f0b-a2ea-6e890adeb01d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033257_8bce6083-5ee3-4513-a682-103b12352540_min.webp',
     prepTime: '15 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -3087,7 +3087,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-tandoori-chicken',
     name: 'Tandoori Chicken',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021430_6d1f7bbf-ba9a-4d65-959b-8a0e3d67efa9_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033256_56768142-49bb-488a-a772-bdc3b20ebafd_min.webp',
     prepTime: '60 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -3119,7 +3119,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-samosas',
     name: 'Samosas',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021431_242c0f5e-1dac-4d0c-8412-9c0105d98205_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033353_45bee5bd-ed8f-48df-a31e-04d435f5f038_min.webp',
     prepTime: '35 mins',
     calories: 260,
     difficulty: 'Medium',
@@ -3151,7 +3151,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-dal-tadka',
     name: 'Dal Tadka',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021431_0e862a72-51b6-4357-bd07-4de7500add04_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033353_890e52ba-c7dc-4621-b187-ea7e50e559d4_min.webp',
     prepTime: '10 mins',
     calories: 240,
     difficulty: 'Easy',
@@ -3183,7 +3183,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-lamb-rogan-josh',
     name: 'Lamb Rogan Josh',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021432_52fe96d3-aa53-465c-aef3-95ba051d481d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033355_a51a691e-9350-4d73-8631-28f24b6d2015_min.webp',
     prepTime: '50 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -3215,7 +3215,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-naan-bread',
     name: 'Naan Bread',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021430_38744f4b-a1cd-4f9a-9914-fdbd2b88bcbf_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033353_ba6624fa-04c1-4807-bed3-6b12325ee4f1_min.webp',
     prepTime: '30 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -3247,7 +3247,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-mango-lassi',
     name: 'Mango Lassi',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021430_6ff20657-793d-41dc-9567-b6f6882578c8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033354_f846e0c9-1149-4ad7-afc6-e702a9a71aca_min.webp',
     prepTime: '40 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -3278,7 +3278,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-aloo-gobi',
     name: 'Aloo Gobi',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021431_a937832b-a0db-4d71-bd33-dec73ca50bd8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033355_633f9af2-6913-48ce-80a4-5223874a26a9_min.webp',
     prepTime: '30 mins',
     calories: 220,
     difficulty: 'Easy',
@@ -3310,7 +3310,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-tikka-masala',
     name: 'Tikka Masala',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021430_d05336d2-783d-40da-9a09-e6016b7766ee_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033355_8aa5da6a-7b54-41ff-8a0d-ec499c831ab6_min.webp',
     prepTime: '25 mins',
     calories: 440,
     difficulty: 'Medium',
@@ -3342,7 +3342,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-vindaloo',
     name: 'Vindaloo',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021432_f3a10690-faad-4dbe-a561-85f478ebe31a_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033354_2bfb9bca-c2bd-4d97-9c8a-16b35d940652_min.webp',
     prepTime: '15 mins',
     calories: 420,
     difficulty: 'Medium',
@@ -3374,7 +3374,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-raita',
     name: 'Raita',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021432_80853675-d974-4336-b66e-53c8df2be5cd_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033355_b2e679ce-6fde-49fc-8e6e-bdc340f0fa5e_min.webp',
     prepTime: '20 mins',
     calories: 80,
     difficulty: 'Easy',
@@ -3404,7 +3404,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-gulab-jamun',
     name: 'Gulab Jamun',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021430_eab115bb-f4bd-4f06-b1a2-6e2540cda975_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033353_87e39e52-fca8-459c-b887-1bfd16297f4c_min.webp',
     prepTime: '35 mins',
     calories: 320,
     difficulty: 'Medium',
@@ -3436,7 +3436,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-pakora',
     name: 'Pakora',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021519_bce3367c-e43b-4582-a0fc-81c314de07d1_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033354_5367c9b4-e81b-4421-b9d3-56d0417aafcb_min.webp',
     prepTime: '10 mins',
     calories: 240,
     difficulty: 'Easy',
@@ -3468,7 +3468,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-korma',
     name: 'Korma',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021517_a9dd01d2-6602-42c8-8807-ff420aff1a7f_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033354_5fa47859-1cb4-4c2f-a5e9-992e958f7f85_min.webp',
     prepTime: '10 mins',
     calories: 460,
     difficulty: 'Medium',
@@ -3500,7 +3500,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-masala-dosa',
     name: 'Masala Dosa',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021520_65499eb2-2a9b-490e-96a5-e8801ac06690_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033454_a117c760-cd9f-4746-af45-3deff33129c6_min.webp',
     prepTime: '25 mins',
     calories: 280,
     difficulty: 'Medium',
@@ -3532,7 +3532,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-keema-matar',
     name: 'Keema Matar',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021519_9399e1a2-ad68-46a9-9ed3-133a5412d53a_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033454_9c9dbb61-86ab-4019-aa21-a3d275e79b01_min.webp',
     prepTime: '10 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -3564,7 +3564,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'indian-kheer',
     name: 'Kheer',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021517_c6d7cb7a-5b17-4454-981f-4b140e48bff9_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033454_64df3421-5a79-4384-9658-810ba93a13ef_min.webp',
     prepTime: '15 mins',
     calories: 260,
     difficulty: 'Easy',
@@ -4234,7 +4234,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-green-curry',
     name: 'Green Curry',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021653_04793ca3-91cb-40f3-b6e2-16c18e0aac0b_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033456_4fc9fe2c-fb6e-4dfd-93bd-1f2eb8c8a32d_min.webp',
     prepTime: '25 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -4266,7 +4266,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-tom-yum-soup',
     name: 'Tom Yum Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021654_780a97d8-7547-474e-98be-ec73ec3f46e9_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033455_59bdf0d1-a2dc-4300-854f-dfb0ab944b98_min.webp',
     prepTime: '35 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -4298,7 +4298,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-massaman-curry',
     name: 'Massaman Curry',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021652_617c77ef-a1b3-48d7-b770-2ed66fddf7d3_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033454_6ae3d714-4723-4579-a879-b8dae540d8a0_min.webp',
     prepTime: '45 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -4330,7 +4330,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-som-tum',
     name: 'Som Tum',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021652_cb121462-a43c-43f7-b960-a1e302b00100_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033456_97e6d97c-65d3-4992-b192-2143527851e5_min.webp',
     prepTime: '25 mins',
     calories: 160,
     difficulty: 'Easy',
@@ -4362,7 +4362,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-thai-basil-chicken',
     name: 'Thai Basil Chicken',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021654_2c8958d9-203b-4780-aec9-09ea598ad716_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033453_aa741fd8-c009-4f84-aa07-a0115ce9f24e_min.webp',
     prepTime: '35 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -4394,7 +4394,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-mango-sticky-rice',
     name: 'Mango Sticky Rice',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021653_fbeb8945-0669-479d-a781-de9be5d3798d_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033454_a2c7ba54-f5c3-40e8-8b01-88a3aaf9a3a4_min.webp',
     prepTime: '45 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -4425,7 +4425,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-panang-curry',
     name: 'Panang Curry',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021651_01c55c2d-eead-4a33-9e0a-43da47fc366c_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033455_144b0c5e-c5cc-49bb-a85b-cff54fe87c89_min.webp',
     prepTime: '45 mins',
     calories: 440,
     difficulty: 'Easy',
@@ -4457,7 +4457,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-tom-kha-gai',
     name: 'Tom Kha Gai',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021652_56563095-7fdc-4f2a-a993-dc899c196d4c_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033455_8c50aca3-785d-4d40-bf9c-31c7b07a787e_min.webp',
     prepTime: '15 mins',
     calories: 320,
     difficulty: 'Easy',
@@ -4489,7 +4489,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-khao-soi',
     name: 'Khao Soi',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021652_50ffe699-5d90-401a-a574-0721fb5a7fbc_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033455_31f3a793-9bbc-4ef1-8e2f-fd7a2ce76a7b_min.webp',
     prepTime: '20 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -4521,7 +4521,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-pad-see-ew',
     name: 'Pad See Ew',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021653_fe9bf464-57e8-4636-8f42-489921369d80_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033556_8a84ced5-5354-49c9-92aa-cf4a798e3a85_min.webp',
     prepTime: '20 mins',
     calories: 440,
     difficulty: 'Easy',
@@ -4553,7 +4553,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-satay-skewers',
     name: 'Satay Skewers',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021652_a256289a-6977-4549-beaf-225a7e6fcbb4_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033555_4f0d0ac7-5fa1-4a40-bcd1-52ed4550b5f0_min.webp',
     prepTime: '45 mins',
     calories: 340,
     difficulty: 'Easy',
@@ -4585,7 +4585,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-red-curry',
     name: 'Red Curry',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021742_4f5b8af8-fafd-43ef-a0df-b09338fc13db_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033555_f74ed461-aee4-45d6-bfb5-6436ea275cd1_min.webp',
     prepTime: '20 mins',
     calories: 400,
     difficulty: 'Easy',
@@ -4617,7 +4617,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-larb-gai',
     name: 'Larb Gai',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021742_42fbd7d5-8356-4d0c-8b19-d14f1149227e_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033553_e80f665c-300c-4882-847b-e1a22818f567_min.webp',
     prepTime: '20 mins',
     calories: 260,
     difficulty: 'Easy',
@@ -4649,7 +4649,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-crying-tiger-beef',
     name: 'Crying Tiger Beef',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021740_e0ca9b84-bd96-43eb-a64a-a395c834e639_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033554_01c7b784-f5e7-4e13-93af-f40614282931_min.webp',
     prepTime: '25 mins',
     calories: 380,
     difficulty: 'Medium',
@@ -4681,7 +4681,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-thai-fish-cakes',
     name: 'Thai Fish Cakes',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021741_dd7762d7-7ca4-4c6c-82f9-c5b377d4cda5_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033554_f9a7e5d0-64c5-4fca-b917-513f03dd0235_min.webp',
     prepTime: '20 mins',
     calories: 280,
     difficulty: 'Medium',
@@ -4713,7 +4713,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-thai-iced-tea',
     name: 'Thai Iced Tea',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021740_807dd3f2-9b38-4178-923e-184b03613c8e_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033555_88617830-8d04-49a5-8ccc-3c903f5fbc44_min.webp',
     prepTime: '30 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -4743,7 +4743,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-boat-noodles',
     name: 'Boat Noodles',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021741_675a8bf0-fc8a-4c44-9b3d-bf0c42e6127c_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033553_d6bd195f-3ab6-4f43-8824-580c5e4f5291_min.webp',
     prepTime: '20 mins',
     calories: 360,
     difficulty: 'Medium',
@@ -4775,7 +4775,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-pla-rad-prik',
     name: 'Pla Rad Prik',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021742_3f87baed-565c-4a63-b4e1-6771d98648df_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033553_aef27f79-1b0a-4bd2-a344-7b8593005b7e_min.webp',
     prepTime: '45 mins',
     calories: 340,
     difficulty: 'Medium',
@@ -4807,7 +4807,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'thai-thai-coconut-soup',
     name: 'Thai Coconut Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021741_73bbfae8-6ee0-4796-8ab7-ef32523e94c8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033554_9ba95942-5cc2-4cb5-9e95-0e52206b5874_min.webp',
     prepTime: '15 mins',
     calories: 280,
     difficulty: 'Easy',
@@ -4839,7 +4839,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-coq-au-vin',
     name: 'Coq au Vin',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021741_b869f2f4-39d7-4e25-a121-b4768a9f0142_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033556_18da7112-7274-47e6-b2a6-a254f31e0156_min.webp',
     prepTime: '35 mins',
     calories: 480,
     difficulty: 'Medium',
@@ -4871,7 +4871,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-beef-bourguignon',
     name: 'Beef Bourguignon',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021740_dc7a2803-0e35-421e-8fa0-42c2fb04a048_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033554_6ce29ffa-3481-4661-a3f0-502b87e80c7c_min.webp',
     prepTime: '45 mins',
     calories: 520,
     difficulty: 'Hard',
@@ -4903,7 +4903,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-croque-monsieur',
     name: 'Croque Monsieur',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021742_f9e030ee-6402-43ab-800c-f2d0ef565a89_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033657_a7bbe4cf-ff5f-460f-bf56-a16afe7743f6_min.webp',
     prepTime: '30 mins',
     calories: 440,
     difficulty: 'Easy',
@@ -4935,7 +4935,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-french-onion-soup',
     name: 'French Onion Soup',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021740_2f49236d-c290-4570-91c2-bfe32e79b90b_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033700_cdb91439-a6a7-4d05-a664-cb8a398aae0f_min.webp',
     prepTime: '40 mins',
     calories: 320,
     difficulty: 'Medium',
@@ -4967,7 +4967,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-ratatouille',
     name: 'Ratatouille',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021835_ba122b49-a58c-4ca2-a23d-a209fb4405ba_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033701_caf9d3f3-dd3c-4a7d-b5f1-8809ad43432a_min.webp',
     prepTime: '40 mins',
     calories: 220,
     difficulty: 'Easy',
@@ -4999,7 +4999,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-bouillabaisse',
     name: 'Bouillabaisse',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021836_3ada7b3a-a9c0-4c74-9711-2e326448b8b8_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033657_95272893-df33-4b69-8168-afbbba36a87c_min.webp',
     prepTime: '30 mins',
     calories: 380,
     difficulty: 'Hard',
@@ -5030,7 +5030,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-quiche-lorraine',
     name: 'Quiche Lorraine',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021836_3611fe89-0c67-42bf-9a20-e72b3600c470_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033701_bee03580-fa03-4ef8-91dd-fb1e1f84402c_min.webp',
     prepTime: '60 mins',
     calories: 420,
     difficulty: 'Medium',
@@ -5062,7 +5062,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-crepes-suzette',
     name: 'Crepes Suzette',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021836_c24ef2cd-575f-4522-9252-24bddf62efd7_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033659_d344f35d-853d-4ea2-a1fc-5898c7986749_min.webp',
     prepTime: '50 mins',
     calories: 340,
     difficulty: 'Medium',
@@ -5094,7 +5094,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-nicoise-salad',
     name: 'Nicoise Salad',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021835_8bf48a77-488e-43ea-b589-be54870427e7_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033657_0daee79b-b5c8-4a05-81be-b217ae5ea0aa_min.webp',
     prepTime: '15 mins',
     calories: 380,
     difficulty: 'Easy',
@@ -5126,7 +5126,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-duck-confit',
     name: 'Duck Confit',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021836_c450e60a-4eb4-4c68-91b3-e4c1dd7b66de_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033700_f3cf90cb-2567-42f6-8e4c-2e4ea770ba94_min.webp',
     prepTime: '15 mins',
     calories: 580,
     difficulty: 'Hard',
@@ -5158,7 +5158,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-tarte-tatin',
     name: 'Tarte Tatin',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021837_b4c0b5fb-76f2-4b91-b10b-8cad753d5ab1_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033659_93daa36a-7b67-44df-ba08-dfe7ac9dc3c7_min.webp',
     prepTime: '45 mins',
     calories: 320,
     difficulty: 'Medium',
@@ -5189,7 +5189,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-cassoulet',
     name: 'Cassoulet',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021834_f967a5d7-443d-44e8-9929-b463c4ba6e8b_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033700_ffc3ff7a-d57e-4cb8-b285-eebb83fd3a0f_min.webp',
     prepTime: '35 mins',
     calories: 620,
     difficulty: 'Hard',
@@ -5221,7 +5221,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-steak-frites',
     name: 'Steak Frites',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021836_8ead1230-4ac4-4bc3-9fa9-c15accc2c3ac_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033659_26dda4a9-fff6-4d94-a121-047ba50d9082_min.webp',
     prepTime: '30 mins',
     calories: 580,
     difficulty: 'Medium',
@@ -5253,7 +5253,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-creme-brulee',
     name: 'Creme Brulee',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021837_bb2cc078-3caf-485a-b741-537529451947_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033700_beaf8d32-3aaf-4595-8517-5517c4806d1d_min.webp',
     prepTime: '45 mins',
     calories: 320,
     difficulty: 'Medium',
@@ -5282,7 +5282,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-croissants',
     name: 'Croissants',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021835_ead02592-809a-4ba0-b194-9bce1e699283_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033723_acff34c6-39fe-4eb7-bb61-e36253a92079_min.webp',
     prepTime: '30 mins',
     calories: 280,
     difficulty: 'Hard',
@@ -5313,7 +5313,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-escargot',
     name: 'Escargot',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021835_3dccf33e-c3b3-4bcf-b163-0ba47aa1a705_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033724_9fe3259a-7020-479e-bc44-77409d8ab1f9_min.webp',
     prepTime: '35 mins',
     calories: 220,
     difficulty: 'Medium',
@@ -5345,7 +5345,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-madeleines',
     name: 'Madeleines',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021924_008b0a67-32d0-429a-b62f-4fcdd89e81ef_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033723_892446ff-4048-4b6b-870b-2469c84ed08e_min.webp',
     prepTime: '50 mins',
     calories: 180,
     difficulty: 'Easy',
@@ -5377,7 +5377,7 @@ export const RECIPES: Recipe[] = [
   {
     id: 'french-gratin-dauphinois',
     name: 'Gratin Dauphinois',
-    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_021922_47db1109-57dc-45b3-bf64-beb10eea0f51_min.webp',
+    image: 'https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_033724_b963315f-69fd-4572-932e-e6da462382b0_min.webp',
     prepTime: '20 mins',
     calories: 380,
     difficulty: 'Easy',
