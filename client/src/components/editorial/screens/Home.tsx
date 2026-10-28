@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import {
   BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
-  inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, status, statusText, stepRow, timeText,
+  inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
   expiringSoon, useItUp, whenText, isUrl, sourceOf,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
@@ -73,7 +73,7 @@ export function Home() {
   const { s, user, ctx, act } = useApp();
   const rec = useMemo(() => recommended(s.homeFilter, ctx), [s.homeFilter, ctx]);
   const quick = useMemo(
-    () => recommended('All', ctx).filter((r) => r.ing.some((i) => SALE_KEYS.includes(i[0]))).sort((a, b) => status(b, ctx).saleHits - status(a, ctx).saleHits).slice(0, 6),
+    () => spread(recommended('All', ctx).filter((r) => r.ing.some((i) => SALE_KEYS.includes(i[0]))).sort((a, b) => status(b, ctx).saleHits - status(a, ctx).saleHits), 6),
     [ctx],
   );
   const promos = SALE_KEYS.filter((k) => BOOK[k].promo);
@@ -267,7 +267,7 @@ export function Home() {
 
       <Pad>
         <Sec id="recommended" eyebrow="For you" title="We think you’ll cook" dek={`Ranked by what’s in your fridge and this week’s flyers${s.homeFilter !== 'All' ? ` · ${s.homeFilter}` : ''}.`}>
-          <div className="grid2">{rec.slice(0, 6).map((r) => <RecipeCard key={r.id} r={r} sq />)}</div>
+          <div className="grid2">{spread(rec.filter((r) => !quick.slice(0, 4).some((q) => q.id === r.id)), 6).map((r) => <RecipeCard key={r.id} r={r} sq />)}</div>
         </Sec>
       </Pad>
 

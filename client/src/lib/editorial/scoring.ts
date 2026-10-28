@@ -58,6 +58,41 @@ export function recommended(filter: string, c: Ctx): EditorialRecipe[] {
   return list.sort((a, b) => score(b, c) - score(a, c) || b.save - a.save);
 }
 
+// Ingredients that nearly every recipe shares say nothing about what the dish looks like.
+const STAPLES = new Set(['olive-oil', 'garlic', 'onion', 'onions', 'butter', 'salt', 'pepper', 'flour', 'water', 'veg-broth', 'chicken-broth', 'beef-broth', 'eggs', 'milk', 'brown-sugar', 'soy-sauce', 'lemons', 'limes']);
+const signature = (r: EditorialRecipe): Set<string> => new Set(r.ing.map((i) => i[0]).filter((k) => !STAPLES.has(k) && !k.startsWith('x:')));
+const FAMILY = ['lasagn', 'pastitsio', 'moussaka', 'ziti', 'bolognese', 'rigatoni', 'spaghetti', 'penne', 'mac and cheese', 'curry', 'tikka', 'masala', 'taco', 'burrito', 'enchilada', 'quesadilla', 'pizza', 'burger', 'risotto', 'stir', 'fried rice', 'pho', 'ramen', 'soup', 'chili', 'stew', 'roast chicken', 'salad', 'pancake', 'omelette', 'shakshuka', 'pad thai', 'noodle'];
+const family = (r: EditorialRecipe): string | null => { const n = r.name.toLowerCase(); return FAMILY.find((f) => n.includes(f)) ?? null; };
+
+/** Two recipes that would look the same on a card: same dish family, or most of the same ingredients. */
+export function lookalike(a: EditorialRecipe, b: EditorialRecipe): boolean {
+  const fa = family(a), fb = family(b);
+  if (fa && fb && fa === fb) return true;
+  const sa = signature(a), sb = signature(b);
+  if (!sa.size || !sb.size) return false;
+  let both = 0;
+  sa.forEach((k) => { if (sb.has(k)) both++; });
+  return both / Math.min(sa.size, sb.size) >= 0.6;
+}
+
+/**
+ * The first n of a ranked list, spread so a row reads as different dinners: no lookalikes, and at most
+ * `perCuisine` from one cuisine. Falls back to the plain ranking when there is not enough variety.
+ */
+export function spread(ranked: EditorialRecipe[], n: number, perCuisine = 2): EditorialRecipe[] {
+  const out: EditorialRecipe[] = [];
+  const byCuisine: Record<string, number> = {};
+  for (const r of ranked) {
+    if (out.length >= n) break;
+    if ((byCuisine[r.cuisine] || 0) >= perCuisine) continue;
+    if (out.some((o) => lookalike(o, r))) continue;
+    out.push(r);
+    byCuisine[r.cuisine] = (byCuisine[r.cuisine] || 0) + 1;
+  }
+  for (const r of ranked) { if (out.length >= n) break; if (!out.includes(r)) out.push(r); }
+  return out;
+}
+
 export function searchRecipes(q: string, limit = 4): EditorialRecipe[] {
   const s = q.trim().toLowerCase();
   if (!s) return [];

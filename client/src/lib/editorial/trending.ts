@@ -1,10 +1,11 @@
 // Trending: real external recipes from Google Trends (Sept–Oct 2026 volumes) and TikTok. Refresh weekly (roadmap 11).
+// Photos re-shot 2026-10-27 in the serving-kit treatment (design/serving-kits.json, indices 300–307).
 import type { TrendingRecipe } from '@/lib/types';
 
 export const TRENDING: TrendingRecipe[] = [
   {
     "name": "Seafood Boil",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_32b107b2-ef6d-4a50-9112-77cfc59d53a6_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014546_ee08abd2-c963-4443-a14d-8306c41be04a_min.webp",
     "url": "https://www.skinnytaste.com/seafood-boil",
     "source": "Skinnytaste",
     "why": "Google Trends · 550,000 searches a month, up 22%",
@@ -19,7 +20,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Slow Cooker Chicken Thighs",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_5ca0566a-3cb0-4a60-94e9-06009c52c316_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014544_2c8b08e8-b32e-4d8b-988d-ba6ac6ac6697_min.webp",
     "url": "https://www.yellowblissroad.com/slow-cooker-chicken-thighs/",
     "source": "Yellow Bliss Road",
     "why": "Google Trends · crock pot chicken, 246,000 searches",
@@ -33,7 +34,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Espagueti Verde (Green Spaghetti)",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_05828e50-b2dc-4ce8-81da-871c74da3c68_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014545_deb56755-1f6c-4027-9286-92a089138126_min.webp",
     "url": "https://www.tastingtable.com/2254881/creamy-green-spaghetti-recipe/",
     "source": "Tasting Table",
     "why": "Google Trends · up 50% this year",
@@ -48,7 +49,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Burger Bowls",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_0e79dbe8-eae5-4616-a815-4877653b1a13_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014545_710d8e3b-647c-4750-a454-6cd27fdadcde_min.webp",
     "url": "https://houseofnasheats.com/burger-bowls/",
     "source": "House of Nash Eats",
     "why": "Google Trends · 33,000 searches a month",
@@ -62,7 +63,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Baked Feta Pasta",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_73fa992f-b803-4501-9613-1e3b671f369c_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014544_2ceb722b-963c-4081-a05e-7c665a09ac9d_min.webp",
     "url": "https://delallo.com/recipe/baked-feta-pasta",
     "source": "DeLallo",
     "why": "TikTok · back every fall, this year with cranberries",
@@ -77,7 +78,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Crispy Smashed Potatoes",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063922_4267c390-773e-45f1-a08e-47dc8b12b514_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014545_d547cd8b-5edc-4648-aa57-ad1bd7190bb4_min.webp",
     "url": "https://themediterraneandish.com/crispy-smashed-potatoes",
     "source": "The Mediterranean Dish",
     "why": "TikTok · the smashed-potato board",
@@ -91,7 +92,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Pumpkin Loaf",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_c6b75223-d124-4360-8f97-9d8672b09dc4_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014546_829139c7-ed17-4d75-a0ef-128fc7202896_min.webp",
     "url": "https://thesuburbansoapbox.com/best-pumpkin-loaf-recipe/",
     "source": "The Suburban Soapbox",
     "why": "Google Trends · 11× in three months",
@@ -105,7 +106,7 @@ export const TRENDING: TrendingRecipe[] = [
   },
   {
     "name": "Birria Tacos",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_fab39683-ad5c-4314-82ea-be7ebc4dc1e4_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_014546_1cd59eb3-6113-489c-9eb9-ca859ce01077_min.webp",
     "url": "https://www.acozykitchen.com/birria-tacos",
     "source": "A Cozy Kitchen",
     "why": "Google Trends · 90,000 searches a month",

@@ -630,5 +630,91 @@
   ],
   "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Loaded Baked Potatoes: loaded baked potatoes split open on a black slate board with broccoli, melted cheddar, sour cream and chives, a pepper mill, on a dark table. 3/4 angle, warm side light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
   "result": "hf_20261028_012618_b15abd41-5e60-4b64-b460-9bc0b4f432d5.png"
+ },
+ {
+  "index": 300,
+  "name": "Seafood Boil (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "FISH_J",
+   "BURGER_U2"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014546_ee08abd2-c963-4443-a14d-8306c41be04a.png"
+ },
+ {
+  "index": 301,
+  "name": "Slow Cooker Chicken Thighs (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1",
+   "CLAY_H2"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014544_2c8b08e8-b32e-4d8b-988d-ba6ac6ac6697.png"
+ },
+ {
+  "index": 302,
+  "name": "Espagueti Verde (Green Spaghetti) (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "PASTA_M",
+   "MEX_H"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014545_deb56755-1f6c-4027-9286-92a089138126.png"
+ },
+ {
+  "index": 303,
+  "name": "Burger Bowls (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "BURGER_U2",
+   "BRIGHT_H4"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014545_710d8e3b-647c-4750-a454-6cd27fdadcde.png"
+ },
+ {
+  "index": 304,
+  "name": "Baked Feta Pasta (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014544_2ceb722b-963c-4081-a05e-7c665a09ac9d.png"
+ },
+ {
+  "index": 305,
+  "name": "Crispy Smashed Potatoes (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1",
+   "WOK_H1"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014545_d547cd8b-5edc-4648-aa57-ad1bd7190bb4.png"
+ },
+ {
+  "index": 306,
+  "name": "Pumpkin Loaf (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "DINER_U1"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014546_829139c7-ed17-4d75-a0ef-128fc7202896.png"
+ },
+ {
+  "index": 307,
+  "name": "Birria Tacos (trending)",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_H",
+   "MEX_G"
+  ],
+  "prompt": "(see the Higgsfield record for the prompt; same treatment as the editorial set)",
+  "result": "hf_20261028_014546_1cd59eb3-6113-489c-9eb9-ca859ce01077.png"
  }
 ]

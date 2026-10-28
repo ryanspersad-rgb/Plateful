@@ -512,7 +512,17 @@
    "smashed-potatoes": "hf_20261026_063922_4267c390-773e-45f1-a08e-47dc8b12b514.png",
    "pumpkin-loaf": "hf_20261026_063921_c6b75223-d124-4360-8f97-9d8672b09dc4.png",
    "birria-tacos": "hf_20261026_063920_fab39683-ad5c-4314-82ea-be7ebc4dc1e4.png"
-  }
+  },
+  "trending": [
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_32b107b2-ef6d-4a50-9112-77cfc59d53a6_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_5ca0566a-3cb0-4a60-94e9-06009c52c316_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_05828e50-b2dc-4ce8-81da-871c74da3c68_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_0e79dbe8-eae5-4616-a815-4877653b1a13_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_73fa992f-b803-4501-9613-1e3b671f369c_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063922_4267c390-773e-45f1-a08e-47dc8b12b514_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063921_c6b75223-d124-4360-8f97-9d8672b09dc4_min.webp",
+   "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063920_fab39683-ad5c-4314-82ea-be7ebc4dc1e4_min.webp"
+  ]
  },
  "recipes": {
   "r1": "hf_20261028_012254_e5ddaa7c-09d0-4c32-bc93-5359f4acc45c.png",
@@ -618,5 +628,15 @@
    "BURGER_U2": "c4ef3e32-37c2-4bfe-93f3-ecf715ce8a32",
    "ROAST_R1": "43a3a024-1692-4d87-b465-b12581ed1f1f"
   }
+ },
+ "trending": {
+  "seafood-boil": "hf_20261028_014546_ee08abd2-c963-4443-a14d-8306c41be04a.png",
+  "slow-cooker-chicken-thighs": "hf_20261028_014544_2c8b08e8-b32e-4d8b-988d-ba6ac6ac6697.png",
+  "espagueti-verde": "hf_20261028_014545_deb56755-1f6c-4027-9286-92a089138126.png",
+  "burger-bowls": "hf_20261028_014545_710d8e3b-647c-4750-a454-6cd27fdadcde.png",
+  "baked-feta-pasta": "hf_20261028_014544_2ceb722b-963c-4081-a05e-7c665a09ac9d.png",
+  "crispy-smashed-potatoes": "hf_20261028_014545_d547cd8b-5edc-4648-aa57-ad1bd7190bb4.png",
+  "pumpkin-loaf": "hf_20261028_014546_829139c7-ed17-4d75-a0ef-128fc7202896.png",
+  "birria-tacos": "hf_20261028_014546_1cd59eb3-6113-489c-9eb9-ca859ce01077.png"
  }
 }
