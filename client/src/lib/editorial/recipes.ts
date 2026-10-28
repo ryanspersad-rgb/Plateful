@@ -1,4 +1,6 @@
-// 58 photographed recipes. Photos re-shot 2026-10-27 in the reference-guided serving-kit treatment (Higgsfield gpt_image_2_5,
+// 58 photographed recipes. Steps rewritten 2026-10-28 (five to seven per recipe: prep and seasoning cues, a time in digits
+// for every cooking action so cook mode can set its timers, and a doneness check; Ryan found the three-line versions too thin).
+// Photos re-shot 2026-10-27 in the reference-guided serving-kit treatment (Higgsfield gpt_image_2_5,
 // a real photo as the plating reference per cuisine, every dish in its own vessel and setting); the 2026-10-26 oak-table pool is kept
 // in design/higgsfield.json under "pool_2026_10_26" for rollback. Leads also carry a 4:5 render (leadImg) for the Home lead.
 // Ingredient keys point into the price book (BOOK) so every recipe can be priced against this week's flyers.
@@ -65,9 +67,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Heat the oven to 425°F. Cut the potatoes, carrots and onion into chunky, even pieces and toss on a sheet pan with oil, garlic and thyme.",
-      "Season the thighs well, nestle them skin side up among the vegetables and roast for 35 to 40 minutes, until the skin is deeply golden.",
-      "Squeeze the lemon over everything and rest for five minutes before serving."
+      "Heat the oven to 425°F (220°C) with a rack in the middle. Cut the potatoes and carrots into chunks about the size of a walnut and the red onion into thick wedges, keeping everything roughly the same size so it cooks evenly.",
+      "Tip the vegetables onto a large sheet pan with the olive oil, the garlic cloves smashed with the flat of a knife, the thyme sprigs and a good pinch of salt and pepper. Toss with your hands and spread them in a single layer.",
+      "Pat the chicken thighs dry with paper towel and season both sides generously with salt and pepper. Nestle them skin side up among the vegetables so the skin sits clear of the pan and can crisp.",
+      "Roast for 35 to 40 minutes until the skin is deep gold and crackling, the potatoes give easily to a knife and the juices run clear when you pierce the thickest thigh. If the vegetables need more colour, lift the chicken onto a plate and give the pan 5 minutes more.",
+      "Rest the pan for 5 minutes so the juices settle back into the meat.",
+      "Squeeze the lemon over everything, pull out the thyme stems and serve straight from the pan with the juices spooned over."
     ],
     "teaches": [
       "roasting a sheet pan",
@@ -133,9 +138,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Start the rice. Slice the steak thinly against the grain and toss with cornstarch and a spoon of soy.",
-      "Sear the beef in a very hot pan in two batches and set aside. Stir-fry the broccoli with garlic and ginger for three minutes.",
-      "Return the beef, add the remaining soy, a splash of water and the sesame oil, and toss until the sauce clings."
+      "Rinse the rice until the water runs nearly clear, then bring it to a boil with 3 cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes; rest it off the heat with the lid on while you cook the rest.",
+      "Slice the flank steak thinly across the grain (find the lines running along the meat and cut across them) and toss with the cornstarch, 1 tbsp of the soy sauce and a pinch of salt and pepper. Cut the broccoli into small florets, chop the garlic, grate the ginger, and stir the remaining soy sauce, the sesame oil and ¼ cup water together in a small bowl.",
+      "Heat 1 tbsp oil in a large skillet or wok over high heat until it shimmers. Sear half the beef in a single layer for 1 to 2 minutes a side until browned at the edges, lift it out, and repeat with the second half; crowding the pan steams the meat instead of searing it.",
+      "Add a splash more oil, then the broccoli with 2 tbsp water, and stir-fry for 3 minutes until bright green and just tender. Add the garlic and ginger and stir for 30 seconds until fragrant.",
+      "Return the beef and pour in the sauce. Toss over high heat for 1 minute until it thickens and clings to everything.",
+      "Taste for salt, fluff the rice and serve the beef and broccoli over it with the sauce spooned on top."
     ],
     "teaches": [
       "slicing against the grain",
@@ -203,9 +211,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soften the onion and garlic in oil over medium heat until sweet, about eight minutes.",
-      "Add the tomatoes, beans and broth and simmer for twenty minutes. Blend half of it for body.",
-      "Finish with torn basil and more oil. Toast the sourdough and serve alongside."
+      "Finely chop the onion and garlic, and drain and rinse the white beans.",
+      "Warm the olive oil in a large pot over medium heat. Add the onion with a pinch of salt and cook, stirring now and then, for 8 minutes until soft and sweet with no colour, then add the garlic for the last 1 minute.",
+      "Pour in the diced tomatoes, the beans and the vegetable broth. Bring to a boil, then lower to a steady simmer and cook uncovered for 20 minutes until the flavour deepens and the soup has thickened a little.",
+      "Ladle about half the soup into a blender and blend smooth with the lid held down under a towel (hot soup expands), or give the pot a few pulses with an immersion blender. Stir it back in so the soup has body but still holds whole beans.",
+      "Season with salt and plenty of black pepper, tasting as you go, and tear in most of the basil.",
+      "Toast the sourdough until golden. Serve the soup with the rest of the basil, a drizzle of olive oil and the toast on the side."
     ],
     "teaches": [
       "building a soup base",
@@ -268,9 +279,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Boil the potatoes until tender, adding the beans for the last three minutes. Drain and toss with butter and garlic.",
-      "Pat the salmon dry, season, and sear skin side down in a hot pan for five minutes. Flip for one more.",
-      "Squeeze lemon over the fish and scatter dill over everything."
+      "Halve any larger potatoes so they are all about the same size, cover with cold water in a pot, add a big pinch of salt and bring to a boil. Simmer for 15 to 18 minutes until a knife slides in with no resistance.",
+      "Trim the green beans and drop them into the potato pot for the last 3 minutes, until bright green and still a little crisp.",
+      "Meanwhile pat the salmon dry with paper towel, especially the skin, and season both sides with salt and pepper. Zest the lemon, chop the dill and finely chop the garlic.",
+      "Heat 1 tbsp oil in a non-stick or well-seasoned skillet over medium-high until it shimmers. Lay the salmon in skin side down, press each piece flat with a spatula for 10 seconds, and cook without moving it for 5 to 6 minutes until the skin is crisp and the flesh has turned opaque two thirds of the way up; flip for 1 minute more and take it off the heat.",
+      "Drain the potatoes and beans and return them to the warm pot with the butter, garlic, lemon zest, half the dill and a pinch of salt. Toss until the butter melts and coats everything.",
+      "Plate the potatoes and beans, set the salmon on top skin side up, squeeze the lemon over the fish and scatter the rest of the dill. Serve at once."
     ],
     "teaches": [
       "searing skin-side down"
@@ -333,9 +347,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Brown the thighs in a lidded pot and set aside. Soften the onion and garlic in the fat.",
-      "Stir in the rice, pour in the broth, return the chicken and simmer covered for 18 minutes.",
-      "Fold in the peas, rest five minutes, then finish with lemon and parsley."
+      "Pat the chicken thighs dry and season well with salt and pepper. Dice the onion and finely chop the garlic.",
+      "Heat 1 tbsp oil in a lidded pot over medium-high until it shimmers. Brown the thighs skin side down for 5 to 6 minutes until deep gold, then 2 minutes on the other side, and move them to a plate; they will not be cooked through yet.",
+      "Lower the heat to medium, add the onion to the fat with a pinch of salt and cook for 4 to 5 minutes until soft, then stir in the garlic for 30 seconds.",
+      "Stir in the rice and cook for 1 minute so every grain is coated. Pour in the chicken broth, scrape up the browned bits from the bottom, and set the chicken skin side up on top.",
+      "Bring to a boil, cover, and drop to the lowest heat for 18 minutes. Keep the lid on; the rice is cooking in the steam.",
+      "Scatter the peas over, cover again and rest off the heat for 5 minutes until the peas are hot and the last of the broth is absorbed. Fluff the rice with a fork, squeeze the lemon over, scatter the parsley and serve from the pot."
     ],
     "teaches": [
       "one-pot rice",
@@ -398,9 +415,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the onion, carrot and garlic in oil until soft. Add the beef and brown it well.",
-      "Pour in the tomatoes, season, and simmer for thirty minutes while the pasta water comes up.",
-      "Toss the drained spaghetti through the sauce and shower with parmesan."
+      "Finely dice the onion and carrot and chop the garlic; the smaller they are, the more they melt into the sauce.",
+      "Warm the olive oil in a wide pot over medium heat. Add the onion and carrot with a pinch of salt and cook for 8 minutes until soft and sweet, then the garlic for 1 minute.",
+      "Turn the heat up to medium-high, add the beef and break it apart with a spoon. Cook for 6 to 8 minutes, letting it sit between stirs so it browns rather than steams, until no pink remains and the bottom of the pot has brown bits.",
+      "Pour in the diced tomatoes with half a can of water, season with salt and pepper and bring to a simmer. Lower the heat and let it bubble gently, uncovered, for 30 minutes, stirring now and then, until thick and glossy with the fat risen to the surface.",
+      "While the sauce finishes, bring a large pot of water to a boil and salt it well (it should taste like the sea). Cook the spaghetti for 8 to 9 minutes until just firm to the bite, a touch under the packet time, and save a cup of the cooking water before draining.",
+      "Taste the sauce and adjust the salt. Toss the spaghetti through the sauce with a splash of pasta water until every strand is coated, and serve with parmesan grated over."
     ],
     "teaches": [
       "a soffritto",
@@ -466,9 +486,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Sear the chicken pieces in butter and set aside. Fry the garlic, ginger and garam masala for a minute.",
-      "Blend the tomatoes smooth, add to the pan with the chicken and simmer for fifteen minutes.",
-      "Stir in the cream, warm through, and serve with rice and warmed naan."
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Cut the chicken thighs into bite-sized pieces, pat dry and season with salt and half the garam masala. Finely chop the garlic, grate the ginger and blend the diced tomatoes smooth.",
+      "Melt 1 tbsp of the butter in a wide pan over medium-high heat. Sear the chicken in two batches for 3 to 4 minutes a batch until golden at the edges but not cooked through, and move it to a plate.",
+      "Lower the heat to medium and melt the remaining butter. Fry the garlic and ginger for 1 minute until fragrant, then add the rest of the garam masala and stir for 30 seconds so the spice toasts in the butter without burning.",
+      "Pour in the blended tomatoes, season with salt and simmer for 10 minutes, stirring, until the sauce thickens and darkens a shade.",
+      "Return the chicken with its juices and simmer for 8 to 10 minutes until the pieces are cooked through with no pink in the centre of the largest one. Stir in the cream, warm through for 2 minutes without boiling, and taste for salt.",
+      "Warm the naan in a dry pan for 1 minute a side. Fluff the rice and serve the butter chicken over it with the naan for mopping up the sauce."
     ],
     "teaches": [
       "toasting spices",
@@ -522,9 +546,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Sear the tenderloin in butter on all sides, then roast at 400°F for 15 minutes. Rest it.",
-      "In the same pan, cook the onion, apple wedges and sage until golden, then deglaze with broth.",
-      "Slice the pork and spoon the apples and pan juices over."
+      "Heat the oven to 400°F (200°C). Trim the silvery membrane from the tenderloin if there is one, pat it dry and season all over with salt and pepper; slice the onion and cut the apples into wedges with the core removed.",
+      "Heat 1 tbsp of the butter in an ovenproof skillet over medium-high until it foams and goes quiet. Sear the pork for 2 minutes a side, turning four times, until browned all over, about 8 minutes in all.",
+      "Move the skillet to the oven and roast for 12 to 15 minutes until a thermometer in the thickest part reads 145°F (63°C), or the meat feels springy with a little give. Lift it onto a board and rest for 8 minutes; it will stay pink and juicy.",
+      "Put the skillet back over medium heat (the handle is hot) with the remaining butter. Add the onion and apples with a pinch of salt and cook for 5 to 6 minutes until the apples are golden at the edges but still hold their shape, adding the sage leaves for the last 1 minute until they crisp.",
+      "Pour in the chicken broth and scrape the browned bits from the bottom of the pan. Let it bubble for 2 minutes until it reduces to a glossy spoonful of sauce, and season to taste.",
+      "Slice the pork into thick medallions, lay them over the apples and onion and spoon the pan juices over. Serve at once."
     ],
     "teaches": [
       "pan-roasting pork",
@@ -587,9 +614,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soften the onion and pepper, add garlic and cumin, then the tomatoes. Simmer ten minutes.",
-      "Make four wells and crack in the eggs. Cover and cook until the whites set, about six minutes.",
-      "Crumble feta over and serve straight from the pan with toasted sourdough."
+      "Slice the onion and pepper thinly and chop the garlic.",
+      "Warm 2 tbsp oil in a wide skillet with a lid over medium heat. Cook the onion and pepper with a pinch of salt for 8 minutes, stirring now and then, until soft and starting to colour at the edges.",
+      "Stir in the garlic and cumin for 1 minute until fragrant, then pour in the diced tomatoes. Season with salt and pepper and simmer for 10 minutes until thick enough that a spoon leaves a trail.",
+      "Make four wells in the sauce with the back of a spoon and crack an egg into each. Season the eggs, cover and cook over low heat for 6 to 8 minutes until the whites are set and the yolks still wobble when you nudge the pan.",
+      "Meanwhile toast the sourdough until golden.",
+      "Crumble the feta over the top and serve straight from the pan, with the toast for dipping into the yolks."
     ],
     "teaches": [
       "poaching eggs in sauce"
@@ -650,9 +680,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Fry the curry paste in a spoon of the thick coconut cream until fragrant.",
-      "Add the chicken, then the rest of the coconut milk, and simmer twelve minutes. Add the beans and pepper for the last five.",
-      "Finish with lime and basil over jasmine rice."
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Cut the chicken thighs into bite-sized pieces and season lightly with salt. Trim the green beans and cut them in half, and slice the pepper into strips.",
+      "Open the coconut milk without shaking it and spoon the thick cream from the top into a wide pan over medium-high heat. Add the curry paste and fry for 2 to 3 minutes, stirring, until it smells fragrant and the oil starts to separate and glisten at the edges.",
+      "Add the chicken and stir for 2 minutes to coat it in the paste, then pour in the rest of the coconut milk and half a can of water. Bring to a simmer and cook for 10 minutes until the chicken is cooked through.",
+      "Add the green beans and pepper and simmer for 4 to 5 minutes more until the beans are tender but still bright. Taste: it should be salty enough to carry the heat, so add salt if it needs it.",
+      "Take the pan off the heat, squeeze in half the lime and tear in most of the basil. Serve over the rice with the remaining basil and the rest of the lime in wedges."
     ],
     "teaches": [
       "frying curry paste",
@@ -716,9 +749,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Dice tomato, onion and cilantro, dress with lime and salt for the pico.",
-      "Brown the beef with cumin and chili, keeping it a little saucy.",
-      "Warm the tortillas and build the tacos with avocado and cheddar."
+      "Make the pico first so it has time to mellow: dice the tomatoes and the half onion small, chop most of the cilantro, and toss with the juice of 1 lime and a good pinch of salt.",
+      "Grate the cheddar. Halve the avocados, slice them in the skin and scoop out with a spoon, then squeeze a little lime over so they stay green.",
+      "Heat 1 tbsp oil in a skillet over medium-high until it shimmers. Add the beef, season generously with salt and pepper, and leave it for 2 minutes before breaking it up so it browns properly, then cook for 6 to 8 minutes in all until deeply browned with no pink left.",
+      "Spoon off most of the fat, then stir in 2 tbsp of the juice from the pico and a splash of water and cook for 1 minute so the beef stays a little saucy rather than dry. Taste and adjust the salt.",
+      "Warm the tortillas in a dry pan for 20 to 30 seconds a side until soft and spotted, stacking them in a clean tea towel to keep warm.",
+      "Build the tacos at the table: beef, pico, avocado, cheddar and the rest of the cilantro, with the second lime cut into wedges for squeezing over."
     ],
     "teaches": [
       "a quick pico",
@@ -784,9 +820,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the pasta. Sizzle the garlic and chili in butter for a minute.",
-      "Add the shrimp and cook two minutes a side until pink.",
-      "Toss with the pasta, lemon juice and zest, parsley and a ladle of pasta water."
+      "Bring a large pot of water to a boil and salt it well. Pat the shrimp dry and season with salt and pepper, slice the garlic thinly, zest and juice the lemon, and chop the parsley.",
+      "Cook the pasta for 8 to 9 minutes until just firm to the bite, a touch under the packet time, and scoop out a cup of the cooking water before draining.",
+      "While the pasta cooks, melt the butter in a large skillet over medium heat. Add the garlic and chili flakes and cook for 1 to 2 minutes until the garlic is soft and golden at the edges, not brown.",
+      "Turn the heat to medium-high, add the shrimp in a single layer and cook for 2 minutes a side until pink and curled into a loose C; a tight O means they are overdone, so pull them as soon as they turn.",
+      "Add the drained pasta to the skillet with the lemon zest, the juice and half a cup of the pasta water. Toss over the heat for 1 minute until the sauce turns glossy and coats the strands, adding more water if it looks dry.",
+      "Toss through the parsley, taste for salt and lemon, and serve with parmesan grated over."
     ],
     "teaches": [
       "cooking shrimp just right",
@@ -840,9 +879,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Grill or pan-cook the chicken and slice it.",
-      "Tear the romaine and toss with dressing, croutons and most of the parmesan.",
-      "Top with the chicken, lemon and the rest of the cheese."
+      "Pat the chicken thighs dry, press them flat and season both sides generously with salt and pepper.",
+      "Heat 1 tbsp oil in a skillet over medium-high until it shimmers. Cook the thighs for 5 to 6 minutes on the first side until deeply golden, then 4 to 5 minutes on the other until the juices run clear and the thickest part is no longer pink.",
+      "Rest the chicken on a board for 5 minutes, then slice it. Meanwhile separate the romaine leaves, rinse and dry them well (wet leaves shed the dressing), tear them into big pieces and shave or grate the parmesan.",
+      "In a large bowl, toss the romaine with the caesar dressing, the croutons and most of the parmesan until every leaf is coated.",
+      "Pile into bowls, lay the sliced chicken on top, squeeze the half lemon over and finish with the rest of the parmesan and a grind of black pepper."
     ],
     "teaches": [
       "grilling chicken",
@@ -906,9 +947,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Scramble the eggs in a hot wok and set aside.",
-      "Stir-fry carrot and garlic, add the cold rice and press it into the pan to crisp.",
-      "Add peas, soy, sesame oil and the eggs, then the green onions."
+      "Finely dice the carrot, chop the garlic and slice the green onions, keeping the white and green parts separate. Beat the eggs with a pinch of salt and break up the cold rice with your fingers so there are no clumps.",
+      "Heat 1 tbsp oil in a large wok or skillet over high heat until it smokes faintly. Pour in the eggs and scramble for 30 to 45 seconds until just set, then tip them onto a plate.",
+      "Add another 1 tbsp oil, then the carrot and the white parts of the green onions, and stir-fry for 2 minutes until the carrot starts to soften. Add the garlic for 30 seconds.",
+      "Add the rice and spread it across the pan. Let it sit for 1 minute to crisp on the bottom, then toss and repeat for 3 to 4 minutes until the grains are hot and some are toasted and crackling.",
+      "Add the peas and pour the soy sauce around the edge of the pan so it sizzles, then toss for 1 minute until the peas are hot.",
+      "Return the eggs, add the sesame oil and the green parts of the green onions, toss once and taste for salt. Serve straight away."
     ],
     "teaches": [
       "a hot wok",
@@ -974,9 +1018,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Brown the beef with the onion and pepper. Add garlic and chili powder.",
-      "Add tomatoes and beans and simmer, uncovered, for forty minutes.",
-      "Serve with grated cheddar and sour cream."
+      "Dice the onion and pepper and chop the garlic. Drain and rinse the kidney beans.",
+      "Heat 1 tbsp oil in a large pot over medium-high until it shimmers. Add the beef, season with salt, and cook for 8 minutes, breaking it up and letting it sit between stirs, until browned with crusty bits.",
+      "Add the onion and pepper and cook for 5 minutes until soft, then the garlic and chili powder for 1 minute, stirring, until the spice smells toasty.",
+      "Pour in both cans of tomatoes and 1 cup of water, scrape the bottom of the pot and bring to a simmer. Season with salt and pepper.",
+      "Lower the heat and simmer uncovered for 40 minutes, stirring every so often, until thick, dark and rich and a spoon stands up a little in it. Add the beans for the last 10 minutes.",
+      "Taste and adjust the salt; it should taste deep rather than sharp. Serve in bowls with grated cheddar and a spoonful of sour cream."
     ],
     "teaches": [
       "browning ground beef",
@@ -1032,9 +1079,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Heat the oven as high as it goes with a tray inside.",
-      "Stretch the dough, spread crushed tomatoes with garlic and oil, tear over the mozzarella.",
-      "Bake on the hot tray for 10 minutes. Add basil after."
+      "Heat the oven to its highest setting, 500°F (260°C) or more, with a heavy baking sheet or pizza stone on the middle rack for at least 20 minutes; a scorching surface is what makes the base crisp. Take the dough out of the fridge so it loses its chill.",
+      "Drain the diced tomatoes well, then crush them with a fork with the garlic finely grated in, a pinch of salt and half the olive oil. Tear the mozzarella into pieces and pat it dry with paper towel so the pizza does not go soggy.",
+      "On a lightly oiled sheet of parchment, press the dough out from the centre with your fingertips, leaving the rim a little thicker, then stretch it gently until it is about 12 inches across. If it springs back, let it rest for 5 minutes and try again.",
+      "Spread the tomato thinly to within an inch of the edge and dot over the mozzarella.",
+      "Slide the pizza on its parchment onto the hot sheet and bake for 8 to 10 minutes until the rim is blistered and golden and the cheese is bubbling with a few brown spots.",
+      "Tear the basil over, drizzle with the rest of the olive oil, cut and serve."
     ],
     "teaches": [
       "stretching dough",
@@ -1107,9 +1157,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Marinate thin-sliced beef in soy, sugar, garlic and sesame oil for 15 minutes.",
-      "Sear the beef in batches in a very hot pan.",
-      "Build bowls with rice, beef, cucumber, carrot ribbons, kimchi and a fried egg."
+      "Slice the flank steak as thinly as you can across the grain (10 minutes in the freezer first makes this easier). Stir the soy sauce, brown sugar, finely chopped garlic and half the sesame oil together, add the beef and marinate for 15 minutes while you do everything else.",
+      "Rinse the rice and bring it to a boil with 3 cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Slice the cucumber thinly and shave the carrot into ribbons with a peeler, and season both with a pinch of salt.",
+      "Heat 1 tbsp oil in a large skillet over high heat until it smokes faintly. Sear the beef in two batches, in a single layer, for 1 to 2 minutes a side until caramelised at the edges, and move it to a plate; the marinade should bubble into a glaze, not pool.",
+      "Wipe the pan, add 1 tbsp oil over medium-high and fry the eggs for 2 to 3 minutes until the whites are set and crisp at the edges while the yolks stay runny.",
+      "Build the bowls: rice, then beef, cucumber, carrot and kimchi in sections, a fried egg on top, and the rest of the sesame oil drizzled over."
     ],
     "teaches": [
       "a quick marinade",
@@ -1174,9 +1227,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Brown the mushrooms in butter and set aside. Soften the onion and garlic.",
-      "Toast the rice, then add hot broth a ladle at a time, stirring, for 18 minutes.",
-      "Fold in the mushrooms, parmesan, butter and thyme."
+      "Bring the vegetable broth to a simmer in a saucepan and keep it there over low heat; cold broth stops the rice every time you add it. Finely dice the onion, chop the garlic, slice the mushrooms, strip the thyme leaves from their stems and grate the parmesan.",
+      "Melt 1 tbsp of the butter in a wide, heavy pan over medium-high heat. Add the mushrooms in a single layer with a pinch of salt and leave them for 3 minutes before stirring, then cook for 4 to 5 minutes more until browned and the liquid they release has cooked off; tip them onto a plate.",
+      "Lower the heat to medium, melt another 1 tbsp butter and cook the onion with a pinch of salt for 5 minutes until soft and translucent, then the garlic and thyme for 1 minute.",
+      "Add the arborio and stir for 2 minutes until the grains turn translucent at the edges and smell faintly toasted.",
+      "Add a ladle of hot broth and stir until it is almost absorbed before adding the next. Keep going, a ladle at a time with near-constant stirring, for 18 to 20 minutes until the rice is creamy and tender with the slightest bite in the centre; you may not need all the broth, or you may need a splash of hot water.",
+      "Take the pan off the heat and beat in the mushrooms, the last 1 tbsp butter and the parmesan until glossy; the risotto should flow slowly when you tilt the pan, so loosen it with a little broth if it stands stiff. Season with salt and pepper to taste.",
+      "Cover and rest for 2 minutes, then serve in warm bowls with more parmesan."
     ],
     "teaches": [
       "toasting rice",
@@ -1235,9 +1292,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soften the onion and garlic, add tomatoes, simmer ten minutes, blend with cream.",
-      "Butter the bread on the outside, fill with cheddar, and cook low and slow until deeply golden.",
-      "Cut on the diagonal. Dunk."
+      "Dice the onion and chop the garlic. Warm 1 tbsp of the butter in a saucepan over medium heat and cook the onion with a pinch of salt for 5 minutes until soft, then the garlic for 1 minute.",
+      "Add the diced tomatoes and 1 cup of water, season with salt and pepper and simmer for 10 minutes until the onion is completely tender.",
+      "Blend the soup smooth (in a blender with the lid held down under a towel, or with an immersion blender in the pot), stir in the cream and keep it warm over low heat. Taste and adjust the salt.",
+      "Grate the cheddar. Spread the remaining butter on one side of each slice of sourdough, lay four slices butter side down, divide the cheese over them and top with the other slices, butter side out.",
+      "Cook the sandwiches in a skillet over medium-low heat for 4 to 5 minutes a side, pressing gently with a spatula, until the bread is deeply golden and the cheese has melted all the way through; low heat gives the cheese time to melt before the bread burns.",
+      "Cut on the diagonal and serve beside bowls of the soup for dunking."
     ],
     "teaches": [
       "low and slow grilled cheese"
@@ -1296,9 +1356,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the chicken with the pepper and onion and chop it small.",
-      "Fill tortillas with chicken and cheddar, fold, and cook in a dry pan until crisp.",
-      "Cut into wedges and serve with salsa and sour cream."
+      "Cut the chicken thighs into small pieces and season with salt and pepper. Slice the pepper and onion thinly and grate the cheddar.",
+      "Heat 1 tbsp oil in a large skillet over medium-high until it shimmers. Cook the chicken for 5 to 6 minutes, stirring now and then, until browned and cooked through with no pink inside, and move it to a bowl.",
+      "Add the pepper and onion to the same pan and cook for 4 to 5 minutes until soft and charred at the edges. Chop the chicken a little smaller, stir it back in and taste for salt.",
+      "Lay four tortillas out, scatter half the cheddar over them, divide the chicken mix on top, add the rest of the cheese and press the other tortillas on top.",
+      "Wipe the skillet and set it over medium heat. Cook each quesadilla dry for 2 to 3 minutes a side, pressing with a spatula, until the tortilla is golden and crisp and the cheese has melted; a plate on top helps you flip it.",
+      "Cut into wedges and serve with salsa and sour cream for dipping."
     ],
     "teaches": [
       "crisping a tortilla"
@@ -1357,9 +1420,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the pasta two minutes short. Make a roux with butter and flour, whisk in milk.",
-      "Melt in the cheddar, fold in pasta and peas, tip into a dish.",
-      "Top with breadcrumbs and bake at 400°F until bubbling, about 15 minutes."
+      "Heat the oven to 400°F (200°C). Bring a large pot of water to a boil, salt it well and cook the pasta for 6 to 7 minutes, a couple of minutes short of the packet time so it stays firm, then drain it and grate the cheddar.",
+      "Melt the butter in the same pot over medium heat, whisk in the flour and cook for 1 to 2 minutes, stirring, until it smells nutty and looks like wet sand; this is the roux.",
+      "Add the milk a splash at a time, whisking each addition smooth before the next, then bring to a simmer and cook for 3 to 4 minutes, stirring, until it thickens enough to coat the back of a spoon.",
+      "Take the pot off the heat and stir in most of the cheddar a handful at a time until melted and smooth. Season with salt and pepper; it should taste a little too strong, since the pasta will soften it.",
+      "Fold in the pasta and the peas and tip into a baking dish about 9 by 13 inches. Scatter the remaining cheddar and the breadcrumbs over the top.",
+      "Bake on the middle rack for 15 to 18 minutes until bubbling at the edges and golden on top. Rest for 5 minutes before serving so the sauce settles."
     ],
     "teaches": [
       "a roux",
@@ -1421,9 +1487,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Make a quick meat sauce with the beef, onion, garlic and tomatoes.",
-      "Toss with par-cooked ziti and half the mozzarella in a baking dish.",
-      "Top with the rest of the cheese and bake at 400°F for 25 minutes."
+      "Heat the oven to 400°F (200°C). Dice the onion and chop the garlic, tear the mozzarella and grate the parmesan.",
+      "Heat 1 tbsp oil in a wide pot over medium-high. Brown the beef with a good pinch of salt for 6 to 8 minutes, breaking it up, until no pink remains and there are crusty bits on the bottom, then add the onion for 4 minutes until soft and the garlic for 1 minute.",
+      "Pour in both cans of tomatoes, season with salt and pepper and simmer for 15 minutes until the sauce thickens a little. Tear in half the basil.",
+      "Meanwhile bring a large pot of water to a boil, salt it well and cook the ziti for 7 to 8 minutes, well short of the packet time; it finishes in the oven. Drain.",
+      "Toss the pasta with the sauce and half the mozzarella in a baking dish about 9 by 13 inches. Top with the rest of the mozzarella and the parmesan.",
+      "Bake on the middle rack for 25 minutes until bubbling and browned in patches. Rest for 5 minutes, scatter the remaining basil over and serve."
     ],
     "teaches": [
       "a meat sauce",
@@ -1481,9 +1550,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Rub the bird with butter, salt, garlic and rosemary. Put the lemon inside.",
-      "Roast at 425°F with the potatoes around it for 70 minutes.",
-      "Rest the chicken while the beans steam."
+      "Heat the oven to 425°F (220°C) with a rack in the lower third. Pat the chicken dry inside and out with paper towel (dry skin is what crisps) and season the cavity with salt.",
+      "Soften 2 tbsp of the butter and mix it with salt, pepper and the chopped leaves of 1 rosemary sprig, then rub it all over the skin. Halve the lemon and the head of garlic across the middle, tuck them into the cavity with the other rosemary sprig, and tie the legs together with string if you have some.",
+      "Peel the potatoes and cut them into 2 inch chunks. Toss them with 1 tbsp oil and a good pinch of salt in a large roasting pan and set the chicken breast side up in the middle.",
+      "Roast for 60 to 70 minutes, turning the potatoes once halfway, until the skin is deep gold, the juices run clear when you pierce the thigh and a thermometer in the thickest part of the thigh reads 165°F (74°C).",
+      "Lift the chicken onto a board, tent it loosely with foil and rest for 15 minutes. Turn the potatoes through the pan juices and return them to the oven for the same 15 minutes to crisp.",
+      "Trim the green beans and boil them in well-salted water for 4 to 5 minutes until bright green and just tender. Drain and toss with the last 1 tbsp butter and a pinch of salt.",
+      "Carve the chicken, squeeze the roasted lemon from the cavity over the meat, and serve with the potatoes, beans and the juices from the board and the pan."
     ],
     "teaches": [
       "roasting a whole bird",
@@ -1550,9 +1623,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Boil and mash the potatoes with butter and milk.",
-      "Brown the beef with onion and carrot, add tomato paste, broth and peas, simmer ten minutes.",
-      "Top with the mash, rough up the surface, and bake at 400°F for 25 minutes."
+      "Peel the potatoes and cut them into even chunks, cover with cold salted water and bring to a boil. Simmer for 15 to 18 minutes until a knife slides through with no resistance.",
+      "Meanwhile dice the onion and carrots. Heat 1 tbsp oil in a wide pan over medium-high and brown the beef with a pinch of salt for 6 to 8 minutes, breaking it up, until no pink remains, then add the onion and carrots and cook for 5 minutes until softening.",
+      "Stir in the tomato paste and cook for 1 minute until it darkens, then pour in the beef broth and simmer for 10 minutes until it reduces to a thick gravy that coats the meat. Stir in the peas, season well with salt and pepper and spread into a baking dish about 9 by 13 inches.",
+      "Heat the oven to 400°F (200°C). Drain the potatoes, let them steam in the colander for 1 minute, then mash with the butter and milk until smooth and season generously; underseasoned mash is the usual failure.",
+      "Spoon the mash over the filling and spread it to the edges to seal, then rough up the surface with a fork so there are ridges to brown.",
+      "Bake on the middle rack for 25 minutes until the top is golden at the ridges and the filling bubbles at the sides. Rest for 5 minutes and serve in big spoonfuls."
     ],
     "teaches": [
       "mashed potatoes",
@@ -1621,9 +1697,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soak the noodles in warm water until pliable.",
-      "Stir-fry garlic and shrimp, push aside, scramble the eggs, add noodles and the fish-sauce mix.",
-      "Toss in sprouts and green onion, serve with peanuts and lime."
+      "Soak the rice noodles in hot tap water for 15 to 20 minutes until pliable but still a little firm (they finish in the pan), then drain.",
+      "While they soak, pat the shrimp dry and season lightly with salt, chop the garlic, cut the green onions into 2 inch lengths, roughly chop the peanuts and beat the eggs. Stir the fish sauce with the juice of 1 lime and 1 tbsp water, and set everything beside the stove, because once the wok is hot there is no time to chop.",
+      "Heat 2 tbsp oil in a wok or large skillet over high heat until it smokes faintly. Add the garlic and shrimp and stir-fry for 2 minutes until the shrimp turn pink, then push them to one side.",
+      "Pour the eggs into the empty side and scramble for 30 seconds until just set, then add the noodles and the sauce and toss for 2 to 3 minutes until the noodles are tender and have soaked up the sauce; add a splash of water if they stick.",
+      "Add the bean sprouts and green onions and toss for 1 minute so they wilt a little but keep their crunch. Taste: it should be salty and sour in balance, so add fish sauce or lime as needed.",
+      "Serve with the peanuts scattered over and the second lime in wedges."
     ],
     "teaches": [
       "soaking rice noodles",
@@ -1693,9 +1772,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Marinate the chicken in lemon, oregano and oil, then grill on skewers.",
-      "Cook the rice. Chop the salad.",
-      "Build bowls with rice, salad, olives, feta, chicken and tzatziki."
+      "Cut the chicken thighs into 1½ inch pieces and toss with the juice of half the lemon, the oregano, 1 tbsp oil and a good pinch of salt and pepper. Marinate for 15 minutes while you cook the rice.",
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Dice the cucumber and tomatoes and slice the red onion thinly, then toss them with the olives, a squeeze of the remaining lemon, a drizzle of oil and a pinch of salt.",
+      "Thread the chicken onto skewers if you have them (soak wooden ones in water first) or leave it loose, and heat a grill pan or skillet over medium-high until very hot.",
+      "Cook the chicken for 4 to 5 minutes a side, turning once, until charred at the edges and cooked through with no pink in the centre of the largest piece. Rest for 3 minutes.",
+      "Build the bowls with rice, the salad, the chicken, crumbled feta and a spoonful of tzatziki, with the last of the lemon squeezed over."
     ],
     "teaches": [
       "skewering and grilling"
@@ -1753,9 +1835,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Mash two bananas, whisk with eggs, milk and melted butter.",
-      "Fold in flour and baking powder. Rest five minutes.",
-      "Cook in butter, top with sliced banana and syrup."
+      "Melt the butter and let it cool for a moment. Mash 2 of the bananas in a large bowl with a fork until mostly smooth, then whisk in the eggs, milk and melted butter.",
+      "Whisk the flour, baking powder and a pinch of salt together, then fold into the banana mixture with a few strokes; a few lumps are fine, and overmixing makes tough pancakes. Rest the batter for 5 minutes while the pan heats.",
+      "Heat a non-stick skillet or griddle over medium heat and rub it with a little butter. Slice the third banana.",
+      "Pour in ¼ cup of batter per pancake, leaving room between them. Cook for 2 to 3 minutes until bubbles rise across the surface and the edges look dry, then flip and cook for 1 to 2 minutes more until golden on the second side.",
+      "Keep the finished pancakes warm on a plate under a tea towel and repeat with the rest of the batter, adding a touch more butter between batches.",
+      "Stack, top with the sliced banana and pour over the maple syrup."
     ],
     "teaches": [
       "pancake batter",
@@ -1828,9 +1913,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Char the onion and ginger, then simmer in the broth with star anise for 30 minutes.",
-      "Soak the noodles. Slice the beef paper thin and freeze it for 15 minutes first.",
-      "Ladle boiling broth over noodles and raw beef in bowls. Pile on the herbs."
+      "Put the flank steak in the freezer for 20 minutes to firm up; it makes slicing thin much easier. Halve the onion and cut the ginger in half lengthways, skin on.",
+      "Set a dry heavy skillet over high heat and char the onion and ginger cut side down for 5 to 6 minutes until blackened in patches and smelling sweet, adding the star anise for the last 1 minute to toast.",
+      "Pour the beef broth into a large pot with the charred onion, ginger and star anise. Bring to a boil, then lower to the gentlest simmer, skim any foam, and cook for 30 minutes so the spices infuse; a rolling boil makes it cloudy.",
+      "Meanwhile soak the rice noodles in hot tap water for 15 to 20 minutes until pliable, then drain. Slice the beef against the grain as thinly as you can and lay the slices out so they are not clumped, slice the chili, cut the lime into wedges and pick the basil leaves.",
+      "Strain the broth, return it to the pot and season with salt until it tastes savoury and clean; it should be slightly saltier than you think, since the noodles dilute it. Bring it back to a hard boil.",
+      "Divide the noodles between four deep bowls and lay the raw beef on top in a single layer. Ladle the boiling broth over the beef; it cooks in the bowl, turning from red to pink in about 1 minute.",
+      "Pile on the bean sprouts, basil and chili and serve with the lime wedges to squeeze in at the table."
     ],
     "teaches": [
       "charring aromatics",
@@ -1893,9 +1982,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soften onion, garlic and ginger, add the spices and fry a minute.",
-      "Add tomatoes and chickpeas and simmer 15 minutes, crushing a few beans.",
-      "Finish with cilantro and lime over rice."
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Finely dice the onion, chop the garlic and grate the ginger. Drain and rinse the chickpeas.",
+      "Heat 2 tbsp oil in a wide pan over medium heat until it shimmers. Cook the onion with a pinch of salt for 6 to 8 minutes, stirring, until soft and golden at the edges.",
+      "Add the garlic, ginger and garam masala and fry for 1 minute, stirring, until the spice smells toasty and the oil takes on its colour; do not let the garlic brown.",
+      "Pour in the diced tomatoes and the chickpeas with half a cup of water, season with salt, and simmer for 15 minutes, stirring now and then and crushing a few chickpeas against the side of the pan to thicken the sauce, until it is thick and the oil shows at the edges.",
+      "Taste and adjust the salt, stir in most of the cilantro and serve over the rice with the rest scattered on top."
     ],
     "teaches": [
       "blooming spices"
@@ -1964,9 +2056,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Marinate the chicken in yogurt, garlic and spices for 20 minutes, then char under the broiler.",
-      "Make the sauce: onion, ginger, spices, tomatoes, then cream.",
-      "Fold in the chicken and serve with naan and rice."
+      "Cut the chicken thighs into 1½ inch pieces. Stir the yogurt with half the garam masala, a third of the garlic finely grated, a third of the ginger and a good pinch of salt, toss the chicken in it and marinate for 20 minutes (or overnight in the fridge).",
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Set the oven to broil with a rack 4 to 6 inches from the element and line a sheet pan with foil. Spread the chicken out in a single layer and broil for 8 to 10 minutes, turning once, until charred at the edges; it does not need to be cooked through yet.",
+      "Meanwhile dice the onion and chop the rest of the garlic and ginger. Heat 2 tbsp oil or butter in a wide pan over medium and cook the onion with a pinch of salt for 6 to 8 minutes until soft and golden, then the garlic, ginger and remaining garam masala for 1 minute until fragrant.",
+      "Pour in the diced tomatoes and simmer for 10 minutes until thick, then blend smooth if you like a restaurant-style sauce (an immersion blender in the pan is easiest).",
+      "Add the chicken with any juices from the pan and simmer for 8 to 10 minutes until cooked through with no pink in the centre. Stir in the cream, warm for 2 minutes without boiling, and taste for salt.",
+      "Warm the naan in a dry pan for 1 minute a side and serve the chicken over the rice with the naan alongside."
     ],
     "teaches": [
       "a yogurt marinade",
@@ -2028,9 +2124,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Blanch and blend the spinach.",
-      "Fry the paneer cubes golden and set aside; cook the onion, garlic, ginger and cumin.",
-      "Add the spinach purée and cream, return the paneer, simmer five minutes."
+      "Bring a large pot of salted water to a boil, drop in the spinach and blanch for 1 minute until wilted and bright green, then lift it into a bowl of cold water to stop the cooking. Squeeze out the water and blend to a coarse purée with a splash of water.",
+      "Cut the paneer into 1 inch cubes and pat dry. Dice the onion, chop the garlic and grate the ginger.",
+      "Heat 2 tbsp oil in a wide pan over medium-high until it shimmers. Fry the paneer in a single layer for 2 to 3 minutes a side until golden, then lift it onto a plate and salt it lightly.",
+      "Lower the heat to medium, add the cumin to the pan and let it sizzle for 30 seconds, then cook the onion with a pinch of salt for 6 to 8 minutes until soft and golden. Add the garlic and ginger for 1 minute.",
+      "Stir in the spinach purée and cream, season with salt and simmer for 5 minutes until the sauce thickens and darkens a shade. Return the paneer and simmer for 3 minutes more so it soaks up the sauce, then taste and adjust the salt.",
+      "Warm the naan in a dry pan for 1 minute a side and serve the palak paneer with it."
     ],
     "teaches": [
       "blanching greens",
@@ -2093,9 +2192,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Simmer the lentils with turmeric until soft, about 25 minutes.",
-      "Sizzle cumin, garlic and chili in butter for the tadka.",
-      "Pour the tadka over the dal, scatter cilantro, serve with rice."
+      "Rinse the lentils in a sieve until the water runs clear. Put them in a pot with 4½ cups water, bring to a boil, skim any foam and simmer, partly covered, for 25 to 30 minutes until completely soft and falling apart, adding water if it thickens before they are done.",
+      "Once the dal is simmering, rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Finely slice the onion, garlic and chili.",
+      "When the lentils are soft, whisk them a few times with a spoon so they turn creamy, season with salt (dal takes more than you expect) and keep warm over low heat.",
+      "For the tadka, melt the butter in a small skillet over medium heat. Add the cumin and let it crackle for 20 seconds, then the onion for 5 to 6 minutes until golden, then the garlic and chili for 1 minute until the garlic is just golden and the smell fills the kitchen.",
+      "Pour the sizzling tadka over the dal, scatter the cilantro and serve with the rice."
     ],
     "teaches": [
       "a tadka (tempered spices)"
@@ -2157,9 +2259,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Par-cook the potatoes. Fry cumin, onion, garlic and ginger.",
-      "Add cauliflower and potatoes with turmeric and a splash of water; cover 12 minutes.",
-      "Add peas for the last three minutes and finish with cilantro."
+      "Peel the potatoes and cut them into 1 inch cubes, and cut the cauliflower into florets about the same size. Dice the onion, chop the garlic and grate the ginger.",
+      "Heat 3 tbsp oil in a wide pan with a lid over medium-high until it shimmers. Add the cumin and let it sizzle for 20 seconds, then the onion with a pinch of salt for 4 to 5 minutes until golden, then the garlic and ginger for 1 minute.",
+      "Add the potatoes and cook, stirring, for 5 minutes so they take on a little colour at the edges.",
+      "Add the cauliflower, a good pinch of salt and ¼ cup water, stir, cover and cook over medium heat for 12 to 15 minutes, stirring a couple of times, until the potatoes and cauliflower are tender to the point of a knife and browned in places; add a splash more water if the pan dries out.",
+      "Stir in the peas, cover and cook for 3 minutes until hot.",
+      "Taste for salt, scatter the cilantro over and serve."
     ],
     "teaches": [
       "steam-frying vegetables"
@@ -2221,9 +2326,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Brown the beef with onion, garlic and ginger.",
-      "Add spices and tomatoes, simmer 15 minutes.",
-      "Stir in peas, finish with lemon, serve with naan."
+      "Dice the onion, chop the garlic and grate the ginger.",
+      "Heat 2 tbsp oil in a wide pan over medium heat and cook the onion with a pinch of salt for 6 to 8 minutes until golden, then the garlic and ginger for 1 minute.",
+      "Turn the heat up to medium-high, add the beef and break it up, season with salt and cook for 6 to 8 minutes until browned and the liquid has cooked off.",
+      "Stir in the garam masala for 1 minute, then the diced tomatoes with ½ cup water. Simmer for 15 minutes, stirring now and then, until thick and the oil shows at the edges.",
+      "Stir in the peas and cook for 3 minutes until hot. Taste and adjust the salt.",
+      "Warm the naan in a dry pan for 1 minute a side and serve the keema spooned over or alongside."
     ],
     "teaches": [
       "spicing ground meat"
@@ -2280,9 +2388,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soak the noodles. Sear the chicken in a very hot pan with garlic.",
-      "Push aside, scramble the eggs, add broccoli and noodles.",
-      "Add soy and sugar and let the noodles char slightly before tossing."
+      "Soak the noodles in hot tap water for 10 to 15 minutes until pliable (fresh ones need only a quick rinse), then drain. Slice the chicken thighs thinly and season with salt, cut the broccoli into small florets with the stem sliced thin, chop the garlic, beat the eggs, and stir the soy sauce and brown sugar together.",
+      "Heat 1 tbsp oil in a wok or large skillet over high heat until it smokes faintly. Add the chicken in a single layer and cook for 3 to 4 minutes, turning once, until browned and cooked through, adding the garlic for the last 30 seconds, then tip everything onto a plate.",
+      "Add another 1 tbsp oil, then the broccoli with 2 tbsp water, and stir-fry for 2 to 3 minutes until bright green and just tender.",
+      "Push the broccoli aside, pour the eggs into the gap and scramble for 30 seconds until just set.",
+      "Add the noodles, the chicken and the soy mixture and toss to coat, then spread everything out and leave it for 1 minute without stirring so the noodles char in spots. Toss and repeat for 3 to 4 minutes until the noodles are tender and glossy with charred edges.",
+      "Taste for salt and serve straight from the wok."
     ],
     "teaches": [
       "charring noodles",
@@ -2345,9 +2456,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Simmer the broth with bruised lemongrass and chili for 10 minutes.",
-      "Add mushrooms, then shrimp for the last three minutes.",
-      "Season off the heat with fish sauce and lime; add cilantro."
+      "Trim the lemongrass, peel off the tough outer layer, cut it into 2 inch lengths and bruise them with the flat of a knife so they release their scent. Slice the chilies, halve or quarter the mushrooms and pat the shrimp dry.",
+      "Bring the chicken broth to a boil in a pot with the lemongrass and chilies, then simmer for 10 minutes until the broth smells of lemongrass.",
+      "Add the mushrooms and simmer for 4 minutes until tender.",
+      "Add the shrimp and cook for 2 to 3 minutes until they turn pink and curl into a loose C.",
+      "Take the pot off the heat and season with the fish sauce and the juice of both limes; off the heat the lime stays bright. Taste: it should be hot, sour and salty in balance, so add more fish sauce or lime as needed.",
+      "Fish out the lemongrass, scatter the cilantro over and serve in deep bowls."
     ],
     "teaches": [
       "infusing a broth",
@@ -2409,9 +2523,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Chop the chicken small. Fry garlic and chili in a hot pan.",
-      "Add chicken and cook hard until browned; add the sauces.",
-      "Toss in the basil off the heat and top each bowl with a crispy fried egg."
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Chop the chicken thighs into small pieces, about the size of a fingernail, and season lightly with salt. Finely chop the garlic and chilies, pick the basil leaves, and stir the soy sauce and fish sauce together.",
+      "Heat 2 tbsp oil in a skillet over medium-high until it shimmers. Crack in the eggs and fry for 2 to 3 minutes, spooning hot oil over the whites, until the edges are brown and crisp and the yolks still runny, then slide them onto a plate.",
+      "Turn the heat to high, add a little more oil if the pan is dry, and fry the garlic and chilies for 30 seconds until fragrant.",
+      "Add the chicken, spread it out and leave it for 1 minute to brown before stirring, then stir-fry for 4 to 5 minutes until cooked through and browned in spots. Pour in the sauces and toss for 1 minute until they bubble into a glaze.",
+      "Take the pan off the heat and toss in the basil until it wilts. Serve over the rice with a crispy egg on each bowl."
     ],
     "teaches": [
       "a crispy fried egg",
@@ -2477,9 +2594,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Fry the paste in thick coconut cream until the oil splits.",
-      "Add beef, coconut milk and onion; simmer gently for an hour.",
-      "Add potatoes for the last 25 minutes; finish with peanuts, sugar and fish sauce."
+      "Cut the flank steak into 1½ inch chunks, pat dry and season lightly with salt. Cut the onion into thick wedges, and peel and quarter the potatoes.",
+      "Open the cans of coconut milk without shaking them and spoon the thick cream from the top into a heavy pot over medium-high heat. Cook for 4 to 5 minutes, stirring, until it bubbles and the oil separates and glistens, then add the curry paste and fry for 2 to 3 minutes until dark and fragrant.",
+      "Add the beef and stir for 3 minutes to coat it in the paste, then pour in the rest of the coconut milk and 1 cup of water and add the onion. Bring to a simmer, cover partly and cook on the lowest heat for 1 hour, stirring now and then, until the beef is tender when pressed with a spoon.",
+      "Add the potatoes and simmer for 25 minutes more until they are tender to the point of a knife and the sauce has thickened.",
+      "Meanwhile rinse the rice and bring it to a boil with 3 cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it with the lid on. Toast the peanuts in a dry skillet over medium heat for 3 to 4 minutes until golden.",
+      "Stir the fish sauce and brown sugar into the curry and simmer for 2 minutes. Taste: it should be rich, a little sweet and salty enough to carry the spice, so adjust with more fish sauce or sugar.",
+      "Rest the curry off the heat for 5 minutes, then serve over the rice with the peanuts scattered on top."
     ],
     "teaches": [
       "splitting coconut cream",
@@ -2546,9 +2667,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soak the noodles and rinse cold.",
-      "Whisk peanut butter, lime, soy and a little warm water into a dressing.",
-      "Toss with ribboned vegetables, peanuts and cilantro."
+      "Put the rice noodles in a large bowl, cover with boiling water from the kettle and leave for 5 to 8 minutes until tender, then drain and rinse under cold water until cool so they do not clump.",
+      "Whisk the peanut butter with the juice of both limes, the soy sauce and 3 to 4 tbsp warm water until smooth and pourable like cream, adding water a spoonful at a time if it stays thick. Taste and add a pinch of salt if it needs it.",
+      "Shave the carrots and cucumber into ribbons with a peeler and slice the pepper into thin strips. Roughly chop the peanuts and the cilantro.",
+      "Toss the noodles with the dressing and the vegetables in the big bowl until everything is coated.",
+      "Pile into bowls and top with the peanuts and cilantro. It keeps in the fridge for a day; loosen with a squeeze of lime before eating."
     ],
     "teaches": [
       "a no-cook dressing"
@@ -2609,9 +2732,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Chop the chicken finely and cook it dry in a hot pan.",
-      "Dress off the heat with lime, fish sauce, chili and sliced onion.",
-      "Fold through the herbs and pile into lettuce leaves."
+      "Chop the chicken thighs by hand into a coarse mince about the size of peas; a knife gives a better texture than ground meat. Slice the red onion paper thin and the chili finely, pick the mint, roughly chop the cilantro, and separate and wash the romaine leaves.",
+      "Heat 1 tsp oil in a wide skillet over medium-high. Add the chicken with a pinch of salt and ¼ cup water and cook for 6 to 8 minutes, stirring and breaking up clumps, until the water has cooked away and the chicken is cooked through and crumbly with no pink.",
+      "Take the pan off the heat and, while the chicken is hot, add the juice of the limes, the fish sauce, the chili and the red onion. Toss well; the warm meat drinks up the dressing.",
+      "Let it cool for 5 minutes, then taste: it should be sour, salty and hot in equal measure, so add lime or fish sauce as needed.",
+      "Fold through the mint and cilantro at the last moment so they stay fresh.",
+      "Serve the larb in a bowl with the romaine leaves alongside, and let everyone spoon it into leaves at the table."
     ],
     "teaches": [
       "hand-chopping meat",
@@ -2669,9 +2795,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook and shred the chicken with onion.",
-      "Fill and roll the tortillas, pack them into a dish, pour over the sauce.",
-      "Top with cheddar and bake at 400°F for 20 minutes."
+      "Put the chicken thighs in a pot with half the onion, enough water to cover and a good pinch of salt, and bring to a boil. Simmer for 15 minutes until cooked through, then lift the chicken out and shred it with two forks.",
+      "Meanwhile heat the oven to 400°F (200°C). Dice the rest of the onion, grate the cheddar and chop the cilantro.",
+      "Heat 1 tbsp oil in a skillet over medium and cook the diced onion for 4 to 5 minutes until soft. Stir in the shredded chicken, a third of the enchilada sauce and a pinch of salt, and warm for 2 minutes.",
+      "Spread a thin layer of sauce over the bottom of a baking dish about 9 by 13 inches. Warm the tortillas in a dry pan or the microwave for 30 seconds so they roll without cracking.",
+      "Fill each tortilla with a line of chicken and a little cheddar, roll it up and set it seam side down in the dish, packing them snugly.",
+      "Pour the rest of the sauce over and scatter the remaining cheddar on top. Bake on the middle rack for 20 to 25 minutes until the cheese is melted and bubbling and the edges of the tortillas have browned.",
+      "Rest for 5 minutes, then serve with sour cream and the cilantro scattered over."
     ],
     "teaches": [
       "rolling enchiladas"
@@ -2728,9 +2858,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cube the pork and braise it with onion, garlic, cumin and a little water for two hours.",
-      "Shred, then crisp under the broiler.",
-      "Serve on warm tortillas with onion, cilantro and lime."
+      "Cut the pork shoulder into 2 inch chunks, trimming only the thickest fat, and season generously with salt, pepper and the cumin. Cut 1 onion into quarters and smash the garlic cloves.",
+      "Put the pork in a heavy pot in a single layer with the quartered onion, the garlic, the juice of 1 lime and enough water to come halfway up the meat. Bring to a boil, then cover and drop to the lowest simmer.",
+      "Cook for 2 hours, turning the pieces once or twice, until the pork falls apart when pressed with a fork. Uncover for the last 30 minutes so the liquid cooks down to a few spoonfuls of fat and juices, adding a splash of water if it dries out before the pork is done.",
+      "Set the oven to broil with a rack in the upper third. Lift the pork onto a sheet pan, shred it roughly with two forks and spoon the pot juices over it.",
+      "Broil for 5 to 8 minutes, turning once, until the edges are browned and crisp while the inside stays juicy. Taste and add salt.",
+      "Meanwhile dice the second onion, chop the cilantro and cut the remaining limes into wedges. Warm the tortillas in a dry pan for 20 to 30 seconds a side, stacking them in a tea towel.",
+      "Pile the carnitas onto the tortillas with onion, cilantro and a squeeze of lime, and serve at once while the edges are still crisp."
     ],
     "teaches": [
       "a long braise",
@@ -2793,9 +2927,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Simmer the chicken in broth with tomatoes and cumin; shred it.",
-      "Add beans and warm through.",
-      "Top with crisped tortilla strips, avocado, cheddar and lime."
+      "Season the chicken thighs with salt and pepper and put them in a pot with the chicken broth and the diced tomatoes. Bring to a boil, then lower to a simmer and cook for 20 minutes until the chicken is cooked through and tender.",
+      "Meanwhile heat the oven to 400°F (200°C). Cut the tortillas into thin strips, toss with 1 tbsp oil and a pinch of salt, spread on a sheet pan and bake on the middle rack for 8 to 10 minutes, turning once, until golden and crisp.",
+      "Lift the chicken out, shred it with two forks and return it to the pot. Drain and rinse the black beans, add them and simmer for 5 minutes until hot.",
+      "Taste the broth and season with salt, pepper and a squeeze of the lime until it tastes bright.",
+      "Dice the avocado, grate the cheddar and cut the rest of the lime into wedges.",
+      "Ladle into bowls and top each with tortilla strips, avocado and cheddar, with a lime wedge on the side."
     ],
     "teaches": [
       "crisping tortilla strips"
@@ -2853,9 +2990,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Simmer tomatoes with onion for a quick ranchero sauce; warm the beans.",
-      "Fry the eggs sunny side up.",
-      "Stack tortilla, beans, egg, sauce and avocado."
+      "Dice the onion. Heat 1 tbsp oil in a small saucepan over medium and cook the onion with a pinch of salt for 4 minutes until soft, then add the diced tomatoes and simmer for 8 minutes until thick enough to spoon; season with salt and pepper.",
+      "Drain the black beans, keeping a little of the liquid, and warm them in a second small pan with a splash of that liquid and a pinch of salt for 3 to 4 minutes, mashing a few with the back of a spoon.",
+      "Slice the avocado and chop the cilantro.",
+      "Warm the tortillas in a dry skillet over medium-high for 20 to 30 seconds a side until soft and spotted, and keep them under a tea towel.",
+      "Heat 1 tbsp oil or butter in the skillet over medium-low and crack in the eggs. Fry gently for 3 to 4 minutes until the whites are set and the yolks still runny, with no browning at the edges.",
+      "Lay two tortillas on each plate, spread with beans, set an egg on each, spoon the sauce around and over, and finish with avocado and cilantro."
     ],
     "teaches": [
       "frying eggs gently"
@@ -2913,9 +3053,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Char the peppers and onion in a very hot skillet.",
-      "Add the shrimp with chili powder; two minutes a side.",
-      "Squeeze lime over and serve sizzling with tortillas."
+      "Slice the peppers and onion into strips about ½ inch wide. Pat the shrimp dry and toss with the chili powder, a good pinch of salt and the juice of half a lime.",
+      "Heat 1 tbsp oil in a large cast-iron or heavy skillet over high heat until it smokes faintly. Add the peppers and onion with a pinch of salt and leave them for 2 minutes before stirring, then cook for 6 to 8 minutes in all until soft with charred edges.",
+      "Push the vegetables to the sides, add a little more oil to the middle and lay the shrimp in. Cook for 2 minutes a side until pink and curled into a loose C, then toss everything together.",
+      "Meanwhile warm the tortillas in a dry pan for 20 to 30 seconds a side and keep them in a tea towel.",
+      "Squeeze the rest of that lime over the skillet and taste for salt.",
+      "Bring the skillet to the table while it still sizzles, with the tortillas, the sour cream and the second lime in wedges, and let everyone build their own."
     ],
     "teaches": [
       "charring vegetables"
@@ -2970,9 +3113,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the rice; warm the beans with a spoon of salsa.",
-      "Fill tortillas with rice, beans and cheddar; roll tightly.",
-      "Toast seam-side down in a dry pan until golden."
+      "Rinse the rice and bring it to a boil with 1½ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Drain the black beans, keeping a little liquid, and warm them in a saucepan over medium with half the salsa and a pinch of salt for 5 minutes, mashing about a third of them with the back of a spoon so the filling holds together.",
+      "Grate the cheddar. Warm the tortillas in a dry pan or the microwave for 20 to 30 seconds so they fold without cracking.",
+      "Lay a line of rice down the middle of each tortilla, leaving 2 inches bare at each end, then beans, cheddar and a spoonful of the remaining salsa. Fold the ends in, then roll tightly from the near side over the filling.",
+      "Set a dry skillet over medium heat and toast the burritos seam side down for 2 to 3 minutes until golden and sealed, then 2 minutes on the other side until the cheese has melted inside.",
+      "Cut in half on the diagonal and serve with sour cream and any salsa left over."
     ],
     "teaches": [
       "rolling a burrito"
@@ -3034,9 +3180,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Flatten, dredge and pan-fry the cutlets until golden.",
-      "Top with sauce and cheese; broil until bubbling.",
-      "Serve over spaghetti with basil."
+      "Set each chicken breast between two sheets of parchment and flatten with a rolling pin or heavy pan to an even ½ inch thickness. Season both sides with salt and pepper.",
+      "Beat the eggs in a shallow bowl and mix the breadcrumbs with half the parmesan and a pinch of salt in a second bowl. Dip each breast in egg, let the excess drip off, press firmly into the crumbs on both sides and set on a rack for 5 minutes so the coating sets.",
+      "Bring a large pot of water to a boil and salt it well. Pour the diced tomatoes into a small saucepan with a pinch of salt and simmer for 10 minutes until slightly thickened, then tear in half the basil.",
+      "Heat ¼ inch of oil in a large skillet over medium-high until a crumb dropped in sizzles at once. Fry the cutlets two at a time for 3 to 4 minutes a side until deep golden and crisp, and drain on paper towel.",
+      "Set the oven to broil and lay the cutlets on a sheet pan with a little sauce over each, then the torn mozzarella and the rest of the parmesan. Broil 6 inches from the element for 2 to 3 minutes until the cheese bubbles and browns in spots, watching it closely.",
+      "Cook the pasta for 8 to 9 minutes until just firm to the bite, a touch under the packet time, then drain and toss with the remaining sauce.",
+      "Serve a cutlet over each plate of pasta with the rest of the basil torn over."
     ],
     "teaches": [
       "breading and shallow frying"
@@ -3086,9 +3236,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Boil the potatoes in the pasta water, adding the pasta, then the beans.",
-      "Drain, keeping a cup of water.",
-      "Toss with pesto and a splash of water; finish with parmesan."
+      "Bring a large pot of water to a boil and salt it well. Peel the potatoes and cut them into ½ inch cubes, and trim the green beans and cut them in half.",
+      "Add the potatoes to the boiling water and cook for 5 minutes, then add the pasta and cook for 6 to 7 minutes.",
+      "Add the green beans and cook for 3 minutes more so they come out bright green and just tender, with the potatoes soft and the pasta firm to the bite.",
+      "Scoop out a cup of the cooking water, then drain. Return everything to the warm pot with the pesto and half a cup of the water and toss off the heat until the sauce is loose and glossy and coats everything, adding more water if it looks dry.",
+      "Taste for salt and pepper and serve with the parmesan grated over."
     ],
     "teaches": [
       "cooking everything in one pot"
@@ -3154,9 +3306,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Soften onion, carrot and garlic.",
-      "Add broth, tomatoes and beans; simmer 20 minutes.",
-      "Add zucchini and pasta for the last 10; finish with parmesan."
+      "Dice the onion, carrots and zucchini into pieces about the size of the pasta and chop the garlic. Drain and rinse the white beans.",
+      "Warm 2 tbsp oil in a large pot over medium heat. Cook the onion and carrots with a pinch of salt for 8 minutes until soft, then the garlic for 1 minute.",
+      "Pour in the vegetable broth, the diced tomatoes and the beans, bring to a boil, then simmer for 20 minutes so the flavours come together.",
+      "Add the zucchini and the pasta and simmer for 10 minutes more until the pasta is just tender; it keeps softening in the hot soup, so stop a little early.",
+      "Season with salt and plenty of pepper, tasting as you go.",
+      "Ladle into bowls, grate the parmesan over and drizzle with oil. It thickens as it sits, so loosen leftovers with a little water."
     ],
     "teaches": [
       "a vegetable soup base"
@@ -3225,9 +3380,13 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Make a meat sauce and let it simmer for 30 minutes.",
-      "Mix ricotta with an egg and parmesan. Layer sauce, sheets, ricotta and mozzarella three times.",
-      "Bake covered for 40 minutes, then uncovered for 15. Rest before cutting."
+      "Dice the onion and chop the garlic. Heat 2 tbsp oil in a wide pot over medium-high and brown the beef with a good pinch of salt for 8 minutes, breaking it up, until no pink remains and the bottom is crusty, then add the onion for 5 minutes until soft and the garlic for 1 minute.",
+      "Pour in both cans of tomatoes with half a can of water, season with salt and pepper and simmer uncovered for 30 minutes, stirring now and then, until thick and rich. Tear in half the basil and taste; it should be a touch saltier than you want, since the cheese and pasta mute it.",
+      "Meanwhile heat the oven to 375°F (190°C). Stir the ricotta with the egg, half the parmesan and a pinch of salt and pepper until smooth, tear or grate the mozzarella, and if the lasagna sheets are not the no-boil kind, cook them in salted water for 4 to 5 minutes, short of the packet time, and lay them on a tea towel.",
+      "In a baking dish about 9 by 13 inches, spread a thin layer of sauce, then 4 sheets, a third of the ricotta, a third of the mozzarella and a quarter of the sauce. Repeat twice more, finishing with the last of the sauce, mozzarella and parmesan on top.",
+      "Cover tightly with foil, tented so it does not touch the cheese, and bake on the middle rack for 40 minutes.",
+      "Remove the foil and bake for 15 minutes more until the top is bubbling and browned in patches and a knife slides through the centre with no resistance.",
+      "Rest for 15 minutes before cutting; it holds its layers only once it settles. Scatter the rest of the basil over and serve."
     ],
     "teaches": [
       "layering a bake",
@@ -3274,9 +3433,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the pasta; toast cracked pepper in butter.",
-      "Add pasta and a ladle of water to the pan off the heat.",
-      "Add the cheese and toss hard until creamy."
+      "Bring a pot of water to a boil, using less water than usual (about 6 cups) so it turns starchy, and salt it lightly since the cheese is salty. Finely grate the parmesan and coarsely grind about 1 tsp of black pepper.",
+      "Cook the pasta for 7 to 8 minutes until a little firmer than you would eat it; it finishes in the pan.",
+      "While it cooks, melt the butter in a wide skillet over medium heat, add the pepper and chili flakes and toast for 1 minute until fragrant. Add a ladle of the starchy pasta water and take the pan off the heat.",
+      "Drag the pasta straight into the skillet with tongs, keeping the pot of water. Let it cool for 30 seconds (boiling-hot pasta makes the cheese clump), then add the parmesan a handful at a time, tossing hard and adding splashes of pasta water until the sauce turns creamy and coats every strand.",
+      "Serve at once in warm bowls with more pepper on top; it tightens as it sits, so loosen with another spoon of pasta water if needed."
     ],
     "teaches": [
       "emulsifying a pasta sauce"
@@ -3334,9 +3495,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Brown the sliced sausages; cook peppers and onion in the fat.",
-      "Add garlic and tomatoes; simmer 15 minutes.",
-      "Toss with rigatoni and parmesan."
+      "Slice the sausages into ½ inch coins (or squeeze the meat from the casings for a crumbly sauce). Slice the peppers and onion thinly and chop the garlic.",
+      "Heat 1 tbsp oil in a wide pan over medium-high until it shimmers. Brown the sausage for 5 to 6 minutes, turning, until crusty and the fat has rendered, and move it to a plate.",
+      "Add the peppers and onion to the fat with a pinch of salt and cook for 6 to 8 minutes until soft and golden at the edges, then the garlic for 1 minute.",
+      "Return the sausage, pour in the diced tomatoes, season with salt and pepper and simmer for 15 minutes until the sauce thickens and the sausage is cooked through.",
+      "Meanwhile bring a large pot of water to a boil, salt it well and cook the rigatoni for 10 to 11 minutes until just firm to the bite, a touch under the packet time. Save a cup of the water and drain.",
+      "Toss the rigatoni through the sauce with a splash of pasta water until coated and glossy, taste for salt and serve with parmesan grated over."
     ],
     "teaches": [
       "rendering sausage"
@@ -3391,9 +3555,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Toss potatoes, peppers and onion with oil and rosemary on a sheet pan.",
-      "Nestle the sausages on top. Roast at 425°F for 35 minutes, turning once.",
-      "Serve straight from the pan."
+      "Heat the oven to 425°F (220°C) with a rack in the middle. Cut the potatoes into 1 inch chunks, the peppers into wide strips and the red onion into thick wedges.",
+      "Toss the vegetables on a large sheet pan with the olive oil, the rosemary leaves stripped from their stems and a good pinch of salt and pepper. Spread them in a single layer; crowding makes them steam instead of brown.",
+      "Roast for 15 minutes to give the potatoes a head start, then take the pan out, turn the vegetables and nestle the sausages among them.",
+      "Roast for 20 to 25 minutes more, turning the sausages once halfway, until they are browned and cooked through (no pink in the centre when you cut one) and the potatoes are crisp-edged and tender to a knife.",
+      "Rest for 3 minutes, then serve straight from the pan with the juices spooned over."
     ],
     "teaches": [
       "roasting a sheet pan"
@@ -3452,9 +3618,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Steam the broccoli; cook the rice.",
-      "Sear the salmon, then glaze with honey, soy and garlic for the last two minutes.",
-      "Serve over rice with sesame seeds."
+      "Rinse the rice and bring it to a boil with 2¼ cups water and a pinch of salt, cover and cook on the lowest heat for 15 minutes, then rest it off the heat with the lid on.",
+      "Cut the broccoli into florets. Stir the honey, soy sauce and finely chopped garlic together in a small bowl, and pat the salmon dry and season with salt and pepper.",
+      "Steam the broccoli over a pot of boiling water, or in a covered pan with ½ inch of water, for 4 to 5 minutes until bright green and just tender, then take it off the heat.",
+      "Heat 1 tbsp oil in a non-stick skillet over medium-high until it shimmers. Lay the salmon in skin side down and cook for 4 to 5 minutes without moving it until the skin is crisp and the flesh has turned opaque halfway up, then flip and cook for 1 minute.",
+      "Turn the heat to low and pour the honey garlic mixture around the fish. Let it bubble for 1 to 2 minutes, spooning it over the salmon, until it thickens to a glaze and the fish flakes at the thickest part; watch it, because honey burns fast.",
+      "Serve the salmon and broccoli over the rice, spoon the glaze over and scatter the sesame seeds on top."
     ],
     "teaches": [
       "glazing fish"
@@ -3512,9 +3681,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cut potatoes into fries, toss with oil and roast at 425°F for 30 minutes.",
-      "Shape four patties; season only on the outside; cook 4 minutes a side, cheese on at the end.",
-      "Toast the buns and build."
+      "Heat the oven to 425°F (220°C) with a rack in the upper third. Cut the potatoes into fries about ½ inch thick, pat them dry, toss with 2 tbsp oil and a good pinch of salt and spread them on a sheet pan in a single layer.",
+      "Roast the fries for 25 to 30 minutes, turning once halfway, until golden and crisp at the edges and soft inside.",
+      "Divide the beef into four and shape each into a patty a little wider than the bun, pressing a shallow dent into the centre with your thumb so it does not dome; keep the meat loose, since packing it tight makes a dense burger. Season the outsides generously with salt and pepper just before cooking.",
+      "Slice the tomato and onion and separate the romaine leaves. Heat a heavy skillet over medium-high until very hot and cook the patties for 4 minutes without moving them until deeply browned, then flip and cook for 3 to 4 minutes more for juicy with a hint of pink, laying the cheddar on for the last 1 minute so it melts.",
+      "Rest the patties on a plate for 2 minutes while you toast the buns cut side down in the same skillet for 1 minute until golden.",
+      "Build the burgers with romaine, tomato and onion, and serve with the fries while everything is hot."
     ],
     "teaches": [
       "shaping a patty",
@@ -3564,9 +3736,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cube the steak and dry it well. Sear in a smoking-hot pan in two batches.",
-      "Lower the heat; add butter, garlic and the beans.",
-      "Return the steak, toss, finish with parsley."
+      "Cut the steak into 1 inch cubes, pat them very dry with paper towel and season generously with salt and pepper. Trim the green beans, slice the garlic and chop the parsley.",
+      "Heat 1 tbsp oil in a large heavy skillet over high heat until it smokes. Add half the steak in a single layer and leave it for 1 to 2 minutes until a deep brown crust forms, then turn and cook for 1 minute more; move it to a plate and repeat with the second half, since cooking in batches keeps the pan hot enough to sear.",
+      "Lower the heat to medium, add 1 tbsp of the butter and the green beans with a pinch of salt and 2 tbsp water. Cook for 4 to 5 minutes, tossing, until the beans are bright green and tender with a little bite.",
+      "Add the remaining butter and the garlic and cook for 1 minute until the garlic is soft and fragrant but not brown.",
+      "Return the steak and its juices and toss for 1 minute so it coats in the garlic butter and warms through without cooking further.",
+      "Scatter the parsley over, taste for salt and serve straight from the pan."
     ],
     "teaches": [
       "a hard sear",
@@ -3618,9 +3793,11 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Cook the pepper and mushrooms in butter.",
-      "Pour in the beaten eggs, pull the edges in as they set.",
-      "Add cheddar, fold, slide onto the plate."
+      "Slice the mushrooms and dice the pepper small, and grate the cheddar. Beat the eggs with a pinch of salt and pepper until no streaks of white remain.",
+      "Melt half the butter in an 8 inch non-stick skillet over medium heat. Cook the mushrooms and pepper for 4 to 5 minutes until the mushrooms are browned and the pepper has softened, then tip them onto a plate.",
+      "Add the rest of the butter and swirl it until it foams. Pour in the eggs and let them sit for 20 seconds, then pull the setting edges toward the centre with a spatula, tilting the pan so the raw egg runs into the gaps, for 1 to 2 minutes until the top is mostly set but still glossy.",
+      "Scatter the vegetables and cheddar over one half and cook for 30 seconds more until the cheese starts to melt.",
+      "Fold the empty half over the filling, slide the omelette onto a plate and eat it straight away."
     ],
     "teaches": [
       "folding an omelette"
@@ -3675,9 +3852,12 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
       ]
     ],
     "steps": [
-      "Bake the potatoes at 400°F for 55 minutes until the skins crackle.",
-      "Steam the broccoli.",
-      "Split, fluff with butter, pile on broccoli, cheddar, sour cream and chives."
+      "Heat the oven to 400°F (200°C) with a rack in the middle. Scrub the potatoes, dry them, prick each a few times with a fork, rub with a little oil and salt and set them directly on the rack.",
+      "Bake for 50 to 55 minutes until the skins are crisp and crackly and a skewer slides into the centre with no resistance. Leave the foil in the drawer; wrapping them steams the skin soft.",
+      "While the potatoes finish, cut the broccoli into small florets and steam them in a covered pan with ½ inch of water for 4 to 5 minutes until bright green and tender. Grate the cheddar and snip the chives.",
+      "Split each potato down the middle, push the ends together to open it, and fluff the inside with a fork with a piece of the butter and a pinch of salt and pepper.",
+      "Pile on the broccoli and cheddar and return the potatoes to the oven for 3 to 4 minutes until the cheese melts.",
+      "Finish with a spoonful of sour cream and the chives and serve hot."
     ],
     "teaches": [
       "baking a potato properly"

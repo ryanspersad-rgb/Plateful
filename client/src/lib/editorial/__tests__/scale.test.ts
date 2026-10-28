@@ -39,7 +39,7 @@ describe('scaleAmount', () => {
     expect(scaleAmount('1 large', 0.5)).toBe('½ large');
     expect(scaleAmount('400ml', 0.5)).toBe('200ml');
     expect(scaleAmount('1 lb', 0.5)).toBe('½ lb');
-    expect(scaleAmount('2 cans', 0.5)).toBe('1 cans');
+    expect(scaleAmount('2 cans', 0.5)).toBe('1 can');
   });
   it('scales up with sensible rounding', () => {
     expect(scaleAmount('500g', 1.5)).toBe('750g');
@@ -57,5 +57,16 @@ describe('scaleAmount', () => {
     expect(scaleAmount('handful', 2)).toBe('handful');
     expect(scaleAmount('to serve', 0.5)).toBe('to serve');
     expect(scaleAmount('500g', 1)).toBe('500g');
+  });
+});
+
+describe('unit words agree with the scaled quantity', () => {
+  it('singularises at one and pluralises above', () => {
+    expect(scaleAmount('2 cloves', 0.5)).toBe('1 clove');
+    expect(scaleAmount('1 can', 2)).toBe('2 cans');
+    expect(scaleAmount('3 sprigs', 1 / 3)).toBe('1 sprig');
+    expect(scaleAmount('1½ cups', 2)).toBe('3 cups');
+    expect(scaleAmount('2 tbsp', 0.5)).toBe('1 tbsp');
+    expect(scaleAmount('4 medium', 0.5)).toBe('2 medium');
   });
 });

@@ -80,7 +80,22 @@ export function scaleAmount(a: string, f: number): string {
   const qty = p.q2 !== undefined ? `${one(p.q)}–${one(p.q2)}` : one(p.q);
   // keep the spacing the original used between the number and the unit ("500g" vs "2 tbsp")
   const glued = /^\s*[\d½¼¾⅓⅔⅛./ ]+[a-zA-Z]/.test(a) && !/\d\s+[a-zA-Z]/.test(a) && !/[½¼¾⅓⅔⅛]\s+[a-zA-Z]/.test(a);
-  return p.rest ? `${qty}${glued ? '' : ' '}${p.rest}` : qty;
+  const rest = p.q2 === undefined ? agreeUnit(p.rest, roundQty(p.q * f, unit)) : p.rest;
+  return rest ? `${qty}${glued ? '' : ' '}${rest}` : qty;
+}
+
+// Countable unit words agree with the scaled quantity: "2 cloves" halved is "1 clove", "1 can" doubled is "2 cans".
+const COUNT_UNITS: Record<string, string> = {
+  clove: 'cloves', sprig: 'sprigs', stalk: 'stalks', can: 'cans', tin: 'tins', slice: 'slices', head: 'heads', piece: 'pieces',
+  fillet: 'fillets', wedge: 'wedges', bunch: 'bunches', cup: 'cups', stick: 'sticks', leaf: 'leaves', strip: 'strips', sheet: 'sheets', egg: 'eggs',
+};
+const SINGULAR = Object.fromEntries(Object.entries(COUNT_UNITS).map(([s, pl]) => [pl, s]));
+function agreeUnit(rest: string, q: number): string {
+  const m = rest.match(/^(\S+)(.*)$/);
+  if (!m) return rest;
+  const w = m[1].toLowerCase();
+  const want = q <= 1 ? SINGULAR[w] : COUNT_UNITS[w];
+  return want ? want + m[2] : rest;
 }
 
 /** Scaled ingredient list for a recipe at `servings`. */
