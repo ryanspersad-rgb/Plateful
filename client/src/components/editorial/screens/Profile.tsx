@@ -12,7 +12,7 @@ function Savings() {
   const month = savedThisMonth(user);
   const all = savedAllTime(user);
   const pr = projectSavings(user.usual || defaultUsual(user.householdSize), user);
-  const recent = (user.savings || []).slice(0, 6);
+  const recent = (user.savings || []).slice(0, 3);
   return (
     <Sec eyebrow="Your savings" thin className="ledger">
       <div className="tot">
@@ -27,6 +27,10 @@ function Savings() {
         </div>
       ))}
       {!recent.length && <p className="meta" style={{ margin: '4px 0' }}>Price-match at the till, move your list to the cheapest store, or tick off sale items as you buy them, and the savings add up here.</p>}
+      <button className="hrow" onClick={() => act.go('savings')}>
+        <div className="l"><div className="n">See everything you’ve saved</div><div className="s">By month, by how you saved, and every entry</div></div>
+        <Chev />
+      </button>
       <button className="hrow" onClick={act.editUsual}>
         <div className="l"><div className="n">Edit your usual shop</div><div className="s">{user.usual ? plural(user.usual.length, 'item') + ' you buy most weeks' : 'Tell us what you buy most weeks'}</div></div>
         <Chev />

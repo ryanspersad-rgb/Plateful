@@ -589,3 +589,14 @@ a.btn{text-decoration:none}
 .ledger .tot .big{font:600 26px var(--serif);color:var(--acc)}
 .ledger .tot .lab{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .ledger .tot .sub{font:400 12px var(--sans);color:var(--mute);margin-top:2px}
+.sv-hero{padding:18px 0 16px;border-bottom:1px solid var(--hair)}
+.sv-hero .lab{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.sv-hero .big{font:600 44px/1.1 var(--serif);color:var(--acc);margin-top:6px}
+.sv-hero .sub{font:400 14px var(--sans);color:var(--text);margin-top:6px}
+.sv-bars{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;height:150px;align-items:end;padding:14px 0 4px}
+.sv-bars .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.sv-bars .col i{display:block;width:100%;max-width:36px;background:var(--acc);border-radius:2px 2px 0 0}
+.sv-bars .col i.none{background:var(--hair)}
+.sv-bars .v{font:600 11px var(--sans);color:var(--ink);white-space:nowrap}
+.sv-bars .m{font:500 11px var(--sans);color:var(--mute)}
+.price.acc{color:var(--acc)}

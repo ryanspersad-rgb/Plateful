@@ -111,3 +111,27 @@ export function logDeal(user: UserProfile, item: ListItem, done: boolean): UserP
   const e: SavingEntry = { id, at: today(), amt: +amt.toFixed(2), kind: 'deal', what: `${b.n} on sale at ${b.r}` };
   return { ...user, savings: [e, ...rest].slice(0, 200) };
 }
+
+/** Real savings by month, newest first, for the last `n` months (months with nothing show as 0). */
+export function savedByMonth(user: UserProfile, n = 6): { month: string; label: string; amt: number }[] {
+  const out: { month: string; label: string; amt: number }[] = [];
+  const d = new Date();
+  d.setDate(1);
+  for (let i = 0; i < n; i++) {
+    const m = d.toISOString().slice(0, 7);
+    const amt = (user.savings || []).filter((e) => e.at.startsWith(m)).reduce((a, e) => a + e.amt, 0);
+    out.push({ month: m, label: d.toLocaleDateString('en-CA', { month: 'short' }), amt });
+    d.setMonth(d.getMonth() - 1);
+  }
+  return out;
+}
+
+/** All-time savings split by how they were made. */
+export function savedByKind(user: UserProfile): Record<SavingEntry['kind'], { amt: number; n: number }> {
+  const r = { match: { amt: 0, n: 0 }, route: { amt: 0, n: 0 }, deal: { amt: 0, n: 0 } };
+  for (const e of user.savings || []) { r[e.kind].amt += e.amt; r[e.kind].n += 1; }
+  return r;
+}
+
+/** The month the shopper first saved something, for "since October". */
+export const firstSaving = (user: UserProfile): string | undefined => (user.savings || []).map((e) => e.at).sort()[0];

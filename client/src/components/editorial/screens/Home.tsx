@@ -15,7 +15,7 @@ function SaveLine() {
   const pr = projectSavings(user.usual || defaultUsual(user.householdSize), user);
   if (saved <= 0 && !pr) return null;
   return (
-    <button className="saveline" onClick={() => act.go('profile')}>
+    <button className="saveline" onClick={() => act.go('savings')}>
       <div className="t">
         {saved > 0
           ? <><b>{money(saved)}</b> saved with Plateful this month{pr ? ` · your usual shop can save about ${about(pr.monthly)} a month` : ''}</>

@@ -32,3 +32,13 @@ describe('savings ledger', () => {
     expect(savedThisMonth(logDeal(withDeal, item, false))).toBeCloseTo(savedThisMonth(x), 5);
   });
 });
+
+describe('savings summaries', () => {
+  it('groups by month and by kind', async () => {
+    const { savedByMonth, savedByKind } = await import('../savings');
+    const x = logMatch(logMatch(u, 3, 'Superstore'), 2, 'Walmart');
+    expect(savedByMonth(x, 3)[0].amt).toBeCloseTo(5, 5);
+    expect(savedByMonth(x, 3)[1].amt).toBe(0);
+    expect(savedByKind(x).match).toEqual({ amt: 5, n: 2 });
+  });
+});

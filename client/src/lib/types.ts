@@ -287,6 +287,7 @@ export interface TillPlan {
 export type Screen =
   | 'splash'
   | 'welcome'
+  | 'savings'
   | 'howto'
   | 'onboarding'
   | 'home'
