@@ -573,3 +573,19 @@ a.btn{text-decoration:none}
 .welcome .pips i{width:6px;height:3px;border-radius:2px;background:rgba(255,255,255,.4)}
 .welcome .pips i.on{width:18px;background:var(--acc)}
 @media (prefers-reduced-motion:reduce){.welcome>img,.lead-ph .over{transition:none}.welcome .body{animation:none}}
+
+/* ---- savings: onboarding projection, Home line, Profile ledger ---- */
+.proj{margin-top:18px;border:1px solid var(--hair);border-radius:4px;padding:14px 14px 12px;background:var(--paper);display:grid;gap:6px}
+.proj .eyebrow{color:var(--mute)}
+.proj .pr{display:flex;justify-content:space-between;gap:12px;font:400 14px var(--sans);color:var(--text)}
+.proj .pr b{font:600 16px var(--serif);color:var(--ink)}
+.proj .big{font:500 20px/1.25 var(--serif);color:var(--acc);margin-top:6px}
+.proj .meta{font-size:12px}
+.saveline{display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin:-4px 0 14px;padding:10px 12px;border-left:3px solid var(--acc);background:var(--tint)}
+.saveline .t{flex:1;font:400 13px/1.4 var(--sans);color:var(--text)}
+.saveline .t b{font:600 15px var(--serif);color:var(--acc)}
+.saveline svg{width:16px;height:16px;color:var(--acc);flex:none}
+.ledger .tot{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 0}
+.ledger .tot .big{font:600 26px var(--serif);color:var(--acc)}
+.ledger .tot .lab{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.ledger .tot .sub{font:400 12px var(--sans);color:var(--mute);margin-top:2px}

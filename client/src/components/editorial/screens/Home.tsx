@@ -3,10 +3,28 @@ import { useApp } from '@/hooks/usePlateful';
 import {
   BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
   inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
-  expiringSoon, useItUp, whenText, isUrl, sourceOf, linkedRecipes,
+  expiringSoon, useItUp, whenText, isUrl, sourceOf, linkedRecipes, about, defaultUsual, projectSavings, savedThisMonth,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
 import { I } from '../Icons';
+
+/** One line under the search: what Plateful has saved this month, or what the usual shop would save, tapping through to the ledger. */
+function SaveLine() {
+  const { user, act } = useApp();
+  const saved = savedThisMonth(user);
+  const pr = projectSavings(user.usual || defaultUsual(user.householdSize), user);
+  if (saved <= 0 && !pr) return null;
+  return (
+    <button className="saveline" onClick={() => act.go('profile')}>
+      <div className="t">
+        {saved > 0
+          ? <><b>{money(saved)}</b> saved with Plateful this month{pr ? ` · your usual shop can save about ${about(pr.monthly)} a month` : ''}</>
+          : <>Your usual shop can save about <b>{about(pr!.monthly)}</b> a month at {pr!.to}{pr!.route === 'match' ? ' with price matches' : ''}</>}
+      </div>
+      <I.chevR />
+    </button>
+  );
+}
 
 const HOME_TABS: string[] = [...FILTERS, ...CATEGORIES_CUISINES.filter((c) => !FILTERS.includes(c))];
 
@@ -111,6 +129,7 @@ export function Home() {
           />
           <button className="camb" onClick={() => act.go('camera')} aria-label="Scan a product or shelf tag"><I.camera />Scan</button>
         </div>
+        {!s.q && <SaveLine />}
         {!user.scanHintSeen && !s.q && (
           <div className="scanhint">
             <I.camera />

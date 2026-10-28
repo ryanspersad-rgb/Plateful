@@ -10,3 +10,4 @@ export * from './wallet';
 export * from './scale';
 export * from './cook';
 export * from './imported';
+export * from './savings';

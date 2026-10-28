@@ -180,6 +180,19 @@ export interface UserProfile {
   welcomeSeen?: boolean;
   /** The shopper has opened Scan (or dismissed its hint on Home) — the first-time hint under the search field goes away. */
   scanHintSeen?: boolean;
+  /** Price-book keys of what the household buys most weeks (onboarding "usual shop"); drives the savings projection. */
+  usual?: string[];
+  /** What Plateful actually saved: matches at the till, lists moved to a cheaper store, sale items bought. */
+  savings?: SavingEntry[];
+}
+
+export interface SavingEntry {
+  id: string;
+  /** ISO day. */
+  at: string;
+  amt: number;
+  kind: 'match' | 'route' | 'deal';
+  what: string;
 }
 
 export interface ImportedRecipe {

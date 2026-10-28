@@ -1,8 +1,39 @@
 import type { ReactNode } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import type { Screen } from '@/lib/types';
-import { budgetFor, cardName, cookLevel, money, plannedCount, plural } from '@/lib/editorial';
+import { budgetFor, cardName, about, cookLevel, defaultUsual, money, plannedCount, plural, projectSavings, savedAllTime, savedThisMonth } from '@/lib/editorial';
 import { Chev, Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
+
+const KIND: Record<string, string> = { match: 'Price match', route: 'Cheapest store', deal: 'Sale item' };
+
+/** The savings ledger: this month and all time from what the shopper actually did, and the projection from their usual shop. */
+function Savings() {
+  const { user, act } = useApp();
+  const month = savedThisMonth(user);
+  const all = savedAllTime(user);
+  const pr = projectSavings(user.usual || defaultUsual(user.householdSize), user);
+  const recent = (user.savings || []).slice(0, 6);
+  return (
+    <Sec eyebrow="Your savings" thin className="ledger">
+      <div className="tot">
+        <div><div className="lab">This month</div><div className="big">{money(month)}</div><div className="sub">{all > month ? `${money(all)} since you started` : 'From what you did with Plateful'}</div></div>
+        <div><div className="lab">Your usual shop</div><div className="big">{pr ? about(pr.monthly) : '—'}</div><div className="sub">{pr ? `a month at ${pr.to} vs ${pr.nearest.name}` : 'Add what you buy most weeks'}</div></div>
+      </div>
+      {pr && <p className="meta" style={{ margin: '0 0 6px' }}>{plural(pr.items, 'item')} you buy most weeks cost {money(pr.usual)} at {pr.nearest.name} and {money(pr.withPlateful)} {pr.route === 'match' ? `at ${pr.to} with price matches` : `at ${pr.to}`}. Plus is {money(4.99)} a month.</p>}
+      {recent.map((e) => (
+        <div key={e.id} className="hrow">
+          <div className="l"><div className="n">{e.what}</div><div className="s">{KIND[e.kind]} · {new Date(e.at + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</div></div>
+          <span className="price" style={{ color: 'var(--acc)' }}>{money(e.amt)}</span>
+        </div>
+      ))}
+      {!recent.length && <p className="meta" style={{ margin: '4px 0' }}>Price-match at the till, move your list to the cheapest store, or tick off sale items as you buy them, and the savings add up here.</p>}
+      <button className="hrow" onClick={act.editUsual}>
+        <div className="l"><div className="n">Edit your usual shop</div><div className="s">{user.usual ? plural(user.usual.length, 'item') + ' you buy most weeks' : 'Tell us what you buy most weeks'}</div></div>
+        <Chev />
+      </button>
+    </Sec>
+  );
+}
 
 export function Profile() {
   const { s, user, act } = useApp();
@@ -35,6 +66,7 @@ export function Profile() {
           </ul>
           <button className="btn primary" onClick={() => act.toast('Plus checkout arrives with the pilot')}>Start your free month</button>
         </div>
+        <Savings />
         <Sec eyebrow="Your cook level" thin>
           <div className="cook">
             <div className="nm">{lv.name}</div>

@@ -8,6 +8,7 @@ import {
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
   cardName, cleanNumber, newCard, numberError, scaleIngredients,
   cleanStep, isUrl, nameFromUrl, newImported, parseIngredients, registerLinked, splitPaste, toRecipe,
+  defaultUsual, listTotal, logDeal, logMatch, logRoute, nearestTotal,
 } from '@/lib/editorial';
 
 export const DEFAULT_USER: UserProfile = {
@@ -46,7 +47,7 @@ const LS = {
 };
 
 export interface Onboarding {
-  step: number; name: string; household: number; diets: string[]; cuisines: string[]; pantry: string[];
+  step: number; name: string; household: number; diets: string[]; cuisines: string[]; pantry: string[]; usual: string[];
 }
 
 export interface State {
@@ -125,7 +126,7 @@ function initial(): State {
     user: saved ? withDefaultExpiry(migrateIds(saved)) : null,
     saleSel: LS.get<string[]>('plateful_sale_selected', []),
     list: LS.get<ListItem[] | null>('plateful_shoplist', null) ?? DEFAULT_LIST,
-    ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice() },
+    ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice(), usual: defaultUsual(2) },
     q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', imp: { ...EMPTY_IMP },
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
     plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
@@ -227,7 +228,7 @@ const readPage = async (target: string) => {
       setS((prev) => {
         const user = prev.user ? { ...prev.user, welcomeSeen: true } : to === 'home' ? withDefaultExpiry({ ...DEFAULT_USER, welcomeSeen: true }) : null;
         // a shopper who already answered the questions sees them filled in, not blank
-        const ob = user && to === 'onboarding' ? { step: 0, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice() } : prev.ob;
+        const ob = user && to === 'onboarding' ? { step: 0, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice(), usual: (user.usual || defaultUsual(user.householdSize)).slice() } : prev.ob;
         return { ...prev, user, ob };
       });
       go(to === 'onboarding' ? 'onboarding' : hasUser || to === 'home' ? 'home' : 'onboarding');
@@ -328,10 +329,20 @@ const readPage = async (target: string) => {
     qtyUp: (key: string, sid: ListItem['sid']) =>
       patch((p) => ({ list: p.list.map((i) => (i.key === key && i.sid === sid ? { ...i, n: i.n >= 6 ? 1 : i.n + 1 } : i)) })),
     toggleDone: (key: string, sid: ListItem['sid']) =>
-      patch((p) => ({ list: p.list.map((i) => (i.key === key && i.sid === sid ? { ...i, done: !i.done } : i)) })),
+      patch((p) => {
+        const it = p.list.find((i) => i.key === key && i.sid === sid);
+        const list = p.list.map((i) => (i === it ? { ...i, done: !i.done } : i));
+        return it && p.user ? { list, user: logDeal(p.user, it, !it.done) } : { list };
+      }),
     removeItem: (key: string, sid: ListItem['sid']) => patch((p) => ({ list: p.list.filter((i) => !(i.key === key && i.sid === sid)) })),
     clearList: () => { patch({ list: [], matched: {} }); toast('List cleared'); },
-    moveAll: (sid: StoreId) => { patch((p) => ({ list: p.list.map((i) => ({ ...i, sid })) })); toast(`List moved to ${STORE(sid)?.name}`); },
+    moveAll: (sid: StoreId) => {
+      const before = nearestTotal(s.list, user.radiusKm);
+      const list = s.list.map((i) => ({ ...i, sid }));
+      const after = listTotal(list);
+      patch((p) => ({ list, user: p.user ? logRoute(p.user, before, after, STORE(sid)?.name || '') : p.user }));
+      toast(`List moved to ${STORE(sid)?.name}${before - after > 0.004 ? ` · ${money(before - after)} less than the store nearest you` : ''}`);
+    },
     shutter: () => {
       patch({ cam: 1 });
       window.setTimeout(() => setS((prev) => (prev.screen === 'camera' ? { ...prev, cam: 2 } : prev)), 1400);
@@ -384,7 +395,7 @@ const readPage = async (target: string) => {
       }),
     tillTick: (key: string) => patch((p) => ({ matched: { ...p.matched, [key]: !p.matched[key] } })),
     tillDone: (save: number) => {
-      patch((p) => ({ list: p.list.map((i) => (p.matched[i.key] ? { ...i, done: true } : i)), matched: {} }));
+      patch((p) => ({ list: p.list.map((i) => (p.matched[i.key] ? { ...i, done: true } : i)), matched: {}, user: p.user ? logMatch(p.user, save, STORE(p.tillStore)?.name || 'the till') : p.user }));
       go('list');
       toast(`Price matched · saved ${money(save)}`);
     },
@@ -451,22 +462,31 @@ const readPage = async (target: string) => {
     },
     // onboarding
     obPatch: (p: Partial<Onboarding>) => patch((prev) => ({ ob: { ...prev.ob, ...p } })),
-    obToggle: (field: 'diets' | 'cuisines' | 'pantry', v: string) =>
+    obToggle: (field: 'diets' | 'cuisines' | 'pantry' | 'usual', v: string) =>
       patch((prev) => {
         const a = prev.ob[field];
         return { ob: { ...prev.ob, [field]: a.includes(v) ? a.filter((x) => x !== v) : [...a, v] } };
       }),
     obNext: () => {
-      if (s.ob.step < 4) { patch({ ob: { ...s.ob, step: s.ob.step + 1 } }); return; }
+      if (s.ob.step < 5) {
+        // the usual-shop chips follow the household size until the shopper touches them
+        const usual = s.ob.step === 1 && s.ob.usual.join() === defaultUsual(2).join() ? defaultUsual(s.ob.household) : s.ob.usual;
+        patch({ ob: { ...s.ob, usual, step: s.ob.step + 1 } });
+        return;
+      }
       const o = s.ob;
       patch({
-        user: withDefaultExpiry({ ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice(), welcomeSeen: true }),
+        user: withDefaultExpiry({ ...(s.user ?? DEFAULT_USER), name: o.name, householdSize: o.household, diets: o.diets.slice(), cuisines: o.cuisines.length ? o.cuisines.slice() : ['Italian'], pantry: o.pantry.slice(), usual: o.usual.slice(), welcomeSeen: true }),
       });
       go('home');
     },
     obBack: () => patch((prev) => ({ ob: { ...prev.ob, step: Math.max(0, prev.ob.step - 1) } })),
     editPrefs: () => {
-      patch({ ob: { step: 2, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice() } });
+      patch({ ob: { step: 2, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice(), usual: (user.usual || defaultUsual(user.householdSize)).slice() } });
+      go('onboarding');
+    },
+    editUsual: () => {
+      patch({ ob: { step: 5, name: user.name, household: user.householdSize, diets: user.diets.slice(), cuisines: user.cuisines.slice(), pantry: user.pantry.slice(), usual: (user.usual || defaultUsual(user.householdSize)).slice() } });
       go('onboarding');
     },
   };
