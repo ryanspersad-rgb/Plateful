@@ -109,10 +109,11 @@ export function Import() {
             <button className="btn secondary sm" disabled={f.reading || !isUrl(f.url)} onClick={() => act.impRead()}>{f.reading ? 'Reading the page…' : 'Read the page'}</button>
           </div>
         )}
-        {f.read && <div className={`meta readnote${f.reading ? '' : ''}`}>{f.read}</div>}
+        {f.read && <div className="meta readnote">{f.read}</div>}
+        {f.read && !f.reading && !f.ing && isUrl(f.url) && <a className="textlink" href={f.url} target="_blank" rel="noopener noreferrer">Open the recipe on {source} ↗</a>}
         <label className="flabel">Name<input className="field" type="text" placeholder="What is it called?" value={f.name} aria-label="Recipe name" onChange={(e) => act.impPatch({ name: e.target.value })} /></label>
         <label className="flabel">Ingredients
-          <textarea className="field area" rows={6} placeholder={'Paste the ingredient list, one per line:\n2 tbsp olive oil\n500 g chicken thighs\n1 can diced tomatoes'} value={f.ing} aria-label="Ingredients" onChange={(e) => act.impPatch({ ing: e.target.value })} />
+          <textarea className="field area" rows={6} placeholder={'Paste the ingredient list, one per line — or the whole recipe, and Plateful splits it:\n2 tbsp olive oil\n500 g chicken thighs\n1 can diced tomatoes'} value={f.ing} aria-label="Ingredients" onChange={(e) => act.impPatch({ ing: e.target.value })} />
         </label>
         {lines.length > 0 && (
           <div className="linked-prev">

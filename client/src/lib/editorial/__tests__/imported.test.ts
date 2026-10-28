@@ -38,3 +38,12 @@ describe('links', () => {
     expect(nameFromUrl('https://www.tiktok.com/@x/video/7291')).toBe('');
   });
 });
+
+describe('a whole page pasted from the browser', () => {
+  it('keeps the ingredients and method and drops the page around them', () => {
+    const page = `Breaded Air Fryer Pork Chops\nPrep Time: 10 mins\nServings: 4\nIngredients\nOriginal recipe (1X) yields 4 servings\n4 boneless pork chops\n1 large egg\n1 cup panko\nDirections\nStep 1\nPreheat the air fryer to 400 degrees F.\nStep 2\nCook the chops for 6 minutes, flip, and cook 6 minutes more.\nNutrition Facts\n310 Calories`;
+    const r = splitPaste(page);
+    expect(r.ing).toEqual(['4 boneless pork chops', '1 large egg', '1 cup panko']);
+    expect(r.steps).toEqual(['Preheat the air fryer to 400 degrees F.', 'Cook the chops for 6 minutes, flip, and cook 6 minutes more.']);
+  });
+});

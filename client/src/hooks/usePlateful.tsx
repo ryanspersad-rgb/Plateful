@@ -7,7 +7,7 @@ import {
   BOOK, DEFAULT_FRIDGE, R, STORE, canonical, canonicalIds, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
   cardName, cleanNumber, newCard, numberError, scaleIngredients,
-  cleanStep, isUrl, nameFromUrl, newImported, parseIngredients, registerLinked, splitPaste, toRecipe,
+  cleanStep, isUrl, nameFromUrl, sourceOf, newImported, parseIngredients, registerLinked, splitPaste, toRecipe,
   defaultUsual, listTotal, logDeal, logMatch, logRoute, nearestTotal,
 } from '@/lib/editorial';
 
@@ -118,16 +118,31 @@ function migrateIds(u: UserProfile): UserProfile {
 
 const EMPTY_IMP: State['imp'] = { url: '', name: '', ing: '', steps: '', serv: 4, time: '', img: '', saved: null, reading: false, read: null };
 
+/**
+ * "Share → Plateful" from a browser or app (the installed web app's share target, and later the native apps):
+ * the shared link arrives as ?share_url= (or inside ?share_text=, which is where Android puts it). Read once, then cleared.
+ */
+function sharedLink(): string | null {
+  if (typeof window === 'undefined') return null;
+  const q = new URLSearchParams(window.location.search);
+  const raw = [q.get('share_url'), q.get('share_text'), q.get('share_title')].filter(Boolean).join(' ');
+  if (!raw) return null;
+  window.history.replaceState(null, '', window.location.pathname);
+  const m = raw.match(/https?:\/\/[^\s"'<>]+/);
+  return m ? m[0] : null;
+}
+
 function initial(): State {
   const saved = LS.get<UserProfile | null>('plateful_onboarded', null);
   registerLinked((saved?.importedRecipes || []).map(toRecipe));
+  const shared = saved ? sharedLink() : null;
   return {
-    screen: 'splash', hist: [], detail: null,
+    screen: shared ? 'import' : 'splash', hist: shared ? ['home'] : [], detail: null,
     user: saved ? withDefaultExpiry(migrateIds(saved)) : null,
     saleSel: LS.get<string[]>('plateful_sale_selected', []),
     list: LS.get<ListItem[] | null>('plateful_shoplist', null) ?? DEFAULT_LIST,
     ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice(), usual: defaultUsual(2) },
-    q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', imp: { ...EMPTY_IMP },
+    q: '', lq: '', onsaleCat: 'All', onsaleStore: 'All', homeFilter: 'All', imp: shared ? { ...EMPTY_IMP, url: shared, name: nameFromUrl(shared), serv: saved?.householdSize || 4 } : { ...EMPTY_IMP },
     cam: 0, tillStore: 'ss', matched: {}, clips: {}, toast: null,
     plan: loadPlan(), planPick: null, planQ: '', dayPick: false,
     cardId: null, walletAdd: null, walletNum: '', walletLabel: '',
@@ -203,7 +218,9 @@ const readPage = async (target: string) => {
     patch((p) => ({ imp: { ...p.imp, reading: true, read: 'Reading the page… the first one can take up to a minute while the server wakes up.' } }));
     const r = await readRecipePage(target);
     if (!r.ok) {
-      patch((p) => ({ imp: { ...p.imp, reading: false, read: r.code === 'no_server' ? 'Paste the ingredient list below — reading the page needs the Plateful server.' : `${r.message}. Paste the list instead.` } }));
+      patch((p) => ({ imp: { ...p.imp, reading: false, read: r.code === 'no_server' ? 'Paste the ingredient list below — reading the page needs the Plateful server.'
+        : /40[13]|429/.test(r.message) ? `${sourceOf(target)} doesn’t let apps read its pages. Open the recipe, copy from “Ingredients” to the end of the steps, and paste it into Ingredients — Plateful splits it into the list and the method.`
+        : `${r.message}. Copy the recipe from the page and paste it into Ingredients — Plateful splits it into the list and the method.` } }));
       return;
     }
     patch((p) => ({

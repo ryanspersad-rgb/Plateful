@@ -71,12 +71,24 @@ const tidy = (s: string): string => {
 };
 
 /** A pasted block: optional "Ingredients" heading, the list, then "Method"/"Instructions"/"Directions" and the steps. */
+/**
+ * A pasted recipe (often a whole page copied from the browser) → ingredients and steps. Everything before an
+ * "Ingredients" heading is dropped, the method starts at "Method" / "Directions" / "Instructions", and it ends at
+ * the page furniture that follows a recipe (Nutrition, Notes, Reviews…).
+ */
+const METHOD_HEAD = /^(method|instructions?|directions?|steps|preparation|how to make( it)?|to make)\s*:?$/i;
+const END_HEAD = /^(nutrition( facts)?|notes?|cook'?s notes?|tips|reviews?|ratings?|i made it|you'?ll also love|related|more recipes|video|footnotes)\b/i;
+const JUNK = /^(original recipe|recipe yields|servings?:?\s*\d|yield:?|prep time|cook time|total time|deselect all|step \d+$|\d+$|print|save|rate|share|advertisement|jump to)/i;
 export function splitPaste(text: string): { ing: string[]; steps: string[] } {
-  const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-  const at = lines.findIndex((l) => /^(method|instructions?|directions?|steps|preparation|to make)\b/i.test(l));
-  const ing = (at >= 0 ? lines.slice(0, at) : lines).filter((l) => !/^ingredients?\s*:?$/i.test(l));
-  const steps = at >= 0 ? lines.slice(at + 1) : [];
-  return { ing, steps: steps.map(cleanStep).filter(Boolean) };
+  let lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const from = lines.findIndex((l) => /^ingredients?\s*:?$/i.test(l));
+  if (from >= 0) lines = lines.slice(from + 1);
+  const at = lines.findIndex((l) => METHOD_HEAD.test(l));
+  const ing = (at >= 0 ? lines.slice(0, at) : lines).filter((l) => !JUNK.test(l) && !END_HEAD.test(l));
+  let steps = at >= 0 ? lines.slice(at + 1) : [];
+  const end = steps.findIndex((l) => END_HEAD.test(l));
+  if (end >= 0) steps = steps.slice(0, end);
+  return { ing, steps: steps.filter((l) => !JUNK.test(l)).map(cleanStep).filter(Boolean) };
 }
 
 export const cleanStep = (s: string): string => s.replace(/^\s*(?:step\s*)?\d+\s*[.):-]?\s*/i, '').trim();
