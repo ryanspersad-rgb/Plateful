@@ -94,7 +94,69 @@ export function fromCatalogue(r: Recipe, idx: number): EditorialRecipe {
   };
 }
 
-export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue);
+/**
+ * Catalogue recipes that are the same dish as another recipe (2026-10-28: Ryan saw pairs in the cuisine tabs).
+ * Key: the catalogue slug to hide. Value: the recipe to keep — an editorial id (it has priced ingredients, macros and
+ * the write-up) or another catalogue slug (the specific cuisine's copy over the Mediterranean one; the Thai name
+ * over the English one). Hidden recipes stay in constants.ts; `R()` redirects their ids to the kept recipe so old
+ * favourites, history, notes and plans still resolve, and the store migrates those ids on load.
+ */
+export const DUPLICATE_OF: Record<string, number | string> = {
+  // the same dish as an editorial recipe
+  'italian-spaghetti-bolognese': 6,
+  'indian-butter-chicken-rice': 7,
+  'mediterranean-shakshuka': 9,
+  'thai-green-curry': 10,
+  'chinese-fried-rice': 14,
+  'italian-classic-margherita-pizza': 16,
+  'mexican-chicken-quesadillas': 20,
+  'greek-souvlaki': 26,
+  'vietnamese-pho-bo': 28,
+  'indian-chana-masala': 29,
+  'indian-tikka-masala': 30,
+  'indian-palak-paneer': 31,
+  'indian-dal-tadka': 32,
+  'indian-aloo-gobi': 33,
+  'indian-keema-matar': 34,
+  'thai-pad-see-ew': 35,
+  'thai-tom-yum-soup': 36,
+  'thai-thai-basil-chicken': 37,
+  'thai-massaman-curry': 38,
+  'mexican-carnitas': 42,
+  'italian-minestrone-soup': 49,
+  'italian-lasagna-bolognese': 50,
+  // the same dish listed twice in the catalogue
+  'mediterranean-moussaka': 'greek-moussaka',
+  'mediterranean-baklava': 'greek-baklava',
+  'mediterranean-tabbouleh': 'lebanese-tabbouleh',
+  'mediterranean-baba-ganoush': 'lebanese-baba-ganoush',
+  'mediterranean-fattoush': 'lebanese-fattoush',
+  'mediterranean-kibbeh': 'lebanese-kibbeh',
+  'thai-thai-coconut-soup': 'thai-tom-kha-gai',
+};
+
+const CATALOGUE_ID = new Map<string, number>(CATALOGUE.map((r, i) => [r.id, LEGACY_ID_BASE + i]));
+const EDITORIAL_IDS = new Set(EDITORIAL_RECIPES.map((r) => r.id));
+
+/** Hidden catalogue id → the id of the recipe shown in its place. */
+export const CANONICAL = new Map<number, number>();
+for (const [hide, keep] of Object.entries(DUPLICATE_OF)) {
+  const from = CATALOGUE_ID.get(hide);
+  const to = typeof keep === 'number' ? (EDITORIAL_IDS.has(keep) ? keep : undefined) : CATALOGUE_ID.get(keep);
+  if (from === undefined || to === undefined || CANONICAL.has(to)) {
+    if (import.meta.env.DEV) console.warn('DUPLICATE_OF: cannot resolve', hide, '→', keep);
+    continue;
+  }
+  CANONICAL.set(from, to);
+}
+
+/** The id a recipe is shown under: a hidden duplicate's id maps to the kept recipe, every other id is its own. */
+export const canonical = (id: number): number => CANONICAL.get(id) ?? id;
+/** A saved id list (favourites, history, a plan day) with hidden duplicates redirected and repeats dropped, order kept. */
+export const canonicalIds = (ids: number[]): number[] => Array.from(new Set(ids.map(canonical)));
+
+/** The catalogue with its duplicates of editorial or other catalogue recipes left out. */
+export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id));
 
 /** Every recipe Plateful can show: photographed editorial set first, then the catalogue. */
 export const ALL_RECIPES: EditorialRecipe[] = [...EDITORIAL_RECIPES, ...CATALOGUE_RECIPES];
@@ -110,7 +172,7 @@ export function registerLinked(list: EditorialRecipe[]): void {
 export const linkedRecipes = (): EditorialRecipe[] => Array.from(EXTRA.values());
 /** Every recipe the app can show: the editorial set, the catalogue and the shopper's linked recipes. */
 export const allRecipes = (): EditorialRecipe[] => (EXTRA.size ? [...ALL_RECIPES, ...EXTRA.values()] : ALL_RECIPES);
-export const R = (id: number): EditorialRecipe | undefined => byId.get(id) ?? EXTRA.get(id);
+export const R = (id: number): EditorialRecipe | undefined => byId.get(canonical(id)) ?? EXTRA.get(id);
 
 /** Every cuisine/collection with at least one recipe, in catalogue order. */
 export const CUISINE_TABS: string[] = Array.from(

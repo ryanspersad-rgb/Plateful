@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { Clip, ListItem, ProgramId, RecipeNote, Screen, StoreId, UserProfile, WeekPlan } from '@/lib/types';
 import { instacartList, readRecipePage } from '@/lib/api';
 import {
-  BOOK, DEFAULT_FRIDGE, R, STORE, cookLevel, money, status, type Ctx,
+  BOOK, DEFAULT_FRIDGE, R, STORE, canonical, canonicalIds, cookLevel, money, status, type Ctx,
   DAYS, type Day, autoPlan, defaultExpiry, emptyPlan, planStats, withDefaultExpiry,
   cardName, cleanNumber, newCard, numberError, scaleIngredients,
   cleanStep, isUrl, nameFromUrl, newImported, parseIngredients, registerLinked, splitPaste, toRecipe,
@@ -94,9 +94,25 @@ function loadPlan(): WeekPlan {
   if (!days) return base;
   DAYS.forEach((d) => {
     const v = days[d];
-    if (Array.isArray(v)) base[d] = v.filter((x): x is number => typeof x === 'number' && !!R(x));
+    if (Array.isArray(v)) base[d] = canonicalIds(v.filter((x): x is number => typeof x === 'number' && !!R(x)));
   });
   return base;
+}
+
+/** Saved recipe ids that now point at a hidden duplicate are redirected to the kept recipe (favourites, cooked, history, notes). */
+function migrateIds(u: UserProfile): UserProfile {
+  const notes: NonNullable<UserProfile['notes']> = {};
+  for (const [k, n] of Object.entries(u.notes || {})) {
+    const id = canonical(Number(k));
+    if (!notes[id] || Number(k) === id) notes[id] = n; // the kept recipe's own note wins over a duplicate's
+  }
+  return {
+    ...u,
+    favorites: canonicalIds(u.favorites || []),
+    cooked: canonicalIds(u.cooked || []),
+    history: canonicalIds(u.history || []),
+    notes,
+  };
 }
 
 const EMPTY_IMP: State['imp'] = { url: '', name: '', ing: '', steps: '', serv: 4, time: '', img: '', saved: null, reading: false, read: null };
@@ -106,7 +122,7 @@ function initial(): State {
   registerLinked((saved?.importedRecipes || []).map(toRecipe));
   return {
     screen: 'splash', hist: [], detail: null,
-    user: saved ? withDefaultExpiry(saved) : null,
+    user: saved ? withDefaultExpiry(migrateIds(saved)) : null,
     saleSel: LS.get<string[]>('plateful_sale_selected', []),
     list: LS.get<ListItem[] | null>('plateful_shoplist', null) ?? DEFAULT_LIST,
     ob: { step: 0, name: '', household: 2, diets: [], cuisines: ['Italian', 'Thai'], pantry: DEFAULT_FRIDGE.slice() },

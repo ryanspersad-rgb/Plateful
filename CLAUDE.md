@@ -25,7 +25,7 @@ Calgary shoppers don't know what to cook based on what's on sale *this week*. Th
 1. **Save money** — surface this week's flyer deals before you shop, and price match them at the till
 2. **Reduce waste** — use what you already have first
 3. **Save time** — no recipe searching; ranked suggestions come to you
-4. **Discover cuisine** — 28 cuisines, 460 recipes (58 editorial + 402 catalogue), every one photographed
+4. **Discover cuisine** — 28 cuisines, 431 recipes shown (58 editorial + 373 catalogue; 29 catalogue twins of the same dish are hidden since 2026-10-28), every one photographed
 5. **Build confidence** — skill levels, ingredient counts and a Cook level that grows with every recipe cooked (added 2026-10-26; none of the benchmarked apps do this)
 
 ### Competitive positioning
@@ -84,7 +84,7 @@ Plateful/                                # GitHub ryanspersad-rgb/Plateful (main
     book.ts                              # BOOK (108 items, 41 on sale), STORES, STORE_PRICE, ADS, PM_RULES, PM_POLICY, FRIDGE_CATS
     recipes.ts                           # EDITORIAL_RECIPES (58, serving-kit photos 2026-10-27; leads carry leadImg 4:5) + NOTES
     trending.ts                          # TRENDING (8 external recipes; serving-kit photos 2026-10-27)
-    catalogue.ts                         # fromCatalogue(): adapts constants.ts RECIPES (402) into EditorialRecipe; ALL_RECIPES, R(id), registerLinked/allRecipes() for the shopper's linked recipes (ids from 5000)
+    catalogue.ts                         # fromCatalogue(): adapts constants.ts RECIPES (402) into EditorialRecipe; DUPLICATE_OF / CANONICAL / canonical(): 29 catalogue twins hidden and redirected; ALL_RECIPES (431), R(id), registerLinked/allRecipes() for the shopper's linked recipes (ids from 5000)
     pricing.ts                           # unitPrice, listTotal, pmPlan, pmItems, oneStop, cheapestFor, money, pct
     scoring.ts                           # status, score, recommended, lookalike, spread, searchRecipes, cookLevel, stepRow, timeText
     fridge.ts                            # shelf-life table, defaultExpiry, expiringSoon, useItUp, whenText
@@ -93,7 +93,7 @@ Plateful/                                # GitHub ryanspersad-rgb/Plateful (main
     scale.ts                             # parseAmount, scaleAmount, scaleIngredients — servings scaling of free-text amounts
     cook.ts                              # stepTimers, stepIngredients, clock — cook mode helpers
     imported.ts                          # Link a recipe: parseIngredientLine/parseIngredients, splitPaste, sourceOf, nameFromUrl, toRecipe, newImported
-    __tests__/*.test.ts                  # vitest: scale, cook, imported and spread (npx vitest run)
+    __tests__/*.test.ts                  # vitest: scale, cook, imported, spread and duplicates (npx vitest run)
   client/src/lib/types.ts                # Recipe (catalogue) + EditorialRecipe, BookItem, Store, Ad, PMRule, ListItem, TillPlan, UserProfile, Screen
   client/src/lib/constants.ts            # the 402-recipe catalogue and CATEGORIES; image fields point at the serving-kit renders (2026-10-28)
   client/src/editorial.css               # the design system; class names match Plateful_editorial.html
@@ -276,6 +276,7 @@ No Frills, Real Canadian Superstore / PC Express, Safeway / Sobeys / Voilà, Wal
 ## Known gotchas
 
 - Static `matchScore`/`matchText`/`inPantry` values in `constants.ts` are ignored; status is computed from the fridge, saved deals and the price book.
+- **Duplicate dishes (fixed 2026-10-28):** the 58 editorial recipes and the catalogue were never de-duplicated, so 22 dishes appeared twice (Palak Paneer, Pad See Ew, Spaghetti Bolognese…) and the catalogue itself listed six Greek/Lebanese dishes under Mediterranean too, plus Tom Kha Gai as "Thai Coconut Soup". `DUPLICATE_OF` in `catalogue.ts` maps each hidden catalogue slug to the kept recipe (the editorial id, or the specific cuisine's slug); `CATALOGUE_RECIPES` leaves them out, `R()` and `canonical()` redirect their ids, and the store migrates favourites, cooked, history, notes and plan days on load (`migrateIds`, `canonicalIds`). The hidden recipes stay in `constants.ts` with their photos. `duplicates.test.ts` fails if any two shown recipes share a name — add to `DUPLICATE_OF` when a new catalogue import brings a twin. Churros stays under both Mexican and Spanish on purpose.
 - Catalogue recipes have no macros yet (the macros row is hidden when absent) and `total`/`save` come from their `totalCost`/`savings` strings.
 - "Read the page" on Link a recipe needs the API (`pnpm dev:server`, or `pnpm start`): the browser cannot fetch other sites itself. In the standalone HTML file the button explains that and the shopper pastes the list. Sites that render their recipe only in JavaScript, or block non-browser fetches, come back as "no recipe found" — paste the list. Instagram has no open oEmbed, so Instagram links get name and photo at best. The camera scan is simulated; the Stores map is a schematic SVG; Plus has no checkout.
 - HomeLegacy.tsx still compiles but is not mounted; its meal plan is now the Plan screen; its retailer modal and daily deal are not in the new screens (roadmap 6). It also still references Unsplash header images; everything mounted uses the Higgsfield pool.
