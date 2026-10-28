@@ -27,7 +27,7 @@ jobs:
       - run: pnpm build
         env:
           # The hosted API (Render). Set under Settings → Secrets and variables → Actions → Variables; empty = no server, the app falls back.
-          VITE_API_BASE: ${{ vars.PLATEFUL_API_BASE }}
+          VITE_API_BASE: ${{ vars.PLATEFUL_API_BASE || 'https://plateful-api-pzee.onrender.com' }}
       - run: touch dist/public/.nojekyll
       - uses: peaceiris/actions-gh-pages@v4
         with:
