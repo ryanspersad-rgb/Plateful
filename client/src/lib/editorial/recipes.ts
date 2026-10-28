@@ -1,4 +1,6 @@
-// Generated from the editorial prototype: 58 photographed recipes (Higgsfield, 2026-10-26).
+// 58 photographed recipes. Photos re-shot 2026-10-27 in the reference-guided serving-kit treatment (Higgsfield gpt_image_2_5,
+// a real photo as the plating reference per cuisine, every dish in its own vessel and setting); the 2026-10-26 oak-table pool is kept
+// in design/higgsfield.json under "pool_2026_10_26" for rollback. Leads also carry a 4:5 render (leadImg) for the Home lead.
 // Ingredient keys point into the price book (BOOK) so every recipe can be priced against this week's flyers.
 import type { EditorialRecipe } from '@/lib/types';
 
@@ -6,8 +8,9 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 1,
     "name": "Sheet-Pan Chicken Thighs With Roasted Roots",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053510_34cef6bc-0917-4237-9a5a-3764d2cc4dec_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_e5ddaa7c-09d0-4c32-bc93-5359f4acc45c_min.webp",
     "lead": true,
+    "leadImg": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012256_1115bf2d-e6c9-4809-85dc-5d70a48a62dc_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 45,
@@ -74,8 +77,9 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 2,
     "name": "Beef and Broccoli Over Rice",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053510_88774d26-0955-459f-bd51-31150059a232_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012256_a0e129e5-3ef9-410d-9e98-02baf1969e3a_min.webp",
     "lead": true,
+    "leadImg": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012255_8ae08686-5614-4275-8b87-0287ad8634af_min.webp",
     "cuisine": "Chinese",
     "meal": "Dinner",
     "time": 30,
@@ -141,8 +145,9 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 3,
     "name": "Tomato and White Bean Soup",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053512_9c3958ad-21d6-4d67-ad22-0d0b4ac5d9f6_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012255_2592289a-48c1-4c7b-8489-850071df9249_min.webp",
     "lead": true,
+    "leadImg": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_5e9860fd-a949-449a-a5e5-7a6d16958725_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 35,
@@ -210,8 +215,9 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 4,
     "name": "Salmon With Lemon, Dill and New Potatoes",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_77693b0a-cd95-44f6-8005-2e5f7346ffce_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_c9039341-87cd-4ee0-9efa-b10ebbfec82e_min.webp",
     "lead": true,
+    "leadImg": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012255_e487343d-9912-42f5-a003-340e874af122_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 30,
@@ -273,7 +279,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 5,
     "name": "One-Pot Chicken and Rice",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_504668ad-ba0e-4abf-b08f-faff59267fac_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_2e0434c0-56da-41fa-8025-1c9b1761c07a_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 40,
@@ -339,7 +345,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 6,
     "name": "Spaghetti Bolognese",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053512_8b1fdc66-7587-4b91-8e29-95189ffa24a4_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012256_0bbc48d3-e633-46b2-8471-08bc7d6445b1_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 50,
@@ -404,7 +410,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 7,
     "name": "Butter Chicken With Naan",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_3bf64ea9-2daf-4cf0-8e42-d0711265cd22_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012255_8ecd7a8c-da05-4569-b7e0-41ab255ef33a_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 45,
@@ -472,7 +478,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 8,
     "name": "Pork Tenderloin With Apples and Sage",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_a13ac29a-8ff1-4298-b83f-78f2601c61ff_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012256_2b83ff75-6bec-4256-9704-e87005d587c8_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 35,
@@ -528,7 +534,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 9,
     "name": "Shakshuka",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053510_f0f16f79-326e-485b-b09d-ab3b0559126b_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012343_cd7629d2-d880-476e-8c41-556abd4165ec_min.webp",
     "cuisine": "Middle Eastern",
     "meal": "Brunch",
     "time": 30,
@@ -592,7 +598,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 10,
     "name": "Thai Green Curry",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053510_a70dfe3e-9ef1-441d-9622-05a336b56c5b_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012344_956dde2d-3e9e-45c6-b88e-42bc55711b05_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 30,
@@ -656,7 +662,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 11,
     "name": "Beef Tacos With Pico de Gallo",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053512_15369560-082b-4ea6-9936-decd7798624a_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012343_9285841c-b3e2-4c13-bbea-52371b98a35c_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 25,
@@ -722,7 +728,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 12,
     "name": "Lemon Garlic Shrimp Linguine",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053512_403a3bd6-1a3b-454f-8fa1-7381265a894d_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012345_79064833-d565-4d0c-ade0-e6f4f3e522e9_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 25,
@@ -790,7 +796,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 13,
     "name": "Chicken Caesar Salad",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_74ae9160-c7f0-4472-a1b9-86bb1a8fe5ea_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012346_774b7e21-b605-49c2-bbd0-5618299332d1_min.webp",
     "cuisine": "Salad",
     "meal": "Lunch",
     "time": 20,
@@ -846,7 +852,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 14,
     "name": "Vegetable Fried Rice",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_801fb7a0-c982-4ea8-aabd-c6a7c67228b2_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012344_193a1e3c-28a8-451b-a4f5-cbcc4e14e794_min.webp",
     "cuisine": "Chinese",
     "meal": "Dinner",
     "time": 20,
@@ -912,7 +918,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 15,
     "name": "Chili con Carne",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_35e1feba-0d30-4ab9-bfeb-ff64d3173de9_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012344_267a60cc-3806-470a-9caa-9fe3986798dc_min.webp",
     "cuisine": "Tex-Mex",
     "meal": "Dinner",
     "time": 60,
@@ -980,7 +986,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 16,
     "name": "Margherita Pizza",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_9f499d3b-4e68-4586-a845-af4a72a9babd_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012346_ffe1b9aa-a39a-4a2e-9af0-50be98d431be_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 30,
@@ -1038,7 +1044,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 17,
     "name": "Korean Beef Bowl",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_d450b4ba-2c5e-4dc7-9460-9f63d94a6db7_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012346_5da30094-2a17-4a03-84f4-d8ef38bc646b_min.webp",
     "cuisine": "Korean",
     "meal": "Dinner",
     "time": 30,
@@ -1113,7 +1119,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 18,
     "name": "Mushroom Risotto",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053516_e2202c38-7a54-4130-8737-633de5ee640c_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012343_1066b7c0-dd0d-4d34-8edb-ae77a41fa3d2_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 45,
@@ -1180,7 +1186,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 19,
     "name": "Grilled Cheese and Tomato Soup",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053516_5c72b091-d058-4c92-863a-60a05b9ed4de_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012344_7c1c7104-8a37-401d-89a1-e4e363ef33f1_min.webp",
     "cuisine": "Kids",
     "meal": "Lunch",
     "time": 25,
@@ -1240,7 +1246,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 20,
     "name": "Chicken Quesadillas",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053514_fe0c8ce2-74f1-431a-897e-f49bebefe37f_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012345_88f6ea39-84e7-4eb4-b0d9-6c6e609446e4_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 25,
@@ -1301,7 +1307,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 21,
     "name": "Mac and Cheese With Peas",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_f9aa4997-f8a0-4092-86a3-8457fce17334_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012433_0717acf1-886e-4519-9248-8dfd752a5fbf_min.webp",
     "cuisine": "Kids",
     "meal": "Dinner",
     "time": 35,
@@ -1363,7 +1369,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 22,
     "name": "Baked Ziti",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053514_3c197430-0d3f-44fe-9aad-2b94054c0300_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_e924e4aa-caf7-4862-bbcb-fc573c729450_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 55,
@@ -1427,7 +1433,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 23,
     "name": "Roast Chicken Dinner",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053516_58e55989-91d4-4537-b083-e5922eef16e4_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_655ca63b-c980-46ae-adcf-8877eb975bbe_min.webp",
     "cuisine": "Sunday",
     "meal": "Dinner",
     "time": 90,
@@ -1487,7 +1493,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 24,
     "name": "Shepherd's Pie",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053517_88a44c67-2f4e-42ae-ae43-e51810e877e3_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_74775577-0e0c-44b9-baec-5c44a8d6827a_min.webp",
     "cuisine": "British",
     "meal": "Dinner",
     "time": 60,
@@ -1556,7 +1562,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 25,
     "name": "Pad Thai",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053518_115ffda5-1f71-46a9-aae8-600c8e072ca6_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012434_388cef5a-c743-45aa-bf16-737c65ccaf47_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 30,
@@ -1627,7 +1633,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 26,
     "name": "Greek Chicken Souvlaki Bowl",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053519_d08916e3-0d95-47c0-a536-3004491f117e_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012432_d89a7809-dc89-417a-ace3-e48b22065456_min.webp",
     "cuisine": "Greek",
     "meal": "Dinner",
     "time": 35,
@@ -1698,7 +1704,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 27,
     "name": "Banana Pancakes",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053520_4ca685a2-f601-4ef6-bf49-e75562eac876_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_cb4835e3-5639-46c5-adac-f3994e5a850c_min.webp",
     "cuisine": "Breakfast",
     "meal": "Breakfast",
     "time": 20,
@@ -1759,7 +1765,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 28,
     "name": "Beef Pho",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053518_07d5b275-351c-4b66-b345-f7a11fc3cd02_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012432_5cfa9511-d479-413b-9110-e18b85292c97_min.webp",
     "cuisine": "Vietnamese",
     "meal": "Dinner",
     "time": 50,
@@ -1834,7 +1840,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 29,
     "name": "Chana Masala",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_78c472d4-22f6-4ef8-a8a2-2d22abd39918_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012432_65f8a295-22a8-4262-94e7-08f91f71da98_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 30,
@@ -1898,7 +1904,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 30,
     "name": "Chicken Tikka Masala",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063210_59806f1d-638c-4743-80d1-b4f5850824a6_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012433_18c73792-d41b-4307-af31-2ca2d8b23609_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 50,
@@ -1970,7 +1976,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 31,
     "name": "Palak Paneer",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063208_57631abf-ef62-421e-9434-7796a2ffcab2_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012433_fe9e75c6-6c85-45d1-b24e-60ac19500c18_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 35,
@@ -2034,7 +2040,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 32,
     "name": "Dal Tadka",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_73d93faa-a82d-4c6c-a0d9-d3db4f645168_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_4fe2c988-0eda-4259-975e-7133ccfbee91_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 40,
@@ -2098,7 +2104,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 33,
     "name": "Aloo Gobi",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063211_d8492e6d-f2b2-4eea-b69b-2298e421595c_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012517_15901909-2be1-4c58-86b1-35bb5450cc18_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 35,
@@ -2162,7 +2168,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 34,
     "name": "Keema Matar",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063210_cbde6fd3-e97e-4d77-a6f6-b959184b15b0_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012517_baf15525-7395-40f3-9aa2-8ecb184819b7_min.webp",
     "cuisine": "Indian",
     "meal": "Dinner",
     "time": 35,
@@ -2226,7 +2232,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 35,
     "name": "Pad See Ew",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_a4ef5d0d-9dbb-42a4-be01-c04f96a39414_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012519_9dae96f7-470a-4bac-bb67-88af1c9f8cdd_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 25,
@@ -2286,7 +2292,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 36,
     "name": "Tom Yum Shrimp Soup",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063210_9bfd1d63-b03b-48fe-bf39-c4e725ead9d6_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012520_66fa5b59-dcea-4006-acd6-80d7f65c3e03_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 25,
@@ -2351,7 +2357,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 37,
     "name": "Thai Basil Chicken",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_bab1525a-6a4c-4d22-9ea0-32403922a4e5_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012518_728c938a-0147-4b90-881f-7233cdbe3614_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 20,
@@ -2415,7 +2421,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 38,
     "name": "Massaman Beef Curry",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063208_6deb20c7-1a67-4e9e-9846-31971b70814c_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012518_35d2a67d-0130-4d37-94f4-51f703e259f4_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 90,
@@ -2483,7 +2489,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 39,
     "name": "Thai Peanut Noodle Salad",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_9d2403da-b949-40de-89d3-d67e83a6749f_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012518_0660023a-ebec-4392-a06c-6b94cb869da1_min.webp",
     "cuisine": "Thai",
     "meal": "Lunch",
     "time": 20,
@@ -2551,7 +2557,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 40,
     "name": "Chicken Larb Lettuce Wraps",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063209_213cd88f-480e-40fb-aeca-765bcd23e557_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012517_feb64050-7267-4552-adb5-ee72a28ae2e7_min.webp",
     "cuisine": "Thai",
     "meal": "Dinner",
     "time": 25,
@@ -2615,7 +2621,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 41,
     "name": "Chicken Enchiladas",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063227_461b426f-1249-40b8-83b1-f99f06c8dab8_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012520_5096be63-1026-49b1-b420-857dd9dd5d9a_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 50,
@@ -2674,7 +2680,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 42,
     "name": "Pork Carnitas Tacos",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063229_41121524-b11c-45c2-9b09-2aa210d83584_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012518_99fc5d37-3676-4eff-a612-928a5edfe3e8_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 150,
@@ -2734,7 +2740,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 43,
     "name": "Chicken Tortilla Soup",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063228_d39ebc21-69cd-42aa-bbd0-c7d2a55e4234_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012520_9ce6f5fa-9e54-4817-a538-3bda6bf312be_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 40,
@@ -2798,7 +2804,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 44,
     "name": "Huevos Rancheros",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063228_444b6430-89da-4d46-9118-94cd57a1e11a_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012519_06c2e482-93a2-49ac-b2b3-25a1292d8b90_min.webp",
     "cuisine": "Mexican",
     "meal": "Breakfast",
     "time": 20,
@@ -2858,7 +2864,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 45,
     "name": "Shrimp Fajitas",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063227_22f146ad-74c1-46dc-af55-78cb364e19c3_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012607_27a34219-c80d-4828-956c-6d653d8adb6e_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 25,
@@ -2918,7 +2924,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 46,
     "name": "Black Bean and Cheese Burritos",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063229_7f68f2e0-9768-4090-b930-89b7fceba14a_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012606_e554b906-3764-4e0c-8fc9-792756c8de20_min.webp",
     "cuisine": "Mexican",
     "meal": "Dinner",
     "time": 25,
@@ -2975,7 +2981,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 47,
     "name": "Chicken Parmesan",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063227_5563a429-1ab3-4fd5-8b58-d35e43b1eabc_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012608_952d0f7e-348a-4c71-abb0-f6ac09cfced6_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 45,
@@ -3039,7 +3045,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 48,
     "name": "Pesto Pasta With Green Beans and Potatoes",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063229_7d0becde-6432-4f10-a44a-2a40776a50aa_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012605_32f4dafc-140c-441c-af36-d399bdf4a49b_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 25,
@@ -3091,7 +3097,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 49,
     "name": "Minestrone",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063227_fa57f092-b9b3-4d73-9219-91655625b3a9_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012608_89ce16c1-e9cf-4f63-8610-493e6391baaa_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 45,
@@ -3159,7 +3165,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 50,
     "name": "Lasagna",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063228_d74764cd-3ba0-468f-bb7e-15eec79de650_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012607_e67291c2-dfa7-4dea-8e84-061fc6f403ad_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 100,
@@ -3231,7 +3237,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 51,
     "name": "Cacio e Pepe",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063227_88f6beda-ec50-4df6-8f1d-091a4c20e157_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012607_69d2ee81-73b8-47b0-bfbf-2768eecf1b1a_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 15,
@@ -3279,7 +3285,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 52,
     "name": "Sausage and Peppers Rigatoni",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063228_f202d6c2-ec22-4e07-a2c9-3c85e238ec2f_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012605_9f3efb33-e7e3-4f7f-bcfe-167cb5819fde_min.webp",
     "cuisine": "Italian",
     "meal": "Dinner",
     "time": 35,
@@ -3339,7 +3345,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 53,
     "name": "Sheet-Pan Sausages With Potatoes and Peppers",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063236_39f199e8-945e-4e48-87e9-f1c135ef9cf9_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012606_066e0ee4-7849-4c72-8dae-adba8c658b15_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 40,
@@ -3396,7 +3402,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 54,
     "name": "Honey Garlic Salmon With Broccoli",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063237_4d935690-8500-4caa-91b9-b4aa1026b207_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012606_2a7808cc-162f-47a1-9a90-95eca1b0a5ed_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 25,
@@ -3457,7 +3463,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 55,
     "name": "Burgers With Oven Fries",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063237_26e392be-22ba-4648-95ca-20fd39db1a25_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012606_18b7e593-a7ad-41b2-b2f3-02ee35623b9d_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 35,
@@ -3518,7 +3524,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 56,
     "name": "Garlic Butter Steak Bites With Green Beans",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063237_f4f4c77e-a910-4a75-a885-cc72162a33a1_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012606_95d453be-1eae-4a94-963e-749cbf134814_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 20,
@@ -3570,7 +3576,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 57,
     "name": "Vegetable Omelette",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063237_e57a5257-be21-483a-bd17-d97fc665c076_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012617_3f5ed863-fbfc-46e1-8506-f3d9ac6288c3_min.webp",
     "cuisine": "Breakfast",
     "meal": "Breakfast",
     "time": 15,
@@ -3623,7 +3629,7 @@ export const EDITORIAL_RECIPES: EditorialRecipe[] = [
   {
     "id": 58,
     "name": "Loaded Baked Potatoes",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_063237_39e5edc9-a05e-40f4-a517-dcdd051a4b5a_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012618_b15abd41-5e60-4b64-b460-9bc0b4f432d5_min.webp",
     "cuisine": "Weeknight",
     "meal": "Dinner",
     "time": 60,
@@ -3683,25 +3689,25 @@ export const NOTES: { t: string; m: string; img: string; r?: number; screen?: 'p
   {
     "t": "Three dinners from one $9.99 tray of chicken thighs",
     "m": "2 min read",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_504668ad-ba0e-4abf-b08f-faff59267fac_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_2e0434c0-56da-41fa-8025-1c9b1761c07a_min.webp",
     "r": 5
   },
   {
     "t": "Salmon drops to $9.99 a pound at Safeway, its lowest since July",
     "m": "1 min read",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053511_77693b0a-cd95-44f6-8005-2e5f7346ffce_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012254_c9039341-87cd-4ee0-9efa-b10ebbfec82e_min.webp",
     "r": 4
   },
   {
     "t": "Walmart will price match four items already on your list",
     "m": "2 min read",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053515_35e1feba-0d30-4ab9-bfeb-ff64d3173de9_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012344_267a60cc-3806-470a-9caa-9fe3986798dc_min.webp",
     "screen": "pricematch"
   },
   {
     "t": "Superstore or No Frills: where this week’s cart is cheaper",
     "m": "3 min read",
-    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261026_053517_88a44c67-2f4e-42ae-ae43-e51810e877e3_min.webp",
+    "img": "https://d8j0ntlcm91z4.cloudfront.net/user_3LDaESd5mDEyKNm6i2LUmBhLIqh/hf_20261028_012431_74775577-0e0c-44b9-baec-5c44a8d6827a_min.webp",
     "screen": "stores"
   }
 ];

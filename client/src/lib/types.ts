@@ -106,6 +106,8 @@ export interface EditorialRecipe {
   name: string;
   img: string;
   lead?: boolean;
+  /** 4:5 render for the Home lead (the plate in the upper two thirds, the surface plain below for the title). */
+  leadImg?: string;
   cuisine: string;
   meal: string;
   time: number;

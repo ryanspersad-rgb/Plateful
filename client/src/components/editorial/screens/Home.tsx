@@ -28,7 +28,7 @@ function Lead() {
   return (
     <section className="lead">
       <div className="lead-ph tall" role="button" tabIndex={0} onClick={() => act.detail(lead.id)} onKeyDown={(e) => { if (e.key === 'Enter') act.detail(lead.id); }}>
-        {LEADS.map((id, i) => { const r = R(id); return r ? <img key={id} className={i === idx ? 'show' : ''} src={r.img} alt={i === idx ? r.name : ''} /> : null; })}
+        {LEADS.map((id, i) => { const r = R(id); return r ? <img key={id} className={i === idx ? 'show' : ''} src={r.leadImg || r.img} alt={i === idx ? r.name : ''} /> : null; })}
         <div className="scrim" />
         <span className="ph-label">Tonight’s dinner deal</span>
         <Bookmark id={lead.id} />

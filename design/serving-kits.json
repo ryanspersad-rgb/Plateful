@@ -1,0 +1,634 @@
+[
+ {
+  "index": 0,
+  "name": "Sheet-Pan Chicken Thighs With Roasted Roots",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Sheet-Pan Chicken Thighs With Roasted Roots: served straight from the blackened sheet pan: crisp-skinned chicken thighs, caramelised carrots, potatoes and red onion with thyme, a spoon resting in the pan, a tea towel and a small bowl of flaky salt beside it, on a white marble kitchen counter. Overhead angle, bright late-afternoon window light with soft shadows, a home kitchen. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012254_e5ddaa7c-09d0-4c32-bc93-5359f4acc45c.png"
+ },
+ {
+  "index": 100,
+  "name": "Sheet-Pan Chicken Thighs With Roasted Roots (lead 4:5)",
+  "ratio": "4:5",
+  "refs": [
+   "ROAST_R1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Sheet-Pan Chicken Thighs With Roasted Roots: served straight from the blackened sheet pan: crisp-skinned chicken thighs, caramelised carrots, potatoes and red onion with thyme, a spoon resting in the pan, a tea towel and a small bowl of flaky salt beside it, on a white marble kitchen counter. Overhead angle, bright late-afternoon window light with soft shadows, a home kitchen. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos. Vertical composition: the food sits in the upper two thirds of the frame and the plain surface continues into the lower third.",
+  "result": "hf_20261028_012256_1115bf2d-e6c9-4809-85dc-5d70a48a62dc.png"
+ },
+ {
+  "index": 1,
+  "name": "Beef and Broccoli Over Rice",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1",
+   "KOR_K2"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Beef and Broccoli Over Rice: a blue-and-white porcelain bowl of steamed rice topped with glossy soy-glazed beef and bright broccoli florets, sesame seeds and sliced scallion, on a black lacquer tray with chopsticks and a small dish of chili crisp, the carbon-steel wok softly out of focus behind, dark wooden table. 3/4 angle, warm lamplight from one side, steam rising. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012256_a0e129e5-3ef9-410d-9e98-02baf1969e3a.png"
+ },
+ {
+  "index": 101,
+  "name": "Beef and Broccoli Over Rice (lead 4:5)",
+  "ratio": "4:5",
+  "refs": [
+   "WOK_H1",
+   "KOR_K2"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Beef and Broccoli Over Rice: a blue-and-white porcelain bowl of steamed rice topped with glossy soy-glazed beef and bright broccoli florets, sesame seeds and sliced scallion, on a black lacquer tray with chopsticks and a small dish of chili crisp, the carbon-steel wok softly out of focus behind, dark wooden table. 3/4 angle, warm lamplight from one side, steam rising. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos. Vertical composition: the food sits in the upper two thirds of the frame and the plain surface continues into the lower third.",
+  "result": "hf_20261028_012255_8ae08686-5614-4275-8b87-0287ad8634af.png"
+ },
+ {
+  "index": 2,
+  "name": "Tomato and White Bean Soup",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Tomato and White Bean Soup: a wide cream stoneware bowl of rustic tomato and white bean soup with a swirl of olive oil, torn basil and cracked pepper, a board of torn sourdough and a wedge of parmesan beside it, a grey linen napkin on a pale grey-blue painted table. Overhead angle, soft daylight from a window. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012255_2592289a-48c1-4c7b-8489-850071df9249.png"
+ },
+ {
+  "index": 102,
+  "name": "Tomato and White Bean Soup (lead 4:5)",
+  "ratio": "4:5",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Tomato and White Bean Soup: a wide cream stoneware bowl of rustic tomato and white bean soup with a swirl of olive oil, torn basil and cracked pepper, a board of torn sourdough and a wedge of parmesan beside it, a grey linen napkin on a pale grey-blue painted table. Overhead angle, soft daylight from a window. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos. Vertical composition: the food sits in the upper two thirds of the frame and the plain surface continues into the lower third.",
+  "result": "hf_20261028_012254_5e9860fd-a949-449a-a5e5-7a6d16958725.png"
+ },
+ {
+  "index": 3,
+  "name": "Salmon With Lemon, Dill and New Potatoes",
+  "ratio": "4:3",
+  "refs": [
+   "FISH_J"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Salmon With Lemon, Dill and New Potatoes: a whole roasted side of salmon with crisp bronzed skin edges and flaking pink flesh on a long weathered wooden serving platter, strewn with dill fronds and charred lemon halves, a bowl of buttered new potatoes with dill and a few green beans beside it, a rumpled natural linen cloth and a fork on a rustic oak table. Low 3/4 angle, late-afternoon golden window light raking across the fish. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012254_c9039341-87cd-4ee0-9efa-b10ebbfec82e.png"
+ },
+ {
+  "index": 103,
+  "name": "Salmon With Lemon, Dill and New Potatoes (lead 4:5)",
+  "ratio": "4:5",
+  "refs": [
+   "FISH_J"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Salmon With Lemon, Dill and New Potatoes: a whole roasted side of salmon with crisp bronzed skin edges and flaking pink flesh on a long weathered wooden serving platter, strewn with dill fronds and charred lemon halves, a bowl of buttered new potatoes with dill and a few green beans beside it, a rumpled natural linen cloth and a fork on a rustic oak table. Low 3/4 angle, late-afternoon golden window light raking across the fish. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos. Vertical composition: the food sits in the upper two thirds of the frame and the plain surface continues into the lower third.",
+  "result": "hf_20261028_012255_e487343d-9912-42f5-a003-340e874af122.png"
+ },
+ {
+  "index": 4,
+  "name": "One-Pot Chicken and Rice",
+  "ratio": "4:3",
+  "refs": [
+   "CLAY_H2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is One-Pot Chicken and Rice: served in a dark green enamel Dutch oven, the lid set beside it: golden chicken thighs over turmeric-tinted rice with peas, lemon wedges and parsley, a wooden spoon, on a scrubbed pine table with a blue striped tea towel. 45-degree angle, warm evening light, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012254_2e0434c0-56da-41fa-8025-1c9b1761c07a.png"
+ },
+ {
+  "index": 5,
+  "name": "Spaghetti Bolognese",
+  "ratio": "4:3",
+  "refs": [
+   "PASTA_M"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Spaghetti Bolognese: a generous nest of spaghetti twirled high in a wide shallow rimmed bowl, coated in glossy slow-cooked beef and tomato ragù with freshly grated parmesan and torn basil, a fork resting on the rim; the black enamel pot of ragù with a wooden spoon, a torn heel of crusty bread, a wedge of parmesan on a box grater and a glass of red wine on a scrubbed oak table with a terracotta linen napkin. Close 3/4 angle, warm golden evening window light, steam curling up. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012256_0bbc48d3-e633-46b2-8471-08bc7d6445b1.png"
+ },
+ {
+  "index": 6,
+  "name": "Butter Chicken With Naan",
+  "ratio": "4:3",
+  "refs": [
+   "IND_A",
+   "IND_B"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Butter Chicken With Naan: a hammered copper handi brimming with glossy orange-red butter chicken, a swirl of cream and fresh coriander, on a worn brass tray with a stack of blistered charred garlic naan torn at one edge, a small steel katori of cucumber raita and a steel bowl of basmati rice, a crumpled mustard-yellow cloth and a few whole spices on a dark wooden table. Overhead to 3/4 angle, warm evening side light, deep shadows, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012255_8ecd7a8c-da05-4569-b7e0-41ab255ef33a.png"
+ },
+ {
+  "index": 7,
+  "name": "Pork Tenderloin With Apples and Sage",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Pork Tenderloin With Apples and Sage: pork tenderloin sliced into rosy medallions on a walnut board with pan-roasted apple wedges and crisp fried sage leaves, the pan juices in a small jug, a sprig of sage and a pepper mill, on a dark slate counter. 3/4 angle, low golden evening light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012256_2b83ff75-6bec-4256-9704-e87005d587c8.png"
+ },
+ {
+  "index": 8,
+  "name": "Shakshuka",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1",
+   "BRIGHT_H4"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Shakshuka: shakshuka in a well-used cast-iron skillet, eggs just set in a chunky tomato and pepper sauce, crumbled feta and parsley, torn pita and a small bowl of olive oil with za'atar beside it, on a blue-and-white patterned ceramic tile counter. Overhead angle, bright morning window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012343_cd7629d2-d880-476e-8c41-556abd4165ec.png"
+ },
+ {
+  "index": 9,
+  "name": "Thai Green Curry",
+  "ratio": "4:3",
+  "refs": [
+   "THAI_D"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Thai Green Curry: a wide dark-glazed stoneware bowl of vivid green coconut curry with chunks of chicken thigh, green beans and red chili slices, topped with Thai basil and a drizzle of coconut cream; a small bowl of jasmine rice with a lime wedge, a stone mortar and pestle and kaffir lime leaves on a dark teak table. 45-degree angle, warm low lamplight with a soft window fill, steam, deep moody shadows. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012344_956dde2d-3e9e-45c6-b88e-42bc55711b05.png"
+ },
+ {
+  "index": 10,
+  "name": "Beef Tacos With Pico de Gallo",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_G",
+   "MEX_H"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Beef Tacos With Pico de Gallo: three soft corn tortillas on a scorched wooden board piled with seasoned ground beef, chopped white onion, cilantro and bright pico de gallo, slices of avocado, a small stone molcajete of salsa and lime wedges, one lime just squeezed; a cast-iron comal with a stack of tortillas in a cloth softly behind, on a terracotta-tiled counter with a striped cotton napkin. Overhead angle, warm late-afternoon window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012343_9285841c-b3e2-4c13-bbea-52371b98a35c.png"
+ },
+ {
+  "index": 11,
+  "name": "Lemon Garlic Shrimp Linguine",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2",
+   "BRIGHT_H4"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Lemon Garlic Shrimp Linguine: linguine twirled on a wide pale grey-blue rimmed plate with plump seared shrimp, a charred lemon half, parsley and chili flakes, a glass of white wine and a small dish of olive oil, on a white marble table with a blue striped linen. 3/4 angle, bright airy daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012345_79064833-d565-4d0c-ade0-e6f4f3e522e9.png"
+ },
+ {
+  "index": 12,
+  "name": "Chicken Caesar Salad",
+  "ratio": "4:3",
+  "refs": [
+   "BRIGHT_H4"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Caesar Salad: a big olive-wood salad bowl of chicken Caesar: charred sliced chicken thigh, crisp romaine, shaved parmesan and golden croutons, wooden tongs, a lemon half and a pepper mill, on a white linen tablecloth. Overhead angle, bright clean daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012346_774b7e21-b605-49c2-bbd0-5618299332d1.png"
+ },
+ {
+  "index": 13,
+  "name": "Vegetable Fried Rice",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Vegetable Fried Rice: vegetable fried rice served in the carbon-steel wok with a metal spatula, flecked with egg, peas, carrot and scallion, a small dish of soy sauce and chopsticks beside it, on a dark wooden table. 3/4 angle, warm side light, steam rising. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012344_193a1e3c-28a8-451b-a4f5-cbcc4e14e794.png"
+ },
+ {
+  "index": 14,
+  "name": "Chili con Carne",
+  "ratio": "4:3",
+  "refs": [
+   "CLAY_H2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chili con Carne: chili con carne in a speckled blue enamel camp bowl topped with sour cream, grated cheddar and sliced jalapeño, a plate of cornbread wedges and a bowl of tortilla chips, on a rough plank table with a red plaid cloth. 45-degree angle, warm cabin light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012344_267a60cc-3806-470a-9caa-9fe3986798dc.png"
+ },
+ {
+  "index": 15,
+  "name": "Margherita Pizza",
+  "ratio": "4:3",
+  "refs": [
+   "PIZZA_Z1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Margherita Pizza: a margherita pizza with a blistered leopard-spotted crust, torn mozzarella, bright tomato sauce and fresh basil on a wooden pizza peel, a pizza cutter and a small jug of olive oil, on a floured dark counter. Overhead angle, bright window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012346_ffe1b9aa-a39a-4a2e-9af0-50be98d431be.png"
+ },
+ {
+  "index": 16,
+  "name": "Korean Beef Bowl",
+  "ratio": "4:3",
+  "refs": [
+   "KOR_K2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Korean Beef Bowl: a Korean beef bowl in a hot stone dolsot: rice topped with glossy soy-garlic beef, a crisp fried egg, sesame seeds and scallion, small banchan dishes of kimchi and pickled radish, flat metal chopsticks and a spoon, on a dark wooden table. 3/4 angle, moody warm light, steam rising. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012346_5da30094-2a17-4a03-84f4-d8ef38bc646b.png"
+ },
+ {
+  "index": 17,
+  "name": "Mushroom Risotto",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Mushroom Risotto: mushroom risotto in a wide white rimmed bowl, creamy with golden seared mushrooms, parmesan shards and thyme, a glass of white wine and a pepper mill, on a dark slate table. 3/4 angle, soft daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012343_1066b7c0-dd0d-4d34-8edb-ae77a41fa3d2.png"
+ },
+ {
+  "index": 18,
+  "name": "Grilled Cheese and Tomato Soup",
+  "ratio": "4:3",
+  "refs": [
+   "DINER_U1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Grilled Cheese and Tomato Soup: a grilled cheese sandwich cut diagonally with a stretchy cheese pull on a white enamel plate, a mug of tomato soup and a glass of milk, on a yellow gingham cloth over a pale wood table. 45-degree angle, bright cheerful kitchen light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012344_7c1c7104-8a37-401d-89a1-e4e363ef33f1.png"
+ },
+ {
+  "index": 19,
+  "name": "Chicken Quesadillas",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_G"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Quesadillas: chicken quesadillas cut into wedges, cheese melting out, on a hand-painted Talavera plate with sour cream, salsa, lime and cilantro, on a terracotta tile counter. Overhead angle, bright warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012345_88f6ea39-84e7-4eb4-b0d9-6c6e609446e4.png"
+ },
+ {
+  "index": 20,
+  "name": "Mac and Cheese With Peas",
+  "ratio": "4:3",
+  "refs": [
+   "DINER_U1",
+   "CLAY_H2"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Mac and Cheese With Peas: mac and cheese with peas in a small blue enamel baking dish, a spoon lifting a cheesy scoop, a glass of milk, on a red-checked cloth over a pine table. 45-degree angle, warm kitchen light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012433_0717acf1-886e-4519-9248-8dfd752a5fbf.png"
+ },
+ {
+  "index": 21,
+  "name": "Baked Ziti",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Baked Ziti: baked ziti in its white ceramic baking dish, one portion lifted with a serving spoon showing melted mozzarella and ragù, basil leaves, on a wooden trivet with a red-checked cloth on a scrubbed oak table. 45-degree angle, warm evening light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012431_e924e4aa-caf7-4862-bbcb-fc573c729450.png"
+ },
+ {
+  "index": 22,
+  "name": "Roast Chicken Dinner",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Roast Chicken Dinner: a whole roast chicken with burnished skin on a big wooden board, partly carved, crisp roast potatoes and green beans on a platter, a jug of gravy and a carving fork, on a Sunday table with a linen runner. Low 3/4 angle, warm low window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012431_655ca63b-c980-46ae-adcf-8877eb975bbe.png"
+ },
+ {
+  "index": 23,
+  "name": "Shepherd's Pie",
+  "ratio": "4:3",
+  "refs": [
+   "CLAY_H2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Shepherd's Pie: shepherd's pie in a white enamel pie dish with a blue rim, one portion lifted showing the golden ridged mash over rich minced beef and vegetables, a bowl of peas and a pot of mustard, on a worn pine table. 45-degree angle, soft overcast window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012431_74775577-0e0c-44b9-baec-5c44a8d6827a.png"
+ },
+ {
+  "index": 24,
+  "name": "Pad Thai",
+  "ratio": "4:3",
+  "refs": [
+   "THAI_D"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Pad Thai: pad Thai on a white oval plate: charred rice noodles with shrimp and egg, bean sprouts, crushed peanuts, lime wedges and a small dish of chili flakes, chopsticks, on a woven bamboo mat over a teak table. Overhead angle, bright daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012434_388cef5a-c743-45aa-bf16-737c65ccaf47.png"
+ },
+ {
+  "index": 25,
+  "name": "Greek Chicken Souvlaki Bowl",
+  "ratio": "4:3",
+  "refs": [
+   "BRIGHT_H4"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Greek Chicken Souvlaki Bowl: a Greek souvlaki bowl in a blue-rimmed white ceramic bowl: rice, charred chicken skewers, cucumber, tomato, red onion, kalamata olives and tzatziki, pita wedges and a lemon half, on a white tablecloth. Overhead angle, hard Mediterranean sunlight with crisp shadows. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012432_d89a7809-dc89-417a-ace3-e48b22065456.png"
+ },
+ {
+  "index": 26,
+  "name": "Banana Pancakes",
+  "ratio": "4:3",
+  "refs": [
+   "DINER_U1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Banana Pancakes: a short stack of banana pancakes on a white diner plate with banana coins and a melting pat of butter, a small jug of maple syrup and a mug of coffee beside it, on a light wood table. 3/4 angle, bright morning light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012431_cb4835e3-5639-46c5-adac-f3994e5a850c.png"
+ },
+ {
+  "index": 27,
+  "name": "Beef Pho",
+  "ratio": "4:3",
+  "refs": [
+   "PHO_P3"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Beef Pho: beef pho in a deep white bowl: clear broth, rice noodles, thin slices of rare beef, onion and scallion, with a side plate of bean sprouts, Thai basil, lime and chili, chopsticks and a soup spoon, on a blue-grey cloth. Overhead angle, bright daylight, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012432_5cfa9511-d479-413b-9110-e18b85292c97.png"
+ },
+ {
+  "index": 28,
+  "name": "Chana Masala",
+  "ratio": "4:3",
+  "refs": [
+   "IND_B"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chana Masala: chana masala in a hammered brass kadai with lemon wedges, sliced red onion and coriander, a stack of rotis in a cloth and a small bowl of pickle, on a dark green cloth over a wooden table. 3/4 angle, warm side light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012432_65f8a295-22a8-4262-94e7-08f91f71da98.png"
+ },
+ {
+  "index": 29,
+  "name": "Chicken Tikka Masala",
+  "ratio": "4:3",
+  "refs": [
+   "IND_B"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Tikka Masala: chicken tikka masala in a black iron kadai with a swirl of cream and coriander, a stack of naan and a steel bowl of cumin basmati rice, on a weathered teal-painted table. Overhead angle, warm side light, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012433_18c73792-d41b-4307-af31-2ca2d8b23609.png"
+ },
+ {
+  "index": 30,
+  "name": "Palak Paneer",
+  "ratio": "4:3",
+  "refs": [
+   "IND_A"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Palak Paneer: palak paneer, deep green with cubes of paneer, in a small copper bowl on a brass thali with jeera rice, roti, pickled onion and a lemon wedge, on a dark walnut table. Overhead angle, soft warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012433_fe9e75c6-6c85-45d1-b24e-60ac19500c18.png"
+ },
+ {
+  "index": 31,
+  "name": "Dal Tadka",
+  "ratio": "4:3",
+  "refs": [
+   "IND_A"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Dal Tadka: dal tadka in a small copper kadai with the sizzling tadka of ghee, cumin and dried red chilies poured over the top, steamed rice, a papad and lime, on a marigold-coloured cloth. 3/4 angle, warm light, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012431_4fe2c988-0eda-4259-975e-7133ccfbee91.png"
+ },
+ {
+  "index": 32,
+  "name": "Aloo Gobi",
+  "ratio": "4:3",
+  "refs": [
+   "IND_A"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Aloo Gobi: aloo gobi, golden turmeric cauliflower and potatoes, on a steel thali with rotis, raita, green chili and lemon, on a rustic wooden table. Overhead angle, bright daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012517_15901909-2be1-4c58-86b1-35bb5450cc18.png"
+ },
+ {
+  "index": 33,
+  "name": "Keema Matar",
+  "ratio": "4:3",
+  "refs": [
+   "IND_B"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Keema Matar: keema matar, spiced minced beef with peas, in a copper bowl with buttered toasted pav buns, sliced onion, lime and coriander, on a dark slate counter. 3/4 angle, warm lamplight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012517_baf15525-7395-40f3-9aa2-8ecb184819b7.png"
+ },
+ {
+  "index": 34,
+  "name": "Pad See Ew",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Pad See Ew: pad see ew, wide charred rice noodles with chicken, Chinese broccoli and egg, on a white enamel plate with a small dish of chili vinegar and chopsticks, on a stainless-steel kitchen counter. 3/4 angle, bright light, a little wok smoke. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012519_9dae96f7-470a-4bac-bb67-88af1c9f8cdd.png"
+ },
+ {
+  "index": 35,
+  "name": "Tom Yum Shrimp Soup",
+  "ratio": "4:3",
+  "refs": [
+   "CLAY_H2",
+   "THAI_D"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Tom Yum Shrimp Soup: tom yum shrimp soup in a traditional aluminium Thai hot pot: shrimp, mushrooms, lemongrass, lime leaves, chili and coriander in a fiery red-orange broth, a bowl of jasmine rice, on a dark wooden table. 3/4 angle, warm low light, steam. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012520_66fa5b59-dcea-4006-acd6-80d7f65c3e03.png"
+ },
+ {
+  "index": 36,
+  "name": "Thai Basil Chicken",
+  "ratio": "4:3",
+  "refs": [
+   "THAI_D"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Thai Basil Chicken: Thai basil chicken over jasmine rice with a crispy fried egg on top, holy basil and sliced chili, on a white enamel plate with a spoon and fork, on a green-and-white checked oilcloth. Overhead angle, bright daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012518_728c938a-0147-4b90-881f-7233cdbe3614.png"
+ },
+ {
+  "index": 37,
+  "name": "Massaman Beef Curry",
+  "ratio": "4:3",
+  "refs": [
+   "CLAY_H2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Massaman Beef Curry: massaman beef curry in a clay bowl: tender beef, potatoes, peanuts and onion in a rich coconut curry, jasmine rice and a small dish of cucumber relish, on a woven palm mat over dark teak. 45-degree angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012518_35d2a67d-0130-4d37-94f4-51f703e259f4.png"
+ },
+ {
+  "index": 38,
+  "name": "Thai Peanut Noodle Salad",
+  "ratio": "4:3",
+  "refs": [
+   "BRIGHT_H4"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Thai Peanut Noodle Salad: Thai peanut noodle salad in a wide pale ceramic bowl: rice noodles, julienned carrot and cucumber, herbs, crushed peanuts, lime and sesame, chopsticks, on a light birch table with a linen napkin. Overhead angle, bright fresh daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012518_0660023a-ebec-4392-a06c-6b94cb869da1.png"
+ },
+ {
+  "index": 39,
+  "name": "Chicken Larb Lettuce Wraps",
+  "ratio": "4:3",
+  "refs": [
+   "THAI_D"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Larb Lettuce Wraps: chicken larb spooned into crisp lettuce cups on a round bamboo tray, lime halves, mint, a small dish of chili flakes and sticky rice in a woven basket, on a dark table. Overhead angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012517_feb64050-7267-4552-adb5-ee72a28ae2e7.png"
+ },
+ {
+  "index": 40,
+  "name": "Chicken Enchiladas",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_G"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Enchiladas: chicken enchiladas in a terracotta baking dish, melted cheddar, red sauce, a drizzle of crema, cilantro and radish slices, on a woven serape cloth. 45-degree angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012520_5096be63-1026-49b1-b420-857dd9dd5d9a.png"
+ },
+ {
+  "index": 41,
+  "name": "Pork Carnitas Tacos",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_H"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Pork Carnitas Tacos: crisp pork carnitas piled on a wooden board with charred corn tortillas, chopped onion, cilantro, lime wedges and a small bowl of salsa verde, on a terracotta tile counter. Overhead angle, bright warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012518_99fc5d37-3676-4eff-a612-928a5edfe3e8.png"
+ },
+ {
+  "index": 42,
+  "name": "Chicken Tortilla Soup",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_G"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Tortilla Soup: chicken tortilla soup in a blue-and-yellow Talavera bowl with crisp tortilla strips, avocado, lime, crema and cilantro, on a bright turquoise painted table. Overhead angle, bright daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012520_9ce6f5fa-9e54-4817-a538-3bda6bf312be.png"
+ },
+ {
+  "index": 43,
+  "name": "Huevos Rancheros",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_H"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Huevos Rancheros: huevos rancheros on a hand-painted clay plate: two fried eggs over tortillas with ranchero sauce, black beans, avocado and crumbled queso fresco, on a sunlit yellow oilcloth. 45-degree angle, morning light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012519_06c2e482-93a2-49ac-b2b3-25a1292d8b90.png"
+ },
+ {
+  "index": 44,
+  "name": "Shrimp Fajitas",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1",
+   "MEX_G"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Shrimp Fajitas: shrimp fajitas sizzling on a cast-iron fajita skillet on a wooden board, charred peppers and onions, lime, warm tortillas in a cloth, guacamole and sour cream, on a dark table. 3/4 angle, warm light with a wisp of smoke. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012607_27a34219-c80d-4828-956c-6d653d8adb6e.png"
+ },
+ {
+  "index": 45,
+  "name": "Black Bean and Cheese Burritos",
+  "ratio": "4:3",
+  "refs": [
+   "MEX_H"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Black Bean and Cheese Burritos: black bean and cheese burritos cut in half to show the filling, stacked on parchment on a wooden board, salsa and sour cream in small dishes and lime, on a terracotta tile counter. 3/4 angle, bright light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012606_e554b906-3764-4e0c-8fc9-792756c8de20.png"
+ },
+ {
+  "index": 46,
+  "name": "Chicken Parmesan",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Chicken Parmesan: chicken parmesan, a golden breaded cutlet with tomato sauce and melted mozzarella, on a white plate with a side of spaghetti and basil, grated parmesan, on a red-checked tablecloth. 3/4 angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012608_952d0f7e-348a-4c71-abb0-f6ac09cfced6.png"
+ },
+ {
+  "index": 47,
+  "name": "Pesto Pasta With Green Beans and Potatoes",
+  "ratio": "4:3",
+  "refs": [
+   "BRIGHT_H4",
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Pesto Pasta With Green Beans and Potatoes: pesto pasta with green beans and potatoes, trofie in bright green basil pesto, in a shallow terracotta bowl with parmesan, pine nuts and basil, on a sunlit white marble table with a linen napkin. Overhead angle, bright daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012605_32f4dafc-140c-441c-af36-d399bdf4a49b.png"
+ },
+ {
+  "index": 48,
+  "name": "Minestrone",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Minestrone: minestrone in a deep rustic brown stoneware bowl with a dollop of pesto and grated parmesan, torn bread, a grey linen, on rustic oak. Overhead angle, soft daylight. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012608_89ce16c1-e9cf-4f63-8610-493e6391baaa.png"
+ },
+ {
+  "index": 49,
+  "name": "Lasagna",
+  "ratio": "4:3",
+  "refs": [
+   "ITA_Z2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Lasagna: lasagna: a slice lifted onto a plate showing the layers, the rest in its ceramic dish, basil, on a wooden table with a red-checked cloth. 45-degree angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012607_e67291c2-dfa7-4dea-8e84-061fc6f403ad.png"
+ },
+ {
+  "index": 50,
+  "name": "Cacio e Pepe",
+  "ratio": "4:3",
+  "refs": [
+   "PASTA_M"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Cacio e Pepe: cacio e pepe, twirled tonnarelli in a shallow white bowl glossy with pecorino and heavy with cracked black pepper, a wedge of pecorino and a pepper mill, on dark slate. 3/4 angle, dramatic side light. Only cheese and pepper on the pasta, no herbs, no tomato. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012607_69d2ee81-73b8-47b0-bfbf-2768eecf1b1a.png"
+ },
+ {
+  "index": 51,
+  "name": "Sausage and Peppers Rigatoni",
+  "ratio": "4:3",
+  "refs": [
+   "PASTA_M"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Sausage and Peppers Rigatoni: sausage and peppers rigatoni in a wide dark skillet with blistered peppers, parmesan and basil, torn bread, on a rustic plank table. 3/4 angle, warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012605_9f3efb33-e7e3-4f7f-bcfe-167cb5819fde.png"
+ },
+ {
+  "index": 52,
+  "name": "Sheet-Pan Sausages With Potatoes and Peppers",
+  "ratio": "4:3",
+  "refs": [
+   "ROAST_R1",
+   "WOK_H1"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Sheet-Pan Sausages With Potatoes and Peppers: served from the scorched sheet pan: browned Italian sausages with crisp potatoes, blistered peppers, onion and rosemary, a small dish of grainy mustard and a tea towel, on a white marble counter. Overhead angle, bright window light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012606_066e0ee4-7849-4c72-8dae-adba8c658b15.png"
+ },
+ {
+  "index": 53,
+  "name": "Honey Garlic Salmon With Broccoli",
+  "ratio": "4:3",
+  "refs": [
+   "FISH_J",
+   "KOR_K2"
+  ],
+  "prompt": "Use the reference photos only for plating style, the serving vessel, colour and mood; the dish is Honey Garlic Salmon With Broccoli: honey garlic salmon fillets, glazed and caramelised, with charred broccoli on a black slate board, a bowl of rice, sesame, scallion and lime, on a dark table. 3/4 angle, moody warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012606_2a7808cc-162f-47a1-9a90-95eca1b0a5ed.png"
+ },
+ {
+  "index": 54,
+  "name": "Burgers With Oven Fries",
+  "ratio": "4:3",
+  "refs": [
+   "BURGER_U2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Burgers With Oven Fries: a burger on a toasted brioche bun with melted cheddar, lettuce and tomato on a wooden board, oven fries in a paper-lined metal basket, a small dish of ketchup and pickles, on a diner tray. 3/4 angle, bright light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012606_18b7e593-a7ad-41b2-b2f3-02ee35623b9d.png"
+ },
+ {
+  "index": 55,
+  "name": "Garlic Butter Steak Bites With Green Beans",
+  "ratio": "4:3",
+  "refs": [
+   "WOK_H1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Garlic Butter Steak Bites With Green Beans: garlic butter steak bites with green beans in a cast-iron skillet, parsley, garlic butter pooling, a wooden spoon, on a dark walnut table. 3/4 angle, low warm light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012606_95d453be-1eae-4a94-963e-749cbf134814.png"
+ },
+ {
+  "index": 56,
+  "name": "Vegetable Omelette",
+  "ratio": "4:3",
+  "refs": [
+   "DINER_U1"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Vegetable Omelette: a folded vegetable omelette with peppers, mushrooms and cheddar on a white plate with buttered toast, a mug of coffee and a glass of orange juice, on a bright white table by a window. 45-degree angle, morning light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012617_3f5ed863-fbfc-46e1-8506-f3d9ac6288c3.png"
+ },
+ {
+  "index": 57,
+  "name": "Loaded Baked Potatoes",
+  "ratio": "4:3",
+  "refs": [
+   "KOR_K2"
+  ],
+  "prompt": "Use the reference photo only for plating style, the serving vessel, colour and mood; the dish is Loaded Baked Potatoes: loaded baked potatoes split open on a black slate board with broccoli, melted cheddar, sour cream and chives, a pepper mill, on a dark table. 3/4 angle, warm side light. A real home kitchen, warm and inviting, the kind of meal you want to sit down to. Editorial food photography for a cooking magazine, shallow depth of field, realistic and appetizing, no text, no hands, no logos.",
+  "result": "hf_20261028_012618_b15abd41-5e60-4b64-b460-9bc0b4f432d5.png"
+ }
+]
