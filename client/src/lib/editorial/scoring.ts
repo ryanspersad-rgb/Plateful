@@ -40,9 +40,16 @@ export function score(r: EditorialRecipe, c: Ctx): number {
   return st.saleHits * 3 + st.fridgeHits * 4 + (isFav(r.id, c) ? 6 : 0) + (c.user.cuisines.includes(r.cuisine) ? 2 : 0) + noteBoost(r.id, c);
 }
 
-export const statusText = (r: EditorialRecipe, c: Ctx): string => {
+/**
+ * The one-line answer to "can I make this?": "You have everything", or how many ingredients to buy and what they cost.
+ * `long` spells out "ingredients" where there is room (Detail, rows); cards use the short form ("You need 3 more · $8.40").
+ */
+export const statusText = (r: EditorialRecipe, c: Ctx, long = false): string => {
   const st = status(r, c);
-  return st.missing.length === 0 ? 'You have everything' : `Missing ${st.missing.length} · ${money(st.cost)}`;
+  if (st.missing.length === 0) return 'You have everything';
+  const n = st.missing.length;
+  const what = long ? `You need ${plural(n, 'more ingredient')}` : `You need ${n}${NB}more`;
+  return st.cost > 0 ? `${what} · ${money(st.cost)}` : what;
 };
 export const perServ = (r: EditorialRecipe): string =>
   r.total > 0 ? money(r.total / r.serv) + ' a serving' : `Serves ${r.serv}`;

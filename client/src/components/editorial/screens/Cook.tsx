@@ -2,7 +2,7 @@
 // the screen kept awake, and "I cooked this" at the end so the cook level moves.
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
-import { LEVEL, R, clock, nameFor, plural, scaleIngredients, stepIngredients, stepTimers, timerLabel } from '@/lib/editorial';
+import { LEVEL, R, clock, ingName, plural, scaleIngredients, stepIngredients, stepTimers, timerLabel } from '@/lib/editorial';
 import { Pad } from '../Bits';
 import { I } from '../Icons';
 
@@ -95,7 +95,7 @@ export function Cook() {
         {here.length > 0 && (
           <div className="ck-ing">
             <div className="eyebrow mut">In this step</div>
-            {here.map(([k, a]) => <div key={k} className="row"><span className="amt">{a}</span><span className="n">{nameFor(k)}</span></div>)}
+            {here.map(([k, a]) => <div key={k} className="row"><span className="amt">{a}</span><span className="n">{ingName(k, a)}</span></div>)}
           </div>
         )}
         <Timer recipe={r.id} />

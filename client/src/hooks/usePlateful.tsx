@@ -169,7 +169,7 @@ function useStore() {
       const hist = prev.screen !== screen && !NO_HISTORY.includes(prev.screen) ? [...prev.hist, prev.screen] : prev.hist;
       const next: Partial<State> = { screen, hist };
       if (opts.store) { next.onsaleStore = opts.store; next.onsaleCat = 'All'; }
-      if (screen === 'camera') next.cam = 0;
+      if (screen === 'camera') { next.cam = 0; if (prev.user && !prev.user.scanHintSeen) next.user = { ...prev.user, scanHintSeen: true }; }
       if (!opts.keepScroll) scrollPos.current[screen] = 0;
       return { ...prev, ...next };
     });
@@ -234,6 +234,7 @@ const readPage = async (target: string) => {
     },
     /** From Profile: see the Welcome pages again. */
     welcomeAgain: () => go('welcome'),
+    scanHintDone: () => patchUser((u) => ({ ...u, scanHintSeen: true })),
     detail: (id: number) => {
       patchUser((u) => ({ ...u, history: [id, ...(u.history || []).filter((x) => x !== id)].slice(0, 12) }));
       patch({ detail: id });

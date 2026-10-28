@@ -26,7 +26,7 @@ export function History() {
   const cooked = (user.cooked || []).map(R).filter(present);
   const noted = Object.entries(user.notes || {})
     .map(([id, n]) => ({ r: R(Number(id)), n }))
-    .filter((x): x is { r: NonNullable<typeof x.r>; n: typeof x.n } => !!x.r && (x.n.stars > 0 || x.n.again || !!x.n.note))
+    .filter((x): x is { r: NonNullable<typeof x.r>; n: typeof x.n } => !!x.r && (x.n.stars > 0 || x.n.again || !!x.n.note || !!x.n.added || !!x.n.omitted))
     .sort((a, b) => b.n.at.localeCompare(a.n.at));
   return (
     <>
@@ -42,7 +42,7 @@ export function History() {
                 <div className="l">
                   <div className="n">{r.name}</div>
                   <div className="notemark" style={{ marginTop: 2 }}>
-                    {n.stars > 0 && <span className="stars">{'★'.repeat(n.stars)}</span>}{n.stars > 0 && n.again && ' · '}{n.again && <b>Make again</b>}{(n.stars > 0 || n.again) && n.note && ' · '}{n.note && <span style={{ fontStyle: 'italic' }}>“{n.note}”</span>}
+                    {n.stars > 0 && <span className="stars">{'★'.repeat(n.stars)}</span>}{n.stars > 0 && n.again && ' · '}{n.again && <b>Make again</b>}{(n.stars > 0 || n.again) && n.note && ' · '}{n.note && <span style={{ fontStyle: 'italic' }}>“{n.note}”</span>}{n.added && <span className="meta"> · added {n.added}</span>}{n.omitted && <span className="meta"> · left out {n.omitted}</span>}
                   </div>
                 </div>
                 <Chev />
@@ -82,7 +82,8 @@ export function Import() {
           <div className="linked-ok">
             <div className="eyebrow" style={{ color: 'var(--acc)' }}>Linked</div>
             <div className="n">{just.name}</div>
-            <div className="meta">{statusText(just, ctx)} · from {just.src}</div>
+            <div className="meta">{statusText(just, ctx, true)} · from {just.src}</div>
+            <div className="meta" style={{ marginTop: 6 }}>It’s in the app now: under <b>Your recipes</b> on Home, in search, favourites, the plan and cook mode.</div>
             <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
               <button className="btn primary sm" onClick={() => act.detail(just.id)}>Open recipe</button>
               <button className="btn ghost sm" onClick={() => act.impPatch({ saved: null })}>Link another</button>

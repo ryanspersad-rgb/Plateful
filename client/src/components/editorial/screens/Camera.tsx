@@ -44,7 +44,7 @@ export function Camera() {
             <div>
               <div className="eyebrow mut" style={{ fontSize: 10 }}>Recipes that use it</div>
               {uses.map((r) => (
-                <SRow key={r.id} img={r.img} t={r.name} m={`${statusText(r, ctx)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} style={{ padding: '8px 0' }} />
+                <SRow key={r.id} img={r.img} t={r.name} m={`${statusText(r, ctx, true)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} style={{ padding: '8px 0' }} />
               ))}
             </div>
           </div>

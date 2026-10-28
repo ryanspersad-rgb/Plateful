@@ -5,6 +5,7 @@ import type { EditorialRecipe, Recipe } from '@/lib/types';
 import { CATEGORIES, RECIPES as CATALOGUE } from '@/lib/constants';
 import { BOOK } from './book';
 import { EDITORIAL_RECIPES } from './recipes';
+import { parseAmount } from './scale';
 
 export const LEGACY_ID_BASE = 1000;
 
@@ -56,6 +57,31 @@ export function nameFor(key: string): string {
   if (BOOK[key]) return BOOK[key].n;
   const raw = key.replace(/^x:/, '').replace(/-/g, ' ');
   return raw.charAt(0).toUpperCase() + raw.slice(1);
+}
+
+/** Items a recipe counts rather than weighs: the name shown after the amount agrees with it ("½ lemon", "2 lemons"). */
+const COUNTABLE: Record<string, [string, string]> = {
+  lemon: ['Lemon', 'Lemons'], lime: ['Lime', 'Limes'], onion: ['Onion', 'Onions'], eggs: ['Egg', 'Eggs'],
+  carrots: ['Carrot', 'Carrots'], apples: ['Apple', 'Apples'], avocado: ['Avocado', 'Avocados'],
+  peppers: ['Bell pepper', 'Bell peppers'], tomatoes: ['Tomato', 'Tomatoes'], potatoes: ['Potato', 'Potatoes'],
+  'sweet-potatoes': ['Sweet potato', 'Sweet potatoes'], chili: ['Fresh chili', 'Fresh chilies'],
+  'green-onion': ['Green onion', 'Green onions'], bananas: ['Banana', 'Bananas'], cucumber: ['Cucumber', 'Cucumbers'],
+  zucchini: ['Zucchini', 'Zucchini'], broccoli: ['Broccoli crown', 'Broccoli crowns'], cauliflower: ['Cauliflower', 'Cauliflowers'],
+  sausages: ['Italian sausage', 'Italian sausages'], tortillas: ['Tortilla', 'Tortillas'], 'burger-buns': ['Burger bun', 'Burger buns'],
+  naan: ['Naan', 'Naan'], 'chicken-thighs': ['Chicken thigh', 'Chicken thighs'], 'chicken-breast': ['Chicken breast', 'Chicken breasts'],
+  salmon: ['Salmon fillet', 'Salmon fillets'], mushrooms: ['Mushroom', 'Mushrooms'], 'whole-chicken': ['Whole chicken', 'Whole chickens'],
+  garlic: ['Garlic', 'Garlic'], ginger: ['Ginger', 'Ginger'], lemongrass: ['Lemongrass stalk', 'Lemongrass stalks'],
+};
+// When the amount carries a unit, the unit names the thing ("2 cloves garlic", "1 lb potatoes") and the price-book name stands.
+const UNIT = /\b(lb|lbs|oz|g|kg|ml|l|cup|cups|tbsp|tsp|clove|cloves|head|heads|bunch|bunches|sprig|sprigs|can|cans|tin|tins|slice|slices|handful|pinch|stalk|stalks|piece|pieces|fillet|fillets|strip|strips|jar|pkg|package|bag|box|sheet|sheets|wedge|wedges|knob|thumb|inch|cm)\b/i;
+
+/** The ingredient name to show after its amount: singular for one or less ("½ lemon", "1 onion"), plural otherwise. */
+export function ingName(key: string, amount: string): string {
+  const c = COUNTABLE[key];
+  if (!c || UNIT.test(amount)) return nameFor(key);
+  const { q } = parseAmount(amount);
+  if (q === null) return c[1];
+  return q <= 1 ? c[0] : c[1];
 }
 
 const minutes = (s: string): number => {

@@ -3,7 +3,7 @@ import { useApp } from '@/hooks/usePlateful';
 import {
   BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
   inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
-  expiringSoon, useItUp, whenText, isUrl, sourceOf,
+  expiringSoon, useItUp, whenText, isUrl, sourceOf, linkedRecipes,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
 import { I } from '../Icons';
@@ -35,7 +35,7 @@ function Lead() {
         <div className={`over${fade ? ' fade' : ''}`}>
           <h1 className="lead-title">{lead.name}</h1>
           {lead.hook && <div className="hook">{lead.hook}</div>}
-          <div className="meta"><b>{perServ(lead)}</b> · {timeText(lead.time)} · You have {st.have} of {st.of}</div>
+          <div className="meta"><b>{perServ(lead)}</b> · {timeText(lead.time)} · {st.missing.length ? `You need ${st.missing.length}\u00A0more` : 'You have everything'}</div>
           <div className="dots">{LEADS.map((id, i) => <i key={id} className={i === idx ? 'on' : ''} />)}</div>
         </div>
       </div>
@@ -59,7 +59,7 @@ function SearchResults() {
   return (
     <div className="sresults">
       {hits.map((r) => (
-        <SRow key={r.id} img={r.img} t={r.name} m={`${statusText(r, ctx)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} />
+        <SRow key={r.id} img={r.img} t={r.name} m={`${statusText(r, ctx, true)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} />
       ))}
       {keyHit && !inFridge(keyHit, ctx) && (
         <button className="srow add" onClick={() => act.addFridge(keyHit)}><I.plus /> Add {BOOK[keyHit].n.toLowerCase()} to my fridge</button>
@@ -80,6 +80,7 @@ export function Home() {
   const near = STORES.filter((st) => st.km <= user.radiusKm).length;
   const hist = (user.history || []).map((id) => R(id)).filter((r): r is NonNullable<typeof r> => !!r).slice(0, 8);
   const favs = user.favorites.map((id) => R(id)).filter((r): r is NonNullable<typeof r> => !!r);
+  const mine = linkedRecipes();
   const again = Object.entries(user.notes || {}).filter(([, n]) => n.again).map(([id]) => R(Number(id))).filter((r): r is NonNullable<typeof r> => !!r);
   const step = stepRow(user);
   const plan = pmPlan(s.list)[0];
@@ -108,11 +109,18 @@ export function Home() {
             aria-label="What’s in your fridge?"
             onChange={(e) => act.patch({ q: e.target.value })}
           />
-          <button className="camb" onClick={() => act.go('camera')} aria-label="Scan a product"><I.camera /></button>
+          <button className="camb" onClick={() => act.go('camera')} aria-label="Scan a product or shelf tag"><I.camera />Scan</button>
         </div>
+        {!user.scanHintSeen && !s.q && (
+          <div className="scanhint">
+            <I.camera />
+            <div className="t">In the store? Tap <b>Scan</b> on a shelf tag or a product and Plateful shows the lowest price nearby, which store will match it at the till, and the recipes that use it.</div>
+            <button className="link" onClick={act.scanHintDone}>Got it</button>
+          </div>
+        )}
         <SearchResults />
         <nav className="ttabs" aria-label="Filter">
-          {HOME_TABS.map((f) => (
+          {(mine.length ? [...HOME_TABS, 'Your recipes'] : HOME_TABS).map((f) => (
             <button key={f} className={`ttab${s.homeFilter === f ? ' on' : ''}`} onClick={() => act.patch({ homeFilter: f })}>{f}</button>
           ))}
         </nav>
@@ -174,6 +182,13 @@ export function Home() {
           </Sec>
         </Pad>
       )}
+      {mine.length > 0 && (
+        <Pad>
+          <Sec eyebrow="Your recipes" dek="The recipes you linked, priced against this week’s flyers like any other." link="Link another" to="import" thin>
+            <div className="row-scroll">{mine.slice(0, 8).map((r) => <RecipeCard key={r.id} r={r} cls="sm" sq />)}</div>
+          </Sec>
+        </Pad>
+      )}
 
       <Pad>
         <Sec eyebrow={step.eyebrow} title={step.title} dek={step.dek} band="band-start">
@@ -229,15 +244,15 @@ export function Home() {
       </Pad>
 
       <Pad>
-        <Sec eyebrow="At the store" band="band-store">
+        <Sec eyebrow="At the store" dek="Plateful sends you to the cheapest store near you, or to one that will price-match the flyers at the till." band="band-store">
           <button className="hrow" onClick={() => act.go('till')}>
             <span className="iconbtn" style={{ color: 'var(--acc)', marginLeft: -8 }}><I.flyer /></span>
             <div className="l">
               <div className="n">Price match at the till</div>
               <div className="s">
                 {plan && plan.matches.length
-                  ? `${plan.matches.length} items on your list have a lower ad · save ${money(plan.saved)} at ${plan.s.name}`
-                  : 'Competitor ads for your list, ready to show the cashier'}
+                  ? `${plural(plan.matches.length, 'item')} on your list beaten by a competitor flyer · show the ads at ${plan.s.name}'s checkout and save ${money(plan.saved)}`
+                  : 'Shop where they honour competitor flyers — we clip the ads for the cashier'}
               </div>
             </div>
             <Chev />
@@ -246,10 +261,13 @@ export function Home() {
             <span className="iconbtn" style={{ color: 'var(--acc)', marginLeft: -8 }}><I.camera /></span>
             <div className="l">
               <div className="n">Scan a product or shelf tag</div>
-              <div className="s">Lowest nearby price, who will match it, and recipes that use it</div>
+              <div className="s">Tap Scan in the search bar: the lowest price nearby, which store will match it, and the recipes that use it</div>
             </div>
             <Chev />
           </button>
+          <div style={{ padding: '10px 0 2px' }}>
+            <button className="textlink" onClick={() => act.go('howto')}>New to Plateful? How it works in two minutes</button>
+          </div>
         </Sec>
       </Pad>
 

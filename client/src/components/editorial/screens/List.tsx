@@ -1,6 +1,6 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { ListItem } from '@/lib/types';
-import { BOOK, SALE_KEYS, STORE, budgetFor, cheapestFor, listTotal, money, oneStop, plannedCount, plural, pmItems, unitPrice } from '@/lib/editorial';
+import { BOOK, SALE_KEYS, STORE, budgetFor, cheapestFor, listTotal, money, plannedCount, plural, pmItems, shopPlan, unitPrice } from '@/lib/editorial';
 import { Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
@@ -49,13 +49,60 @@ const SEND = [
   { name: 'Instacart', url: 'https://www.instacart.ca' },
 ];
 
+/**
+ * How to shop this list — the two routes Plateful offers, side by side: the cheapest single store inside the home radius,
+ * or a price-matching store where the competitor ads are shown at the till. The cheaper of the two is marked.
+ */
+function ShopPlanBlock() {
+  const { s, user, act } = useApp();
+  const p = shopPlan(s.list, user);
+  if (!p.cheapest && !p.match) return null;
+  const c = p.cheapest;
+  const m = p.match;
+  return (
+    <Sec eyebrow="How to shop this list" thin>
+      <p className="dek" style={{ margin: '6px 0 2px' }}>Plateful sends you to the cheapest store near you, or to one that will price-match the flyers at the till. Pick a route.</p>
+      {c && (
+        <div className={`route${p.best === 'cheapest' ? ' best' : ''}`}>
+          <div className="rl">
+            <span className="eyebrow">{p.best === 'cheapest' ? 'Best for this list · ' : ''}Cheapest store near you</span>
+            <div className="n">{c.s.name} · {money(c.t)}</div>
+            <div className="s">{c.s.km}&nbsp;km · everything on your list in one trip{p.current > c.t + 0.005 ? `, ${money(p.current - c.t)} less than your current split` : ''}</div>
+          </div>
+          <button className={`btn ${p.best === 'cheapest' ? 'primary' : 'secondary'} sm`} onClick={() => act.moveAll(c.s.id)}>Shop at {c.s.name}</button>
+        </div>
+      )}
+      {m ? (
+        <div className={`route${p.best === 'match' ? ' best' : ''}`}>
+          <div className="rl">
+            <span className="eyebrow">{p.best === 'match' ? 'Best for this list · ' : ''}Price-match at the till</span>
+            <div className="n">{m.s.name} · {money(m.total)}</div>
+            <div className="s">{plural(m.matches.length, 'item')} beaten by a competitor flyer · save {money(m.saved)} · show the ads at checkout with our till screen</div>
+          </div>
+          <button className={`btn ${p.best === 'match' ? 'primary' : 'secondary'} sm`} onClick={() => act.go('till')}>Open At the till</button>
+          <div className="rlinks">
+            <button className="textlink" onClick={() => act.go('pricematch')}>Compare every ad</button>
+            <span className="meta">·</span>
+            <button className="textlink" onClick={() => act.go('camera')}>Scan a shelf tag</button>
+          </div>
+        </div>
+      ) : (
+        <div className="route off">
+          <div className="rl">
+            <span className="eyebrow">Price-match at the till</span>
+            <div className="s">No competitor flyer beats the prices on your list this week. When one does, we clip the ad for the cashier.</div>
+          </div>
+        </div>
+      )}
+    </Sec>
+  );
+}
+
 export function List() {
   const { s, user, act } = useApp();
   const groups: Record<string, ListItem[]> = {};
   s.list.forEach((i) => { (groups[i.sid] = groups[i.sid] || []).push(i); });
   const pm = pmItems(s.list);
-  const pmSave = pm.reduce((a, x) => a + x.save, 0);
-  const os = oneStop(s.list, user);
   const items = s.list.length;
   const lq = s.lq.trim().toLowerCase();
   const sugg = lq
@@ -108,35 +155,7 @@ export function List() {
         )}
         {!items && <p className="dek" style={{ marginTop: 14 }}>Your list is empty. Add items above, or open a recipe and tap “Add to list”.</p>}
         {items > 0 && <BudgetLine />}
-        {pm.length > 0 && (
-          <>
-            <button className="banner" onClick={() => act.go('till')}>
-              <div>
-                <div className="b1">Price match {plural(pm.length, 'item')} · save {money(pmSave)}</div>
-                <div className="b2">Ads are ready to show at the till · tap to open</div>
-              </div>
-              <I.chevR />
-            </button>
-            <div style={{ display: 'flex', gap: 10, margin: '4px 0 2px' }}>
-              <button className="textlink" onClick={() => act.go('pricematch')}>Compare every ad</button>
-              <span className="meta">·</span>
-              <button className="textlink" onClick={() => act.go('camera')}>Scan a shelf tag</button>
-            </div>
-          </>
-        )}
-        {os.one && items > 0 && (
-          <Sec eyebrow="Cheapest one-stop" link="Stores" to="stores" thin>
-            <div className="hrow">
-              <div className="l">
-                <div className="n" style={{ font: '600 17px var(--serif)' }}>{os.one.s.name} · {money(os.one.t)}</div>
-                <div className="s">{os.one.s.km} km · everything on your list in one trip{os.current > os.one.t ? `, ${money(os.current - os.one.t)} less than your current split` : ''}</div>
-              </div>
-            </div>
-            <div style={{ padding: '8px 0 4px' }}>
-              <button className="btn secondary sm" onClick={() => act.moveAll(os.one!.s.id)}>Move list to {os.one.s.name}</button>
-            </div>
-          </Sec>
-        )}
+        {items > 0 && <ShopPlanBlock />}
         {storeIds.map((sid) => {
           const st = STORE(sid);
           const sub = groups[sid].reduce((a, i) => a + (BOOK[i.key] ? unitPrice(i.key, sid as ListItem['sid']) * i.n : 0), 0);

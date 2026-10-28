@@ -178,6 +178,8 @@ export interface UserProfile {
   importedRecipes?: ImportedRecipe[];
   /** Set once the Welcome pages have been seen (or skipped); shoppers from before the pages see them once. */
   welcomeSeen?: boolean;
+  /** The shopper has opened Scan (or dismissed its hint on Home) — the first-time hint under the search field goes away. */
+  scanHintSeen?: boolean;
 }
 
 export interface ImportedRecipe {
@@ -200,7 +202,12 @@ export interface RecipeNote {
   stars: number;
   /** "I'd make it again" — lifts the recipe in recommendations. */
   again: boolean;
+  /** The review: how it turned out, what to do differently. */
   note: string;
+  /** What the cook added or swapped in ("a handful of spinach, feta instead of parmesan"). */
+  added?: string;
+  /** What the cook left out ("the chili, the capers"). */
+  omitted?: string;
   at: string;
 }
 
@@ -267,6 +274,7 @@ export interface TillPlan {
 export type Screen =
   | 'splash'
   | 'welcome'
+  | 'howto'
   | 'onboarding'
   | 'home'
   | 'detail'

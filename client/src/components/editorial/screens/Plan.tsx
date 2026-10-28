@@ -28,7 +28,7 @@ function Picker({ day }: { day: Day }) {
       </div>
       {!q && <div className="srow meta" style={{ padding: '8px 12px' }}>Ranked by your fridge and this week’s flyers</div>}
       {hits.map((r) => (
-        <SRow key={r.id} img={r.img} t={r.name} m={`${perServ(r)} · ${statusText(r, ctx)} · ${timeText(r.time)}`} onClick={() => act.planAdd(day, r.id)} />
+        <SRow key={r.id} img={r.img} t={r.name} m={`${perServ(r)} · ${statusText(r, ctx, true)} · ${timeText(r.time)}`} onClick={() => act.planAdd(day, r.id)} />
       ))}
       {q && !hits.length && <div className="srow meta">No recipe matches “{q}”.</div>}
     </div>
@@ -75,7 +75,7 @@ export function Plan() {
                 if (!r) return null;
                 return (
                   <div key={id} className="hrow">
-                    <SRow img={r.img} t={r.name} m={`${perServ(r)} · ${statusText(r, ctx)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} style={{ padding: '4px 0', flex: 1, borderBottom: 0 }} />
+                    <SRow img={r.img} t={r.name} m={`${perServ(r)} · ${statusText(r, ctx, true)} · ${timeText(r.time)}`} onClick={() => act.detail(r.id)} style={{ padding: '4px 0', flex: 1, borderBottom: 0 }} />
                     <button className="iconbtn" onClick={() => act.planRemove(day, id)} aria-label={`Remove ${r.name}`} style={{ width: 32, height: 32, color: 'var(--faint)', marginRight: -8 }}><I.x /></button>
                   </div>
                 );

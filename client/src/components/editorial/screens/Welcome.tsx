@@ -59,6 +59,7 @@ export function Welcome() {
           <p className="dek">This week’s Calgary flyers, your fridge, and a table worth sitting down to.</p>
           <button className="btn primary" onClick={() => setPage(1)}>Get started</button>
           <button className="back" onClick={() => act.welcomeDone('home')}>{returning ? 'Back to my kitchen' : 'I already have an account'}</button>
+          <button className="back" onClick={() => act.go('howto')}>How it works</button>
         </div>
       ) : p && (
         <div className="body" key={page}>
@@ -68,7 +69,10 @@ export function Welcome() {
           {page < last ? (
             <div className="pips" aria-hidden="true">{WELCOME_PAGES.map((w, i) => <i key={w.img} className={i + 1 === page ? 'on' : ''} />)}</div>
           ) : (
-            <button className="btn primary" onClick={finish}>{returning ? 'Back to my kitchen' : 'Set up my kitchen'}</button>
+            <>
+              <button className="btn primary" onClick={finish}>{returning ? 'Back to my kitchen' : 'Set up my kitchen'}</button>
+              <button className="back" onClick={() => act.go('howto')}>Read how Plateful works first</button>
+            </>
           )}
         </div>
       )}

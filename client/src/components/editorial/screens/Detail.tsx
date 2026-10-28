@@ -1,5 +1,7 @@
+import type React from 'react';
 import { useApp } from '@/hooks/usePlateful';
-import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, money, nameFor, plural, scaleIngredients, status, statusText, timeText } from '@/lib/editorial';
+import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, ingName, money, plural, scaleIngredients, shopPlan, status, statusText, timeText } from '@/lib/editorial';
+import type { ListItem } from '@/lib/types';
 import { BackBtn, Bookmark, Lvl, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
 import { I } from '../Icons';
 
@@ -17,8 +19,12 @@ export function StarPick({ value, onPick, size = 26 }: { value: number; onPick: 
 function YourNotes({ id }: { id: number }) {
   const { user, act } = useApp();
   const n = user.notes?.[id] || { stars: 0, again: false, note: '', at: '' };
+  const save = (k: 'note' | 'added' | 'omitted') => (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.target.value !== (n[k] || '')) act.setNote(id, { [k]: e.target.value });
+  };
   return (
-    <Sec eyebrow="Your notes" thin>
+    <Sec eyebrow="Your notes and review" thin>
+      <p className="dek" style={{ margin: '6px 0 0' }}>Rate it, note what you added or left out, and Plateful ranks it for you next time.</p>
       <div className="notes">
         <div className="row">
           <StarPick value={n.stars} onPick={(stars) => act.setNote(id, { stars })} />
@@ -26,14 +32,45 @@ function YourNotes({ id }: { id: number }) {
             {n.again ? <I.check /> : null} Make it again
           </button>
         </div>
-        <textarea
-          className="notefield" rows={2} placeholder="A note for next time — less chili, double the sauce…"
-          defaultValue={n.note} aria-label="Your note"
-          onBlur={(e) => { if (e.target.value !== n.note) act.setNote(id, { note: e.target.value }); }}
-        />
-        <div className="meta">{n.again ? 'Recipes you’d make again rank higher in your recommendations.' : 'Kept on this phone with your history.'}</div>
+        <label className="notelab">What you added or swapped
+          <input className="notefield one" type="text" placeholder="A handful of spinach, feta instead of parmesan…" defaultValue={n.added || ''} onBlur={save('added')} />
+        </label>
+        <label className="notelab">What you left out
+          <input className="notefield one" type="text" placeholder="The chili, the capers…" defaultValue={n.omitted || ''} onBlur={save('omitted')} />
+        </label>
+        <label className="notelab">Your review
+          <textarea className="notefield" rows={2} placeholder="How it turned out and what you’d do next time — less chili, double the sauce…" defaultValue={n.note} onBlur={save('note')} />
+        </label>
+        <div className="meta">{n.again ? 'Recipes you’d make again rank higher in your recommendations.' : n.stars > 0 && n.stars <= 2 ? 'Low-rated recipes drop in your recommendations.' : 'Kept on this phone with your history.'}</div>
       </div>
     </Sec>
+  );
+}
+
+/** Where the missing ingredients are cheapest near you, and whether a price-matching store beats that with flyer ads at the till. */
+function WhereToBuy({ keys }: { keys: string[] }) {
+  const { user, act } = useApp();
+  const priced = keys.filter((k) => BOOK[k]);
+  if (!priced.length) return null;
+  const tmp: ListItem[] = priced.map((k) => ({ key: k, qty: BOOK[k].size || '1', n: 1, sid: BOOK[k].sid, done: false }));
+  const p = shopPlan(tmp, user);
+  if (!p.cheapest) return null;
+  const c = p.cheapest;
+  const m = p.match;
+  return (
+    <div className="where">
+      <div className="eyebrow">Where to buy {keys.length === 1 ? 'it' : `the ${keys.length}`}</div>
+      <button className="wrow" onClick={() => act.go('stores')}>
+        <span className="n">{c.s.name} · {money(c.t)}</span>
+        <span className="s">Cheapest near you · {c.s.km}&nbsp;km{p.best === 'cheapest' && m ? ' · best price' : ''}</span>
+      </button>
+      {m && (
+        <button className="wrow" onClick={() => act.go('till')}>
+          <span className="n">{m.s.name} · {money(m.total)}</span>
+          <span className="s">Price-match {plural(m.matches.length, 'flyer ad')} at the till{p.best === 'match' ? ' · best price' : ''}</span>
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -60,7 +97,7 @@ export function Detail() {
         <Bookmark id={r.id} hero />
       </div>
       <Pad>
-        <div className="status-line" style={{ marginTop: 16 }}><span className="st">{statusText(r, ctx)}</span> · {r.cuisine} · {r.meal}</div>
+        <div className="status-line" style={{ marginTop: 16 }}><span className="st">{statusText(r, ctx, true)}</span> · {r.cuisine} · {r.meal}</div>
         <h1 className="screen-title" style={{ marginTop: 8 }}>{r.name}</h1>
         <div className="byline" style={{ marginTop: 8 }}>
           {r.url ? <>From <a href={r.url} target="_blank" rel="noopener noreferrer"><u>{r.src}</u></a> · your linked recipe, priced by the pack against this week’s flyers</>
@@ -98,7 +135,7 @@ export function Detail() {
             const sale = SALE_KEYS.includes(k);
             return (
               <div key={k + a} className="hrow ingrow">
-                <div className="l"><span className="amt">{a}</span><span className="n">{nameFor(k)}</span></div>
+                <div className="l"><span className="amt">{a}</span><span className="n">{ingName(k, a)}</span></div>
                 <div className="r">
                   {have ? <span className="mut">In your fridge</span>
                     : !b ? <span className="mut">No price yet</span>
@@ -117,6 +154,7 @@ export function Detail() {
               Add {plural(st.missing.length, 'item')} to list{st.cost > 0 ? ` · ${money(st.cost)}` : ''}
             </button>
           )}
+          {!ok && <WhereToBuy keys={st.missing} />}
           {plannedDays.length ? (
             <button className="btn ghost" onClick={() => act.go('plan')}>Planned for {plannedDays.join(', ')} · Open the plan</button>
           ) : (
@@ -153,7 +191,7 @@ export function Detail() {
             <div className="meta" style={{ textAlign: 'center', marginTop: 8 }}>{r.diff} recipes add {plural(pts, 'point')} to your cook level</div>
           </div>
         </Sec>
-        {cooked && <YourNotes id={r.id} />}
+        <YourNotes id={r.id} />
         {similar.length > 0 && (
           <Sec eyebrow="Similar recipes" thin>
             <div className="grid2">{similar.map((x) => <RecipeCard key={x.id} r={x} sq />)}</div>

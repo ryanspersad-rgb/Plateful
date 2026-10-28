@@ -86,6 +86,25 @@ export function oneStop(list: ListItem[], user: UserProfile): OneStop {
   return { one: totals[0], all: totals, pair, current: listTotal(list) };
 }
 
+/**
+ * The two ways Plateful can send a shopper out with a list: the cheapest single store inside the home radius, or a
+ * price-matching store where competitor ads are shown at the till. `best` is whichever ends up cheaper.
+ */
+export interface ShopPlan {
+  cheapest?: { s: Store; t: number };
+  match?: TillPlan;
+  best: 'cheapest' | 'match' | null;
+  /** What the list costs at the stores it is grouped under today. */
+  current: number;
+}
+export function shopPlan(list: ListItem[], user: UserProfile): ShopPlan {
+  const os = oneStop(list, user);
+  const match = pmPlan(list).filter((p) => p.matches.length > 0).sort((a, b) => a.total - b.total)[0];
+  const cheapest = os.one;
+  const best: ShopPlan['best'] = cheapest && match ? (match.total < cheapest.t ? 'match' : 'cheapest') : cheapest ? 'cheapest' : match ? 'match' : null;
+  return { cheapest, match, best, current: os.current };
+}
+
 /** Cheapest store near the user for one price-book item (used by the List add bar). */
 export function cheapestFor(key: string, user: UserProfile): { x: Store; p: number } | undefined {
   const b = BOOK[key];
