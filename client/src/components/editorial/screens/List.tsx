@@ -82,8 +82,6 @@ function ShopPlanBlock() {
           <button className={`btn ${p.best === 'match' ? 'primary' : 'secondary'} sm`} onClick={() => act.go('till')}>Open At the till</button>
           <div className="rlinks">
             <button className="textlink" onClick={() => act.go('pricematch')}>Compare every ad</button>
-            <span className="meta">·</span>
-            <button className="textlink" onClick={() => act.go('camera')}>Scan a shelf tag</button>
           </div>
         </div>
       ) : (
@@ -120,7 +118,6 @@ export function List() {
         right={
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             {items > 0 && <button className="textlink" onClick={act.clearList} style={{ color: 'var(--mute)' }}>Clear</button>}
-            <button className="iconbtn" onClick={() => act.go('camera')} aria-label="Camera check"><I.camera /></button>
           </div>
         }
       />
@@ -179,7 +176,7 @@ export function List() {
                       <div className="n">{b ? b.n : i.name || i.key}</div>
                       <div className="s">
                         {m && mStore ? (
-                          <button className="textlink" onClick={() => act.go('till')}>Price match · {money(m.best.price)} at {mStore.name}</button>
+                          <span style={{ color: 'var(--acc)', fontWeight: 600 }}>Price match · {money(m.best.price)} at {mStore.name}</span>
                         ) : b && SALE_KEYS.includes(i.key) && b.sid === sid ? (
                           <span style={{ color: 'var(--acc)', fontWeight: 600 }}>On sale</span>
                         ) : b ? (b.size || '') : 'no price yet'}

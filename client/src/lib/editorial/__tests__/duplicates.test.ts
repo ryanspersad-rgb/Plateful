@@ -40,3 +40,11 @@ describe('duplicate recipes', () => {
     expect(canonicalIds([kept, hidden, 1, hidden])).toEqual([kept, 1]);
   });
 });
+
+describe('priced recipes only', async () => {
+  const { CATALOGUE_RECIPES, unpricedOf, MAX_UNPRICED, isStaple } = await import('../catalogue');
+  it('shows no catalogue recipe with more than two unpriced ingredients, staples aside', () => {
+    for (const r of CATALOGUE_RECIPES) expect(unpricedOf(r).length, r.name).toBeLessThanOrEqual(MAX_UNPRICED);
+    expect(isStaple('x:salt')).toBe(true);
+  });
+});

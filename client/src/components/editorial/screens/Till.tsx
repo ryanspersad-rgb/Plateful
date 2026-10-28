@@ -81,6 +81,7 @@ export function Till() {
     <>
       <Topbar left={<><BackBtn /><Title title="At the till" meta={`Show these to the cashier · ${plan.matches.length} items · ads from ${adStores.size} stores`} /></>} />
       <Pad>
+        <p className="betanote">Beta · these are sample prices. Before you show the cashier, tap <b>Open the flyer</b> on each ad to confirm the price in the store’s current flyer.</p>
         <div className="eyebrow mut" style={{ marginTop: 4 }}>You’re at</div>
         <nav className="ttabs" aria-label="Store">
           {plans.map((p) => <button key={p.s.id} className={`ttab${p.s.id === plan.s.id ? ' on' : ''}`} onClick={() => act.tillStore(p.s.id)}>{p.s.name}</button>)}
@@ -118,7 +119,6 @@ export function Till() {
         </Sec>
         <div style={{ display: 'grid', gap: 10, marginTop: 24 }}>
           <button className="btn primary" onClick={() => act.tillDone(plan.saved)}><I.check /> Done · saved {money(plan.saved)}</button>
-          <button className="btn secondary" onClick={() => act.go('camera')}><I.camera /> Scan something else on the shelf</button>
         </div>
         <div className="meta" style={{ marginTop: 14, fontSize: 12, textAlign: 'center' }}>The screen stays on while this page is open.</div>
       </Pad>

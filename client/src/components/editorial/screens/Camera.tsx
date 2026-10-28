@@ -22,12 +22,14 @@ export function Camera() {
           <div className="hint">
             Point at a product or shelf tag<br />
             <span style={{ fontSize: 12, opacity: 0.7 }}>Prices nearby, who will match them, and recipes that use it</span><br />
-            <span style={{ fontSize: 12, opacity: 0.7 }}>You’re at Superstore · Shaganappi</span>
+            <span style={{ fontSize: 12, opacity: 0.7 }}>You’re at Superstore · Shaganappi</span><br />
+            <span className="preview">Preview · the camera reading and prices are samples until live flyers arrive</span>
           </div>
         )}
         {stage === 1 && <><div className="scan" /><div className="hint">Reading the tag…</div></>}
         {stage === 2 && (
           <div className="result">
+            <div className="eyebrow" style={{ color: 'var(--mute)' }}>Preview · sample prices</div>
             <div className="top">
               <div className="pph">{img && <img src={img} alt="" />}</div>
               <div><div className="card-title">Aged cheddar · 400 g</div><div className="meta">{money(7.49)} here · Superstore</div></div>

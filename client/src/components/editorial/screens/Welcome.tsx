@@ -56,7 +56,7 @@ export function Welcome() {
         <div className="body">
           <div className="wm">Plateful</div>
           <div className="tag">From cart to cuisine</div>
-          <p className="dek">This week’s Calgary flyers, your fridge, and a table worth sitting down to.</p>
+          <p className="dek">Dinner from this week’s Calgary flyers and what’s in your fridge — then the cheapest store near you, or a price match at the till.</p>
           <button className="btn primary" onClick={() => setPage(1)}>Get started</button>
           <button className="back" onClick={() => act.welcomeDone('home')}>{returning ? 'Back to my kitchen' : 'I already have an account'}</button>
           <button className="back" onClick={() => act.go('howto')}>How it works</button>

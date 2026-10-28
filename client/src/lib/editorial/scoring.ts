@@ -2,7 +2,7 @@
 // score = saleHits*3 + fridgeHits*4 + (fav ? 6 : 0) + (cuisine match ? 2 : 0); a saved deal counts as a fridge hit.
 import type { CookLevel, Difficulty, EditorialRecipe, RecipeStatus, UserProfile } from '@/lib/types';
 import { BOOK, SALE_KEYS } from './book';
-import { allRecipes, R } from './catalogue';
+import { allRecipes, isStaple, R } from './catalogue';
 import { money } from './pricing';
 
 export const LEVEL: Record<Difficulty, number> = { Easy: 1, Medium: 2, Confident: 3 };
@@ -21,7 +21,7 @@ export const inFridge = (k: string, c: Ctx): boolean => c.user.pantry.includes(k
 export const isFav = (id: number, c: Ctx): boolean => c.user.favorites.includes(id);
 
 export function status(r: EditorialRecipe, c: Ctx): RecipeStatus {
-  const missing = r.ing.map((i) => i[0]).filter((k) => !inFridge(k, c));
+  const missing = r.ing.map((i) => i[0]).filter((k) => !isStaple(k) && !inFridge(k, c));
   const saleHits = r.ing.filter((i) => SALE_KEYS.includes(i[0])).length;
   const fridgeHits = r.ing.filter((i) => inFridge(i[0], c)).length;
   const cost = missing.reduce((a, k) => a + (BOOK[k] ? BOOK[k].p : 0), 0);

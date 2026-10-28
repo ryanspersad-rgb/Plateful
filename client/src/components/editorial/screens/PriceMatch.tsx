@@ -13,15 +13,6 @@ export function PriceMatch() {
     <>
       <Topbar left={<><BackBtn /><Title title="Price match" meta={`Competitor ads for items on your list · ${FLYER_WEEK}`} /></>} />
       <Pad>
-        {pm.length > 0 && (
-          <button className="banner" onClick={() => act.go('till')}>
-            <div>
-              <div className="b1">{pm.length} items can be matched · save {money(save)}</div>
-              <div className="b2">Open the cashier view with every ad ready</div>
-            </div>
-            <I.chevR />
-          </button>
-        )}
         <Sec eyebrow="Where to price match" title="Stores ranked by what they’ll match" dek="Your whole list, with every valid ad applied, at each store that honours competitor flyers." thin>
           {plans.map((p, i) => (
             <div key={p.s.id} className="hrow">
@@ -63,7 +54,6 @@ export function PriceMatch() {
         })}
         <div style={{ display: 'grid', gap: 10, marginTop: 26 }}>
           <button className="btn primary" onClick={() => act.go('till')}><I.flyer /> Show all at the till</button>
-          <button className="btn secondary" onClick={() => act.go('camera')}><I.camera /> Check a shelf tag with the camera</button>
         </div>
       </Pad>
       <Spacer />

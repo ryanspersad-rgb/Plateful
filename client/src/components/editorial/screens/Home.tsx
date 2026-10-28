@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import {
-  BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, NOTES, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
-  inFridge, money, pct, perServ, plural, pmPlan, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
+  BOOK, FAMILY, FILTERS, FLYER_WEEK, KIDS, LEADS, R, SALE_KEYS, STORE, STORES, TRENDING, CATEGORIES_CUISINES,
+  inFridge, money, pct, perServ, plural, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
   expiringSoon, useItUp, whenText, isUrl, sourceOf, linkedRecipes, about, defaultUsual, projectSavings, savedThisMonth,
 } from '@/lib/editorial';
 import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
@@ -101,7 +101,6 @@ export function Home() {
   const mine = linkedRecipes();
   const again = Object.entries(user.notes || {}).filter(([, n]) => n.again).map(([id]) => R(Number(id))).filter((r): r is NonNullable<typeof r> => !!r);
   const step = stepRow(user);
-  const plan = pmPlan(s.list)[0];
   const soon = useMemo(() => expiringSoon(user, 5), [user]);
   const useUp = useMemo(() => useItUp(ctx, soon), [ctx, soon]);
   const topSale = SALE_KEYS.slice().sort((a, b) => pct(b) - pct(a)).slice(0, 14);
@@ -263,34 +262,6 @@ export function Home() {
       </Pad>
 
       <Pad>
-        <Sec eyebrow="At the store" dek="Plateful sends you to the cheapest store near you, or to one that will price-match the flyers at the till." band="band-store">
-          <button className="hrow" onClick={() => act.go('till')}>
-            <span className="iconbtn" style={{ color: 'var(--acc)', marginLeft: -8 }}><I.flyer /></span>
-            <div className="l">
-              <div className="n">Price match at the till</div>
-              <div className="s">
-                {plan && plan.matches.length
-                  ? `${plural(plan.matches.length, 'item')} on your list beaten by a competitor flyer · show the ads at ${plan.s.name}'s checkout and save ${money(plan.saved)}`
-                  : 'Shop where they honour competitor flyers — we clip the ads for the cashier'}
-              </div>
-            </div>
-            <Chev />
-          </button>
-          <button className="hrow" onClick={() => act.go('camera')}>
-            <span className="iconbtn" style={{ color: 'var(--acc)', marginLeft: -8 }}><I.camera /></span>
-            <div className="l">
-              <div className="n">Scan a product or shelf tag</div>
-              <div className="s">Tap Scan in the search bar: the lowest price nearby, which store will match it, and the recipes that use it</div>
-            </div>
-            <Chev />
-          </button>
-          <div style={{ padding: '10px 0 2px' }}>
-            <button className="textlink" onClick={() => act.go('howto')}>New to Plateful? How it works in two minutes</button>
-          </div>
-        </Sec>
-      </Pad>
-
-      <Pad>
         <Sec eyebrow="From your fridge" link="My fridge" to="fridge">
           <div className="chips row" style={{ marginTop: 12 }}>
             {user.pantry.filter((k) => BOOK[k]).map((k) => (
@@ -309,23 +280,6 @@ export function Home() {
       </Pad>
 
       <Pad>
-        <Sec eyebrow="Trending" title="What everyone is cooking" dek="From Google Trends and TikTok this week. Each opens the original recipe; the ingredients are priced against local flyers.">
-          <div className="row-scroll">{TRENDING.map((t) => <TrendingCard key={t.url} t={t} />)}</div>
-        </Sec>
-      </Pad>
-
-      <Pad>
-        <Sec eyebrow="This week" link="Flyers" to="stores">
-          {NOTES.map((n) => (
-            <button key={n.t} className="note" onClick={() => (n.r ? act.detail(n.r) : n.screen && act.go(n.screen))}>
-              <div className="nt"><h4>{n.t}</h4><div className="read">{n.m}</div></div>
-              <img src={n.img} alt="" loading="lazy" />
-            </button>
-          ))}
-        </Sec>
-      </Pad>
-
-      <Pad>
         <Sec eyebrow="Kids" title="Things they’ll actually eat" band="band-kids">
           <div className="row-scroll">{KIDS.map((id) => { const r = R(id); return r ? <RecipeCard key={id} r={r} cls="kid" /> : null; })}</div>
         </Sec>
@@ -334,6 +288,17 @@ export function Home() {
         <Sec eyebrow="Family" title="Feeds four, with leftovers">
           <div className="row-scroll">{FAMILY.map((id) => { const r = R(id); return r ? <RecipeCard key={id} r={r} cls="kid" /> : null; })}</div>
         </Sec>
+      </Pad>
+      <Pad>
+        <Sec eyebrow="Trending" title="What everyone is cooking" dek="From Google Trends and TikTok this week. Each opens the original recipe; the ingredients are priced against local flyers.">
+          <div className="row-scroll">{TRENDING.map((t) => <TrendingCard key={t.url} t={t} />)}</div>
+        </Sec>
+      </Pad>
+
+      <Pad>
+        <div style={{ padding: '18px 0 4px', textAlign: 'center' }}>
+          <button className="textlink" onClick={() => act.go('howto')}>New to Plateful? How it works in two minutes</button>
+        </div>
       </Pad>
       <Foot>Plateful · Calgary flyers for the week of {FLYER_WEEK} · Prices are placeholders until live deals ship</Foot>
       <Spacer />

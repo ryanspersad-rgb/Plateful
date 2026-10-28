@@ -607,3 +607,6 @@ a.btn{text-decoration:none}
 .planpick .k{font:700 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-tint)}
 .planpick .v{font:600 17px var(--serif)}
 .planpick .s{font:400 12px var(--sans);opacity:.75}
+
+.cam .preview{display:inline-block;margin-top:10px;font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--acc-tint)}
+.betanote{margin:8px 0 4px;padding:10px 12px;border-left:3px solid var(--acc);background:var(--paper);font:400 13px/1.45 var(--sans);color:var(--text)}

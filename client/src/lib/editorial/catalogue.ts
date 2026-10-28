@@ -28,7 +28,7 @@ const ALIASES: Record<string, string> = {
   'tomatoes': 'tomatoes', 'cherry tomatoes': 'tomatoes', 'tomato': 'tomatoes', 'canned tomatoes': 'diced-tomatoes', 'diced tomatoes': 'diced-tomatoes', 'crushed tomatoes': 'diced-tomatoes',
   'apples': 'apples', 'bananas': 'bananas', 'cucumber': 'cucumber', 'green beans': 'green-beans', 'mushrooms': 'mushrooms',
   'romaine': 'romaine', 'romaine lettuce': 'romaine', 'spinach': 'spinach', 'cabbage': 'cabbage', 'celery': 'celery',
-  'ginger': 'ginger', 'spring onions': 'green-onions', 'green onions': 'green-onions', 'scallions': 'green-onions',
+  'ginger': 'ginger', 'spring onions': 'green-onion', 'green onions': 'green-onion', 'scallions': 'green-onion', 'green onion': 'green-onion',
   'cilantro': 'cilantro', 'coriander': 'cilantro', 'parsley': 'parsley', 'fresh parsley': 'parsley', 'basil': 'basil', 'fresh basil': 'basil',
   'thyme': 'thyme', 'rosemary': 'rosemary',
   'rice': 'rice', 'basmati rice': 'rice', 'long-grain rice': 'rice', 'jasmine rice': 'rice', 'arborio rice': 'arborio', 'short-grain rice': 'rice',
@@ -51,6 +51,25 @@ export function keyFor(name: string): string {
   const hit = Object.keys(BOOK).find((k) => BOOK[k].n.toLowerCase() === n || BOOK[k].n.toLowerCase().startsWith(n + ','));
   return hit || 'x:' + s;
 }
+
+/**
+ * Pantry staples a kitchen already has: salt, sugar, oil, water and the everyday dried spices. They are never "missing",
+ * never priced and never added to the list, so they don't make a recipe look unpriced or more expensive than it is.
+ */
+export const STAPLES = new Set([
+  'x:salt', 'x:coarse-salt', 'x:sea-salt', 'x:flaky-salt', 'x:sugar', 'x:white-sugar', 'x:vegetable-oil', 'x:cooking-oil', 'x:canola-oil', 'x:oil',
+  'x:water', 'x:warm-water', 'x:cold-water', 'x:ice-water', 'x:hot-water', 'x:boiling-water', 'x:ice',
+  'x:black-pepper', 'x:pepper', 'x:white-pepper', 'x:salt-and-pepper', 'x:cinnamon', 'x:ground-cinnamon', 'x:cinnamon-stick', 'x:cinnamon-sticks',
+  'x:paprika', 'x:smoked-paprika', 'x:bay-leaves', 'x:bay-leaf', 'x:turmeric', 'x:allspice', 'x:nutmeg', 'x:cloves', 'x:dried-oregano',
+  'x:cardamom', 'x:vanilla-extract', 'x:vanilla', 'x:baking-soda', 'x:dried-thyme', 'x:ground-cumin', 'x:coriander-seeds', 'x:cayenne',
+]);
+export const isStaple = (key: string): boolean => STAPLES.has(key);
+
+/** Ingredient keys that Plateful cannot price yet and that a shopper would actually have to buy. */
+export const unpricedOf = (r: { ing: [string, string][] }): string[] => r.ing.map((i) => i[0]).filter((k) => k.startsWith('x:') && !STAPLES.has(k));
+
+/** A catalogue recipe is shown only when at most two of the things you'd buy for it are unpriced (2026-10-28), so its cost is close to real. */
+export const MAX_UNPRICED = 2;
 
 /** Display name for any ingredient key, priced or not. */
 export function nameFor(key: string): string {
@@ -182,12 +201,16 @@ export const canonical = (id: number): number => CANONICAL.get(id) ?? id;
 export const canonicalIds = (ids: number[]): number[] => Array.from(new Set(ids.map(canonical)));
 
 /** The catalogue with its duplicates of editorial or other catalogue recipes left out. */
-export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id));
+export const CATALOGUE_RECIPES: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id) && unpricedOf(r).length <= MAX_UNPRICED);
+/** Catalogue recipes held back until the price book can price them (they come back as BOOK grows). */
+const HELD: EditorialRecipe[] = CATALOGUE.map(fromCatalogue).filter((r) => !CANONICAL.has(r.id) && unpricedOf(r).length > MAX_UNPRICED);
+export const UNPRICED_HELD = HELD.length;
 
 /** Every recipe Plateful can show: photographed editorial set first, then the catalogue. */
 export const ALL_RECIPES: EditorialRecipe[] = [...EDITORIAL_RECIPES, ...CATALOGUE_RECIPES];
 
-const byId = new Map<number, EditorialRecipe>(ALL_RECIPES.map((r) => [r.id, r]));
+// held recipes still open by id, so a favourite, plan day or history entry saved before 2026-10-28 keeps working
+const byId = new Map<number, EditorialRecipe>([...HELD, ...ALL_RECIPES].map((r) => [r.id, r]));
 
 /** Recipes the shopper linked (ids from 5000), registered by the store whenever they change. */
 const EXTRA = new Map<number, EditorialRecipe>();

@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useApp } from '@/hooks/usePlateful';
-import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, ingName, money, plural, scaleIngredients, shopPlan, status, statusText, timeText } from '@/lib/editorial';
+import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, ingName, isStaple, money, plural, scaleIngredients, shopPlan, status, statusText, timeText } from '@/lib/editorial';
 import type { ListItem } from '@/lib/types';
 import { BackBtn, Bookmark, Lvl, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
 import { I } from '../Icons';
@@ -65,7 +65,7 @@ function WhereToBuy({ keys }: { keys: string[] }) {
         <span className="s">Cheapest near you · {c.s.km}&nbsp;km{p.best === 'cheapest' && m ? ' · best price' : ''}</span>
       </button>
       {m && (
-        <button className="wrow" onClick={() => act.go('till')}>
+        <button className="wrow" onClick={() => act.go('list')}>
           <span className="n">{m.s.name} · {money(m.total)}</span>
           <span className="s">Price-match {plural(m.matches.length, 'flyer ad')} at the till{p.best === 'match' ? ' · best price' : ''}</span>
         </button>
@@ -138,6 +138,7 @@ export function Detail() {
                 <div className="l"><span className="amt">{a}</span><span className="n">{ingName(k, a)}</span></div>
                 <div className="r">
                   {have ? <span className="mut">In your fridge</span>
+                    : isStaple(k) ? <span className="mut">Pantry staple</span>
                     : !b ? <span className="mut">No price yet</span>
                     : sale ? <span className="acc">{money(b.p)}{b.u || ''} · {b.r}</span>
                     : <span className="mut">{money(b.p)} · {b.r}</span>}

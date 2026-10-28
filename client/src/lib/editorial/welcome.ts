@@ -34,6 +34,6 @@ export const WELCOME_PAGES: WelcomePage[] = [
   {
     img: CDN + 'hf_20261027_205939_5e84150f-e06d-4b49-bd9d-031c439d79b2_min.webp',
     title: 'Shop where it’s cheapest. Match where you can.',
-    dek: 'A list grouped by store, the cheapest one-stop near you, and at stores that price match, the competitor ads ready to show at the till.',
+    dek: 'Plateful sends you to the cheapest store near you, or to one that will price-match the flyers, with the ads ready to show at the till. Every dollar you save is counted.',
   },
 ];
