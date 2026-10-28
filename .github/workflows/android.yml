@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -36,7 +36,9 @@ jobs:
         working-directory: android
         env:
           PLATEFUL_BUILD: ${{ github.run_number }}
-        run: chmod +x gradlew && ./gradlew --no-daemon assembleRelease
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleRelease > build.log 2>&1 || { grep -E "What went wrong|error:|FAILURE|Could not|> " build.log | head -40 | while IFS= read -r l; do echo "::error::$l"; done; tail -25 build.log; exit 1; }
       - run: cp android/app/build/outputs/apk/release/app-release.apk Plateful-beta.apk
       - name: Publish to the android-beta release
         env:
