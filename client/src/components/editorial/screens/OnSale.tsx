@@ -2,13 +2,13 @@ import { useApp } from '@/hooks/usePlateful';
 import { BOOK, FLYER_WEEK, SALE_KEYS, STORES, pct } from '@/lib/editorial';
 import { Foot, Pad, Spacer, Tile, Title, Topbar } from '../Bits';
 
-const CATS = ['All', 'Meat', 'Produce', 'Dairy', 'Pantry', 'Bakery'];
+const CATS = ['All', 'Made in Canada', 'Meat', 'Produce', 'Dairy', 'Pantry', 'Bakery'];
 const STORE_TABS = ['All', 'Superstore', 'Safeway', 'Co-op', 'No Frills', 'Walmart'];
 
 export function OnSale() {
   const { s, user, act } = useApp();
   const keys = SALE_KEYS.filter(
-    (k) => (s.onsaleCat === 'All' || BOOK[k].cat === s.onsaleCat) && (s.onsaleStore === 'All' || BOOK[k].r === s.onsaleStore),
+    (k) => (s.onsaleCat === 'All' || (s.onsaleCat === 'Made in Canada' ? !!BOOK[k].ca : BOOK[k].cat === s.onsaleCat)) && (s.onsaleStore === 'All' || BOOK[k].r === s.onsaleStore),
   ).sort((a, b) => pct(b) - pct(a));
   const near = STORES.filter((st) => st.km <= user.radiusKm).length;
   return (
@@ -32,7 +32,7 @@ export function OnSale() {
           {keys.length ? keys.map((k) => <Tile key={k} k={k} grid />) : <div className="meta">Nothing in this category at that store this week.</div>}
         </div>
       </Pad>
-      <Foot>Save a deal with the bookmark to see recipes that use it. Supplier photos come from the grocer portal; Canadian-made items carry a maple leaf.</Foot>
+      <Foot>Save a deal with the bookmark to see recipes that use it. Supplier photos come from the grocer portal; a maple leaf marks a product of Canada, here and everywhere in the app.</Foot>
       <Spacer />
     </>
   );

@@ -121,11 +121,10 @@ export function Tile({ k, grid }: { k: string; grid?: boolean }) {
     >
       <div className="pph">
         {img ? <img src={img} alt={b.n} loading="lazy" /> : null}
-        {b.ca && <span className="leaf" title="Canadian"><I.leaf /></span>}
         <span className="bm">{sel ? <I.bookmarkFill /> : <I.bookmark />}</span>
       </div>
       <div className="store">{b.r}</div>
-      <div className="nm">{b.n}</div>
+      <div className="nm">{b.n}<Maple k={k} /></div>
       <div className="sz">{b.size}</div>
       <div className="pr">
         <span className="price">{money(b.p)}{b.u || ''}</span>
@@ -198,3 +197,8 @@ export function SRow({ img, t, m, onClick, style }: { img?: string; t: ReactNode
 }
 
 export const Chev = () => <I.chevR className="chev" />;
+
+/** "Product of Canada": a small maple leaf after the name of any price-book item flagged Canadian (BOOK[k].ca). */
+export const Maple = ({ k }: { k: string }) =>
+  BOOK[k]?.ca ? <span className="maple" title="Product of Canada" aria-label="Product of Canada" role="img"><I.leaf /></span> : null;
+

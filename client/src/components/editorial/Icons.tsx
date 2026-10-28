@@ -23,7 +23,7 @@ export const I = {
   plus: (p: P = {}) => <svg {...base(p)}><path d="M12 5v14M5 12h14" /></svg>,
   x: (p: P = {}) => <svg {...base(p)}><path d="M6 6l12 12M18 6L6 18" /></svg>,
   camera: (p: P = {}) => <svg {...base(p)}><path d="M4 8h3l2-3h6l2 3h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>,
-  leaf: (p: P = {}) => <svg {...base(p)}><path d="M12 3l2 4 4-1-1 4 4 2-4 2 1 4-4-1-2 4-2-4-4 1 1-4-4-2 4-2-1-4 4 1z" /><path d="M12 13v8" /></svg>,
+  leaf: (p: P = {}) => <svg {...base(p)} fill="currentColor" stroke="none"><path d="M12 1.8l1.5 3.1 1.7-.9-.6 4.2 2.7-2.6.6 1.6 2.8-.6-.9 2.8 1.3.6-4.4 3.6.6 1.5-4-.7-.7 4.9h-1.4l-.7-4.9-4 .7.6-1.5-4.4-3.6 1.3-.6-.9-2.8 2.8.6.6-1.6 2.7 2.6-.6-4.2 1.7.9z" /></svg>,
   share: (p: P = {}) => <svg {...base(p)}><path d="M12 3v12M8 7l4-4 4 4" /><path d="M5 13v7h14v-7" /></svg>,
   map: (p: P = {}) => <svg {...base(p)}><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" /><path d="M9 4v14M15 6v14" /></svg>,
   play: (p: P = {}) => <svg {...base(p)}><path d="M8 5l11 7-11 7z" /></svg>,

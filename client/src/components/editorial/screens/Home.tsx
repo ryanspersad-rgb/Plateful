@@ -5,7 +5,7 @@ import {
   inFridge, money, pct, perServ, plural, productImg, recommended, searchRecipes, spread, status, statusText, stepRow, timeText,
   expiringSoon, useItUp, whenText, isUrl, sourceOf, linkedRecipes, about, defaultUsual, projectSavings, savedThisMonth,
 } from '@/lib/editorial';
-import { Bookmark, Chev, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
+import { Bookmark, Chev, Maple, Pad, RecipeCard, Sec, SRow, Tile, Topbar, TrendingCard, Wordmark, Foot, Spacer } from '../Bits';
 import { I } from '../Icons';
 
 /** One line under the search: what Plateful has saved this month, or what the usual shop would save, tapping through to the ledger. */
@@ -241,7 +241,7 @@ export function Home() {
                 <div className="pph">{img && <img src={img} alt="" />}</div>
                 <div className="pt">
                   <div className="eyebrow mut" style={{ fontSize: 10 }}>{st.name} · {st.km} km</div>
-                  <div className="nm">{b.n} · <span className="price">{money(b.p)}{b.u || ''}</span> <span className="was">{money(b.was)}</span></div>
+                  <div className="nm">{b.n}<Maple k={k} /> · <span className="price">{money(b.p)}{b.u || ''}</span> <span className="was">{money(b.was)}</span></div>
                   <div className="pairs">Pairs with {r.name} <I.chevR /></div>
                 </div>
               </button>

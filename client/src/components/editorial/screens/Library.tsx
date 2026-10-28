@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import { BOOK, R, SALE_KEYS, allRecipes, inFridge, isFav, isUrl, money, parseIngredients, plural, sourceOf, statusText, timeText, toRecipe } from '@/lib/editorial';
-import { BackBtn, Chev, Foot, Pad, RecipeCard, SRow, Sec, Spacer, Title, Topbar } from '../Bits';
+import { BackBtn, Chev, Foot, Maple, Pad, RecipeCard, SRow, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 const present = <T,>(x: T | undefined): x is T => x !== undefined;
@@ -123,7 +123,7 @@ export function Import() {
               const onSale = SALE_KEYS.includes(l.key);
               return (
                 <div key={i} className="hrow ingrow">
-                  <div className="l"><span className="amt">{l.amount}</span><span className="n">{l.name}</span></div>
+                  <div className="l"><span className="amt">{l.amount}</span><span className="n">{l.name}<Maple k={l.key} /></span></div>
                   <div className="r">
                     {fridge ? <span className="mut">In your fridge</span>
                       : !b ? <span className="mut">No price yet</span>

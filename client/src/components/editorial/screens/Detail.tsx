@@ -2,7 +2,7 @@ import type React from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import { allRecipes, BOOK, DAYS, LEVEL, R, SALE_KEYS, inFridge, ingName, isStaple, money, plural, scaleIngredients, shopPlan, status, statusText, timeText } from '@/lib/editorial';
 import type { ListItem } from '@/lib/types';
-import { BackBtn, Bookmark, Lvl, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
+import { BackBtn, Bookmark, Lvl, Maple, Pad, RecipeCard, Sec, Spacer, Stars } from '../Bits';
 import { I } from '../Icons';
 
 /** Stars the cook taps; the fifth is as easy to hit as the first. */
@@ -135,7 +135,7 @@ export function Detail() {
             const sale = SALE_KEYS.includes(k);
             return (
               <div key={k + a} className="hrow ingrow">
-                <div className="l"><span className="amt">{a}</span><span className="n">{ingName(k, a)}</span></div>
+                <div className="l"><span className="amt">{a}</span><span className="n">{ingName(k, a)}<Maple k={k} /></span></div>
                 <div className="r">
                   {have ? <span className="mut">In your fridge</span>
                     : isStaple(k) ? <span className="mut">Pantry staple</span>

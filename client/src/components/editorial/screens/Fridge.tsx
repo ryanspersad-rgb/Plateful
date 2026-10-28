@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import { BOOK, FRIDGE_CATS, SALE_KEYS, daysLeft, expiringSoon, money, plural, shelfDays, whenText } from '@/lib/editorial';
-import { BackBtn, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
+import { BackBtn, Maple, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 export function Fridge() {
@@ -40,7 +40,7 @@ export function Fridge() {
                 return (
                   <div key={k} className="hrow">
                     <div className="l">
-                      <div className="n">{b.n}</div>
+                      <div className="n">{b.n}<Maple k={k} /></div>
                       {date && left !== null ? (
                         <div className={`s${left < 0 ? ' late' : left <= 2 ? ' soon' : ''}`}>
                           {left < 0 ? `Past its date · ${whenText(date)}` : left === 0 ? 'Use today' : `Use by ${whenText(date)}${left >= 7 ? '' : ` · ${plural(left, 'day')}`}`}

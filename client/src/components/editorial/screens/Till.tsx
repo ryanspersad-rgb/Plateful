@@ -1,7 +1,7 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { TillMatch, TillPlan } from '@/lib/types';
 import { ADS, BOOK, FLYER_WEEK, STORE, cardFor, maskNumber, money, pmPlan, productImg, programFor } from '@/lib/editorial';
-import { BackBtn, Chev, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
+import { BackBtn, Chev, Maple, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
@@ -20,7 +20,7 @@ function AdCard({ m, plan }: { m: TillMatch; plan: TillPlan }) {
     <div className={`tillitem${on ? ' on' : ''}`}>
       <div className="ti-head">
         <div>
-          <div className="n">{b.n}</div>
+          <div className="n">{b.n}<Maple k={m.item.key} /></div>
           <div className="s">
             {m.item.n} × {b.size || 'item'} · here <b>{money(m.here)}{b.u || ''}</b> · lowest ad <b style={{ color: 'var(--acc)' }}>{money(m.ad.price)}{b.u || ''}</b> · save {money(m.save)}
           </div>

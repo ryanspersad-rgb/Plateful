@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import { LEVEL, R, clock, ingName, plural, scaleIngredients, stepIngredients, stepTimers, timerLabel } from '@/lib/editorial';
-import { Pad } from '../Bits';
+import { Maple, Pad } from '../Bits';
 import { I } from '../Icons';
 
 /** Keeps the screen on while the component is mounted (Chrome, Edge, Safari 16.4+); silently does nothing elsewhere. */
@@ -95,7 +95,7 @@ export function Cook() {
         {here.length > 0 && (
           <div className="ck-ing">
             <div className="eyebrow mut">In this step</div>
-            {here.map(([k, a]) => <div key={k} className="row"><span className="amt">{a}</span><span className="n">{ingName(k, a)}</span></div>)}
+            {here.map(([k, a]) => <div key={k} className="row"><span className="amt">{a}</span><span className="n">{ingName(k, a)}<Maple k={k} /></span></div>)}
           </div>
         )}
         <Timer recipe={r.id} />

@@ -1,6 +1,6 @@
 import { useApp } from '@/hooks/usePlateful';
 import { allRecipes, FLYER_WEEK, money, productImg, statusText, timeText } from '@/lib/editorial';
-import { SRow } from '../Bits';
+import { Maple, SRow } from '../Bits';
 import { I } from '../Icons';
 
 /** Camera check. The scan is simulated until on-device OCR and the product lookup ship (roadmap 9). */
@@ -32,7 +32,7 @@ export function Camera() {
             <div className="eyebrow" style={{ color: 'var(--mute)' }}>Preview · sample prices</div>
             <div className="top">
               <div className="pph">{img && <img src={img} alt="" />}</div>
-              <div><div className="card-title">Aged cheddar · 400 g</div><div className="meta">{money(7.49)} here · Superstore</div></div>
+              <div><div className="card-title">Aged cheddar · 400 g<Maple k="cheddar" /></div><div className="meta">{money(7.49)} here · Superstore</div></div>
             </div>
             <div>
               <div className="eyebrow acc">Lowest nearby</div>

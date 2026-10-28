@@ -1,7 +1,7 @@
 import { useApp } from '@/hooks/usePlateful';
 import type { ListItem } from '@/lib/types';
 import { BOOK, SALE_KEYS, STORE, budgetFor, cheapestFor, listTotal, money, plannedCount, plural, pmItems, shopPlan, unitPrice } from '@/lib/editorial';
-import { Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
+import { Foot, Maple, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 import { I } from '../Icons';
 
 /** List · Plan switch at the top of both screens. */
@@ -132,7 +132,7 @@ export function List() {
             {sugg.map(({ k, best }) => (
               <button key={k} className="srow" onClick={() => act.addListKey(k, best?.x.id)}>
                 <div style={{ flex: 1 }}>
-                  <div className="t">{BOOK[k].n}</div>
+                  <div className="t">{BOOK[k].n}<Maple k={k} /></div>
                   {best && (
                     <div className="m">
                       Cheapest near you: <b>{money(best.p)}{BOOK[k].u || ''}</b> · {best.x.name}{BOOK[k].was !== undefined && BOOK[k].sid === best.x.id ? ' · on sale' : ''}
@@ -173,7 +173,7 @@ export function List() {
                   <div key={i.key + i.sid} className={`hrow${i.done ? ' done' : ''}`}>
                     <button className="ckb" onClick={() => act.toggleDone(i.key, i.sid)} aria-label="Done" aria-pressed={i.done}><I.check /></button>
                     <div className="l">
-                      <div className="n">{b ? b.n : i.name || i.key}</div>
+                      <div className="n">{b ? b.n : i.name || i.key}<Maple k={i.key} /></div>
                       <div className="s">
                         {m && mStore ? (
                           <span style={{ color: 'var(--acc)', fontWeight: 600 }}>Price match · {money(m.best.price)} at {mStore.name}</span>
