@@ -1,11 +1,10 @@
 // What a shopper has actually saved with Plateful: only things they did (matches applied at the till, a list moved to one
 // store, sale items bought), never the projection. The projection sits at the foot, clearly labelled as an estimate.
 import { useApp } from '@/hooks/usePlateful';
-import { about, defaultUsual, firstSaving, money, plural, projectSavings, savedAllTime, savedByKind, savedByMonth, savedThisMonth } from '@/lib/editorial';
+import { PLUS_MONTHLY, about, defaultUsual, firstSaving, money, plural, projectSavings, savedAllTime, savedByKind, savedByMonth, savedThisMonth } from '@/lib/editorial';
 import type { SavingEntry } from '@/lib/types';
 import { BackBtn, Chev, Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 
-const PLUS = 4.99;
 const KIND: Record<SavingEntry['kind'], { t: string; how: string }> = {
   match: { t: 'Price matches at the till', how: 'Competitor flyer ads shown at checkout' },
   route: { t: 'Shopping the cheapest store', how: 'Your list moved to one store, against the store nearest you' },
@@ -23,7 +22,7 @@ export function Savings() {
   const since = firstSaving(user);
   const entries = user.savings || [];
   const pr = projectSavings(user.usual || defaultUsual(user.householdSize), user);
-  const covers = month / PLUS;
+  const covers = month / PLUS_MONTHLY;
 
   return (
     <>
@@ -34,7 +33,7 @@ export function Savings() {
           <div className="big">{money(all)}</div>
           <div className="sub">
             {money(month)} this month
-            {month > 0 ? ` · ${covers >= 1 ? `pays for Plus ${covers >= 2 ? `${Math.floor(covers)} times over` : 'and then some'}` : `${money(PLUS - month)} more covers Plus this month`}` : ''}
+            {month > 0 ? ` · ${covers >= 1 ? `pays for Plus ${covers >= 2 ? `${Math.floor(covers)} times over` : 'and then some'}` : `${money(PLUS_MONTHLY - month)} more covers Plus this month`}` : ''}
           </div>
         </div>
 

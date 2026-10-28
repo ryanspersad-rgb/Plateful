@@ -7,6 +7,12 @@ import type { ListItem, SavingEntry, StoreId, UserProfile } from '@/lib/types';
 import { BOOK, STORES } from './book';
 import { listTotal, shopPlan, unitPrice } from './pricing';
 
+/** Plateful Plus: monthly, or annual at about two-thirds the monthly price (the NYT Cooking price points). */
+export const PLUS_MONTHLY = 4.99;
+export const PLUS_ANNUAL = 39.99;
+export const PLUS_ANNUAL_PER_MONTH = PLUS_ANNUAL / 12;
+export const PLUS_ANNUAL_SAVES = Math.round((1 - PLUS_ANNUAL / (PLUS_MONTHLY * 12)) * 100);
+
 /** Items most Calgary households buy most weeks: the chips on the "usual shop" onboarding step. */
 export const USUAL_PICKS: string[] = [
   'milk', 'eggs', 'butter', 'cheddar', 'yogurt', 'chicken-thighs', 'chicken-breast', 'ground-beef', 'salmon', 'pork-tenderloin',

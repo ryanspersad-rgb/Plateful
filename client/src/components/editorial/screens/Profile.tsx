@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { useApp } from '@/hooks/usePlateful';
 import type { Screen } from '@/lib/types';
-import { budgetFor, cardName, about, cookLevel, defaultUsual, money, plannedCount, plural, projectSavings, savedAllTime, savedThisMonth } from '@/lib/editorial';
+import { budgetFor, cardName, PLUS_ANNUAL, PLUS_ANNUAL_PER_MONTH, PLUS_ANNUAL_SAVES, PLUS_MONTHLY, about, cookLevel, defaultUsual, money, plannedCount, plural, projectSavings, savedAllTime, savedThisMonth } from '@/lib/editorial';
 import { Chev, Foot, Pad, Sec, Spacer, Title, Topbar } from '../Bits';
 
 const KIND: Record<string, string> = { match: 'Price match', route: 'Cheapest store', deal: 'Sale item' };
@@ -19,7 +19,7 @@ function Savings() {
         <div><div className="lab">This month</div><div className="big">{money(month)}</div><div className="sub">{all > month ? `${money(all)} since you started` : 'From what you did with Plateful'}</div></div>
         <div><div className="lab">Your usual shop</div><div className="big">{pr ? about(pr.monthly) : '—'}</div><div className="sub">{pr ? `a month at ${pr.to} vs ${pr.nearest.name}` : 'Add what you buy most weeks'}</div></div>
       </div>
-      {pr && <p className="meta" style={{ margin: '0 0 6px' }}>{plural(pr.items, 'item')} you buy most weeks cost {money(pr.usual)} at {pr.nearest.name} and {money(pr.withPlateful)} {pr.route === 'match' ? `at ${pr.to} with price matches` : `at ${pr.to}`}. Plus is {money(4.99)} a month.</p>}
+      {pr && <p className="meta" style={{ margin: '0 0 6px' }}>{plural(pr.items, 'item')} you buy most weeks cost {money(pr.usual)} at {pr.nearest.name} and {money(pr.withPlateful)} {pr.route === 'match' ? `at ${pr.to} with price matches` : `at ${pr.to}`}. Plus is {money(PLUS_MONTHLY)} a month, or about {money(PLUS_ANNUAL_PER_MONTH)} on the yearly plan.</p>}
       {recent.map((e) => (
         <div key={e.id} className="hrow">
           <div className="l"><div className="n">{e.what}</div><div className="s">{KIND[e.kind]} · {new Date(e.at + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</div></div>
@@ -41,6 +41,7 @@ function Savings() {
 
 export function Profile() {
   const { s, user, act } = useApp();
+  const [plan, setPlan] = useState<'year' | 'month'>('year');
   const h = new Date().getHours();
   const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
   const lv = cookLevel(user);
@@ -61,14 +62,26 @@ export function Profile() {
       <Pad>
         <div className="plus" id="plus">
           <div className="t">Plateful Plus</div>
-          <div className="p">$4.99 a month · first month free</div>
+          <div className="planpick" role="radiogroup" aria-label="Plus plan">
+            <button role="radio" aria-checked={plan === 'year'} className={plan === 'year' ? 'on' : ''} onClick={() => setPlan('year')}>
+              <span className="k">Yearly · save {PLUS_ANNUAL_SAVES}%</span>
+              <span className="v">{money(PLUS_ANNUAL)} a year</span>
+              <span className="s">About {money(PLUS_ANNUAL_PER_MONTH)} a month</span>
+            </button>
+            <button role="radio" aria-checked={plan === 'month'} className={plan === 'month' ? 'on' : ''} onClick={() => setPlan('month')}>
+              <span className="k">Monthly</span>
+              <span className="v">{money(PLUS_MONTHLY)} a month</span>
+              <span className="s">Cancel any time</span>
+            </button>
+          </div>
+          <div className="p">First month free on either plan</div>
           <ul>
             <li>Price alerts for what you cook most</li>
             <li>Unlimited camera price checks and imports</li>
             <li>Shared household list</li>
             <li>Allergen profiles for everyone at the table</li>
           </ul>
-          <button className="btn primary" onClick={() => act.toast('Plus checkout arrives with the pilot')}>Start your free month</button>
+          <button className="btn primary" onClick={() => act.toast(`Plus checkout arrives with the pilot · ${plan === 'year' ? `${money(PLUS_ANNUAL)} a year` : `${money(PLUS_MONTHLY)} a month`} after the free month`)}>Start your free month</button>
         </div>
         <Savings />
         <Sec eyebrow="Your cook level" thin>

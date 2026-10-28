@@ -600,3 +600,10 @@ a.btn{text-decoration:none}
 .sv-bars .v{font:600 11px var(--sans);color:var(--ink);white-space:nowrap}
 .sv-bars .m{font:500 11px var(--sans);color:var(--mute)}
 .price.acc{color:var(--acc)}
+
+.planpick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 8px}
+.planpick button{display:grid;gap:2px;text-align:left;padding:10px 12px;border:1px solid rgba(255,255,255,.28);border-radius:8px;color:#fff}
+.planpick button.on{border:2px solid var(--acc-tint);padding:9px 11px}
+.planpick .k{font:700 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--acc-tint)}
+.planpick .v{font:600 17px var(--serif)}
+.planpick .s{font:400 12px var(--sans);opacity:.75}

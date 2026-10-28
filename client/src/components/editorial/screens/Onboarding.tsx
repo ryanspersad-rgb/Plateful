@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useApp } from '@/hooks/usePlateful';
-import { BOOK, CUISINES, DEFAULT_FRIDGE, DIETS, USUAL_PICKS, about, money, projectSavings } from '@/lib/editorial';
+import { BOOK, CUISINES, DEFAULT_FRIDGE, DIETS, PLUS_ANNUAL_PER_MONTH, PLUS_MONTHLY, USUAL_PICKS, about, money, projectSavings } from '@/lib/editorial';
 
 const STEPS = ['Your name', 'Household', 'Diets', 'Cuisines', 'Your fridge', 'Your usual shop'];
 const FRIDGE_PICKS = DEFAULT_FRIDGE.concat(['cheddar', 'diced-tomatoes', 'chicken-thighs', 'ground-beef', 'potatoes']);
@@ -69,7 +69,7 @@ export function Onboarding() {
             <div className="pr"><span>{pr.nearest.name} · nearest you</span><b>{money(pr.usual)}</b></div>
             <div className="pr"><span>{pr.route === 'match' ? `${pr.to} · with price matches` : `${pr.to} · cheapest near you`}</span><b>{money(pr.withPlateful)}</b></div>
             <div className="big">About {about(pr.monthly)} a month back in your pocket</div>
-            <div className="meta">{money(pr.weekly)} a week on {pr.items} items, against this week’s prices at the store nearest you. Plus is {money(4.99)} a month.</div>
+            <div className="meta">{money(pr.weekly)} a week on {pr.items} items, against this week’s prices at the store nearest you. Plus is {money(PLUS_MONTHLY)} a month, or about {money(PLUS_ANNUAL_PER_MONTH)} on the yearly plan.</div>
           </div>
         ) : (
           <div className="proj"><div className="meta">Pick a few things you buy most weeks and we’ll show what Plateful saves on them.</div></div>
