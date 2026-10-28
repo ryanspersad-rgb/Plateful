@@ -1,0 +1,48 @@
+# Android beta: every push to main builds the Plateful phone app (Capacitor around the same web build) and publishes it
+# as Plateful-beta.apk on the "android-beta" release, so testers always download the latest from one fixed link:
+# https://github.com/ryanspersad-rgb/Plateful/releases/download/android-beta/Plateful-beta.apk
+name: Android beta
+on:
+  push:
+    branches: [main]
+    paths: ['client/**', 'shared/**', 'android/**', 'capacitor.config.ts', 'package.json', 'pnpm-lock.yaml', '.github/workflows/android.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: android
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm build
+        env:
+          VITE_API_BASE: ${{ vars.PLATEFUL_API_BASE || 'https://plateful-api-pzee.onrender.com' }}
+      - run: npx cap sync android
+      - name: Build the signed beta APK
+        working-directory: android
+        env:
+          PLATEFUL_BUILD: ${{ github.run_number }}
+        run: chmod +x gradlew && ./gradlew --no-daemon assembleRelease
+      - run: cp android/app/build/outputs/apk/release/app-release.apk Plateful-beta.apk
+      - name: Publish to the android-beta release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete android-beta --yes --cleanup-tag || true
+          gh release create android-beta Plateful-beta.apk --prerelease --target "$GITHUB_SHA" \
+            --title "Plateful for Android (beta) · build ${{ github.run_number }}" \
+            --notes "Beta build ${{ github.run_number }} from $(git rev-parse --short HEAD). Download Plateful-beta.apk on an Android phone, open it, and allow installs from your browser when asked. Each new build installs over the last one."
