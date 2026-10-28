@@ -38,7 +38,7 @@ jobs:
           PLATEFUL_BUILD: ${{ github.run_number }}
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon assembleRelease > build.log 2>&1 || { grep -E "What went wrong|error:|FAILURE|Could not|> " build.log | head -40 | while IFS= read -r l; do echo "::error::$l"; done; tail -25 build.log; exit 1; }
+          ./gradlew --no-daemon assembleRelease > build.log 2>&1 || { grep -E -B2 -A12 "\* Where|What went wrong" build.log | head -60 | while IFS= read -r l; do echo "::error::$l"; done; tail -25 build.log; exit 1; }
       - run: cp android/app/build/outputs/apk/release/app-release.apk Plateful-beta.apk
       - name: Publish to the android-beta release
         env:
